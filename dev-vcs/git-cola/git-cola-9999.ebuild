@@ -1,0 +1,95 @@
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=5
+
+PYTHON_COMPAT=( python2_7 python3_{3,4} )
+DISTUTILS_SINGLE_IMPL=true
+
+inherit distutils-r1 readme.gentoo virtualx git-r3
+
+DESCRIPTION="The highly caffeinated git GUI"
+HOMEPAGE="https://git-cola.github.io/"
+EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS=""
+IUSE="doc test"
+
+RDEPEND="
+	dev-python/pyinotify[${PYTHON_USEDEP}]
+	dev-python/send2trash[${PYTHON_USEDEP}]
+	dev-python/PyQt4[${PYTHON_USEDEP}]
+	dev-vcs/git"
+DEPEND="${RDEPEND}
+	sys-devel/gettext
+	doc? (
+		dev-python/sphinx[${PYTHON_USEDEP}]
+		python_targets_python2_7? ( dev-python/sphinxtogithub[$(python_gen_usedep 'python2*')] )
+		)
+	test? ( dev-python/nose[${PYTHON_USEDEP}] )
+"
+
+python_prepare_all() {
+	rm share/git-cola/bin/*askpass* || die
+
+	# remove broken tests
+	rm test/i18n_test.py || die
+
+	# don't install docs into wrong location
+	sed -i -e '/doc/d' setup.py || die
+
+	# fix doc directory reference
+	sed -i \
+		-e "s/'doc', 'git-cola'/'doc', '${PF}'/" \
+		cola/resources.py || die
+
+	# fix ssh-askpass directory reference
+	sed -i -e 's/resources\.share/resources\.prefix/' cola/app.py || die
+
+	distutils-r1_python_prepare_all
+}
+
+python_compile_all() {
+	cd share/doc/${PN}/ || die
+	if use doc; then
+		emake all
+	else
+		sed -i \
+			-e '/^install:/s:install-html::g' \
+			-e '/^install:/s:install-man::g' \
+			Makefile || die
+	fi
+}
+
+python_test() {
+	PYTHONPATH="${S}:${S}/build/lib:${PYTHONPATH}" LC_ALL="C" \
+	VIRTUALX_COMMAND="nosetests --verbose --with-id --with-doctest \
+		--exclude=sphinxtogithub" \
+	virtualmake
+}
+
+src_install() {
+	distutils-r1_src_install
+}
+
+python_install_all() {
+	cd share/doc/${PN}/ || die
+	emake \
+		DESTDIR="${D}" \
+		docdir="${EPREFIX}/usr/share/doc/${PF}" \
+		prefix="${EPREFIX}/usr" \
+		install
+
+	python_fix_shebang "${ED}/usr/share/git-cola/bin/git-xbase"
+	python_optimize "${ED}/usr/share/git-cola/lib/cola"
+
+	if ! use doc; then
+		HTML_DOCS=( "${FILESDIR}"/index.html )
+	fi
+
+	distutils-r1_python_install_all
+	readme.gentoo_create_doc
+}

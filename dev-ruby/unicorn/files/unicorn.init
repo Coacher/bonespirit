@@ -1,0 +1,57 @@
+#!/sbin/runscript
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+extra_commands="checkconfig"
+extra_started_commands="reload reopen"
+
+depend() {
+	before apache nginx
+	use logger
+}
+
+checkconfig() {
+	if [ ! -e "${UNICORN_CONFIG}" ]; then
+		eerror "You need a config file to run ${SVCNAME}"
+		eerror "Please refer to /etc/conf.d/unicorn"
+		eerror "See also http://unicorn.bogomips.org/Unicorn/Configurator.html"
+		return 1
+	fi
+}
+
+start() {
+	checkconfig || return 1
+
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --start \
+		--user ${UNICORN_USER} \
+		--exec ${UNICORN_BINARY} \
+		--pidfile ${UNICORN_PIDFILE} \
+		-- --config-file ${UNICORN_CONFIG} ${UNICORN_OPTS}
+	eend $?
+}
+
+stop() {
+	if [ "${RC_CMD}" = "restart" ]; then
+		checkconfig || return 1
+	fi
+
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --pidfile ${UNICORN_PIDFILE}
+	eend $?
+}
+
+reload() {
+	checkconfig || return 1
+
+	ebegin "Reloading ${SVCNAME} configuration"
+	start-stop-daemon --signal HUP --pidfile ${UNICORN_PIDFILE}
+	eend $?
+}
+
+reopen() {
+	ebegin "Reopening ${SVCNAME} logfiles"
+	start-stop-daemon --signal USR1 --pidfile ${UNICORN_PIDFILE}
+	eend $?
+}

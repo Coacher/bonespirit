@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<longdescription>
+Aggregate is a ruby implementation of a statistics aggregator
+including both default and configurable histogram support.
+	</longdescription>
+	<maintainer>
+		<email>itumaykin@gmail.com</email>
+	</maintainer>
+</pkgmetadata>

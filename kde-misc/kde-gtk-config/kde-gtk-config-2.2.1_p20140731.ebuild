@@ -1,0 +1,59 @@
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=5
+
+inherit kde4-base git-r3
+
+EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
+# last commit to master before frameworks branch was merged
+EGIT_COMMIT="d64e43a0319f68c33ab470c2acaa04115d29f143"
+
+DESCRIPTION="KDE systemsettings kcm to set GTK application look&feel"
+HOMEPAGE="http://projects.kde.org/kde-gtk-config"
+
+LICENSE="GPL-3"
+KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
+SLOT="4"
+IUSE="gtk gtk3 debug"
+
+CDEPEND="
+	dev-libs/glib:2
+	gtk? ( x11-libs/gtk+:2 )
+	gtk3? ( x11-libs/gtk+:3 )
+"
+DEPEND="
+	${CDEPEND}
+	dev-util/automoc
+"
+RDEPEND="
+	${CDEPEND}
+	!kde-misc/kcm_gtk
+	$(add_kdeapps_dep kcmshell)
+"
+
+src_prepare() {
+	epatch "${FILESDIR}/${PN}-optional-previews.patch"
+	epatch "${FILESDIR}/${PN}-remove-dangling-spaces.patch"
+
+	kde4-base_src_prepare
+}
+
+src_configure() {
+	local mycmakeargs=(
+		$(cmake-utils_use_with gtk GTK2_PREVIEW)
+		$(cmake-utils_use_with gtk3 GTK3_PREVIEW)
+	)
+
+	kde4-base_src_configure
+}
+
+pkg_postinst() {
+	kde4-base_pkg_postinst
+	einfo
+	elog "If you notice missing icons in your GTK applications, you may have to install"
+	elog "the corresponding themes for GTK. A good guess would be x11-themes/oxygen-gtk"
+	elog "for example."
+	einfo
+}

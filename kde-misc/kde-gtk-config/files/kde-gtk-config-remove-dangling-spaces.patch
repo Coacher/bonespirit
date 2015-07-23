@@ -1,0 +1,22 @@
+diff --git a/src/appearancegtk2.cpp b/src/appearancegtk2.cpp
+index 4257608..149ffcc 100644
+--- a/src/appearancegtk2.cpp
++++ b/src/appearancegtk2.cpp
+@@ -82,7 +82,7 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
+     QTextStream flow(&gtkrc);
+ 
+     flow << "# File created by KDE Gtk Config" << "\n"
+-         << "# Configs for GTK2 programs \n\n";
++         << "# Configs for GTK2 programs\n\n";
+ 
+     QString themeGtkrcFile=themesGtkrcFile(getTheme());
+     
+@@ -97,7 +97,7 @@ bool AppearanceGTK2::saveSettings(const QString& gtkrcFile) const
+     QString fontFamily = m_settings["font"].left(nameEnd);
+ 
+     //TODO: is this really needed?
+-    flow << "style \"user-font\" \n"
++    flow << "style \"user-font\"\n"
+             << "{\n"
+             << "\tfont_name=\""<< fontFamily << "\"\n"
+             << "}\n";

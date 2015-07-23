@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repositories encoding="UTF-8" version="1.1">
+  <repo priority="50" quality="experimental">
+    <name>bonespirit</name>
+    <description>Packages proxy-maintained by me plus random personal stuff</description>
+    <owner>
+      <email>itumaykin@gmail.com</email>
+      <name>Coacher</name>
+    </owner>
+    <source type="git">git://bonespirit.org/bonespirit.git</source>
+  </repo>
+</repositories>
