@@ -3,10 +3,13 @@
   <repo priority="50" quality="experimental">
     <name>bonespirit</name>
     <description>Packages proxy-maintained by me plus random personal stuff</description>
+    <homepage>https://github.com/Coacher/bonespirit</homepage>
     <owner>
       <email>itumaykin@gmail.com</email>
       <name>Coacher</name>
     </owner>
+    <source type="git">https://github.com/Coacher/bonespirit.git</source>
     <source type="git">git://bonespirit.org/bonespirit.git</source>
+    <feed>https://github.com/Coacher/bonespirit/commits/master.atom</feed>
   </repo>
 </repositories>
