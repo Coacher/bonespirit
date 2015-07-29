@@ -21,7 +21,7 @@ EGIT_REPO_URI="git://github.com/mrash/${PN}.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="client extras firewalld gdbm gpg python server udp-server"
+IUSE="client extras firewalld gdbm gpg iptables python server udp-server"
 
 RDEPEND="
 	client? ( net-misc/wget[ssl] )
@@ -34,16 +34,16 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	gdbm? ( sys-libs/gdbm )
 	gpg? ( app-crypt/gpgme )
-	server? (
-		firewalld? ( net-firewall/firewalld )
-		!firewalld? ( net-firewall/iptables )
-		!udp-server? ( net-libs/libpcap )
-	)
+	firewalld? ( net-firewall/firewalld )
+	iptables? ( net-firewall/iptables )
+	server? ( !udp-server? ( net-libs/libpcap ) )
 "
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
 	firewalld? ( server )
+	iptables? ( server )
+	server? ( ^^ ( firewalld iptables ) )
 	udp-server? ( server )
 "
 
@@ -73,13 +73,9 @@ src_configure() {
 		$(use_enable udp-server)
 		$(use_with gpg gpgme)
 	)
-	if use server; then
-		if ! use firewalld; then
-			myeconfargs+=(--with-iptables=/sbin/iptables)
-		else
-			myeconfargs+=(--with-firewalld=/usr/sbin/firewalld)
-		fi
-	fi
+	use firewalld && myeconfargs+=(--with-firewalld=/usr/sbin/firewalld)
+	use iptables && myeconfargs+=(--with-iptables=/sbin/iptables)
+
 	autotools-utils_src_configure
 }
 
