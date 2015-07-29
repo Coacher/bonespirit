@@ -73,7 +73,7 @@ reload_rules() {
 }
 
 reload_auditd() {
-	[ -f ${pidfile} ] && kill -HUP $(cat ${pidfile})
+	[ -f ${pidfile} ] && kill -HUP "$(cat ${pidfile})"
 }
 
 reload() {
