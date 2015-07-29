@@ -7,8 +7,7 @@ PYTHON_COMPAT=( python{2_7,3_4} )
 
 inherit distutils-r1 git-r3
 
-EGIT_REPO_URI="git://github.com/Coacher/${PN}.git"
-EGIT_BRANCH="update_by_config"
+EGIT_REPO_URI="git://github.com/Kuniwak/${PN}.git"
 
 DESCRIPTION="Lint tool for Vim script Language"
 HOMEPAGE="https://github.com/Kuniwak/vint"
@@ -38,7 +37,7 @@ DEPEND="${RDEPEND}
 DOCS=( README.rst )
 
 python_prepare_all() {
-	# Purge compat, dev_tool and test dirs to avoid file collisions
+	# Purge tests together with their deps to avoid file collisions
 	sed -e 's/find_packages()/find_packages(exclude=["compat", "compat.*", "dev_tool", "test", "test.*"])/' \
 		-i setup.py || die
 
