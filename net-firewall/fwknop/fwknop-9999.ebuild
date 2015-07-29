@@ -12,7 +12,7 @@ DISTUTILS_SINGLE_IMPL=1
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=0
 
-inherit autotools-utils distutils-r1 systemd git-r3
+inherit autotools-utils distutils-r1 readme.gentoo systemd git-r3
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="http://www.cipherdyne.org/fwknop/"
@@ -48,6 +48,11 @@ REQUIRED_USE="
 "
 
 DOCS=( ChangeLog README.md )
+DOC_CONTENTS="
+	fwknopd supports several backends: firewalld, iptables, ipfw, pf, ipf.
+	You can set the desired backend via FIREWALL_EXE option in fwknopd.conf
+	instead of the default one chosen at compile time.
+"
 
 src_prepare() {
 	# Install example configs with .example suffix
@@ -97,6 +102,7 @@ src_install() {
 		newconfd "${FILESDIR}/fwknopd.confd" fwknopd
 		systemd_dounit "${FILESDIR}/fwknopd.service"
 		systemd_newtmpfilesd "${FILESDIR}/fwknopd.tmpfiles.conf" fwknopd.conf
+		readme.gentoo_create_doc
 	fi
 
 	use extras && dodoc "${S}/extras/apparmor/usr.sbin.fwknopd"
@@ -107,4 +113,8 @@ src_install() {
 		cd "${S}"/python || die
 		distutils-r1_src_install
 	fi
+}
+
+pkg_postinst() {
+	use server && readme.gentoo_print_elog
 }
