@@ -62,7 +62,6 @@ start() {
 	start_auditd
 	local ret=$?
 	if [ $ret -eq 0 -a "${RC_CMD}" != "restart" ]; then
-		touch /var/lock/${name}.lock
 		loadfile "${RULEFILE_STARTUP}"
 	fi
 	return $ret
@@ -84,7 +83,6 @@ reload() {
 stop() {
 	[ "${RC_CMD}" != "restart" ] && loadfile "${RULEFILE_STOP_PRE}"
 	stop_auditd
-	rm -f /var/lock/${name}.lock
 	local ret=$?
 	[ "${RC_CMD}" != "restart" ] && loadfile "${RULEFILE_STOP_POST}"
 	return $ret
