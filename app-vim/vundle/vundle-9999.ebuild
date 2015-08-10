@@ -5,16 +5,18 @@
 EAPI=5
 
 inherit vim-plugin git-r3
-
-EGIT_REPO_URI="git://github.com/gmarik/${PN}.vim.git"
+MY_PN="Vundle"
+EGIT_REPO_URI="git://github.com/VundleVim/${MY_PN}.git"
 
 DESCRIPTION="vim plugin: plugin manager for Vim"
 HOMEPAGE="https://github.com/gmarik/Vundle.vim"
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="dev-vcs/git
-	net-misc/curl"
+RDEPEND="
+	dev-vcs/git
+	net-misc/curl
+"
 
 VIM_PLUGIN_HELPFILES="${PN}.txt"
 
