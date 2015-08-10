@@ -3,7 +3,6 @@
 # $Id$
 
 EAPI=5
-
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 PYTHON_REQ_USE="threads"
 
@@ -18,7 +17,7 @@ if [[ ${PV} == *9999* ]]; then
 		"https://bitbucket.org/equalsraf/${PN}.git"
 		"https://github.com/equalsraf/${PN}.git"
 	)
-	KEYWORDS=""
+	KEYWORDS="~amd64 ~x86"
 else
 	SRC_URI="https://github.com/equalsraf/${PN}/archive/package-${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
@@ -42,7 +41,7 @@ RDEPEND="
 		!luajit? ( dev-lang/lua:0[deprecated] )
 	)
 	nls? ( virtual/libintl )
-	perl? ( dev-lang/perl )
+	perl? ( dev-lang/perl:= )
 	python? ( ${PYTHON_DEPS} )
 	racket? ( dev-scheme/racket )
 	ruby? ( || ( dev-lang/ruby:2.0 dev-lang/ruby:1.9 ) )
@@ -55,8 +54,8 @@ DEPEND="${RDEPEND}
 "
 
 REQUIRED_USE="
-	luajit? ( lua )
 	python? ( ${PYTHON_REQUIRED_USE} )
+	luajit? ( lua )
 "
 
 pkg_setup() {
