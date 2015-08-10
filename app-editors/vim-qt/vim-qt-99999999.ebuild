@@ -6,26 +6,18 @@ EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 PYTHON_REQ_USE="threads"
 
-inherit eutils fdo-mime flag-o-matic prefix python-single-r1
+inherit eutils fdo-mime flag-o-matic prefix python-single-r1 git-r3
 
 DESCRIPTION="Qt GUI version of the Vim text editor"
 HOMEPAGE="https://bitbucket.org/equalsraf/vim-qt/wiki/Home"
-
-if [[ ${PV} == *9999* ]]; then
-	inherit git-r3
-	EGIT_REPO_URI=(
-		"https://bitbucket.org/equalsraf/${PN}.git"
-		"https://github.com/equalsraf/${PN}.git"
-	)
-	KEYWORDS="~amd64 ~x86"
-else
-	SRC_URI="https://github.com/equalsraf/${PN}/archive/package-${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-	S="${WORKDIR}/${PN}-package-${PV}"
-fi
+EGIT_REPO_URI=(
+	"https://bitbucket.org/equalsraf/${PN}.git"
+	"https://github.com/equalsraf/${PN}.git"
+)
 
 LICENSE="vim"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="acl cscope debug lua luajit nls perl python racket ruby"
 
 RDEPEND="
