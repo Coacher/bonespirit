@@ -44,6 +44,7 @@ src_configure() {
 		$(use_enable debug)
 		$(use_enable dri)
 		$(use_enable dri3)
+		$(use_enable dri3 kms-only)
 		$(use_enable sna)
 		$(use_enable uxa)
 		$(use_enable udev)
