@@ -11,7 +11,7 @@ EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
 EGIT_COMMIT="d64e43a0319f68c33ab470c2acaa04115d29f143"
 
 DESCRIPTION="KDE systemsettings kcm to set GTK application look&feel"
-HOMEPAGE="http://projects.kde.org/kde-gtk-config"
+HOMEPAGE="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
 
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
@@ -36,6 +36,7 @@ RDEPEND="
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-optional-previews.patch"
 	epatch "${FILESDIR}/${PN}-remove-dangling-spaces.patch"
+	epatch "${FILESDIR}/${PN}-kdelibs-4.14.11.patch"
 
 	kde4-base_src_prepare
 }
