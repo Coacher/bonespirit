@@ -12,7 +12,7 @@ DISTUTILS_SINGLE_IMPL=1
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=0
 
-inherit autotools-utils distutils-r1 readme.gentoo systemd git-r3
+inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd git-r3
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="http://www.cipherdyne.org/fwknop/"
@@ -53,6 +53,18 @@ DOC_CONTENTS="
 	You can set the desired backend via FIREWALL_EXE option in fwknopd.conf
 	instead of the default one chosen at compile time.
 "
+
+pkg_pretend() {
+	if use server; then
+		if ! linux_config_exists || ! linux_chkconfig_present NETFILTER_XT_MATCH_COMMENT; then
+			ewarn "fwknopd uses the iptables 'comment' match to expire SPA rules,"
+			ewarn "which is a major security feature and is enabled by default."
+			ewarn "Please either enable NETFILTER_XT_MATCH_COMMENT support in your"
+			ewarn "kernel, or set the appropriate ENABLE_{FIREWD,IPT}_COMMENT_OPTION"
+			ewarn "to 'N' in your fwknopd.conf file."
+		fi
+	fi
+}
 
 src_prepare() {
 	# Install example configs with .example suffix
