@@ -27,6 +27,8 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+PATCHES=( "${FILESDIR}/${P}-compiler.patch" )
+
 DOCS=( ChangeLog README )
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
@@ -61,7 +63,7 @@ src_configure() {
 }
 
 src_compile() {
-	autotools-utils_src_compile CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+	autotools-utils_src_compile
 }
 
 src_install() {
