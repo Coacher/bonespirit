@@ -112,8 +112,8 @@ src_install() {
 	if use server; then
 		newinitd "${FILESDIR}/fwknopd.init" fwknopd
 		newconfd "${FILESDIR}/fwknopd.confd" fwknopd
-		systemd_dounit "${FILESDIR}/fwknopd.service"
-		systemd_newtmpfilesd "${FILESDIR}/fwknopd.tmpfiles.conf" fwknopd.conf
+		systemd_dounit extras/systemd/fwknopd.service
+		systemd_newtmpfilesd extras/systemd/fwknopd.tmpfiles.conf fwknopd.conf
 		readme.gentoo_create_doc
 	fi
 
