@@ -105,7 +105,7 @@ src_compile() {
 	autotools-utils_src_compile
 
 	if use doc; then
-		# prevent access violations from generation of bitmap font files
+		# prevent access violations from bitmap font files generation
 		export VARTEXFONTS="${T}"/fonts
 		emake -C doc
 	fi
