@@ -50,6 +50,9 @@ REQUIRED_USE="
 
 DOCS=( ChangeLog README.md )
 DOC_CONTENTS="
+	Example configuration files were installed in /etc/fwknopd directory.
+	Please edit them to fit your needs and then remove the .example suffix.
+
 	fwknopd supports several backends: firewalld, iptables, ipfw, pf, ipf.
 	You can set the desired backend via FIREWALL_EXE option in fwknopd.conf
 	instead of the default one chosen at compile time.
