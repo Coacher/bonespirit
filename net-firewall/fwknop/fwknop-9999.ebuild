@@ -6,6 +6,7 @@ EAPI=5
 
 # Does work with python2_7, does not work with python3_3 on my machine
 # More feedback is welcome, since setup.py does not provide any info
+# See also https://github.com/mrash/fwknop/issues/167
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
 DISTUTILS_SINGLE_IMPL=1
