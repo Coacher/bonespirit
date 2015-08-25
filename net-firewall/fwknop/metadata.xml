@@ -16,4 +16,7 @@
 		<flag name="server">Build fwknopd server</flag>
 		<flag name="udp-server">Enable UDP server mode only (no <pkg>net-libs/libpcap</pkg> dependency)</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">mrash/fwknop</remote-id>
+	</upstream>
 </pkgmetadata>
