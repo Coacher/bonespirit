@@ -13,7 +13,7 @@ DISTUTILS_SINGLE_IMPL=1
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd git-r3
+inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="http://www.cipherdyne.org/fwknop/"
