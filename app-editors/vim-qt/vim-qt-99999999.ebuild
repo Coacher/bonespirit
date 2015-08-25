@@ -21,7 +21,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="acl cscope debug lua luajit nls perl python racket ruby"
 
 RDEPEND="
-	>=app-editors/vim-core-7.4.688[acl?]
+	>=app-editors/vim-core-7.4.827[acl?]
 	>=app-eselect/eselect-vi-1.1.8
 	>=dev-qt/qtcore-4.7.0:4
 	>=dev-qt/qtgui-4.7.0:4
