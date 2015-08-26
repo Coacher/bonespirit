@@ -21,9 +21,9 @@ DEPEND="
 	app-text/sgml-common
 	dev-lang/perl:=
 	|| ( sys-apps/gawk sys-apps/mawk )
+	sys-apps/groff
 	doc? (
 		dev-texlive/texlive-fontsrecommended
-		sys-apps/groff
 		virtual/latex-base
 	)
 "
