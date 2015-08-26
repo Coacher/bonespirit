@@ -38,7 +38,9 @@ sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
 
 src_prepare() {
 	# Fix malloc include.
-	sed 's/#include <malloc.h>/#include <stdlib.h>/' -i rtf-fix/rtf2rtf.l || die
+	sed -e \
+		's/#include <malloc.h>/#include <stdlib.h>/' \
+		-i rtf-fix/rtf2rtf.l || die
 
 	# Fix SGML catalog path.
 	sed -e \
