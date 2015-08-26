@@ -14,16 +14,18 @@ SRC_URI="mirror://debian/pool/main/l/${PN}/${PN}_${PV}.orig.tar.gz"
 LICENSE="MIT SGMLUG"
 SLOT="0"
 KEYWORDS="~amd64 ~ia64 ~ppc ~x86 ~x86-fbsd"
+IUSE="doc"
 
 DEPEND="
-	app-text/openjade
-	app-text/opensp
+	|| ( app-text/openjade app-text/opensp )
 	app-text/sgml-common
-	dev-lang/perl
-	dev-texlive/texlive-fontsrecommended
-	sys-apps/gawk
-	sys-apps/groff
-	virtual/latex-base
+	dev-lang/perl:=
+	|| ( sys-apps/gawk sys-apps/mawk )
+	doc? (
+		dev-texlive/texlive-fontsrecommended
+		sys-apps/groff
+		virtual/latex-base
+	)
 "
 RDEPEND="${DEPEND}"
 
@@ -47,6 +49,11 @@ src_prepare() {
 	sed -e \
 		"s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
 		-i Makefile.in
+
+	# Upstream developers unconditionally build docs during the install phase.
+	# The only sane solution in this case is to patch things out from Makefile.
+	# See Gentoo bug #558610 for more info.
+	use doc || epatch "${FILESDIR}/${P}-disable-doc-build.patch"
 
 	autotools-utils_src_prepare
 }
