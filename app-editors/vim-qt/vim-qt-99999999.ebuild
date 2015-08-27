@@ -4,9 +4,9 @@
 
 EAPI=5
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
-PYTHON_REQ_USE="threads"
+PYTHON_REQ_USE=threads
 
-inherit eutils fdo-mime flag-o-matic prefix python-single-r1 git-r3
+inherit eutils fdo-mime flag-o-matic prefix python-r1 git-r3
 
 DESCRIPTION="Qt GUI version of the Vim text editor"
 HOMEPAGE="https://bitbucket.org/equalsraf/vim-qt/wiki/Home"
@@ -25,7 +25,7 @@ RDEPEND="
 	>=app-eselect/eselect-vi-1.1.8
 	>=dev-qt/qtcore-4.7.0:4
 	>=dev-qt/qtgui-4.7.0:4
-	sys-libs/ncurses
+	>=sys-libs/ncurses-5.2-r2
 	acl? ( kernel_linux? ( sys-apps/acl ) )
 	cscope? ( dev-util/cscope )
 	lua? (
@@ -36,7 +36,7 @@ RDEPEND="
 	perl? ( dev-lang/perl:= )
 	python? ( ${PYTHON_DEPS} )
 	racket? ( dev-scheme/racket )
-	ruby? ( || ( dev-lang/ruby:2.0 dev-lang/ruby:1.9 ) )
+	ruby? ( || ( dev-lang/ruby:2.2 dev-lang/ruby:2.1 dev-lang/ruby:2.0 ) )
 "
 DEPEND="${RDEPEND}
 	dev-util/ctags
@@ -46,15 +46,17 @@ DEPEND="${RDEPEND}
 "
 
 REQUIRED_USE="
-	python? ( ${PYTHON_REQUIRED_USE} )
 	luajit? ( lua )
+	python? (
+		|| ( $(python_gen_useflags '*') )
+		?? ( $(python_gen_useflags 'python2*') )
+		?? ( $(python_gen_useflags 'python3*') )
+	)
 "
 
 pkg_setup() {
 	# Prevent locale brokenness
 	export LC_COLLATE="C"
-
-	use python && python-single-r1_pkg_setup
 }
 
 src_prepare() {
@@ -65,15 +67,38 @@ src_prepare() {
 src_configure() {
 	use debug && append-flags "-DDEBUG"
 
-	local myconf="--with-features=huge --disable-gpm --enable-multibyte"
-	myconf+=" $(use_enable acl)"
-	myconf+=" $(use_enable cscope)"
-	myconf+=" $(use_enable lua luainterp)"
-	myconf+=" $(use_with luajit)"
-	myconf+=" $(use_enable nls)"
-	myconf+=" $(use_enable perl perlinterp)"
-	myconf+=" $(use_enable racket mzschemeinterp)"
-	myconf+=" $(use_enable ruby rubyinterp)"
+	local myconf=(
+		--with-features=huge
+		--disable-gpm
+		--enable-multibyte
+		$(use_enable acl)
+		$(use_enable cscope)
+		$(use_enable lua luainterp)
+		$(use_with luajit)
+		$(use_enable nls)
+		$(use_enable perl perlinterp)
+		$(use_enable racket mzschemeinterp)
+		$(use_enable ruby rubyinterp)
+	)
+
+	if use python ; then
+		py_add_interp() {
+			local v
+
+			[[ ${EPYTHON} == python3* ]] && v=3
+			myconf+=(
+				--enable-python${v}interp
+				vi_cv_path_python${v}="${PYTHON}"
+			)
+		}
+
+		python_foreach_impl py_add_interp
+	else
+		myconf+=(
+			--disable-pythoninterp
+			--disable-python3interp
+		)
+	fi
 
 	if ! use cscope; then
 		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die 'sed failed'
@@ -82,23 +107,11 @@ src_configure() {
 	# Keep prefix env contained within the EPREFIX
 	use prefix && myconf+=" --without-local-dir"
 
-	if use python; then
-		if [[ ${EPYTHON} == python3* ]]; then
-			myconf+=" --enable-python3interp"
-			export vi_cv_path_python3="${PYTHON}"
-		else
-			myconf+=" --enable-pythoninterp"
-			export vi_cv_path_python="${PYTHON}"
-		fi
-	else
-		myconf+=" --disable-pythoninterp --disable-python3interp"
-	fi
-
 	econf \
 		--enable-gui=qt \
 		--with-vim-name=qvim \
 		--with-modified-by=Gentoo-${PVR} \
-		${myconf}
+		"${myconf[@]}"
 }
 
 src_install() {
