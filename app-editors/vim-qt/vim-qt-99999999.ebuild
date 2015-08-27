@@ -81,7 +81,7 @@ src_configure() {
 		$(use_enable ruby rubyinterp)
 	)
 
-	if use python ; then
+	if use python; then
 		py_add_interp() {
 			local v
 
