@@ -57,10 +57,10 @@ python_compile_all() {
 	if use doc; then
 		emake all
 	else
-		sed -i \
+		sed \
 			-e '/^install:/s:install-html::g' \
 			-e '/^install:/s:install-man::g' \
-			Makefile || die
+			-i Makefile || die
 	fi
 }
 
@@ -86,9 +86,7 @@ python_install_all() {
 	python_fix_shebang "${ED}/usr/share/git-cola/bin/git-xbase"
 	python_optimize "${ED}/usr/share/git-cola/lib/cola"
 
-	if ! use doc; then
-		HTML_DOCS=( "${FILESDIR}"/index.html )
-	fi
+	use doc || HTML_DOCS=( "${FILESDIR}"/index.html )
 
 	distutils-r1_python_install_all
 	readme.gentoo_create_doc
