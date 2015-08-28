@@ -46,8 +46,10 @@ DEPEND="${RDEPEND}
 PATCHES=( "${FILESDIR}/${P}-remove-db-automagic.patch" )
 
 DOCS=( AUTHORS README TODO )
-DOC_CONTENTS="You must have at least one logging stack enabled to make ulogd work.
-Please edit example configuration located at /etc/ulogd.conf"
+DOC_CONTENTS="
+	You must have at least one logging stack enabled to make ulogd work.
+	Please edit example configuration located at /etc/ulogd.conf
+"
 
 pkg_setup() {
 	enewgroup ulogd
