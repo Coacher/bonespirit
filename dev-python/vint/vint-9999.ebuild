@@ -45,8 +45,9 @@ python_prepare() {
 
 python_prepare_all() {
 	# Purge tests together with their deps to avoid file collisions
-	sed -e 's/find_packages()/find_packages(exclude=["compat", "compat.*", "dev_tool", "test", "test.*"])/' \
-		-i setup.py || die
+	sed -i \
+		-e 's/find_packages()/find_packages(exclude=["compat", "compat.*", "dev_tool", "test", "test.*"])/' \
+		setup.py || die
 
 	distutils-r1_python_prepare_all
 }

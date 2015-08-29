@@ -38,19 +38,19 @@ sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
 
 src_prepare() {
 	# Fix malloc include.
-	sed -e \
-		's/#include <malloc.h>/#include <stdlib.h>/' \
-		-i rtf-fix/rtf2rtf.l || die
+	sed -i \
+		-e 's/#include <malloc.h>/#include <stdlib.h>/' \
+		rtf-fix/rtf2rtf.l || die
 
 	# Fix SGML catalog path.
-	sed -e \
-		's%/iso-entities-8879.1986/iso-entities.cat%/sgml-iso-entities-8879.1986/catalog%' \
-		-i perl5lib/LinuxDocTools.pm || die
+	sed -i \
+		-e 's%/iso-entities-8879.1986/iso-entities.cat%/sgml-iso-entities-8879.1986/catalog%' \
+		perl5lib/LinuxDocTools.pm || die
 
 	# Fix doc install path.
-	sed -e \
-		"s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
-		-i Makefile.in
+	sed -i \
+		-e "s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
+		Makefile.in
 
 	# Upstream developers unconditionally build docs during the install phase.
 	# The only sane solution in this case is to patch things out from Makefile.

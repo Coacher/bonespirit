@@ -51,8 +51,9 @@ src_prepare() {
 	kde4-base_src_prepare
 
 	# I know upstream wants to help us, but it doesn't work.
-	sed -e '/INSTALL( FILES AUTHORS/s/^/#DISABLED /' \
-		-i CMakeLists.txt || die
+	sed -i \
+		-e '/INSTALL( FILES AUTHORS/s/^/#DISABLED /' \
+		CMakeLists.txt || die
 
 	if ! use handbook; then
 		rm -r doc/ || die

@@ -50,7 +50,7 @@ DOCS=( ChangeLog README.md )
 src_prepare() {
 	# Install example configs with .example suffix
 	if use server; then
-		sed -i 's/conf;/conf.example;/g' "${S}"/Makefile.am || die
+		sed -i -e 's/conf;/conf.example;/g' "${S}"/Makefile.am || die
 	fi
 
 	autotools-utils_src_prepare

@@ -57,10 +57,10 @@ python_compile_all() {
 	if use doc; then
 		emake all
 	else
-		sed \
+		sed -i \
 			-e '/^install:/s:install-html::g' \
 			-e '/^install:/s:install-man::g' \
-			-i Makefile || die
+			Makefile || die
 	fi
 }
 
