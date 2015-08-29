@@ -140,7 +140,7 @@ src_configure() {
 		myconf+=" --systemdsystemunitdir='$(systemd_get_unitdir)'"
 	fi
 
-	econf "${myconf}"
+	econf ${myconf}
 }
 
 src_compile() {
