@@ -4,14 +4,13 @@
 
 EAPI=5
 
-# Does work with python2_7, does not work with python3_3 on my machine
-# More feedback is welcome, since setup.py does not provide any info
-# See also https://github.com/mrash/fwknop/issues/167
+# Python extension supports only Python2
+# See https://github.com/mrash/fwknop/issues/167
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
-DISTUTILS_SINGLE_IMPL=1
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=0
+DISABLE_AUTOFORMATTING=1
 
 inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd git-r3
 
@@ -50,12 +49,12 @@ REQUIRED_USE="
 
 DOCS=( ChangeLog README.md )
 DOC_CONTENTS="
-	Example configuration files were installed in /etc/fwknopd directory.
-	Please edit them to fit your needs and then remove the .example suffix.
+Example configuration files were installed in /etc/fwknopd directory.
+Please edit them to fit your needs and then remove the .example suffix.
 
-	fwknopd supports several backends: firewalld, iptables, ipfw, pf, ipf.
-	You can set the desired backend via FIREWALL_EXE option in fwknopd.conf
-	instead of the default one chosen at compile time.
+fwknopd supports several backends: firewalld, iptables, ipfw, pf, ipf.
+You can set the desired backend via FIREWALL_EXE option in fwknopd.conf
+instead of the default one chosen at compile time.
 "
 
 pkg_pretend() {
@@ -64,7 +63,7 @@ pkg_pretend() {
 			ewarn "fwknopd uses the iptables 'comment' match to expire SPA rules,"
 			ewarn "which is a major security feature and is enabled by default."
 			ewarn "Please either enable NETFILTER_XT_MATCH_COMMENT support in your"
-			ewarn "kernel, or set the appropriate ENABLE_{FIREWD,IPT}_COMMENT_OPTION"
+			ewarn "kernel, or set the appropriate ENABLE_{FIREWD,IPT}_COMMENT_CHECK"
 			ewarn "to 'N' in your fwknopd.conf file."
 		fi
 	fi
