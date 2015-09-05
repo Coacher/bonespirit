@@ -34,7 +34,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	gdbm? ( sys-libs/gdbm )
 	gpg? ( app-crypt/gpgme )
-	firewalld? ( net-firewall/firewalld )
+	firewalld? ( net-firewall/firewalld[${PYTHON_USEDEP}] )
 	iptables? ( net-firewall/iptables )
 	server? ( !udp-server? ( net-libs/libpcap ) )
 "
