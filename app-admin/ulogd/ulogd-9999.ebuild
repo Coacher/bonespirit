@@ -7,7 +7,7 @@ EAPI=5
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=0
 
-inherit autotools-utils eutils linux-info readme.gentoo systemd user git-r3
+inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="http://netfilter.org/projects/ulogd/index.html"
@@ -81,6 +81,7 @@ src_prepare() {
 		-e 's:tmp:run:g' \
 		ulogd.conf.in || die 'sed on ulogd.conf.in failed'
 
+	append-lfs-flags
 	autotools-utils_src_prepare
 }
 
