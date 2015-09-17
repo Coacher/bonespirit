@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~ia64 ~ppc ~x86"
 IUSE="dbi doc json mysql nfacct +nfct +nflog pcap postgres sqlite -ulog"
 
 RDEPEND="
-	net-firewall/iptables
+	|| ( net-firewall/iptables net-firewall/nftables )
 	>=net-libs/libnfnetlink-1.0.1
 	dbi? ( dev-db/libdbi )
 	json? ( dev-libs/jansson )
