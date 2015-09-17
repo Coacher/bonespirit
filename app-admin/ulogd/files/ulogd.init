@@ -10,7 +10,7 @@ extra_started_commands="reload reopen"
 : ${ULOGD_OPTS:=--daemon --uid ulogd --pidfile ${ULOGD_PIDFILE}}
 
 depend() {
-	before iptables ip6tables ebtables firewall
+	before iptables ip6tables ebtables nftables firewall
 	after mysql postgresql
 }
 
