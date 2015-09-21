@@ -55,12 +55,12 @@ pkg_setup() {
 	linux-info_pkg_setup
 
 	if kernel_is lt 2 6 14; then
-		die "ulogd-2 requires kernel newer than 2.6.14"
+		die "ulogd requires kernel newer than 2.6.14"
 	fi
 
 	if kernel_is lt 2 6 18; then
 		ewarn "You are using kernel older than 2.6.18"
-		ewarn "Some ulogd-2 features may be unavailable"
+		ewarn "Some ulogd features may be unavailable"
 	fi
 
 	if use nfacct && kernel_is lt 3 3 0; then
