@@ -7,7 +7,7 @@ EAPI=5
 inherit cmake-utils multibuild qmake-utils git-r3
 
 EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
-EGIT_COMMIT="4fd11c444a51e8d317b0d68c7b90a8e0f2c6af9f"
+EGIT_COMMIT="66b9754170759d9333d5fc1e348642814d0310dd"
 
 DESCRIPTION="Qt Cryptographic Architecture (QCA)"
 HOMEPAGE="http://delta.affinix.com/qca/"
