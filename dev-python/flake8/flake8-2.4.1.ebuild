@@ -20,10 +20,8 @@ SLOT="0"
 RDEPEND=">=dev-python/pyflakes-0.8.1[${PYTHON_USEDEP}]
 	<dev-python/pyflakes-0.9[${PYTHON_USEDEP}]
 	>=dev-python/pep8-1.5.7[${PYTHON_USEDEP}]
-	|| (
-		<dev-python/pep8-1.6.0[${PYTHON_USEDEP}]
-		>=dev-python/pep8-1.6.2-r1[${PYTHON_USEDEP}]
-	)
+	!=dev-python/pep8-1.6.1[${PYTHON_USEDEP}]
+	!=dev-python/pep8-1.6.2[${PYTHON_USEDEP}]
 "
 PDEPEND=">=dev-python/mccabe-0.2.1[${PYTHON_USEDEP}]
 	<dev-python/mccabe-0.4[${PYTHON_USEDEP}]"
