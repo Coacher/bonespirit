@@ -34,6 +34,8 @@ DEPEND="${RDEPEND}
 python_prepare_all() {
 	# This tests requires / assumes this version is already installed.
 	sed -e 's:test_register_extensions:_&:' -i flake8/tests/test_engine.py || die
+	# pep8 has proper flake8 support in Gentoo since >=1.6.2-r1
+	sed -e 's:, != 1.6.2::' -i setup.py || die
 	distutils-r1_python_prepare_all
 }
 
