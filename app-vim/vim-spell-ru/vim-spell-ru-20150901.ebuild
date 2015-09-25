@@ -24,5 +24,5 @@ IUSE=""
 src_unpack() {
 	mkdir -p "${WORKDIR}/${P}" || die
 	cd "${DISTDIR}" || die
-	cp -LR "${A}" "${WORKDIR}/${P}" || die
+	cp -LR ${A} "${WORKDIR}/${P}" || die
 }
