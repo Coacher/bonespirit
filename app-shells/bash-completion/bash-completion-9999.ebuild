@@ -20,7 +20,6 @@ IUSE=""
 RDEPEND="
 	!app-eselect/eselect-bashcomp
 	>=app-shells/bash-4.3_p30-r1
-	app-text/aspell
 "
 DEPEND="app-arch/xz-utils"
 PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
