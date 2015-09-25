@@ -36,6 +36,9 @@ STRIP_COMPLETIONS=(
 	# Debian completions
 	apt-build apt-cache apt-get aptitude dselect ifup querybts reportbug
 
+	# FreeBSD completions
+	freebsd-update kldload kldunload pkg_delete portinstall portsnap portupgrade
+
 	# Installed in app-editors/vim-core
 	xxd
 )
