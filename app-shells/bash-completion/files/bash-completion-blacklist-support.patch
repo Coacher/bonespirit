@@ -1,0 +1,22 @@
+diff --git a/bash_completion b/bash_completion
+index d768f27..e209462 100644
+--- a/bash_completion
++++ b/bash_completion
+@@ -1985,6 +1985,17 @@ __load_completion()
+ # set up dynamic completion loading
+ _completion_loader()
+ {
++    if grep -q -s "${1##*/}" /etc/bash/completion.blacklist; then
++        if ! grep -q -s "${1##*/}" ~/.config/bash_completion.whitelist; then
++            complete -F _minimal "$1" && return 124
++            return 1
++        fi
++    fi
++    if grep -q -s "${1##*/}" ~/.config/bash_completion.blacklist; then
++        complete -F _minimal "$1" && return 124
++        return 1
++    fi
++
+     # $1=_EmptycmD_ already for empty cmds in bash 4.3, set to it for earlier
+     local cmd="${1:-_EmptycmD_}"
+ 

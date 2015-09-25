@@ -1,0 +1,99 @@
+.\" -*- coding: utf-8 -*-
+.\" Copyright 2005-2014 Gentoo Foundation
+.\" Distributed under the terms of the GNU GPL version 2 or later
+.\"
+.TH bashcomp.eselect 5 "August 2014" "Gentoo Linux" eselect
+.SH NAME
+bashcomp.eselect \- Manage contributed bash-completion scripts
+.SH SYNOPSIS
+.B eselect bashcomp
+.RB [ help | usage | version ]
+.br
+.B eselect bashcomp list
+.RB [ \-\-global | \-\-user ]
+.br
+.B eselect bashcomp enable
+.RB [ \-\-global | \-\-user ]
+.RI bashcomp ...
+.br
+.B eselect bashcomp disable
+.RB [ \-\-global | \-\-user ]
+.RI bashcomp ...
+.SH DESCRIPTION
+.B eselect bashcomp
+is Gentoo's tool for managing enabled completions for bash.
+.SH ACTION: LIST
+.B eselect bashcomp list
+.RB [ \-\-global | \-\-user ]
+.br
+Display a list of available contributed bash-completion scripts.
+Enabled bash-completions are marked with a '*'.
+
+If the
+.B \-\-global
+option is specified, only global configuration is used to determine
+whether completions are enabled. If the
+.B \-\-user
+option is specified, only user-specific configuration is used.
+If neither of the two options is specified, both global
+and user-specific configurations are used and the effective state for
+the current user is displayed.
+
+$ eselect bashcomp list
+.br
+Available completions:
+  [1]  bitkeeper
+  [2]  cowsay *
+.SH ACTION: ENABLE
+.B eselect bashcomp enable
+.RB [ \-\-global | \-\-user ]
+.RI bashcomp ...
+.br
+Enable the specified completion(s).  Parameters may include completion
+names or numbers corresponding to the list output by
+.B eselect bashcomp
+.BR list .
+
+If the
+.B \-\-global
+option is specified, the global configuration is modified. If the
+.B \-\-user
+option is specified, the user-specific configuration is modified. This
+includes whitelisting the module if necessary. If neither of the two
+options is specified, the default is to alter the global configuration
+when run by superuser or the user configuration otherwise.
+.SH ACTION: DISABLE
+.B eselect bashcomp disable
+.RB [ \-\-global | \-\-user ]
+.RI bashcomp ...
+.br
+Disable the specified completion(s).  Parameters may include completion
+names or numbers corresponding to the list output by
+.B eselect bashcomp
+.BR list .
+
+If the
+.B \-\-global
+option is specified, the global configuration is modified. If the
+.B \-\-user
+option is specified, the user-specific configuration is modified. This
+includes whitelisting the module if necessary. If neither of the two
+options is specified, the default is to alter the global configuration
+when run by superuser or the user configuration otherwise.
+.SH ACTION: PRUNE
+.B eselect bashcomp prune
+.RB [ \-\-global | \-\-user ]
+.br
+Prune the configuration, removing outdated and redundant entries.
+
+If the
+.B \-\-global
+option is specified, the global configuration is pruned. If the
+.B \-\-user
+option is specified, the user-specific configuration is pruned.
+If neither of the two options is specified, both configurations
+are cleaned.
+.SH AUTHOR
+Michał Górny <mgorny@gentoo.org>
+.SH SEE ALSO
+.BR eselect (1)
