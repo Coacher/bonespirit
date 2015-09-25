@@ -34,13 +34,16 @@ STRIP_COMPLETIONS=(
 	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg upgradepkg
 
 	# Debian completions
-	apt-build apt-cache apt-get aptitude dselect ifup querybts reportbug
+	apt-build apt-cache apt-get aptitude dselect ifup ifdown ifstatus querybts reportbug
 
 	# FreeBSD completions
-	freebsd-update kldload kldunload pkg_delete portinstall portsnap portupgrade
+	freebsd-update kldload kldunload pkg_deinstall pkg_delete pkg_info portinstall portsnap portupgrade
 
 	# Installed in app-editors/vim-core
 	xxd
+
+	# Symlinks to deprecated completions
+	hd ncal
 )
 
 src_prepare() {
