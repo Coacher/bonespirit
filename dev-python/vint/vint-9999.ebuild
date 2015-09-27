@@ -32,7 +32,7 @@ DEPEND="${RDEPEND}
 		>=dev-python/pytest-cov-1.8.1[${PYTHON_USEDEP}]
 		>=dev-python/coverage-3.7.1[${PYTHON_USEDEP}]
 		>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]
-		)
+	)
 "
 
 DOCS=( README.rst )
