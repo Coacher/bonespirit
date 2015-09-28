@@ -24,6 +24,9 @@ RDEPEND="
 DEPEND="app-arch/xz-utils"
 PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 
+# Disable tests because of interactive shell wrt bug #477066
+RESTRICT="test"
+
 PATCHES=( "${FILESDIR}/${PN}-blacklist-support.patch" )
 DOCS=( AUTHORS CHANGES README )
 
@@ -72,8 +75,6 @@ src_install() {
 	doins "${FILESDIR}/bashcomp.eselect"
 	doman "${FILESDIR}/bashcomp.eselect.5"
 }
-
-src_test() { :; } # Skip testsuite because of interactive shell wrt bug #477066
 
 pkg_postinst() {
 	local v
