@@ -72,24 +72,6 @@ rm_module() {
 	done
 }
 
-# Grabbed from net-misc/netctl ebuild.
-optfeature() {
-	local desc=$1
-	shift
-	while (( $# )); do
-		if has_version "$1"; then
-			elog "  [I] $1 to ${desc}"
-		else
-			elog "  [ ] $1 to ${desc}"
-		fi
-		shift
-	done
-}
-
-#
-# ebuild functions
-#
-
 src_prepare() {
 	local libdirs="/$(get_libdir) /usr/$(get_libdir)"
 	if [[ ${SYMLINK_LIB} = yes ]]; then
