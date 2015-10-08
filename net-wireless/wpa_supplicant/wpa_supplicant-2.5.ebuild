@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs qt4-r2 systemd multilib
+inherit eutils toolchain-funcs qt4-r2 qmake-utils systemd multilib
 
 DESCRIPTION="IEEE 802.1X/WPA supplicant for secure wireless transfers"
 HOMEPAGE="http://hostap.epitest.fi/wpa_supplicant/"
@@ -13,8 +13,8 @@ LICENSE="|| ( GPL-2 BSD )"
 
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="ap dbus gnutls eap-sim fasteap +hs2-0 p2p ps3 qt4 readline selinux smartcard ssl tdls uncommon-eap-types wimax wps kernel_linux kernel_FreeBSD"
-REQUIRED_USE="fasteap? ( !gnutls !ssl ) smartcard? ( ssl )"
+IUSE="ap dbus gnutls eap-sim fasteap +hs2-0 p2p ps3 qt4 qt5 readline selinux smartcard ssl tdls uncommon-eap-types wps kernel_linux kernel_FreeBSD"
+REQUIRED_USE="fasteap? ( !gnutls !ssl ) smartcard? ( ssl ) ?? ( qt4 qt5 )"
 
 CDEPEND="dbus? ( sys-apps/dbus )
 	kernel_linux? (
@@ -27,6 +27,12 @@ CDEPEND="dbus? ( sys-apps/dbus )
 		dev-qt/qtcore:4
 		dev-qt/qtgui:4
 		dev-qt/qtsvg:4
+	)
+	qt5? (
+		dev-qt/qtcore:5
+		dev-qt/qtgui:5
+		dev-qt/qtwidgets:5
+		dev-qt/qtsvg:5
 	)
 	readline? (
 		sys-libs/ncurses:0=
@@ -254,18 +260,18 @@ src_configure() {
 		eqmake4 wpa_gui.pro
 		popd > /dev/null
 	fi
+	if use qt5 ; then
+		pushd "${S}"/wpa_gui-qt4 > /dev/null
+		eqmake5 wpa_gui.pro
+		popd > /dev/null
+	fi
 }
 
 src_compile() {
 	einfo "Building wpa_supplicant"
 	emake V=1 BINDIR=/usr/sbin
 
-	if use wimax; then
-		emake -C ../src/eap_peer clean
-		emake -C ../src/eap_peer
-	fi
-
-	if use qt4 ; then
+	if use qt4 || use qt5; then
 		pushd "${S}"/wpa_gui-qt4 > /dev/null
 		einfo "Building wpa_gui"
 		emake
@@ -300,14 +306,12 @@ src_install() {
 
 	doman doc/docbook/*.{5,8}
 
-	if use qt4 ; then
+	if use qt4 || use qt5 ; then
 		into /usr
 		dobin wpa_gui-qt4/wpa_gui
 		doicon wpa_gui-qt4/icons/wpa_gui.svg
 		make_desktop_entry wpa_gui "WPA Supplicant Administration GUI" "wpa_gui" "Qt;Network;"
 	fi
-
-	use wimax && emake DESTDIR="${D}" -C ../src/eap_peer install
 
 	if use dbus ; then
 		pushd "${S}"/dbus > /dev/null
