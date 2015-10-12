@@ -17,7 +17,7 @@ VIM_PLUGIN_HELPFILES="${PN}.txt"
 
 src_prepare() {
 	mv make_unix.mak Makefile || die
-	rm -r test/ *.mak autoload/proc_w32.c tools/update-dll-mingw.bat || die
+	rm -r *.mak *.yml lib/.gitkeep src/proc_w32.c test/ tools/*.bat || die
 }
 
 src_compile() {
@@ -27,10 +27,4 @@ src_compile() {
 		CC="$(tc-getCC)" \
 		CFLAGS="${CFLAGS}" \
 		LDFLAGS="${LDFLAGS}"
-}
-
-src_install() {
-	vim-plugin_src_install
-
-	fperms 755 /usr/share/vim/vimfiles/autoload/vimproc_*.so
 }
