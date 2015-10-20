@@ -38,7 +38,7 @@ sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
 	"/usr/share/linuxdoc-tools/linuxdoc-tools.catalog"
 
 src_prepare() {
-	# Fix doc install path.
+	# Use Gentoo doc install path.
 	sed -i \
 		-e "s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
 		Makefile.in
