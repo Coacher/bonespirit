@@ -49,7 +49,7 @@ STRIP_COMPLETIONS=(
 )
 
 src_prepare() {
-	sed -e 's%/profile.d%/bash/bashrc.d%' -i Makefile.am
+	sed -i -e 's%/profile.d%/bash/bashrc.d%' Makefile.am
 	autotools-utils_src_prepare
 }
 
