@@ -3,8 +3,10 @@
 # $Id$
 
 EAPI=5
+AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
+GIT_SHA1="5a46c4ced4ef899b398bcedf8ccd29d6f2584100"
 inherit autotools-utils perl-module sgml-catalog toolchain-funcs
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
@@ -32,6 +34,7 @@ DEPEND="${RDEPEND}
 "
 
 DOCS=( ChangeLog README )
+S="${WORKDIR}/${PN}-upstream/${PV}-${GIT_SHA1}"
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
 	"/usr/share/linuxdoc-tools/linuxdoc-tools.catalog"
