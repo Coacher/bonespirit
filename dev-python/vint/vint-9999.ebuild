@@ -8,10 +8,9 @@ DISTUTILS_IN_SOURCE_BUILD=1
 
 inherit distutils-r1 git-r3
 
-EGIT_REPO_URI="git://github.com/Kuniwak/${PN}.git"
-
 DESCRIPTION="Lint tool for Vim script Language"
 HOMEPAGE="https://github.com/Kuniwak/vint"
+EGIT_REPO_URI="git://github.com/Kuniwak/${PN}.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -39,7 +38,10 @@ DOCS=( README.rst )
 
 python_prepare() {
 	if [[ "${EPYTHON}" != python2* ]]; then
-		sed -i -e '/enum34/d' requirements.txt || die
+		sed -i \
+			-e '/enum34/d' \
+			-e '/pathlib/d' \
+			requirements.txt || die
 	fi
 }
 
