@@ -58,7 +58,7 @@ depend() {
 
 setup_dm() {
 	local MY_XDM
-	
+
 	MY_XDM=$(echo "${DISPLAYMANAGER}" | tr '[:upper:]' '[:lower:]')
 
 	# Load our root path from profile.env
