@@ -7,6 +7,7 @@ extra_started_commands="reload reopen"
 
 : ${ULOGD_BINARY:=/usr/sbin/ulogd}
 : ${ULOGD_PIDFILE:=/run/${SVCNAME}.pid}
+: ${ULOGD_WAIT:=200}
 : ${ULOGD_OPTS:=--daemon --uid ulogd --pidfile ${ULOGD_PIDFILE}}
 
 depend() {
@@ -17,7 +18,7 @@ depend() {
 start() {
 	ebegin "Starting ${SVCNAME}"
 	start-stop-daemon --start \
-		--exec ${ULOGD_BINARY} --pidfile ${ULOGD_PIDFILE} --wait 200 \
+		--exec ${ULOGD_BINARY} --pidfile ${ULOGD_PIDFILE} --wait ${ULOGD_WAIT} \
 		-- ${ULOGD_OPTS}
 	eend $?
 }
