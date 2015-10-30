@@ -17,7 +17,7 @@ depend() {
 start() {
 	ebegin "Starting ${SVCNAME}"
 	start-stop-daemon --start \
-		--exec ${ULOGD_BINARY} --pidfile ${ULOGD_PIDFILE} \
+		--exec ${ULOGD_BINARY} --pidfile ${ULOGD_PIDFILE} --wait 200 \
 		-- ${ULOGD_OPTS}
 	eend $?
 }
