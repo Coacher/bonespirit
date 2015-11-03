@@ -2,6 +2,9 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>itumaykin@gmail.com</email>
+		<email>itumaykin+gentoo@gmail.com</email>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">chrippa/livestreamer</remote-id>
+	</upstream>
 </pkgmetadata>
