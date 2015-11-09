@@ -18,7 +18,7 @@ EGIT_REPO_URI=(
 LICENSE="vim"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acl cscope debug lua luajit nls perl python racket ruby"
+IUSE="acl cscope debug lua luajit lto nls perl python racket ruby"
 
 RDEPEND="
 	>=app-editors/vim-core-7.4.827[acl?]
@@ -44,7 +44,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	nls? ( sys-devel/gettext )
 "
-
 REQUIRED_USE="
 	luajit? ( lua )
 	python? (
@@ -65,6 +64,11 @@ src_prepare() {
 }
 
 src_configure() {
+	if use lto; then
+		LDFLAGS_OLD="$LDFLAGS"
+		local LDFLAGS="${LDFLAGS} -fno-lto -fno-use-linker-plugin"
+	fi
+
 	use debug && append-flags "-DDEBUG"
 
 	local myconf=(
@@ -74,11 +78,11 @@ src_configure() {
 		$(use_enable acl)
 		$(use_enable cscope)
 		$(use_enable lua luainterp)
-		$(use_with luajit)
 		$(use_enable nls)
 		$(use_enable perl perlinterp)
 		$(use_enable racket mzschemeinterp)
 		$(use_enable ruby rubyinterp)
+		$(use_with luajit)
 	)
 
 	if use python; then
@@ -110,8 +114,13 @@ src_configure() {
 	econf \
 		--enable-gui=qt \
 		--with-vim-name=qvim \
-		--with-modified-by=Gentoo-${PVR} \
+		--with-modified-by="Gentoo-${PVR}" \
 		"${myconf[@]}"
+
+	if use lto; then
+		LDFLAGS="${LDFLAGS_OLD}"
+		sed -i -e "s|-fno-lto -fno-use-linker-plugin||g" src/auto/config.mk
+	fi
 }
 
 src_install() {
