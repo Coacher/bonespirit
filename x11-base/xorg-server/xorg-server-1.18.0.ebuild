@@ -13,7 +13,7 @@ SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
 
 IUSE_SERVERS="dmx kdrive xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal nptl selinux +suid systemd tslib +udev unwind wayland"
+IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
 
 CDEPEND=">=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0 )
@@ -67,7 +67,7 @@ CDEPEND=">=app-eselect/eselect-opengl-1.3.0
 	!minimal? (
 		>=x11-libs/libX11-1.1.5
 		>=x11-libs/libXext-1.0.5
-		>=media-libs/mesa-10.3.4-r1[nptl=]
+		>=media-libs/mesa-10.3.4-r1
 	)
 	tslib? ( >=x11-libs/tslib-1.0 )
 	udev? ( >=virtual/udev-150 )
@@ -90,9 +90,9 @@ DEPEND="${CDEPEND}
 	>=x11-proto/fixesproto-5.0
 	>=x11-proto/fontsproto-2.1.3
 	>=x11-proto/glproto-1.4.17-r1
-	>=x11-proto/inputproto-2.2.99.1
+	>=x11-proto/inputproto-2.3
 	>=x11-proto/kbproto-1.0.3
-	>=x11-proto/randrproto-1.4.0
+	>=x11-proto/randrproto-1.5.0
 	>=x11-proto/recordproto-1.13.99.1
 	>=x11-proto/renderproto-0.11
 	>=x11-proto/resourceproto-1.2.0
@@ -105,7 +105,7 @@ DEPEND="${CDEPEND}
 	>=x11-proto/xf86rushproto-1.1.2
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
 	>=x11-proto/xineramaproto-1.1.3
-	>=x11-proto/xproto-7.0.26
+	>=x11-proto/xproto-7.0.28
 	>=x11-proto/presentproto-1.0
 	>=x11-proto/dri3proto-1.0
 	dmx? (
@@ -143,10 +143,8 @@ REQUIRED_USE="!minimal? (
 PATCHES=(
 	"${UPSTREAMED_PATCHES[@]}"
 	"${FILESDIR}"/${PN}-1.12-unloadsubmodule.patch
-	"${FILESDIR}"/${PN}-1.17-ia64-fix_inx_outx.patch
-	"${FILESDIR}"/${PN}-1.17-remove-10-evdev.conf.patch
 	# needed for new eselect-opengl, bug #541232
-	"${FILESDIR}"/${PN}-1.17-support-multiple-Files-sections.patch
+	"${FILESDIR}"/${PN}-1.18-support-multiple-Files-sections.patch
 )
 
 pkg_pretend() {
@@ -175,16 +173,13 @@ src_configure() {
 		$(use_enable wayland xwayland)
 		$(use_enable !minimal record)
 		$(use_enable !minimal xfree86-utils)
-		$(use_enable !minimal install-libxf86config)
 		$(use_enable !minimal dri)
 		$(use_enable !minimal dri2)
-		$(use_enable !minimal dri3)
 		$(use_enable !minimal glx)
 		$(use_enable xephyr)
 		$(use_enable xnest)
 		$(use_enable xorg)
 		$(use_enable xvfb)
-		$(use_enable nptl glx-tls)
 		$(use_enable udev config-udev)
 		$(use_with doc doxygen)
 		$(use_with doc xmlto)
