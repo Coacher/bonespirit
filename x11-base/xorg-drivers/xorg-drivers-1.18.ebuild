@@ -164,4 +164,5 @@ PDEPEND="
 	!<=x11-drivers/xf86-video-sis-0.10.7
 	!<=x11-drivers/xf86-video-v4l-0.2.0
 	!<x11-drivers/xf86-input-evdev-2.10.0
+	!<x11-drivers/xf86-video-ati-7.6.1
 "
