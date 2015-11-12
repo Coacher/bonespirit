@@ -39,7 +39,6 @@ DOCS=( README.rst )
 python_prepare() {
 	if [[ "${EPYTHON}" != python2* ]]; then
 		sed -i \
-			-e '/enum34/d' \
 			-e '/pathlib/d' \
 			requirements.txt || die
 	fi
