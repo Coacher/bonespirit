@@ -14,6 +14,7 @@
 		<flag name="utils">Install the CLI encoder and decoder utilities</flag>
 	</use>
 	<upstream>
+		<remote-id type="github">cisco/openh264</remote-id>
 		<remote-id type="github">mozilla/gmp-api</remote-id>
 	</upstream>
 </pkgmetadata>
