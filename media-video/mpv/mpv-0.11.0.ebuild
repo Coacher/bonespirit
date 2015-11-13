@@ -10,7 +10,7 @@ inherit eutils python-any-r1 waf-utils pax-utils fdo-mime gnome2-utils
 WAF_V="1.8.12"
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
-HOMEPAGE="http://mpv.io/"
+HOMEPAGE="https://mpv.io/"
 SRC_URI="http://ftp.waf.io/pub/release/waf-${WAF_V}"
 DOCS=( README.md etc/example.conf etc/input.conf )
 
@@ -20,7 +20,7 @@ if [[ ${PV} == *9999* ]]; then
 else
 	SRC_URI+=" https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux"
-	#DOCS+=( RELEASE_NOTES )
+	DOCS+=( RELEASE_NOTES )
 fi
 
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
@@ -42,7 +42,7 @@ REQUIRED_USE="
 	pvr? ( v4l )
 	vaapi? ( X )
 	vdpau? ( X )
-	wayland? ( opengl )
+	wayland? ( egl )
 	xinerama? ( X )
 	xscreensaver? ( X )
 	xv? ( X )
@@ -84,7 +84,7 @@ RDEPEND="
 	jack? ( media-sound/jack-audio-connection-kit )
 	jpeg? ( virtual/jpeg:0 )
 	libass? (
-		>=media-libs/libass-0.12.1:=[enca(+)?,fontconfig]
+		>=media-libs/libass-0.12.1:=[fontconfig]
 		virtual/ttf-fonts
 	)
 	libcaca? ( >=media-libs/libcaca-0.99_beta18 )
@@ -97,7 +97,7 @@ RDEPEND="
 	pulseaudio? ( media-sound/pulseaudio )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba )
-	sdl? ( media-libs/libsdl2[threads] )
+	sdl? ( media-libs/libsdl2[X,sound,threads,video] )
 	v4l? ( media-libs/libv4l )
 	wayland? (
 		>=dev-libs/wayland-1.6.0
@@ -121,7 +121,7 @@ RDEPEND+="
 	selinux? ( sec-policy/selinux-mplayer )
 "
 
-pkg_setup() {
+pkg_pretend() {
 	if ! use libass; then
 		ewarn "You have disabled the libass flag. No OSD or subtitles will be displayed."
 	fi
@@ -145,8 +145,6 @@ pkg_setup() {
 	einfo "For additional format support you need to enable the support on your"
 	einfo "libavcodec/libavformat provider:"
 	einfo "    media-video/ffmpeg or media-video/libav"
-
-	python-any-r1_pkg_setup
 }
 
 src_prepare() {
