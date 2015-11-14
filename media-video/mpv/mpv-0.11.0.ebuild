@@ -26,7 +26,7 @@ fi
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="+alsa bluray cdio +cli doc-pdf drm dvb +dvd egl +enca encode +iconv
+IUSE="+alsa bluray cdda +cli doc-pdf drm dvb +dvd egl +enca encode +iconv
 jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit openal
 +opengl oss pulseaudio pvr raspberry-pi rubberband samba sdl selinux v4l vaapi
 vdpau vf-dlopen wayland +X xinerama +xscreensaver xv"
@@ -69,7 +69,7 @@ RDEPEND="
 	)
 	alsa? ( >=media-libs/alsa-lib-1.0.18 )
 	bluray? ( >=media-libs/libbluray-0.3.0 )
-	cdio? (
+	cdda? (
 		dev-libs/libcdio
 		dev-libs/libcdio-paranoia
 	)
@@ -179,7 +179,7 @@ src_configure() {
 		$(use_enable bluray libbluray)
 		$(use_enable dvd dvdread)
 		$(use_enable dvd dvdnav)
-		$(use_enable cdio cdda)
+		$(use_enable cdda)
 		$(use_enable enca)
 		$(use_enable rubberband)
 		$(use_enable lcms lcms2)
