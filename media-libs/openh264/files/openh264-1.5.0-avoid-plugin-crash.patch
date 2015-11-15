@@ -1,21 +1,23 @@
 diff --git a/module/gmp-openh264.cpp b/module/gmp-openh264.cpp
-index 42a0b80..97ac59f 100644
+index 42a0b80..9a8697d 100644
 --- a/module/gmp-openh264.cpp
 +++ b/module/gmp-openh264.cpp
-@@ -361,14 +361,32 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
+@@ -361,14 +361,34 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
    }
  
    virtual void EncodingComplete() {
 +    // Release the reference to the external objects, because it is no longer safe to call them
 +    host_     = nullptr;
 +    callback_ = nullptr;
++    TearDownEncoder();
++
      Release();
    }
  
   private:
    virtual ~OpenH264VideoEncoder() {
 -    worker_thread_->Join();
-+    // Tear down the internal encoder
++    // Tear down the internal encoder in case of EncodingComplete() not being called
 +    TearDownEncoder();
    }
  
@@ -36,17 +38,17 @@ index 42a0b80..97ac59f 100644
    void Error (GMPErr error) {
      if (callback_) {
        callback_->Error (error);
-@@ -464,12 +482,18 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
+@@ -464,12 +484,18 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
  
    void Encode_m (GMPVideoi420Frame* frame, SFrameBSInfo* encoded,
                   GMPVideoFrameType frame_type) {
 +    // Attach a self-destructor so that this dies on return.
 +    SelfDestruct<GMPVideoi420Frame> ifd (frame);
-+    
++
 +    if (!host_) {
 +      return;
 +    }
-+    
++
      // Now return the encoded data back to the parent.
      GMPVideoFrame* ftmp;
      GMPErr err = host_->CreateFrame (kGMPEncodedVideoFrame, &ftmp);
@@ -56,7 +58,7 @@ index 42a0b80..97ac59f 100644
        return;
      }
  
-@@ -496,7 +520,6 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
+@@ -496,7 +522,6 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
      if (err != GMPNoErr) {
        GMPLOG (GL_ERROR, "Error allocating frame data");
        f->Destroy();
@@ -64,7 +66,7 @@ index 42a0b80..97ac59f 100644
        return;
      }
  
-@@ -522,9 +545,6 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
+@@ -522,9 +547,6 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
              << " timestamp="
              << f->TimeStamp());
  
@@ -74,7 +76,7 @@ index 42a0b80..97ac59f 100644
      // Return the encoded frame.
      GMPCodecSpecificInfo info;
      memset (&info, 0, sizeof (info)); // shouldn't be needed, we init everything
-@@ -532,7 +552,9 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
+@@ -532,7 +554,9 @@ class OpenH264VideoEncoder : public GMPVideoEncoder, public RefCounted {
      info.mBufferType = GMP_BufferLength32;
      info.mCodecSpecific.mH264.mSimulcastIdx = 0;
  
@@ -85,19 +87,21 @@ index 42a0b80..97ac59f 100644
  
      stats_.FrameOut();
    }
-@@ -716,13 +738,31 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
+@@ -716,13 +740,33 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
    }
  
    virtual void DecodingComplete() {
 +    // Release the reference to the external objects, because it is no longer safe to call them
 +    host_     = nullptr;
 +    callback_ = nullptr;
++    TearDownDecoder();
++
      Release();
    }
  
   private:
    virtual ~OpenH264VideoDecoder() {
-+    // Tear down the internal decoder
++    // Tear down the internal decoder in case of DecodingComplete() not being called
 +    TearDownDecoder();
    }
  
@@ -117,7 +121,7 @@ index 42a0b80..97ac59f 100644
    void Error (GMPErr error) {
      if (callback_) {
        callback_->Error (error);
-@@ -780,7 +820,9 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
+@@ -780,7 +824,9 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
  
      if (decoded->iBufferStatus != 1) {
        GMPLOG (GL_ERROR, "iBufferStatus=" << decoded->iBufferStatus);
@@ -128,18 +132,18 @@ index 42a0b80..97ac59f 100644
        return;
      }
  
-@@ -798,6 +840,10 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
+@@ -798,6 +844,10 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
  
      GMPVideoFrame* ftmp = nullptr;
  
 +    if (!host_) {
 +      return;
 +    }
-+    
++
      // Translate the image.
      GMPErr err = host_->CreateFrame (kGMPI420VideoFrame, &ftmp);
      if (err != GMPNoErr) {
-@@ -822,7 +868,9 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
+@@ -822,7 +872,9 @@ class OpenH264VideoDecoder : public GMPVideoDecoder, public RefCounted {
              << frame->AllocatedSize (kGMPYPlane));
      frame->SetTimestamp (inputFrame->TimeStamp());
      frame->SetDuration (inputFrame->Duration());
