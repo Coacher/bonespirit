@@ -4,8 +4,6 @@
 
 EAPI=5
 
-KDE_DOC_DIRS="doc"
-KDE_HANDBOOK="optional"
 inherit kde4-base git-r3
 
 EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
@@ -53,8 +51,4 @@ src_prepare() {
 	sed -i \
 		-e '/INSTALL( FILES AUTHORS/s/^/#DISABLED /' \
 		CMakeLists.txt || die
-
-	if ! use handbook; then
-		rm -r doc/ || die
-	fi
 }
