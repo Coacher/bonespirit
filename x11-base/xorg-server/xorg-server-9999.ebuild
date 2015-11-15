@@ -153,7 +153,7 @@ src_configure() {
 	# localstatedir is used for the log location; we need to override the default
 	#	from ebuild.sh
 	# sysconfdir is used for the xorg.conf location; same applies
-	# NOTE: fop is used for doc generating ; and i have no idea if gentoo
+	# NOTE: fop is used for doc generating; and I have no idea if Gentoo
 	#	package it somewhere
 	XORG_CONFIGURE_OPTIONS=(
 		$(use_enable ipv6)
@@ -202,7 +202,7 @@ src_install() {
 
 	server_based_install
 
-	if ! use minimal &&	use xorg; then
+	if ! use minimal && use xorg; then
 		# Install xorg.conf.example into docs
 		dodoc "${AUTOTOOLS_BUILD_DIR}"/hw/xfree86/xorg.conf.example
 	fi
