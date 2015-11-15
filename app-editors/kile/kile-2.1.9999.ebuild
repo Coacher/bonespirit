@@ -9,8 +9,7 @@ KDE_HANDBOOK="optional"
 inherit kde4-base git-r3
 
 EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
-# last commit to master before frameworks branch was merged
-EGIT_COMMIT="653a1b8e3886e0d68fbbea40ba298c44e00f0848"
+EGIT_BRANCH="2.1"
 
 DESCRIPTION="A Latex Editor and TeX shell for KDE"
 HOMEPAGE="http://kile.sourceforge.net/"
