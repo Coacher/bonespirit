@@ -3,10 +3,11 @@
 # $Id$
 
 EAPI=5
+
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit autotools-utils perl-module sgml-catalog toolchain-funcs git-r3
+inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs git-r3
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
@@ -14,7 +15,7 @@ EGIT_REPO_URI="https://gitlab.com/agmartin/${PN}.git"
 
 LICENSE="MIT SGMLUG"
 SLOT="0"
-KEYWORDS="~amd64 ~ia64 ~ppc ~x86 ~x86-fbsd"
+KEYWORDS=""
 IUSE="doc"
 
 RDEPEND="
@@ -51,7 +52,7 @@ src_configure() {
 	tc-export CC
 	local myeconfargs=(
 		--disable-docs
-		--with-texdir="/usr/share/texmf/tex/latex/misc"
+		--with-texdir="${TEXMF}/tex/latex/${PN}"
 		--with-perllibdir="${VENDOR_ARCH}"
 		--with-installed-iso-entities
 	)
@@ -69,4 +70,14 @@ src_install() {
 	export VARTEXFONTS="${T}/fonts"
 
 	autotools-utils_src_install
+}
+
+pkg_postinst() {
+	latex-package_pkg_postinst
+	sgml-catalog_pkg_postinst
+}
+
+pkg_postrm() {
+	latex-package_pkg_postrm
+	sgml-catalog_pkg_postrm
 }
