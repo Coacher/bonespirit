@@ -1,8 +1,0 @@
-/var/log/unicorn/*.log {
-    sharedscripts
-    missingok
-    notifempty
-    postrotate
-        /etc/init.d/unicorn reopen > /dev/null
-    endscript
-}
