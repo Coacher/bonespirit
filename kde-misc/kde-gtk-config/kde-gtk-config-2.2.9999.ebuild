@@ -7,8 +7,7 @@ EAPI=5
 inherit kde4-base git-r3
 
 EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
-# last commit to master before frameworks branch was merged
-EGIT_COMMIT="d64e43a0319f68c33ab470c2acaa04115d29f143"
+EGIT_BRANCH="2.2"
 
 DESCRIPTION="KDE systemsettings kcm to set GTK application look&feel"
 HOMEPAGE="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
@@ -33,13 +32,10 @@ RDEPEND="
 	$(add_kdeapps_dep kcmshell)
 "
 
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-optional-previews.patch"
-	epatch "${FILESDIR}/${PN}-remove-dangling-spaces.patch"
-	epatch "${FILESDIR}/${PN}-kdelibs-4.14.11.patch"
-
-	kde4-base_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}/${PN}-optional-previews.patch"
+	"${FILESDIR}/${PN}-remove-dangling-spaces.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(
