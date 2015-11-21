@@ -12,6 +12,8 @@ inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs g
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
 EGIT_REPO_URI="https://gitlab.com/agmartin/${PN}.git"
+# Redefine SRC_URI, otherwise latex-package eclass interferes
+SRC_URI=""
 
 LICENSE="MIT SGMLUG"
 SLOT="0"
