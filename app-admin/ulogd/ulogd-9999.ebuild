@@ -5,7 +5,7 @@
 EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=0
+AUTOTOOLS_IN_SOURCE_BUILD=1
 
 inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo systemd user git-r3
 
