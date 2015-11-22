@@ -4,16 +4,14 @@
 
 EAPI=5
 
-KDE_DOC_DIRS="doc"
-KDE_HANDBOOK="optional"
 KDE_MINIMAL=4.13.0
-inherit kde4-base git-r3
+GIT_SHA1="35991b911c228731726d119084936a40ebc1447d"
 
-EGIT_REPO_URI="https://gitlab.com/${PN}/${PN}.git"
-EGIT_COMMIT="35991b911c228731726d119084936a40ebc1447d"
+inherit kde4-base vcs-snapshot
 
 DESCRIPTION="Alternative configuration module for the Baloo search framework"
 HOMEPAGE="https://gitlab.com/baloo-kcmadv/baloo-kcmadv"
+SRC_URI="https://gitlab.com/${PN}/${PN}/repository/archive.tar.gz?ref=${GIT_SHA1} -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
@@ -27,11 +25,3 @@ DEPEND="
 	dev-libs/xapian
 "
 RDEPEND="${DEPEND}"
-
-src_prepare() {
-	kde4-base_src_prepare
-
-	if ! use handbook; then
-		rm -r doc/ || die
-	fi
-}
