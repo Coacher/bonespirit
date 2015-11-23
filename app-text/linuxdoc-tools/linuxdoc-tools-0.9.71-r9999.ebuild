@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
-# Upstream tarball has SHA1 of release in the name of the topmost directory
+# Source tarball has SHA1 of release in the name of the second topmost directory
 GIT_SHA1="5a46c4ced4ef899b398bcedf8ccd29d6f2584100"
 
 inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs
