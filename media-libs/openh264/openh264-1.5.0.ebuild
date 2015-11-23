@@ -5,6 +5,7 @@
 EAPI=5
 
 MOZVER=39
+
 inherit nsplugins multilib-minimal
 
 DESCRIPTION="Cisco OpenH264 library and Gecko Media Plugin for Mozilla packages"
