@@ -4,13 +4,13 @@
 
 EAPI=5
 
+AUTOTOOLS_AUTORECONF=1
+DISABLE_AUTOFORMATTING=1
+
+DISTUTILS_OPTIONAL=1
 # Python extension supports only Python2
 # See https://github.com/mrash/fwknop/issues/167
 PYTHON_COMPAT=( python2_7 )
-DISTUTILS_OPTIONAL=1
-AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=0
-DISABLE_AUTOFORMATTING=1
 
 inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd git-r3
 
@@ -23,20 +23,24 @@ SLOT="0"
 KEYWORDS=""
 IUSE="client extras firewalld gdbm gpg iptables python server udp-server"
 
-RDEPEND="
+DEPEND="
 	client? ( net-misc/wget[ssl] )
+	firewalld? ( net-firewall/firewalld[${PYTHON_USEDEP}] )
+	gdbm? ( sys-libs/gdbm )
 	gpg? (
+		app-crypt/gpgme
 		dev-libs/libassuan
 		dev-libs/libgpg-error
 	)
-	python? ( ${PYTHON_DEPS} )
-"
-DEPEND="${RDEPEND}
-	gdbm? ( sys-libs/gdbm )
-	gpg? ( app-crypt/gpgme )
-	firewalld? ( net-firewall/firewalld[${PYTHON_USEDEP}] )
 	iptables? ( net-firewall/iptables )
+	python? ( ${PYTHON_DEPS} )
 	server? ( !udp-server? ( net-libs/libpcap ) )
+"
+RDEPEND="${DEPEND}
+	server? (
+		sys-apps/grep
+		virtual/awk
+	)
 "
 
 REQUIRED_USE="
