@@ -37,8 +37,7 @@ DEPEND="${RDEPEND}
 
 DOCS=( ChangeLog README )
 
-sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" \
-	"/usr/share/linuxdoc-tools/linuxdoc-tools.catalog"
+sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
 
 src_prepare() {
 	# Use Gentoo doc install path.
