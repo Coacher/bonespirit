@@ -27,8 +27,9 @@ PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 # Disable tests because of interactive shell wrt bug #477066
 RESTRICT="test"
 
-PATCHES=( "${FILESDIR}/${PN}-blacklist-support.patch" )
 DOCS=( AUTHORS CHANGES README )
+
+PATCHES=( "${FILESDIR}/${PN}-blacklist-support.patch" )
 
 # List unwanted completions to be removed later
 STRIP_COMPLETIONS=(
@@ -59,17 +60,17 @@ src_configure() {
 
 src_install() {
 	# Workaround race conditions wrt bug #526996
-	mkdir -p "${ED}"/usr/share/bash-completion/{completions,helpers} || die
+	mkdir -p "${ED}/usr/share/${PN}"/{completions,helpers} || die
 
 	autotools-utils_src_install
 
 	# Remove unwanted completions
 	local file
 	for file in "${STRIP_COMPLETIONS[@]}"; do
-		rm "${ED}/usr/share/bash-completion/completions/${file}" || die
+		rm "${ED}/usr/share/${PN}/completions/${file}" || die
 	done
 	# Remove deprecated completions (moved to other packages)
-	rm "${ED}"/usr/share/bash-completion/completions/_* || die
+	rm "${ED}/usr/share/${PN}/completions"/_* || die
 
 	insinto /usr/share/eselect/modules
 	doins "${FILESDIR}/bashcomp.eselect"
@@ -79,13 +80,12 @@ src_install() {
 pkg_postinst() {
 	local v
 	for v in ${REPLACING_VERSIONS}; do
-		if ! version_is_at_least 2.1-r90 ${v}; then
-			ewarn "For bash-completion autoloader to work, all completions need to"
-			ewarn "be installed in /usr/share/bash-completion/completions. You may"
-			ewarn "need to rebuild packages that installed completions in the old"
-			ewarn "location. You can do this using:"
+		if ! version_is_at_least 2.1-r90 "${v}"; then
+			ewarn "For bash-completion autoloader to work, all completions need to be installed"
+			ewarn "in /usr/share/bash-completion/completions. You may need to rebuild packages"
+			ewarn "that installed completions in the old location. You can do this using:"
 			ewarn
-			ewarn "$ find ${EPREFIX}/usr/share/bash-completion -maxdepth 1 -type f '!' -name 'bash_completion' -exec emerge -1v {} +"
+			ewarn "$ find ${EPREFIX}/usr/share/${PN} -maxdepth 1 -type f '!' -name 'bash_completion' -exec emerge -1v {} +"
 			ewarn
 			ewarn "After the rebuild, you should remove the old setup symlinks:"
 			ewarn
@@ -95,9 +95,9 @@ pkg_postinst() {
 
 	if has_version 'app-shells/zsh'; then
 		elog
-		elog "If you are interested in using the provided bash completion functions with"
-		elog "zsh, valuable tips on the effective use of bashcompinit are available:"
-		elog "  http://www.zsh.org/mla/workers/2003/msg00046.html"
+		elog "If you are interested in using the provided bash completion functions with zsh,"
+		elog "valuable tips on the effective use of bashcompinit are available:"
+		elog "    http://www.zsh.org/mla/workers/2003/msg00046.html"
 		elog
 	fi
 }
