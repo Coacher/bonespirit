@@ -36,12 +36,7 @@ DEPEND="
 	python? ( ${PYTHON_DEPS} )
 	server? ( !udp-server? ( net-libs/libpcap ) )
 "
-RDEPEND="${DEPEND}
-	server? (
-		sys-apps/grep
-		virtual/awk
-	)
-"
+RDEPEND="${DEPEND}"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
