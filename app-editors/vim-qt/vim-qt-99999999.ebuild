@@ -120,7 +120,7 @@ src_configure() {
 
 	if use lto; then
 		LDFLAGS="${LDFLAGS_OLD}"
-		sed -i -e "s/-fno-lto -fno-use-linker-plugin//g" src/auto/config.mk
+		sed -i -e "s/-fno-lto -fno-use-linker-plugin//g" src/auto/config.mk || die
 	fi
 }
 
