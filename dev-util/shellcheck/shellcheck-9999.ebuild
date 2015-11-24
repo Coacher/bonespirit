@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 
 src_test() {
 	# See bug #537500 for this beauty.
-	runghc Setup.hs test || die 'test suite failed'
+	runghc Setup.hs test || die 'Test suite failed'
 }
 
 src_install() {
