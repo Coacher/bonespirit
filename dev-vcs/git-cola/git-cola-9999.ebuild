@@ -83,8 +83,8 @@ python_install_all() {
 		prefix="${EPREFIX}/usr" \
 		install
 
-	python_fix_shebang "${ED}/usr/share/git-cola/bin/git-xbase"
-	python_optimize "${ED}/usr/share/git-cola/lib/cola"
+	python_fix_shebang "${ED}/usr/share/${PN}/bin/git-xbase"
+	python_optimize "${ED}/usr/share/${PN}/lib/cola"
 
 	use doc || HTML_DOCS=( "${FILESDIR}"/index.html )
 
