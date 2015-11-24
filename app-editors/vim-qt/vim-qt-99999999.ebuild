@@ -61,7 +61,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Read vimrc from /etc/vim/
-	echo "#define SYS_VIMRC_FILE \"${EPREFIX}/etc/vim/vimrc\"" >> "${S}"/src/feature.h
+	echo "#define SYS_VIMRC_FILE \"${EPREFIX}/etc/vim/vimrc\"" >> "${S}/src/feature.h"
 }
 
 src_configure() {
@@ -106,21 +106,21 @@ src_configure() {
 	fi
 
 	if ! use cscope; then
-		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die 'sed failed'
+		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die
 	fi
 
 	# Keep prefix env contained within the EPREFIX
 	use prefix && myconf+=" --without-local-dir"
 
 	econf \
-		--enable-gui=qt \
-		--with-vim-name=qvim \
 		--with-modified-by="Gentoo-${PVR}" \
+		--with-vim-name=qvim \
+		--enable-gui=qt \
 		"${myconf[@]}"
 
 	if use lto; then
 		LDFLAGS="${LDFLAGS_OLD}"
-		sed -i -e "s|-fno-lto -fno-use-linker-plugin||g" src/auto/config.mk
+		sed -i -e "s/-fno-lto -fno-use-linker-plugin//g" src/auto/config.mk
 	fi
 }
 
@@ -132,10 +132,9 @@ src_install() {
 	echo ".so vim.1" > "${ED}"/usr/share/man/man1/qvim.1
 	echo ".so vimdiff.1" > "${ED}"/usr/share/man/man1/qvimdiff.1
 
-	# Track https://bitbucket.org/equalsraf/vim-qt/issue/93/include-desktop-file-in-source
-	# for the inclusion of desktop file
-	newmenu "${FILESDIR}"/vim-qt.desktop vim-qt.desktop
-	doicon -s 64 src/qt/icons/vim-qt.png
+	# See https://bitbucket.org/equalsraf/vim-qt/issue/93/include-desktop-file-in-source
+	newmenu "${FILESDIR}/${PN}.desktop" ${PN}.desktop
+	doicon -s 64 "src/qt/icons/${PN}.png"
 }
 
 pkg_postinst() {
