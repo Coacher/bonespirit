@@ -43,7 +43,7 @@ src_prepare() {
 	# Use Gentoo doc install path.
 	sed -i \
 		-e "s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
-		Makefile.in
+		Makefile.in || die
 
 	autotools-utils_src_prepare
 }
