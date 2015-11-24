@@ -42,6 +42,7 @@ DEPEND="${RDEPEND}
 "
 
 DOCS=( AUTHORS README TODO )
+
 DOC_CONTENTS="
 	You must have at least one logging stack enabled to make ulogd work.
 	Please edit example configuration located at /etc/ulogd.conf
@@ -78,7 +79,7 @@ src_prepare() {
 	sed -i \
 		-e 's:var/log:var/log/ulogd:g' \
 		-e 's:tmp:run:g' \
-		ulogd.conf.in || die 'sed on ulogd.conf.in failed'
+		ulogd.conf.in || die
 
 	append-lfs-flags
 	autotools-utils_src_prepare
@@ -123,6 +124,7 @@ src_install() {
 	use mysql && dodoc doc/mysql-*.sql
 	use postgres && dodoc doc/pgsql-*.sql
 	use sqlite && dodoc doc/sqlite3.table
+
 	doman ${PN}.8
 
 	insinto /etc
