@@ -44,7 +44,7 @@ sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalo
 src_prepare() {
 	# Use Gentoo doc install path.
 	sed -i \
-		-e "s%/share/doc/linuxdoc-tools%/share/doc/${PF}%" \
+		-e "s%/share/doc/${PN}%/share/doc/${PF}%" \
 		Makefile.in || die
 
 	autotools-utils_src_prepare
