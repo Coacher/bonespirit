@@ -37,10 +37,16 @@ STRIP_COMPLETIONS=(
 	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg slapt-get slapt-src upgradepkg
 
 	# Debian completions
-	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug
+	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug uscan
 
 	# FreeBSD completions
 	freebsd-update kldload kldunload pkg_deinstall pkg_delete pkg_info portinstall portsnap portupgrade
+
+	# Solaris completions
+	pkg-get pkgadd pkgrm pkgutil svcadm
+
+	# Fedora completions
+	koji arm-koji ppc-koji s390-koji sparc-koji
 
 	# Installed in app-editors/vim-core
 	xxd
