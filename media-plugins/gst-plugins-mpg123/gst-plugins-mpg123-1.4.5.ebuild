@@ -3,6 +3,7 @@
 # $Id$
 
 EAPI=5
+
 GST_ORG_MODULE=gst-plugins-bad
 
 inherit gstreamer
