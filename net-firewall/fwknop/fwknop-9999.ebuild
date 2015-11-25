@@ -15,7 +15,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd git-r3
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
-HOMEPAGE="http://www.cipherdyne.org/fwknop/"
+HOMEPAGE="http://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
 EGIT_REPO_URI="git://github.com/mrash/${PN}.git"
 
 LICENSE="GPL-2"
