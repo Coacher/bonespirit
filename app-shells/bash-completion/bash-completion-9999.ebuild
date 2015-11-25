@@ -37,7 +37,7 @@ STRIP_COMPLETIONS=(
 	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg slapt-get slapt-src upgradepkg
 
 	# Debian completions
-	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug uscan
+	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug
 
 	# FreeBSD completions
 	freebsd-update kldload kldunload pkg_deinstall pkg_delete pkg_info portinstall portsnap portupgrade
