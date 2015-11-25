@@ -5,8 +5,8 @@
 EAPI=5
 
 inherit vim-plugin git-r3
-MY_PN="Zenburn"
-EGIT_REPO_URI="git://github.com/jnurmine/${MY_PN}.git"
+
+EGIT_REPO_URI="git://github.com/jnurmine/Zenburn.git"
 
 DESCRIPTION="vim colorscheme: a low-contrast color scheme for Vim"
 HOMEPAGE="https://github.com/jnurmine/Zenburn"
