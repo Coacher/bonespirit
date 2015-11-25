@@ -134,8 +134,8 @@ src_install() {
 
 	insinto /etc
 	doins "${BUILD_DIR}/${PN}.conf"
-	fowners root:ulogd /etc/ulogd.conf
-	fperms 640 /etc/ulogd.conf
+	fowners root:ulogd /etc/${PN}.conf
+	fperms 640 /etc/${PN}.conf
 
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 	systemd_dounit "${FILESDIR}/${PN}.service"
