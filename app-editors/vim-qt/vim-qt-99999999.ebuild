@@ -5,7 +5,7 @@
 EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
-PYTHON_REQ_USE=threads
+PYTHON_REQ_USE='threads'
 
 inherit eutils fdo-mime flag-o-matic prefix python-r1 git-r3
 
@@ -86,6 +86,13 @@ src_configure() {
 		$(use_with luajit)
 	)
 
+	if ! use cscope; then
+		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die
+	fi
+
+	# Keep prefix env contained within the EPREFIX
+	use prefix && myconf+=" --without-local-dir"
+
 	if use python; then
 		py_add_interp() {
 			local v
@@ -104,13 +111,6 @@ src_configure() {
 			--disable-python3interp
 		)
 	fi
-
-	if ! use cscope; then
-		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die
-	fi
-
-	# Keep prefix env contained within the EPREFIX
-	use prefix && myconf+=" --without-local-dir"
 
 	econf \
 		--with-modified-by="Gentoo-${PVR}" \
