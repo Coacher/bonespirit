@@ -6,11 +6,10 @@ EAPI=5
 
 inherit kde4-base git-r3
 
-EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
-EGIT_BRANCH="2.1"
-
 DESCRIPTION="A Latex Editor and TeX shell for KDE"
 HOMEPAGE="http://kile.sourceforge.net/"
+EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
+EGIT_BRANCH="2.1"
 
 LICENSE="FDL-1.2 GPL-2"
 KEYWORDS="~amd64 ~x86"

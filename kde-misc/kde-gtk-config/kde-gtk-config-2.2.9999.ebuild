@@ -6,11 +6,10 @@ EAPI=5
 
 inherit kde4-base git-r3
 
-EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
-EGIT_BRANCH="2.2"
-
 DESCRIPTION="KDE systemsettings kcm to set GTK application look&feel"
 HOMEPAGE="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
+EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
+EGIT_BRANCH="2.2"
 
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
