@@ -9,7 +9,7 @@ AUTOTOOLS_AUTORECONF=1
 inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
-HOMEPAGE="http://netfilter.org/projects/ulogd/index.html"
+HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
 EGIT_REPO_URI="git://git.netfilter.org/${PN}2.git"
 
 LICENSE="GPL-2"
@@ -129,8 +129,8 @@ src_install() {
 
 	insinto /etc
 	doins "${BUILD_DIR}/${PN}.conf"
-	fowners root:ulogd /etc/ulogd.conf
-	fperms 640 /etc/ulogd.conf
+	fowners root:ulogd /etc/${PN}.conf
+	fperms 640 /etc/${PN}.conf
 
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 	systemd_dounit "${FILESDIR}/${PN}.service"
