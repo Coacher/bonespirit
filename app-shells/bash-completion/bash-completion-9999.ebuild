@@ -34,10 +34,10 @@ PATCHES=( "${FILESDIR}/${PN}-blacklist-support.patch" )
 # List unwanted completions to be removed later
 STRIP_COMPLETIONS=(
 	# Slackware completions
-	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg upgradepkg
+	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg slapt-get slapt-src upgradepkg
 
 	# Debian completions
-	apt-build apt-cache apt-get aptitude dselect ifup ifdown ifstatus querybts reportbug
+	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug
 
 	# FreeBSD completions
 	freebsd-update kldload kldunload pkg_deinstall pkg_delete pkg_info portinstall portsnap portupgrade
