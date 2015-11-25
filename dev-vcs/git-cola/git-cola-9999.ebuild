@@ -22,7 +22,8 @@ RDEPEND="
 	dev-python/pyinotify[${PYTHON_USEDEP}]
 	dev-python/send2trash[${PYTHON_USEDEP}]
 	dev-python/PyQt4[${PYTHON_USEDEP}]
-	dev-vcs/git"
+	dev-vcs/git
+"
 DEPEND="${RDEPEND}
 	sys-devel/gettext
 	doc? (
@@ -33,7 +34,7 @@ DEPEND="${RDEPEND}
 "
 
 python_prepare_all() {
-	rm share/git-cola/bin/*askpass* || die
+	rm share/${PN}/bin/*askpass* || die
 
 	# remove broken tests
 	rm test/i18n_test.py || die
@@ -43,7 +44,7 @@ python_prepare_all() {
 
 	# fix doc directory reference
 	sed -i \
-		-e "s/'doc', 'git-cola'/'doc', '${PF}'/" \
+		-e "s/'share', 'doc', '${PN}'/'share', 'doc', '${PF}'/" \
 		cola/resources.py || die
 
 	# fix ssh-askpass directory reference
