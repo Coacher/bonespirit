@@ -11,8 +11,8 @@ inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo systemd use
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
 SRC_URI="
+	https://www.netfilter.org/projects/${PN}/files/${P}.tar.bz2
 	ftp://ftp.netfilter.org/pub/${PN}/${P}.tar.bz2
-	http://www.netfilter.org/projects/${PN}/files/${P}.tar.bz2
 "
 
 LICENSE="GPL-2"
