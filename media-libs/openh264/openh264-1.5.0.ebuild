@@ -25,13 +25,13 @@ DEPEND="dev-lang/nasm"
 
 RESTRICT="bindist"
 
+DOCS=( README.md RELEASES )
+
 PATCHES=(
 	"${FILESDIR}/${P}-pkgconfig-pathfix.patch"
 	"${FILESDIR}/${P}-avoid-git-versioning.patch"
 	"${FILESDIR}/${P}-avoid-plugin-crash.patch"
 )
-
-DOCS=( README.md RELEASES )
 
 src_prepare() {
 	epatch "${PATCHES[@]}"
