@@ -37,6 +37,8 @@ DEPEND="${RDEPEND}
 
 DOCS=( ChangeLog README )
 
+PATCHES=( "${FILESDIR}/${P}-fix-parallel-doc-build.patch" )
+
 S="${WORKDIR}/${PN}-upstream/${PV}-${GIT_SHA1}"
 
 src_prepare() {
