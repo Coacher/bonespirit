@@ -37,8 +37,6 @@ DEPEND="${RDEPEND}
 
 DOCS=( ChangeLog README )
 
-sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
-
 src_prepare() {
 	# Use Gentoo doc install path.
 	sed -i \
@@ -72,6 +70,8 @@ src_install() {
 
 	autotools-utils_src_install
 }
+
+sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
 
 pkg_postinst() {
 	latex-package_pkg_postinst
