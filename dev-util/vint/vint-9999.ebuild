@@ -19,9 +19,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND="
-	>=dev-python/pyyaml-3.11[${PYTHON_USEDEP}]
 	>=dev-python/ansicolor-0.2.4[${PYTHON_USEDEP}]
 	>=dev-python/chardet-2.3.0[${PYTHON_USEDEP}]
+	>=dev-python/pyyaml-3.11[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
 	python_targets_python2_7? ( >=dev-python/enum34-1.0.4[$(python_gen_usedep 'python2*')] )
 "
@@ -36,15 +36,6 @@ DEPEND="${RDEPEND}
 "
 
 DOCS=( README.rst )
-
-python_prepare_all() {
-	# Purge tests together with their deps to avoid file collisions
-	sed -i \
-		-e 's/find_packages()/find_packages(exclude=["compat", "compat.*", "dev_tool", "test", "test.*"])/' \
-		setup.py || die
-
-	distutils-r1_python_prepare_all
-}
 
 python_test() {
 	py.test -v || die "Testing failed with ${EPYTHON}"
