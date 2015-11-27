@@ -37,14 +37,6 @@ DEPEND="${RDEPEND}
 
 DOCS=( README.rst )
 
-python_prepare() {
-	if [[ "${EPYTHON}" != python2* ]]; then
-		sed -i \
-			-e '/pathlib/d' \
-			requirements.txt || die
-	fi
-}
-
 python_prepare_all() {
 	# Purge tests together with their deps to avoid file collisions
 	sed -i \
