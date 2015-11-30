@@ -55,7 +55,7 @@ PATCHES=(
 
 src_prepare() {
 	# Ignore rudimentary zh_TW translation(s)
-	rm 'translations/flacon_zh_TW.ts' || die
+	rm "translations/${PN}_zh_TW.ts" || die
 
 	remove_locale() {
 		rm "translations/${PN}_${1}."{ts,desktop} || die

@@ -49,7 +49,7 @@ REQUIRED_USE="^^ ( qt4 qt5 )"
 
 src_prepare() {
 	# Ignore rudimentary et, zh_TW translation(s)
-	rm 'translations/flacon_'{et,zh_TW}.ts || die
+	rm "translations/${PN}_"{et,zh_TW}.ts || die
 
 	remove_locale() {
 		rm "translations/${PN}_${1}."{ts,desktop} || die
