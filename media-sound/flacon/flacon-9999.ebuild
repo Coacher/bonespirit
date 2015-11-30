@@ -4,7 +4,7 @@
 
 EAPI=5
 
-# Ignore rudimentary et, zh_TW translation(s)
+# Ignore rudimentary et, uz@Latn, zh_TW translation(s)
 PLOCALES="cs cs_CZ de es es_MX fr gl hu it ja_JP lt nb pl pl_PL pt_BR pt_PT ro_RO ru sr tr uk zh_CN"
 
 inherit cmake-utils fdo-mime gnome2-utils l10n git-r3
@@ -18,15 +18,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="aac flac mac mp3 ogg opus qt4 qt5 replaygain tta wavpack"
 
-RDEPEND="
+DEPEND="
 	dev-libs/uchardet
-	media-sound/shntool[mac?]
-	aac? ( media-libs/faac )
-	flac? ( media-libs/flac )
-	mac? ( media-sound/mac )
-	mp3? ( media-sound/lame )
-	ogg? ( media-sound/vorbis-tools )
-	opus? ( media-sound/opus-tools )
 	qt4? (
 		dev-qt/qtcore:4
 		dev-qt/qtgui:4
@@ -36,6 +29,15 @@ RDEPEND="
 		dev-qt/qtnetwork:5
 		dev-qt/qtwidgets:5
 	)
+"
+RDEPEND="${DEPEND}
+	media-sound/shntool[mac?]
+	aac? ( media-libs/faac )
+	flac? ( media-libs/flac )
+	mac? ( media-sound/mac )
+	mp3? ( media-sound/lame )
+	ogg? ( media-sound/vorbis-tools )
+	opus? ( media-sound/opus-tools )
 	replaygain? (
 		mp3? ( media-sound/mp3gain )
 		ogg? ( media-sound/vorbisgain )
@@ -43,12 +45,12 @@ RDEPEND="
 	tta? ( media-sound/ttaenc )
 	wavpack? ( media-sound/wavpack )
 "
-DEPEND="${RDEPEND}"
 
 REQUIRED_USE="^^ ( qt4 qt5 )"
 
 src_prepare() {
-	# Ignore rudimentary et, zh_TW translation(s)
+	# Ignore rudimentary et, uz@Latn, zh_TW translation(s)
+	rm "translations/${PN}_uz@Latn.desktop" || die
 	rm "translations/${PN}_"{et,zh_TW}.ts || die
 
 	remove_locale() {
