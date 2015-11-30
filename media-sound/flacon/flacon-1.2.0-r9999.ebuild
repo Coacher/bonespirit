@@ -67,6 +67,14 @@ src_prepare() {
 	l10n_for_each_disabled_locale_do remove_locale
 }
 
+src_configure() {
+	local mycmakeargs=(
+		$(cmake-utils_use_use qt4 QT4)
+		$(cmake-utils_use_use qt5 QT5)
+	)
+	cmake-utils_src_configure
+}
+
 pkg_preinst() {
 	gnome2_icon_savelist
 }
