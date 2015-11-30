@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>proxy-maintainers</herd>
+	<maintainer>
+		<email>nikoli@gmx.us</email>
+		<name>Nikoli</name>
+	</maintainer>
+	<maintainer>
+		<email>maksbotan@gentoo.org</email>
+		<name>Maxim Koltsov</name>
+	</maintainer>
+	<maintainer>
+		<email>itumaykin+gentoo@gmail.com</email>
+		<name>Coacher</name>
+		<description>Proxied maintainer; set to assignee in all bugs</description>
+	</maintainer>
+	<use>
+		<flag name="mac">Add support for Monkey's Audio input files</flag>
+		<flag name="opus">Add support for Opus output files</flag>
+		<flag name="replaygain">Support for Replay Gain metadata, for relative volume adjustment</flag>
+		<flag name="tta">Add support for True Audio input files</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">flacon/flacon</remote-id>
+	</upstream>
+</pkgmetadata>
