@@ -5,7 +5,7 @@
 EAPI=5
 
 # Ignore rudimentary et, uz@Latn, zh_TW translation(s)
-PLOCALES="cs cs_CZ de es es_MX fr gl hu it ja_JP lt nb pl pl_PL pt_BR pt_PT ro_RO ru sr tr uk zh_CN"
+PLOCALES="cs_CZ cs de es_MX es fr gl hu it ja_JP lt nb pl_PL pl pt_BR pt_PT ro_RO ru sr tr uk zh_CN"
 
 inherit cmake-utils fdo-mime gnome2-utils l10n git-r3
 
@@ -51,7 +51,7 @@ REQUIRED_USE="^^ ( qt4 qt5 )"
 src_prepare() {
 	# Ignore rudimentary et, uz@Latn, zh_TW translation(s)
 	rm "translations/${PN}_uz@Latn.desktop" || die
-	rm "translations/${PN}_"{et,zh_TW}.ts || die
+	rm "translations/${PN}"_{et,zh_TW}.ts || die
 
 	remove_locale() {
 		rm "translations/${PN}_${1}."{ts,desktop} || die

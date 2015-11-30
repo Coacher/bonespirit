@@ -5,7 +5,7 @@
 EAPI=5
 
 # Ignore rudimentary uz@Latn, zh_TW translation(s)
-PLOCALES="cs cs_CZ de es es_MX fr gl hu it ja_JP lt pl pl_PL pt_BR pt_PT ro_RO ru sr tr uk zh_CN"
+PLOCALES="cs_CZ cs de es_MX es fr gl hu it ja_JP lt pl_PL pl pt_BR pt_PT ro_RO ru sr tr uk zh_CN"
 
 inherit cmake-utils fdo-mime gnome2-utils l10n
 
