@@ -16,7 +16,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="aac flac mac mp3 ogg opus qt4 qt5 replaygain tta wavpack"
+IUSE="aac flac mac mp3 opus qt4 qt5 replaygain tta vorbis wavpack"
 
 DEPEND="
 	dev-libs/uchardet
@@ -36,13 +36,13 @@ RDEPEND="${DEPEND}
 	flac? ( media-libs/flac )
 	mac? ( media-sound/mac )
 	mp3? ( media-sound/lame )
-	ogg? ( media-sound/vorbis-tools )
 	opus? ( media-sound/opus-tools )
 	replaygain? (
 		mp3? ( media-sound/mp3gain )
-		ogg? ( media-sound/vorbisgain )
+		vorbis? ( media-sound/vorbisgain )
 	)
 	tta? ( media-sound/ttaenc )
+	vorbis? ( media-sound/vorbis-tools )
 	wavpack? ( media-sound/wavpack )
 "
 
