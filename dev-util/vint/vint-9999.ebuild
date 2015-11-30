@@ -37,6 +37,8 @@ DEPEND="${RDEPEND}
 
 DOCS=( README.rst )
 
+PATCHES=( "${FILESDIR}/${PN}-exclude-tests-recursively.patch" )
+
 python_test() {
 	py.test -v || die "Testing failed with ${EPYTHON}"
 }
