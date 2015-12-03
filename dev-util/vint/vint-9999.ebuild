@@ -5,7 +5,6 @@
 EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_4} )
-DISTUTILS_IN_SOURCE_BUILD=1
 
 inherit distutils-r1 git-r3
 
@@ -23,15 +22,19 @@ RDEPEND="
 	>=dev-python/chardet-2.3.0[${PYTHON_USEDEP}]
 	>=dev-python/pyyaml-3.11[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
-	python_targets_python2_7? ( >=dev-python/enum34-1.0.4[$(python_gen_usedep 'python2*')] )
+	python_targets_python2_7? (
+		>=dev-python/enum34-1.0.4[$(python_gen_usedep 'python2*')]
+	)
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
+		>=dev-python/coverage-3.7.1[${PYTHON_USEDEP}]
 		>=dev-python/pytest-2.6.4[${PYTHON_USEDEP}]
 		>=dev-python/pytest-cov-1.8.1[${PYTHON_USEDEP}]
-		>=dev-python/coverage-3.7.1[${PYTHON_USEDEP}]
-		>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]
+		python_targets_python2_7? (
+			>=dev-python/mock-1.0.1[$(python_gen_usedep 'python2*')]
+		)
 	)
 "
 
