@@ -8,7 +8,7 @@ inherit vim-plugin git-r3
 
 EGIT_REPO_URI="git://github.com/jnurmine/Zenburn.git"
 
-DESCRIPTION="vim colorscheme: a low-contrast color scheme for Vim"
+DESCRIPTION="vim plugin: low-contrast color scheme for Vim"
 HOMEPAGE="https://github.com/jnurmine/Zenburn"
 LICENSE="GPL-1"
 KEYWORDS="~amd64 ~x86"
