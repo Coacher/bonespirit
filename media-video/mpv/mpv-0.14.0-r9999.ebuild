@@ -283,7 +283,7 @@ src_test() {
 	cd "${S}"/build/test || die
 	for test in *; do
 		if [ -x "${test}" ]; then
-			"./${test}" || die "Test suite failed"
+			$(${test}) || die "Test suite failed"
 		fi
 	done
 }
