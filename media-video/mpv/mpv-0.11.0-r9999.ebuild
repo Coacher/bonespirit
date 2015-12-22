@@ -38,6 +38,7 @@ REQUIRED_USE="
 	|| ( cli libmpv )
 	egl? ( || ( X wayland ) )
 	enca? ( iconv )
+	lcms? ( || ( opengl egl ) )
 	libguess? ( iconv )
 	luajit? ( lua )
 	opengl? ( X )

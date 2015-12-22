@@ -39,6 +39,7 @@ REQUIRED_USE="
 	egl? ( || ( gbm X wayland ) )
 	enca? ( iconv )
 	gbm? ( drm egl )
+	lcms? ( || ( opengl egl ) )
 	libguess? ( iconv )
 	luajit? ( lua )
 	opengl? ( X )
