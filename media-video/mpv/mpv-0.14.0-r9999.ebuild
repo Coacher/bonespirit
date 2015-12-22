@@ -34,12 +34,11 @@ IUSE="+alsa archive bluray cdda +cli doc drm dvb +dvd egl +enca encode gbm
 +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux test v4l vaapi
 vdpau vf-dlopen wayland +X xinerama +xscreensaver xv"
 
-# 'gbm' is only needed for 'egl' in conjunction with 'drm'
 REQUIRED_USE="
 	|| ( cli libmpv )
 	egl? ( || ( gbm X wayland ) )
 	enca? ( iconv )
-	gbm? ( drm )
+	gbm? ( drm egl )
 	libguess? ( iconv )
 	luajit? ( lua )
 	opengl? ( X )
@@ -66,10 +65,9 @@ CDEPEND="
 		>=media-libs/libdvdnav-4.2.0
 		>=media-libs/libdvdread-4.1.0
 	)
-	egl? ( media-libs/mesa[egl,wayland(-)?] )
+	egl? ( media-libs/mesa[egl,gbm(-)?,wayland(-)?] )
 	enca? ( app-i18n/enca )
 	iconv? ( virtual/libiconv )
-	gbm? ( media-libs/mesa[gbm] )
 	jack? ( media-sound/jack-audio-connection-kit )
 	jpeg? ( virtual/jpeg:0 )
 	lcms? ( >=media-libs/lcms-2.6:2 )
@@ -121,8 +119,7 @@ RDEPEND="${CDEPEND}
 "
 
 pkg_pretend() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && ! tc-has-tls && \
-		use vaapi && use egl && (use X || use wayland); then
+	if [[ ${MERGE_TYPE} != "binary" ]] && ! tc-has-tls && use vaapi && use egl; then
 		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
 	fi
 
@@ -211,6 +208,9 @@ src_configure() {
 		$(use_enable jack)
 		$(use_enable openal)
 		$(use_enable alsa)
+		--disable-coreaudio
+		--disable-dsound
+		--disable-wasapi
 
 		# Video outputs
 		--disable-cocoa
@@ -229,7 +229,7 @@ src_configure() {
 		$(use_enable wayland gl-wayland)
 		$(use_enable vdpau)
 		$(usex vdpau "$(use_enable opengl vdpau-gl-x11)" '--disable-vdpau-gl-x11')
-		$(use_enable vaapi)
+		$(use_enable vaapi)		# See below for vaapi-x-egl
 		$(usex vaapi "$(use_enable X vaapi-x11)" '--disable-vaapi-x11')
 		$(usex vaapi "$(use_enable wayland vaapi-wayland)" '--disable-vaapi-wayland')
 		$(usex vaapi "$(use_enable opengl vaapi-glx)" '--disable-vaapi-glx')
@@ -249,7 +249,7 @@ src_configure() {
 		$(use_enable dvb dvbin)
 	)
 
-	if use egl && use vaapi && use X; then
+	if use vaapi && use X && use egl; then
 		mywafargs+=(--enable-vaapi-x-egl)
 	else
 		mywafargs+=(--disable-vaapi-x-egl)
@@ -262,7 +262,7 @@ src_install() {
 	waf-utils_src_install
 
 	if use cli && use luajit; then
-		pax-mark -m "${ED}"usr/bin/mpv
+		pax-mark -m "${ED}usr/bin/${PN}"
 	fi
 }
 
