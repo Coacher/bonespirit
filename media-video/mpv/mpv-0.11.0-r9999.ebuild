@@ -204,6 +204,9 @@ src_configure() {
 		$(use_enable jack)
 		$(use_enable openal)
 		$(use_enable alsa)
+		--disable-coreaudio
+		--disable-dsound
+		--disable-wasapi
 
 		# Video outputs
 		--disable-cocoa
@@ -246,7 +249,7 @@ src_install() {
 	waf-utils_src_install
 
 	if use cli && use luajit; then
-		pax-mark -m "${ED}"usr/bin/mpv
+		pax-mark -m "${ED}usr/bin/${PN}"
 	fi
 }
 
