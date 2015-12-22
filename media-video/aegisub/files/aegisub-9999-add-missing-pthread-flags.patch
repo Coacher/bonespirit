@@ -1,3 +1,17 @@
+diff --git a/libaegisub/Makefile b/libaegisub/Makefile
+index 4efb685..7443eac 100644
+--- a/libaegisub/Makefile
++++ b/libaegisub/Makefile
+@@ -44,7 +44,8 @@ aegisub_OBJ += $(d)common/dispatch.o
+ endif
+ 
+ aegisub_PCH := $(d)lagi_pre.h
+-aegisub_CPPFLAGS := -I$(d)include -I$(TOP) $(CPPFLAGS_BOOST) $(CFLAGS_LUA)
++aegisub_CPPFLAGS := -I$(d)include -I$(TOP) \
++	$(CPPFLAGS_BOOST) $(CFLAGS_LUA) $(CFLAGS_PTHREAD)
+ 
+ $(d)common/charset_conv.o_FLAGS := $(CFLAGS_ICONV)
+ $(d)common/parser.o_FLAGS := -ftemplate-depth=256
 diff --git a/tools/Makefile b/tools/Makefile
 index d9f64b8..f9a6cd3 100644
 --- a/tools/Makefile
