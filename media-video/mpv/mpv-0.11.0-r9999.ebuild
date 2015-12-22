@@ -155,6 +155,7 @@ src_prepare() {
 
 src_configure() {
 	local mywafargs=(
+		--confdir="${EPREFIX}"/etc/${PN}
 		--docdir="${EPREFIX}"/usr/share/doc/${PF}
 
 		$(usex cli '' '--disable-cplayer')
