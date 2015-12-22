@@ -86,9 +86,9 @@ CDEPEND="
 	pulseaudio? ( media-sound/pulseaudio )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba )
-	sdl? ( media-libs/libsdl2[sound,threads,video,wayland?,X?] )
+	sdl? ( media-libs/libsdl2[sound,threads,video,X?,wayland?] )
 	v4l? ( media-libs/libv4l )
-	vaapi? ( >=x11-libs/libva-1.4.0[X(+)?,wayland(-)?] )
+	vaapi? ( >=x11-libs/libva-1.4.0[X?,wayland?] )
 	wayland? (
 		>=dev-libs/wayland-1.6.0
 		>=x11-libs/libxkbcommon-0.3.0

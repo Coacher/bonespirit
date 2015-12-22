@@ -86,7 +86,7 @@ CDEPEND="
 	pulseaudio? ( media-sound/pulseaudio )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba )
-	sdl? ( media-libs/libsdl2[sound,threads,video,wayland?,X?] )
+	sdl? ( media-libs/libsdl2[sound,threads,video,X?,wayland?] )
 	v4l? ( media-libs/libv4l )
 	wayland? (
 		>=dev-libs/wayland-1.6.0
@@ -100,7 +100,7 @@ CDEPEND="
 			x11-libs/libXdamage
 			virtual/opengl
 		)
-		vaapi? ( >=x11-libs/libva-1.2.0[X(+)] )
+		vaapi? ( >=x11-libs/libva-1.2.0[X] )
 		vdpau? ( >=x11-libs/libvdpau-0.2 )
 		xinerama? ( x11-libs/libXinerama )
 		xscreensaver? ( x11-libs/libXScrnSaver )
