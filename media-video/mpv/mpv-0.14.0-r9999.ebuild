@@ -249,7 +249,7 @@ src_configure() {
 	)
 
 	if use egl && use vaapi && use X; then
-		mywafargs+=(--vaapi-x-egl)
+		mywafargs+=(--enable-vaapi-x-egl)
 	else
 		mywafargs+=(--disable-vaapi-x-egl)
 	fi
