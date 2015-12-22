@@ -30,7 +30,7 @@ RDEPEND="
 	acl? ( kernel_linux? ( sys-apps/acl ) )
 	cscope? ( dev-util/cscope )
 	lua? (
-		luajit? ( dev-lang/luajit:2= )
+		luajit? ( dev-lang/luajit:2 )
 		!luajit? ( dev-lang/lua:0[deprecated] )
 	)
 	nls? ( virtual/libintl )
