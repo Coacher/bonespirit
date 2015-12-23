@@ -155,6 +155,7 @@ src_prepare() {
 	chmod 0755 "${S}"/waf || die
 
 	epatch "${FILESDIR}/${PN}-fix-include-in-tests.patch"
+	epatch "${FILESDIR}/${P}-support-GNU-__thread.patch"
 	epatch_user
 }
 
