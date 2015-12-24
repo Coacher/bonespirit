@@ -1,0 +1,2 @@
+# Tests require non-keyworded dev-util/cmocka. See #569558.
+media-video/mpv test
