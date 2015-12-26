@@ -11,5 +11,5 @@ inherit gstreamer
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="media-sound/mpg123[${MULTILIB_USEDEP}]"
-DEPEND="${RDEPEND}"
+DEPEND="media-sound/mpg123[${MULTILIB_USEDEP}]"
+RDEPEND="${DEPEND}"
