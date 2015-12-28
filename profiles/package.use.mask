@@ -1,2 +1,3 @@
 # Tests require non-keyworded dev-util/cmocka. See #569558.
-media-video/mpv test
+# dev-util/uchardet lacks many keywords. See #569114.
+media-video/mpv test uchardet
