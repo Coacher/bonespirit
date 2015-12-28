@@ -13,16 +13,16 @@ inherit eutils fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
-SRC_URI="https://waf.io/pub/release/waf-${WAF_PV}"
 
 if [[ ${PV} != *9999* ]]; then
-	SRC_URI+=" https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux"
 	DOCS=( RELEASE_NOTES )
 else
 	EGIT_REPO_URI="https://github.com/mpv-player/mpv.git"
 	inherit git-r3
 fi
+SRC_URI+=" https://waf.io/waf-${WAF_PV}"
 DOCS+=( README.md etc/example.conf etc/input.conf )
 
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
@@ -30,9 +30,10 @@ LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
 # Here 'opengl' stands for GLX, 'egl' stands for any EGL-based output
 IUSE="+alsa archive bluray cdda +cli doc drm dvb +dvd +egl +enca encode gbm
-+iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit openal
-+opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux test v4l vaapi
-vdpau vf-dlopen wayland +X xinerama +xscreensaver xv"
+	+iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit
+	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
+	test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver
+	xv"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -43,6 +44,7 @@ REQUIRED_USE="
 	libguess? ( iconv )
 	luajit? ( lua )
 	opengl? ( X )
+	uchardet? ( iconv )
 	v4l? ( || ( alsa oss ) )
 	vaapi? ( || ( X wayland ) )
 	vdpau? ( X )
@@ -52,7 +54,7 @@ REQUIRED_USE="
 	xv? ( X )
 "
 
-CDEPEND="
+COMMON_DEPEND="
 	!libav? ( >=media-video/ffmpeg-2.4.0:0=[encode?,threads,vaapi?,vdpau?] )
 	libav? ( >=media-video/libav-11:0=[encode?,threads,vaapi?,vdpau?] )
 	sys-libs/zlib
@@ -67,8 +69,12 @@ CDEPEND="
 		>=media-libs/libdvdread-4.1.0
 	)
 	egl? ( media-libs/mesa[egl,gbm(-)?,wayland(-)?] )
-	enca? ( app-i18n/enca )
-	iconv? ( virtual/libiconv )
+	iconv? (
+		virtual/libiconv
+		enca? ( app-i18n/enca )
+		libguess? ( >=app-i18n/libguess-1.0 )
+		uchardet? ( dev-libs/uchardet )
+	)
 	jack? ( media-sound/jack-audio-connection-kit )
 	jpeg? ( virtual/jpeg:0 )
 	lcms? ( >=media-libs/lcms-2.6:2 )
@@ -77,7 +83,6 @@ CDEPEND="
 		virtual/ttf-fonts
 	)
 	libcaca? ( >=media-libs/libcaca-0.99_beta18 )
-	libguess? ( >=app-i18n/libguess-1.0 )
 	lua? (
 		!luajit? ( || ( =dev-lang/lua-5.1*:= =dev-lang/lua-5.2*:= ) )
 		luajit? ( dev-lang/luajit:2 )
@@ -107,7 +112,7 @@ CDEPEND="
 		xv? ( x11-libs/libXv )
 	)
 "
-DEPEND="${CDEPEND}
+DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
 	>=dev-lang/perl-5.8
 	dev-python/docutils
@@ -115,7 +120,7 @@ DEPEND="${CDEPEND}
 	doc? ( dev-python/rst2pdf )
 	test? ( >=dev-util/cmocka-1.0.0 )
 "
-RDEPEND="${CDEPEND}
+RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )
 "
 
@@ -125,23 +130,25 @@ pkg_pretend() {
 	fi
 
 	if ! use libass; then
-		ewarn "You have disabled the libass flag. No OSD or subtitles will be displayed."
+		ewarn "You have disabled the libass support."
+		ewarn "OSD and subtitles won't be available."
 	fi
 
 	if use openal; then
-		ewarn "You have enabled the openal audio output, which is a fallback"
-		ewarn "and disabled by upstream."
+		ewarn "You have enabled the openal audio output. Be warned that"
+		ewarn "this output is considered experimental by upstream."
 	fi
 
 	if use sdl; then
-		ewarn "You have enabled the sdl video and audio outputs, which are fallbacks"
-		ewarn "and disabled by upstream."
+		ewarn "You have enabled the sdl video and audio outputs. Note that"
+		ewarn "upstream provides these outputs for compatibility reasons only."
+		ewarn "You probably don't need them under the normal circumstances."
 	fi
 
 	if use libav; then
-		einfo "You have enabled media-video/libav instead of media-video/ffmpeg."
-		einfo "Upstream recommends media-video/ffmpeg, as some functionality is not"
-		einfo "provided by media-video/libav."
+		elog "You have enabled media-video/libav instead of media-video/ffmpeg."
+		elog "Upstream recommends media-video/ffmpeg, as some functionality"
+		elog "is not provided by media-video/libav."
 	fi
 
 	einfo "mpv optionally supports many different audio and video formats."
@@ -152,7 +159,7 @@ pkg_pretend() {
 
 src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
-	chmod 0755 "${S}"/waf || die
+	chmod +x "${S}"/waf || die
 
 	epatch "${FILESDIR}/${PN}-fix-include-in-tests.patch"
 	epatch "${FILESDIR}/${P}-support-GNU-__thread.patch"
@@ -191,7 +198,7 @@ src_configure() {
 		$(use_enable cdda)
 		$(use_enable enca)
 		$(use_enable libguess)
-		--disable-uchardet		# Disable uchardet until #569114 is fixed
+		$(use_enable uchardet)
 		$(use_enable rubberband)
 		$(use_enable lcms lcms2)
 		--disable-vapoursynth	# Only available in overlays
@@ -285,8 +292,8 @@ pkg_postrm() {
 src_test() {
 	cd "${S}"/build/test || die
 	for test in *; do
-		if [ -x "${test}" ]; then
-			$(${test}) || die "Test suite failed"
+		if [[ -x ${test} ]]; then
+			./"${test}" || die "Test suite failed"
 		fi
 	done
 }

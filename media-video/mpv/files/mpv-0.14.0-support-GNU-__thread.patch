@@ -1,4 +1,8 @@
-See https://github.com/mpv-player/mpv/issues/2631
+For a lengthy discussion see https://github.com/mpv-player/mpv/issues/2631
+
+Upstream commits:
+https://github.com/mpv-player/mpv/commit/1a6f3c56ea6e7bf9928fc99469f8f5da4578f035
+https://github.com/mpv-player/mpv/commit/946bd52a1d1eb561ff8bb516ef6efcd02ca3ea1e
 
 diff --git a/video/out/opengl/common.c b/video/out/opengl/common.c
 index 00cd535..f607c23 100644
