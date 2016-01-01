@@ -57,6 +57,7 @@ REQUIRED_USE="
 
 PATCHES=(
 	"${FILESDIR}/${P}-fix-lua-macro.patch"
+	"${FILESDIR}/${P}-fix-install-with-empty-LINGUAS.patch"
 	"${FILESDIR}/${P}-respect-user-compiler-flags.patch"
 )
 
