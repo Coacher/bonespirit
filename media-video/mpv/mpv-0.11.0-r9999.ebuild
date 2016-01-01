@@ -32,7 +32,8 @@ SLOT="0"
 IUSE="+alsa archive bluray cdda +cli doc drm dvb +dvd egl +enca encode +iconv
 	jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit openal
 	+opengl oss pulseaudio pvr raspberry-pi rubberband samba sdl selinux test
-	uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver xv"
+	uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver xv
+	zsh-completion"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -51,6 +52,7 @@ REQUIRED_USE="
 	xinerama? ( X )
 	xscreensaver? ( X )
 	xv? ( X )
+	zsh-completion? ( cli )
 "
 
 COMMON_DEPEND="
@@ -176,7 +178,7 @@ src_configure() {
 
 		$(use_enable doc pdf-build)
 		$(use_enable vf-dlopen vf-dlopen-filters)
-		$(use_enable cli zsh-comp)
+		$(use_enable zsh-completion zsh-comp)
 		$(use_enable test)
 
 		$(use_enable iconv)
