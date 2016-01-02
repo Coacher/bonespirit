@@ -4,11 +4,13 @@
 
 EAPI=5
 
-inherit linux-info multilib udev
+inherit linux-info multilib udev vcs-snapshot
+
+EXTRA_PV='00.91'
 
 DESCRIPTION="Samsung Unified Linux Driver"
 HOMEPAGE="http://www.samsung.com"
-SRC_URI="http://downloadcenter.samsung.com/content/DR/201503/20150311142813858/ULD_v${PV}.tar.gz
+SRC_URI="http://downloadcenter.samsung.com/content/DR/201510/20151027103428932/ULD_v${PV}_${EXTRA_PV}.tar.gz
 -> ${P}.tar.gz"
 
 LICENSE="Samsung-EULA"
@@ -37,8 +39,6 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/uld"
-
 if use cups; then
 	QA_SONAME="usr/$(get_libdir)/libscmssc.so"
 	QA_FLAGS_IGNORED+=" usr/$(get_libdir)/libscmssc.so"
@@ -64,7 +64,7 @@ pkg_pretend() {
 
 src_install() {
 	local MY_ARCH="x86_64"
-	use x86 && MY_ARCH="x86"
+	use x86 && MY_ARCH="i386"
 
 	# Printer support
 	if use cups; then
