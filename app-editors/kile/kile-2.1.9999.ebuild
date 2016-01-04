@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
 EGIT_BRANCH="2.1"
 
 LICENSE="FDL-1.2 GPL-2"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 SLOT="4"
 IUSE="debug +pdf +png"
 
@@ -21,7 +21,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}
 	$(add_kdeapps_dep kdebase-data)
-	$(add_kdeapps_dep konsole)
+	|| ( $(add_kdeapps_dep konsolepart) $(add_kdeapps_dep konsole) )
 	|| (
 		$(add_kdeapps_dep okular 'pdf?,postscript')
 		app-text/acroread
