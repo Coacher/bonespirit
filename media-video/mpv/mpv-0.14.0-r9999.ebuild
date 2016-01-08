@@ -177,7 +177,6 @@ src_configure() {
 
 		--disable-libmpv-static
 		--disable-static-build
-		--disable-build-date	# Create reproducible build
 		--disable-optimize		# Do not add '-O2' to CFLAGS
 		--disable-debug-build	# Do not add '-g' to CFLAGS
 
@@ -263,6 +262,9 @@ src_configure() {
 	else
 		mywafargs+=(--disable-vaapi-x-egl)
 	fi
+
+	# Create reproducible non-live builds
+	[[ ${PV} != *9999* ]] && mywafargs+=(--disable-build-date)
 
 	waf-utils_src_configure "${mywafargs[@]}"
 }
