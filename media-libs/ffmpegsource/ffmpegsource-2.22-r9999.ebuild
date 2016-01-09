@@ -27,6 +27,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
+	"${FILESDIR}/${P}-fix-pixfmt-define.patch"
 	"${FILESDIR}/${P}-include-missing-header.patch"
 	"${FILESDIR}/${P}-add-missing-extern-C.patch"
 )
