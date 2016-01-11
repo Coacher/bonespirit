@@ -29,7 +29,7 @@ RESTRICT="test"
 
 DOCS=( AUTHORS CHANGES README )
 
-PATCHES=( "${FILESDIR}/${PN}-blacklist-support.patch" )
+PATCHES=( "${FILESDIR}/${PN}-escape-characters.patch" )
 
 # List unwanted completions to be removed later
 STRIP_COMPLETIONS=(
@@ -77,19 +77,16 @@ src_install() {
 	done
 	# Remove deprecated completions (moved to other packages)
 	rm "${ED}/usr/share/${PN}/completions"/_* || die
-
-	insinto /usr/share/eselect/modules
-	doins "${FILESDIR}/bashcomp.eselect"
-	doman "${FILESDIR}/bashcomp.eselect.5"
 }
 
 pkg_postinst() {
 	local v
 	for v in ${REPLACING_VERSIONS}; do
 		if ! version_is_at_least 2.1-r90 "${v}"; then
-			ewarn "For bash-completion autoloader to work, all completions need to be installed"
-			ewarn "in /usr/share/bash-completion/completions. You may need to rebuild packages"
-			ewarn "that installed completions in the old location. You can do this using:"
+			ewarn "For bash-completion autoloader to work, all completions need to be"
+			ewarn "installed in /usr/share/bash-completion/completions. You may need to"
+			ewarn "rebuild packages that installed completions in the old location."
+			ewarn "You can do this using:"
 			ewarn
 			ewarn "$ find ${EPREFIX}/usr/share/${PN} -maxdepth 1 -type f '!' -name 'bash_completion' -exec emerge -1v {} +"
 			ewarn
@@ -101,8 +98,8 @@ pkg_postinst() {
 
 	if has_version 'app-shells/zsh'; then
 		elog
-		elog "If you are interested in using the provided bash completion functions with zsh,"
-		elog "valuable tips on the effective use of bashcompinit are available:"
+		elog "If you are interested in using the provided bash completion functions"
+		elog "with zsh, tips on the effective use of bashcompinit are available at:"
 		elog "    http://www.zsh.org/mla/workers/2003/msg00046.html"
 		elog
 	fi
