@@ -4,10 +4,12 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 PYTHON_REQ_USE='threads'
 
 inherit eutils fdo-mime flag-o-matic prefix python-r1 git-r3
+
+VIM_CORE_PV='7.4.1063'
 
 DESCRIPTION="Qt GUI version of the Vim text editor"
 HOMEPAGE="https://bitbucket.org/equalsraf/vim-qt/wiki/Home"
@@ -22,11 +24,11 @@ KEYWORDS="~amd64 ~x86"
 IUSE="acl cscope debug lua luajit lto nls perl python racket ruby"
 
 RDEPEND="
-	>=app-editors/vim-core-7.4.827[acl?]
+	>=app-editors/vim-core-${VIM_CORE_PV}[acl?]
 	>=app-eselect/eselect-vi-1.1.8
 	>=dev-qt/qtcore-4.7.0:4
 	>=dev-qt/qtgui-4.7.0:4
-	>=sys-libs/ncurses-5.2-r2:0=
+	sys-libs/ncurses:0=
 	acl? ( kernel_linux? ( sys-apps/acl ) )
 	cscope? ( dev-util/cscope )
 	lua? (
@@ -37,7 +39,7 @@ RDEPEND="
 	perl? ( dev-lang/perl:= )
 	python? ( ${PYTHON_DEPS} )
 	racket? ( dev-scheme/racket )
-	ruby? ( || ( dev-lang/ruby:2.2 dev-lang/ruby:2.1 dev-lang/ruby:2.0 ) )
+	ruby? ( dev-lang/ruby:= )
 "
 DEPEND="${RDEPEND}
 	dev-util/ctags
@@ -45,6 +47,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	nls? ( sys-devel/gettext )
 "
+
 REQUIRED_USE="
 	luajit? ( lua )
 	python? (
@@ -66,7 +69,7 @@ src_prepare() {
 
 src_configure() {
 	if use lto; then
-		LDFLAGS_OLD="$LDFLAGS"
+		LDFLAGS_OLD="${LDFLAGS}"
 		local LDFLAGS="${LDFLAGS} -fno-lto -fno-use-linker-plugin"
 	fi
 
@@ -87,11 +90,11 @@ src_configure() {
 	)
 
 	if ! use cscope; then
-		sed -i -e '/# define FEAT_CSCOPE/d' src/feature.h || die
+		sed -i -e "/# define FEAT_CSCOPE/d" src/feature.h || die
 	fi
 
 	# Keep prefix env contained within the EPREFIX
-	use prefix && myconf+=" --without-local-dir"
+	use prefix && myconf+=(--without-local-dir)
 
 	if use python; then
 		py_add_interp() {
@@ -120,7 +123,7 @@ src_configure() {
 
 	if use lto; then
 		LDFLAGS="${LDFLAGS_OLD}"
-		sed -i -e "s/-fno-lto -fno-use-linker-plugin//g" src/auto/config.mk || die
+		sed -i -e "s|-fno-lto -fno-use-linker-plugin||g" src/auto/config.mk || die
 	fi
 }
 
@@ -129,12 +132,12 @@ src_install() {
 	dosym qvim /usr/bin/qvimdiff
 
 	dodir /usr/share/man/man1
-	echo ".so vim.1" > "${ED}"/usr/share/man/man1/qvim.1
-	echo ".so vimdiff.1" > "${ED}"/usr/share/man/man1/qvimdiff.1
+	echo ".so vim.1" > "${ED}"usr/share/man/man1/qvim.1
+	echo ".so vimdiff.1" > "${ED}"usr/share/man/man1/qvimdiff.1
 
 	# See https://bitbucket.org/equalsraf/vim-qt/issue/93/include-desktop-file-in-source
 	newmenu "${FILESDIR}/${PN}.desktop" ${PN}.desktop
-	doicon -s 64 "src/qt/icons/${PN}.png"
+	doicon -s 64 src/qt/icons/${PN}.png
 }
 
 pkg_postinst() {
