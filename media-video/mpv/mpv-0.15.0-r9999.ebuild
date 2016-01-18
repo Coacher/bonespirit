@@ -23,7 +23,7 @@ else
 	inherit git-r3
 fi
 SRC_URI+=" https://waf.io/waf-${WAF_PV}"
-DOCS+=( README.md etc/example.conf etc/input.conf )
+DOCS+=( README.md )
 
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
@@ -161,9 +161,6 @@ pkg_pretend() {
 src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
-
-	epatch "${FILESDIR}/${PN}-fix-include-in-tests.patch"
-	epatch "${FILESDIR}/${P}-support-GNU-__thread.patch"
 	epatch_user
 }
 
@@ -182,6 +179,7 @@ src_configure() {
 		--disable-optimize		# Do not add '-O2' to CFLAGS
 		--disable-debug-build	# Do not add '-g' to CFLAGS
 
+		$(use_enable doc html-build)
 		$(use_enable doc pdf-build)
 		$(use_enable vf-dlopen vf-dlopen-filters)
 		$(use_enable zsh-completion zsh-comp)
@@ -220,7 +218,6 @@ src_configure() {
 		$(use_enable openal)
 		$(use_enable alsa)
 		--disable-coreaudio
-		--disable-dsound
 
 		# Video outputs
 		--disable-cocoa
