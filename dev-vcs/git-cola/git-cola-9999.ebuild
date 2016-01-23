@@ -6,9 +6,10 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{3,4} )
 DISTUTILS_SINGLE_IMPL=1
+
 PLOCALES="de es fr hu id_ID it ja pt_BR ru sv tr_TR zh_CN zh_TW"
 
-inherit distutils-r1 l10n readme.gentoo-r1 virtualx git-r3
+inherit distutils-r1 l10n readme.gentoo-r1 git-r3
 
 DESCRIPTION="The highly caffeinated git GUI"
 HOMEPAGE="https://git-cola.github.io/"
@@ -81,10 +82,9 @@ python_compile_all() {
 }
 
 python_test() {
-	PYTHONPATH="${S}:${S}/build/lib:${PYTHONPATH}" LC_ALL="C" \
-	VIRTUALX_COMMAND="nosetests --verbose --with-doctest --with-id \
-		--exclude=sphinxtogithub" \
-	virtualmake
+	PYTHONPATH="${S}:${S}/build/lib:${PYTHONPATH}" \
+	LC_ALL="C" \
+	emake test
 }
 
 python_install_all() {
