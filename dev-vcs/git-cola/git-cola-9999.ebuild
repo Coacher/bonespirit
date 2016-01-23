@@ -82,8 +82,7 @@ python_compile_all() {
 }
 
 python_test() {
-	PYTHONPATH="${S}:${S}/build/lib:${PYTHONPATH}" \
-	LC_ALL="C" \
+	distutils_install_for_testing
 	emake test
 }
 
