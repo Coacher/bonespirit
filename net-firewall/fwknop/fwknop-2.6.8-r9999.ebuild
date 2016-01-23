@@ -13,7 +13,7 @@ DISTUTILS_OPTIONAL=1
 # See https://github.com/mrash/fwknop/issues/167
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools-utils distutils-r1 linux-info readme.gentoo systemd
+inherit autotools-utils eutils distutils-r1 linux-info readme.gentoo-r1 systemd
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="http://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
