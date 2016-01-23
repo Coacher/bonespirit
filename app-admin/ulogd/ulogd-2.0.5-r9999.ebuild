@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 
-inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo systemd user
+inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo-r1 systemd user
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
@@ -82,8 +82,8 @@ src_prepare() {
 	# - make all logs to be kept in a single dir /var/log/ulogd
 	# - place sockets in /run instead of /tmp
 	sed -i \
-		-e 's:var/log:var/log/ulogd:g' \
-		-e 's:tmp:run:g' \
+		-e 's%var/log%var/log/ulogd%g' \
+		-e 's%tmp%run%g' \
 		ulogd.conf.in || die
 
 	append-lfs-flags
@@ -118,8 +118,8 @@ src_compile() {
 
 src_install() {
 	autotools-utils_src_install
-	readme.gentoo_create_doc
 	prune_libtool_files --modules
+	readme.gentoo_create_doc
 
 	if use doc; then
 		dohtml doc/${PN}.html
@@ -145,4 +145,8 @@ src_install() {
 
 	diropts -o ulogd -g ulogd
 	keepdir /var/log/ulogd
+}
+
+pkg_postinst() {
+	readme.gentoo_print_elog
 }
