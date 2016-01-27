@@ -6,6 +6,6 @@
     <name>XFCE Team</name>
   </maintainer>
   <use>
-    <flag name='gtk3'>Enable support for x11-libs/gtk+:3</flag>
+    <flag name="gtk3">Enable support for x11-libs/gtk+:3</flag>
   </use>
 </pkgmetadata>
