@@ -81,13 +81,13 @@ pkg_postinst() {
 	if linux_config_exists \
 		&& kernel_is -lt 4 3 && ! linux_chkconfig_present DRM_I915_KMS; then
 		echo
-		ewarn "This driver requires KMS support in your kernel"
-		ewarn "  Device Drivers --->"
-		ewarn "    Graphics support --->"
-		ewarn "      Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->"
-		ewarn "      <*>   Intel 830M, 845G, 852GM, 855GM, 865G (i915 driver)  --->"
-		ewarn "	      i915 driver"
-		ewarn "      [*]       Enable modesetting on intel by default"
+		ewarn "${PN} requires KMS support in your kernel"
+		ewarn "  Device Drivers  --->"
+		ewarn "    Graphics support  --->"
+		ewarn "      Direct Rendering Manager  --->"
+		ewarn "        Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->"
+		ewarn "        <*>   Intel 8xx/9xx/G3x/G4x/HD Graphics"
+		ewarn "        [*]     Enable modesetting on intel by default"
 		echo
 	fi
 }
