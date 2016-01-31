@@ -8,7 +8,7 @@ GST_ORG_MODULE=gst-plugins-bad
 
 inherit gstreamer
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE=""
 
 DEPEND="media-sound/mpg123[${MULTILIB_USEDEP}]"
