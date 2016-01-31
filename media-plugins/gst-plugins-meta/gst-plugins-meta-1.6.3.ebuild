@@ -65,7 +65,7 @@ RDEPEND="
 "
 
 # Usage note:
-# The idea is that apps depend on this for optional gstreamer plugins.  Then,
+# The idea is that apps depend on this for optional gstreamer plugins. Then,
 # when USE flags change, no app gets rebuilt, and all apps that can make use of
 # the new plugin automatically do.
 
