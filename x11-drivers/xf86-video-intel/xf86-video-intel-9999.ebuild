@@ -11,12 +11,9 @@ inherit linux-info xorg-2
 DESCRIPTION="X.Org driver for Intel cards"
 
 KEYWORDS="~amd64 ~x86 ~amd64-fbsd -x86-fbsd"
-IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc xinerama"
+IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc"
 
-REQUIRED_USE="
-	|| ( sna uxa )
-	xinerama? ( tools )
-"
+REQUIRED_USE="|| ( sna uxa )"
 
 RDEPEND="
 	>=x11-libs/libdrm-2.4.52[video_cards_intel]
@@ -34,7 +31,7 @@ RDEPEND="
 		x11-libs/libXtst
 		x11-libs/libxcb
 		x11-libs/libxshmfence
-		xinerama? ( x11-libs/libXinerama )
+		x11-libs/libXinerama
 	)
 	udev? ( virtual/libudev )
 	ums? ( x11-libs/libpciaccess )
