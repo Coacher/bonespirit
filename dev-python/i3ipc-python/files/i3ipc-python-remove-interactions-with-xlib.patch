@@ -1,0 +1,60 @@
+commit 2ff1bc2968588847af1fa2f55cd68cb163cd39a1
+Author: Ilya Tumaykin <itumaykin@gmail.com>
+Date:   Fri Feb 5 05:08:38 2016 +0300
+
+    Remove interactions with Xlib
+    
+    The state of Xlib/XCB Python bindings is dismal.
+    python-xlib/python3-xlib are simply broken with recent RandR versions.
+    xpyb, which is the default XCB Python binding, is very out of date and
+    doesn't have a proper Python 3 support (upstream state is "untested").
+    xcffib doesn't provide as wide coverage as xpyb, but supports Python 3
+    and can be considered almost usable, but still there are some issues.
+    
+    Thus drop code that interacts with Xlib completely.
+    
+    This breaks backwards compatibility, as you now must initialize I3SOCK
+    environment variable properly if you want i3ipc to be able to figure out
+    the path to the i3 socket file automatically.
+
+diff --git a/i3ipc.py b/i3ipc.py
+index da3ee79..08bf0b3 100644
+--- a/i3ipc.py
++++ b/i3ipc.py
+@@ -6,7 +6,6 @@ import socket
+ import os
+ import re
+ from enum import Enum
+-from Xlib import display
+
+
+ class MessageType(Enum):
+@@ -173,14 +172,7 @@ class Connection(object):
+             socket_path = os.environ.get("I3SOCK")
+
+         if not socket_path:
+-            d = display.Display()
+-            r = d.screen().root
+-            data = r.get_property(d.get_atom('I3_SOCKET_PATH'),
+-                                  d.get_atom('UTF8_STRING'), 0, 9999)
+-
+-            if not data.value:
+-                raise Exception('could not get i3 socket path')
+-            socket_path = data.value
++            raise Exception('could not get i3 socket path')
+
+         self._pubsub = _PubSub(self)
+         self.props = _PropsObject(self)
+diff --git a/setup.py b/setup.py
+index 9fd929b..63876d4 100644
+--- a/setup.py
++++ b/setup.py
+@@ -4,7 +4,7 @@ from os import path
+ readme_path = path.join(path.abspath(path.dirname(__file__)), 'README.rst')
+ long_description = open(readme_path).read()
+
+-install_requires = ['python3-xlib', 'enum-compat']
++install_requires = ['enum-compat']
+
+ setup(
+     name='i3ipc',
