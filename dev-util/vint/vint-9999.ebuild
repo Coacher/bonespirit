@@ -21,10 +21,8 @@ RDEPEND="
 	>=dev-python/ansicolor-0.2.4[${PYTHON_USEDEP}]
 	>=dev-python/chardet-2.3.0[${PYTHON_USEDEP}]
 	>=dev-python/pyyaml-3.11[${PYTHON_USEDEP}]
+	virtual/python-enum34[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
-	python_targets_python2_7? (
-		>=dev-python/enum34-1.0.4[$(python_gen_usedep 'python2*')]
-	)
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
