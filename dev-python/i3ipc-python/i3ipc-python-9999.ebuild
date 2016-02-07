@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="An improved Python library to control i3wm"
 HOMEPAGE="https://github.com/acrisci/i3ipc-python"
-EGIT_REPO_URI="git://github.com/acrisci/${PN}.git"
+EGIT_REPO_URI="git://github.com/Coacher/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"
@@ -22,8 +22,6 @@ RDEPEND="virtual/python-enum34[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
-
-PATCHES=( "${FILESDIR}/${P}-remove-interactions-with-xlib.patch" )
 
 DOCS=( README.rst )
 
