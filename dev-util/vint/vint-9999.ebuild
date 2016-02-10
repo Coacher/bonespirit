@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4} )
 
@@ -35,10 +35,6 @@ DEPEND="${RDEPEND}
 		)
 	)
 "
-
-DOCS=( README.rst )
-
-PATCHES=( "${FILESDIR}/${PN}-exclude-tests-recursively.patch" )
 
 python_test() {
 	py.test -v || die "Testing failed with ${EPYTHON}"
