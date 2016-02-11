@@ -170,6 +170,7 @@ src_configure() {
 		$(usex cli '' '--disable-cplayer')
 		$(use_enable libmpv libmpv-shared)
 
+		# See deep down below for build-date
 		--disable-libmpv-static
 		--disable-static-build
 		--disable-optimize		# Do not add '-O2' to CFLAGS
