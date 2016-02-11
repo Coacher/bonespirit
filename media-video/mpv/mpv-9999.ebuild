@@ -28,11 +28,11 @@ DOCS+=( README.md )
 # See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="+alsa archive bluray cdda +cli doc drm dvb +dvd +egl +enca encode gbm
+IUSE="alsa archive bluray cdda +cli doc drm dvb +dvd +egl +enca encode gbm
 	+iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua luajit
 	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
 	test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver
-	xv zsh-completion"
+	+xv zsh-completion"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
