@@ -47,6 +47,7 @@ DEPEND="${RDEPEND}
 	>=x11-libs/libpciaccess-0.10
 	>=x11-libs/libxcb-1.10
 	>=x11-proto/dri2proto-2.6
+	x11-misc/util-macros
 	x11-proto/fontsproto
 	x11-proto/presentproto
 	x11-proto/videoproto
