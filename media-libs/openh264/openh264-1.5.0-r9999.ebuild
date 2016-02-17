@@ -28,9 +28,12 @@ RESTRICT="bindist"
 DOCS=( README.md RELEASES )
 
 PATCHES=(
-	"${FILESDIR}/${P}-pkgconfig-pathfix.patch"
-	"${FILESDIR}/${P}-avoid-git-versioning.patch"
 	"${FILESDIR}/${P}-avoid-plugin-crash.patch"
+	"${FILESDIR}/${P}-avoid-plugin-deadlock.patch"
+	"${FILESDIR}/${P}-fix-threads-creation.patch"
+
+	"${FILESDIR}/${P}-avoid-git-versioning.patch"
+	"${FILESDIR}/${P}-fix-pkgconfig-paths.patch"
 )
 
 src_prepare() {
@@ -46,16 +49,16 @@ emakecmd() {
 	CC="$(tc-getCC)" CXX="$(tc-getCXX)" LD="$(tc-getLD)" \
 	emake V=Yes CFLAGS_M32="" CFLAGS_M64="" CFLAGS_OPT="" \
 		PREFIX="${EPREFIX}/usr" \
+		LIBDIR_NAME="$(get_libdir)" \
 		SHAREDLIB_DIR="${EPREFIX}/usr/$(get_libdir)" \
 		INCLUDES_DIR="${EPREFIX}/usr/include/${PN}" \
 		"$@"
 }
 
 multilib_src_compile() {
-	local mybits
+	local mybits="ENABLE64BIT=No"
 	case "${ABI}" in
-		s390x|*64) mybits="ENABLE64BIT=Yes";;
-		*) mybits="ENABLE64BIT=No";;
+		s390x|alpha|*64) mybits="ENABLE64BIT=Yes";;
 	esac
 
 	emakecmd ${mybits}
@@ -73,8 +76,8 @@ multilib_src_install() {
 		insinto "/${plugpath}"
 		doins libgmpopenh264.so* gmpopenh264.info
 
-		echo "MOZ_GMP_PATH=\"${EROOT}${plugpath}\"" > "${T}/98-moz-gmp-${PN}" || die
-		doenvd "${T}/98-moz-gmp-${PN}"
+		echo "MOZ_GMP_PATH=\"${EROOT}${plugpath}\"" > "${T}"/98-moz-gmp-${PN} || die
+		doenvd "${T}"/98-moz-gmp-${PN}
 
 		cat <<- PREFEOF > "${T}"/${P}.js
 			pref("media.gmp-gmp${PN}.autoupdate", false);
@@ -82,10 +85,10 @@ multilib_src_install() {
 		PREFEOF
 
 		insinto "/usr/$(get_libdir)/firefox/defaults/pref"
-		doins "${T}/${P}.js"
+		doins "${T}"/${P}.js
 
 		insinto "/usr/$(get_libdir)/seamonkey/defaults/pref"
-		doins "${T}/${P}.js"
+		doins "${T}"/${P}.js
 	fi
 }
 

@@ -4,17 +4,17 @@ index 372a63f..ba17252 100644
 +++ b/Makefile
 @@ -68,7 +68,7 @@ all: libraries binaries
  include $(SRC_PATH)build/platform-$(OS).mk
- 
- 
+
+
 -CFLAGS += -DGENERATED_VERSION_HEADER
 +CFLAGS += -DVERSION_H -DVERSION_NUMBER='"$(VERSION)"'
  LDFLAGS +=
- 
+
  ifeq (Yes, $(GCOV))
 @@ -144,12 +144,6 @@ COMMON_UNITTEST_CFLAGS += $(CODEC_UNITTEST_CFLAGS)
- 
+
  .PHONY: test gtest-bootstrap clean $(PROJECT_NAME).pc $(PROJECT_NAME)-static.pc
- 
+
 -generate-version:
 -	$(QUIET)sh $(SRC_PATH)codec/common/generate_version.sh $(SRC_PATH)
 -
