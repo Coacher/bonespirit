@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit font versionator git-r3
+inherit font git-r3
 
 DESCRIPTION="DejaVu fonts, Bitstream Vera with a wider range of characters"
 HOMEPAGE="http://dejavu.sourceforge.net/"
@@ -46,6 +46,5 @@ src_compile() {
 
 src_install() {
 	font_src_install
-
 	dodoc build/*.txt
 }
