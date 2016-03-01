@@ -27,17 +27,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="media-libs/fontconfig"
-
 RESTRICT="binchecks strip"
 
 S="${WORKDIR}"
 
 FONT_SUFFIX="otf"
-FONT_S="${S}"
+FONT_S="${S}/${PN}"
 FONT_CONF=( "${FILESDIR}/63-${PN}.conf" )
 
 src_prepare() {
 	default
-	mv source-*/OTF/*.otf . || die
+	mkdir "${PN}" || die
+	mv source-*/OTF/*.otf "${PN}" || die
 }
