@@ -34,9 +34,7 @@ RESTRICT="binchecks strip"
 S="${WORKDIR}"
 
 FONT_SUFFIX="otf"
-
 FONT_S="${S}"
-
 FONT_CONF=( "${FILESDIR}/63-${PN}.conf" )
 
 src_prepare() {
