@@ -25,9 +25,7 @@ DEPEND="
 "
 
 FONT_SUFFIX="ttf"
-
 FONT_S="${S}/build"
-
 FONT_CONF=(
 	"${S}"/fontconfig/20-unhint-small-dejavu-sans-mono.conf
 	"${S}"/fontconfig/20-unhint-small-dejavu-sans.conf
@@ -38,7 +36,7 @@ FONT_CONF=(
 )
 
 src_compile() {
-	emake -j1 \
+	emake \
 		BLOCKS=/usr/share/unicode-data/Blocks.txt \
 		UNICODEDATA=/usr/share/unicode-data/UnicodeData.txt \
 		FC-LANG=/usr/share/fc-lang \
