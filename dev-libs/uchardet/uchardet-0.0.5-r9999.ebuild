@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit cmake-utils
 
@@ -28,7 +28,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_build static-libs STATIC)
+		-DBUILD_STATIC=$(usex static-libs)
 	)
 	cmake-utils_src_configure
 }
