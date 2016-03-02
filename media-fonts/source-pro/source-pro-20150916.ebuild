@@ -33,7 +33,7 @@ S="${WORKDIR}"
 
 FONT_SUFFIX="otf"
 FONT_S="${S}/${PN}"
-FONT_CONF=( "${FILESDIR}/63-${PN}.conf" )
+FONT_CONF=( "${FILESDIR}/60-${PN}.conf" )
 
 src_prepare() {
 	default
