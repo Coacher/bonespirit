@@ -6,7 +6,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4} )
 
-inherit font python-any-r1 subversion
+inherit font python-single-r1 subversion
 
 DESCRIPTION="Unicode fonts from the Free UCS Outline Fonts Project"
 HOMEPAGE="http://savannah.nongnu.org/projects/freefont/"
