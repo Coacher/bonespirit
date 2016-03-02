@@ -17,17 +17,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="$(python_gen_any_dep 'media-gfx/fontforge[python,${PYTHON_USEDEP}]')"
+DEPEND="${PYTHON_DEPS}
+	media-gfx/fontforge[python,${PYTHON_USEDEP}]
+"
 
 DOCS="notes/troubleshooting.txt"
 
 FONT_SUFFIX="otf"
 FONT_S="${S}/sfd"
 FONT_CONF=( "${FILESDIR}/69-${PN}.conf" )
-
-python_check_deps() {
-	has_version "media-gfx/fontforge[python,${PYTHON_USEDEP}]"
-}
 
 src_prepare() {
 	sed -i -e '/TESTFF\|ffversion/d' sfd/Makefile || die
