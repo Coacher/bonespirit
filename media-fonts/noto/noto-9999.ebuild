@@ -21,3 +21,4 @@ DOCS="FAQ.md NEWS README.md"
 
 FONT_SUFFIX="ttf"
 FONT_S="${S}/unhinted"
+FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
