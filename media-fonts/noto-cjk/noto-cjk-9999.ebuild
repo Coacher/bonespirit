@@ -21,3 +21,4 @@ DOCS="HISTORY NEWS README.formats"
 
 FONT_SUFFIX="otf"
 FONT_S="${S}"
+FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
