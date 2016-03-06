@@ -24,7 +24,6 @@ IUSE="alsa debug +ffmpeg +fftw openal oss portaudio pulseaudio spell +uchardet"
 # However, most of these minimal versions date back to 2006-2010 yy.
 # Such version specifiers are meaningless nowadays, so they are omitted.
 RDEPEND="
-	>=x11-libs/wxGTK-3.0.0:${WX_GTK_VER}[X,opengl,debug?]
 	dev-lang/luajit:2[lua52compat]
 	dev-libs/boost:=[icu,nls,threads]
 	dev-libs/icu:=
@@ -33,6 +32,7 @@ RDEPEND="
 	media-libs/libass[fontconfig]
 	virtual/libiconv
 	virtual/opengl
+	x11-libs/wxGTK:${WX_GTK_VER}[X,opengl,debug?]
 
 	alsa? ( media-libs/alsa-lib )
 	openal? ( media-libs/openal )
