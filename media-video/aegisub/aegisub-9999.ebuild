@@ -21,7 +21,7 @@ KEYWORDS=""
 IUSE="alsa debug +ffmpeg +fftw openal oss portaudio pulseaudio spell +uchardet"
 
 # configure.ac specifies minimal versions for some of the dependencies below.
-# However, most of these minimal versions date back to 2006-2010 yy.
+# However, most of these minimal versions date back to 2006-2012 yy.
 # Such version specifiers are meaningless nowadays, so they are omitted.
 RDEPEND="
 	dev-lang/luajit:2[lua52compat]
