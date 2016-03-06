@@ -59,7 +59,8 @@ REQUIRED_USE="
 # Unfortunately, luabins upstream is dead since 2011.
 # Thus unbundling luabins is not worth the effort.
 PATCHES=(
-	"${FILESDIR}/${PN}-3.2.2-respect-user-compiler-flags.patch"
+	"${FILESDIR}/${P}-fix-luajit-unbundling.patch"
+	"${FILESDIR}/${P}-respect-user-compiler-flags.patch"
 )
 
 pkg_pretend() {
