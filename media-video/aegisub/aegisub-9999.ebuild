@@ -39,7 +39,7 @@ RDEPEND="
 	portaudio? ( =media-libs/portaudio-19* )
 	pulseaudio? ( media-sound/pulseaudio )
 
-	ffmpeg? ( >=media-libs/ffmpegsource-2.16:= )
+	ffmpeg? ( media-libs/ffmpegsource:= )
 	fftw? ( >=sci-libs/fftw-3.3:= )
 
 	spell? ( app-text/hunspell )
