@@ -62,7 +62,7 @@ pkg_setup() {
 		ewarn "NFACCT input plugin requires a kernel >= 3.3."
 	fi
 
-	if use ulog && kernel_is gt 3 17 0; then
+	if use ulog && kernel_is ge 3 17 0; then
 		ewarn "ULOG target has been removed in the 3.17 kernel release."
 		ewarn "Consider enabling NFACCT, NFCT, or NFLOG support instead."
 	fi
