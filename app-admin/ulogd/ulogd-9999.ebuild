@@ -55,16 +55,16 @@ pkg_setup() {
 	linux-info_pkg_setup
 
 	if kernel_is lt 2 6 14; then
-		die "ulogd requires kernel newer than 2.6.14"
+		die "${PN} requires a kernel >= 2.6.14."
 	fi
 
 	if use nfacct && kernel_is lt 3 3 0; then
-		ewarn "NFACCT input plugin requires kernel newer than 3.3.0"
+		ewarn "NFACCT input plugin requires a kernel >= 3.3."
 	fi
 
 	if use ulog && kernel_is gt 3 17 0; then
-		ewarn "ULOG target was removed since 3.17.0 kernel release"
-		ewarn "Consider enabling NFACCT, NFCT or NFLOG support"
+		ewarn "ULOG target has been removed in the 3.17 kernel release."
+		ewarn "Consider enabling NFACCT, NFCT, or NFLOG support instead."
 	fi
 }
 
