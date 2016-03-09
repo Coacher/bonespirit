@@ -36,7 +36,8 @@
 		<flag name="luajit">Use <pkg>dev-lang/luajit</pkg> instead of <pkg>dev-lang/lua</pkg></flag>
 		<flag name="raspberry-pi">Enable support for the Raspberry Pi</flag>
 		<flag name="rubberband">Enable high quality pitch correction via <pkg>media-libs/rubberband</pkg></flag>
-		<flag name="sdl">Enable <pkg>media-libs/libsdl2</pkg> based video and audio outputs</flag>
+		<flag name="sdl">Enable <pkg>media-libs/libsdl2</pkg>-based video and audio outputs
+			(Note: these outputs exist for compatibility reasons only, avoid if possible)</flag>
 		<flag name="uchardet">Enable subtitles charset discovery via <pkg>dev-libs/uchardet</pkg></flag>
 		<flag name="vf-dlopen">Install additional video filters to be used with -vf dlopen</flag>
 	</use>
