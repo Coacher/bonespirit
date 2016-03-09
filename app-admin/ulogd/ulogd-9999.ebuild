@@ -72,7 +72,7 @@ src_prepare() {
 	# - make all logs to be kept in a single dir /var/log/ulogd
 	# - place sockets in /run instead of /tmp
 	sed -i \
-		-e 's%var/log%var/log/ulogd%g' \
+		-e "s%var/log%var/log/${PN}%g" \
 		-e 's%tmp%run%g' \
 		ulogd.conf.in || die
 
