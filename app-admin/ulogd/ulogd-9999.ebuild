@@ -58,11 +58,6 @@ pkg_setup() {
 		die "ulogd requires kernel newer than 2.6.14"
 	fi
 
-	if kernel_is lt 2 6 18; then
-		ewarn "You are using kernel older than 2.6.18"
-		ewarn "Some ulogd features may be unavailable"
-	fi
-
 	if use nfacct && kernel_is lt 3 3 0; then
 		ewarn "NFACCT input plugin requires kernel newer than 3.3.0"
 	fi
