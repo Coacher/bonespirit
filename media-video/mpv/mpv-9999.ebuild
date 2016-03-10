@@ -130,7 +130,6 @@ pkg_pretend() {
 src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
-
 	default
 }
 
