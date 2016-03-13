@@ -34,7 +34,6 @@ IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb +dvd +egl +enca
 	selinux test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 
-
 REQUIRED_USE="
 	|| ( cli libmpv )
 	egl? ( || ( gbm X wayland ) )
