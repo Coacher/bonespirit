@@ -139,7 +139,7 @@ src_configure() {
 		--confdir="${EPREFIX}"/etc/${PN}
 		--docdir="${EPREFIX}"/usr/share/doc/${PF}
 
-		--disable-gpl3		# Unclear license info. See Gentoo bug 571728.
+		--disable-gpl3			# Unclear license info. See Gentoo bug 571728.
 
 		$(usex cli '' '--disable-cplayer')
 		$(use_enable libmpv libmpv-shared)
@@ -230,8 +230,8 @@ src_configure() {
 		$(use_enable v4l audio-input)
 		$(use_enable dvb dvbin)
 
-		# OS-specific features
-		--disable-apple-remote
+		# Miscellaneous features
+		--disable-apple-remote	# Needs testing first. See Gentoo bug 577332.
 	)
 
 	if use vaapi && use X; then
