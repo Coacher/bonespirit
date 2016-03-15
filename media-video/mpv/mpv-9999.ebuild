@@ -36,6 +36,7 @@ IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb +dvd +egl +enca
 
 REQUIRED_USE="
 	|| ( cli libmpv )
+	aqua? ( opengl )
 	egl? ( || ( gbm X wayland ) )
 	enca? ( iconv )
 	gbm? ( drm egl )
