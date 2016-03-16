@@ -17,7 +17,8 @@ IUSE="static-libs test"
 
 PATCHES=(
 	"${FILESDIR}/${P}-fix-ASCII-detection.patch"
-	"${FILESDIR}/${P}-use-proper-package-name.patch"
+	"${FILESDIR}/${P}-fix-cmake-package-name.patch"
+	"${FILESDIR}/${P}-fix-cmake-definition.patch"
 	"${FILESDIR}/${P}-fix-return-code-on-error.patch"
 )
 
