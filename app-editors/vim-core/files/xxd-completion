@@ -1,0 +1,22 @@
+# Author: Ciaran McCreesh <ciaranm@gentoo.org>
+#
+# Completion for xxd.
+
+_xxd()
+{
+    local cur args
+
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    if [[ "${cur}" == -* ]]; then
+        args='-a -b -c -E -e -g -h -i -l -o -p -r -s -seek -u -v'
+        COMPREPLY=( $( compgen -W "${args}" -- ${cur} ) )
+    else
+        _filedir
+    fi
+}
+
+complete -F _xxd xxd
+
+# vim: set ft=sh sw=4 et sts=4 :
