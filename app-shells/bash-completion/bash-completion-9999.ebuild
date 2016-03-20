@@ -6,11 +6,11 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 
-inherit autotools-utils versionator git-r3
+inherit autotools-utils git-r3
 
-DESCRIPTION="Programmable Completion for bash"
-HOMEPAGE="https://bash-completion.alioth.debian.org/"
-EGIT_REPO_URI="git://anonscm.debian.org/${PN}/${PN}.git"
+DESCRIPTION="Programmable completion functions for bash"
+HOMEPAGE="https://github.com/scop/bash-completion"
+EGIT_REPO_URI="git://github.com/scop/${PN}.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -21,86 +21,62 @@ RDEPEND="
 	!app-eselect/eselect-bashcomp
 	>=app-shells/bash-4.3_p30-r1
 "
-DEPEND="app-arch/xz-utils"
 PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 
-# Disable tests because of interactive shell wrt bug #477066
+# Testsuite requires an interactive shell. See Gentoo bug 477066.
 RESTRICT="test"
 
-DOCS=( AUTHORS CHANGES README )
+DOCS=( AUTHORS CHANGES README.md )
 
-PATCHES=( "${FILESDIR}/${PN}-escape-characters.patch" )
-
-# List unwanted completions to be removed later
+# List unwanted completions to be removed later:
 STRIP_COMPLETIONS=(
-	# Slackware completions
+	# Slackware completions;
 	explodepkg installpkg makepkg pkgtool removepkg sbopkg slackpkg slapt-get slapt-src upgradepkg
 
-	# Debian completions
+	# Debian completions;
 	apt-build apt-cache apt-get aptitude bts dselect ifup ifdown ifstatus querybts reportbug
 
-	# FreeBSD completions
+	# FreeBSD completions;
 	freebsd-update kldload kldunload pkg_deinstall pkg_delete pkg_info portinstall portsnap portupgrade
 
-	# Solaris completions
+	# Solaris completions;
 	pkg-get pkgadd pkgrm pkgutil svcadm
 
-	# Fedora completions
+	# Fedora completions;
 	koji arm-koji ppc-koji s390-koji sparc-koji
 
-	# Installed in app-editors/vim-core
+	# Completions installed in app-editors/vim-core;
 	xxd
 
-	# Symlinks to deprecated completions
+	# Symlinks to deprecated completions.
 	hd ncal
 )
 
 src_prepare() {
-	sed -i -e 's%/profile.d%/bash/bashrc.d%' Makefile.am || die
+	# Update the build system with Gentoo paths.
+	sed -i \
+		-e 's%/profile.d%/bash/bashrc.d%' \
+		-e 's/\<datadir\>/libdir/g' \
+		Makefile.am || die
+
+	# Fix broken completions.
+	sed -i -e 's/0..3/0..5/' completions/aclocal || die
+	sed -i -e 's/\<mpv\>//' completions/Makefile.am || die
+
 	autotools-utils_src_prepare
 }
 
-src_configure() {
-	autotools-utils_src_configure
-}
-
 src_install() {
-	# Workaround race conditions wrt bug #526996
-	mkdir -p "${ED}/usr/share/${PN}"/{completions,helpers} || die
+	# Workaround race conditions. See Gentoo bug 526996.
+	mkdir -p "${ED}"/usr/share/${PN}/{completions,helpers} || die
 
 	autotools-utils_src_install
 
-	# Remove unwanted completions
+	# Remove unwanted completions.
 	local file
 	for file in "${STRIP_COMPLETIONS[@]}"; do
 		rm "${ED}/usr/share/${PN}/completions/${file}" || die
 	done
-	# Remove deprecated completions (moved to other packages)
-	rm "${ED}/usr/share/${PN}/completions"/_* || die
-}
-
-pkg_postinst() {
-	local v
-	for v in ${REPLACING_VERSIONS}; do
-		if ! version_is_at_least 2.1-r90 "${v}"; then
-			ewarn "For bash-completion autoloader to work, all completions need to be"
-			ewarn "installed in /usr/share/bash-completion/completions. You may need to"
-			ewarn "rebuild packages that installed completions in the old location."
-			ewarn "You can do this using:"
-			ewarn
-			ewarn "$ find ${EPREFIX}/usr/share/${PN} -maxdepth 1 -type f '!' -name 'bash_completion' -exec emerge -1v {} +"
-			ewarn
-			ewarn "After the rebuild, you should remove the old setup symlinks:"
-			ewarn
-			ewarn "$ find ${EPREFIX}/etc/bash_completion.d -type l -delete"
-		fi
-	done
-
-	if has_version 'app-shells/zsh'; then
-		elog
-		elog "If you are interested in using the provided bash completion functions"
-		elog "with zsh, tips on the effective use of bashcompinit are available at:"
-		elog "    http://www.zsh.org/mla/workers/2003/msg00046.html"
-		elog
-	fi
+	# Remove deprecated completions (moved to other packages).
+	rm "${ED}"/usr/share/${PN}/completions/_* || die
 }
