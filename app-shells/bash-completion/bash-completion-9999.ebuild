@@ -23,7 +23,7 @@ RDEPEND="
 "
 PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 
-# Testsuite requires an interactive shell. See Gentoo bug 477066.
+# Tests require an interactive shell. See Gentoo bug 477066.
 RESTRICT="test"
 
 DOCS=( AUTHORS CHANGES README.md )
@@ -55,13 +55,13 @@ STRIP_COMPLETIONS=(
 src_prepare() {
 	# Update the build system with Gentoo paths.
 	sed -i \
-		-e 's%/profile.d%/bash/bashrc.d%' \
-		-e 's/\<datadir\>/libdir/g' \
+		-e 's|profile\.d|bash/bashrc.d|' \
+		-e 's|\<datadir\>|libdir|g' \
 		Makefile.am || die
 
 	# Fix broken completions.
-	sed -i -e 's/0..3/0..5/' completions/aclocal || die
-	sed -i -e 's/\<mpv\>//' completions/Makefile.am || die
+	sed -i -e 's|0..3|0..5|' completions/aclocal || die
+	sed -i -e 's|\<mpv\>||' completions/Makefile.am || die
 
 	autotools-utils_src_prepare
 }
