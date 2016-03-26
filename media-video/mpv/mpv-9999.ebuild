@@ -88,7 +88,7 @@ COMMON_DEPEND="
 		luajit? ( dev-lang/luajit:2 )
 	)
 	openal? ( >=media-libs/openal-1.13 )
-	opengl? ( virtual/opengl )
+	opengl? ( !aqua? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba )
@@ -216,7 +216,7 @@ src_configure() {
 		$(use_enable jpeg)
 		--disable-android
 		$(use_enable raspberry-pi rpi)
-		$(use_enable opengl desktop-gl)
+		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 
 		# HWaccels
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
