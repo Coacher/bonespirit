@@ -28,7 +28,12 @@ FONT_S="${S}/sfd"
 FONT_CONF=( "${FILESDIR}/69-${PN}.conf" )
 
 src_prepare() {
+	# Disable broken fontforge version tests.
 	sed -i -e '/TESTFF\|ffversion/d' sfd/Makefile || die
+	# Fix hardcoded fontforge path.
+	sed -i \
+		-e "s|/usr/local/bin/fontforge|${EROOT}usr/bin/fontforge|" \
+		sfd/Makefile || die
 	default
 }
 
