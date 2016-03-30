@@ -25,7 +25,7 @@ RDEPEND="
 	sys-libs/ncurses:0=
 	x11-libs/libX11
 	x11-libs/libXt
-	acl? ( kernel_linux? ( sys-apps/acl ) )
+	acl? ( virtual/acl )
 	cscope? ( dev-util/cscope )
 	gtk? (
 		x11-libs/gtk+:2

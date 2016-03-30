@@ -22,7 +22,7 @@ IUSE="X acl cscope debug gpm lua luajit minimal netbeans nls perl python racket 
 RDEPEND="
 	app-eselect/eselect-vi
 	sys-libs/ncurses:0=
-	acl? ( kernel_linux? ( sys-apps/acl ) )
+	acl? ( virtual/acl )
 	cscope? ( dev-util/cscope )
 	gpm? ( sys-libs/gpm )
 	lua? (
