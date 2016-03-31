@@ -4,23 +4,16 @@
 
 EAPI=6
 
-inherit cmake-utils
+inherit cmake-utils git-r3
 
 DESCRIPTION="An encoding detector library ported from Mozilla"
 HOMEPAGE="https://github.com/BYVoid/uchardet"
-SRC_URI="https://github.com/BYVoid/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="git://github.com/BYVoid/${PN}.git"
 
 LICENSE="MPL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ppc64 ~x86"
 IUSE="static-libs test"
-
-PATCHES=(
-	"${FILESDIR}/${P}-fix-ASCII-detection.patch"
-	"${FILESDIR}/${P}-fix-cmake-package-name.patch"
-	"${FILESDIR}/${P}-fix-cmake-definition.patch"
-	"${FILESDIR}/${P}-fix-return-code-on-error.patch"
-)
 
 src_prepare() {
 	use test || cmake_comment_add_subdirectory test
