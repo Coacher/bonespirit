@@ -12,7 +12,7 @@ SRC_URI="https://github.com/gap-system/gap/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x64-macos"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="emacs readline vim-syntax"
 
 RESTRICT="mirror"
@@ -33,11 +33,11 @@ PATCHES=(
 )
 
 update_version_info() {
-	local RELEASE_DATE='19-Mar-2016'
+	local RELEASE_DATE='19-Mar-2016' # XXX: update this every release.
 	local RELEASE_YEAR=${RELEASE_DATE##*-}
 
 	# See DistributionUpdate/updateversioninfo script from
-	# https://github.com/gap-system/gap-distribution repo
+	# https://github.com/gap-system/gap-distribution repo.
 	sed -i -e "s|4\.dev|${PV}|g" \
 		CITATION \
 		lib/system.g \
@@ -74,40 +74,41 @@ src_prepare() {
 
 	eautoreconf
 
-	pushd cnf >/dev/null
+	pushd cnf > /dev/null || die
 		eautoreconf
+		# This is the way upstream rolls, see cnf/Makefile.
 		mv configure configure.out || die
-	popd >/dev/null
+	popd > /dev/null || die
 
-	# Removing dev stuff in doc
-	pushd doc >/dev/null
+	# Removing dev stuff in doc.
+	pushd doc > /dev/null || die
 		rm -r -- dev/ *.{bib,tex} manualindex README* || die
-	popd >/dev/null
+	popd > /dev/null || die
 }
 
 src_configure() {
 	econf \
 		--with-gmp=system \
 		$(use_with readline) \
-		ABI=""
+		ABI=
 
-	emake config ABI=""
+	emake config ABI=
 }
 
 src_compile() {
 	default
 
 	source sysinfo.gap
-	pushd "bin/${GAParch_system}" >/dev/null
+	pushd "bin/${GAParch_system}" > /dev/null || die
 		# Replace the objects needed by gac with an archive.
 		# compstat.o is omitted on purpose from this list, see cnf/gac.in.
 		rm compstat.o || die
 		ar qv libgap.a *.o || die "failed to produce the libgap archive"
-	popd >/dev/null
+	popd > /dev/null || die
 }
 
 src_install() {
-	insinto /usr/include/${PN}
+	insinto /usr/include/${P}
 	doins src/*.h
 
 	insinto /usr/$(get_libdir)/${PN}

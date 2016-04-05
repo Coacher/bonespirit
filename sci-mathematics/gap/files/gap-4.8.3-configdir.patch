@@ -1,3 +1,6 @@
+# See cnf/Makefile for AC_CONFIG_HEADER and srcdir changes.
+
+
 diff --git a/Makefile.in b/Makefile.in
 index 1d9b1d5..8c95341 100644
 --- a/Makefile.in
@@ -12,7 +15,7 @@ index 1d9b1d5..8c95341 100644
  extern: config
  	( cd bin/$(GAPARCH)/extern ; \
 diff --git a/cnf/configure.in b/cnf/configure.in
-index 8518a0a..9129622 100644
+index 8518a0a..bc2ece6 100644
 --- a/cnf/configure.in
 +++ b/cnf/configure.in
 @@ -16,7 +16,7 @@ dnl ##
@@ -31,7 +34,7 @@ index 8518a0a..9129622 100644
 -gapbin=`pwd`
 +gapbin=$libdir/gap/bin/${GAPARCH}
 +AC_SUBST(gapinc)
-+gapinc=$prefix/include/gap
++gapinc=$prefix/include/gap-${PACKAGE_VERSION}
 
  AC_SUBST(ABI)
  AC_SUBST(ABI_CFLAGS)
