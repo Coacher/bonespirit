@@ -61,7 +61,6 @@ src_prepare() {
 
 	# Fix broken completions.
 	sed -i -e 's|0..3|0..5|' completions/aclocal || die
-	sed -i -e 's|\<mpv\>||' completions/Makefile.am || die
 
 	autotools-utils_src_prepare
 }
