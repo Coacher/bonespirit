@@ -14,7 +14,7 @@ EGIT_BRANCH="2.2"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
 SLOT="4"
-IUSE="gtk gtk3 debug"
+IUSE="debug gtk gtk3"
 
 CDEPEND="
 	dev-libs/glib:2
