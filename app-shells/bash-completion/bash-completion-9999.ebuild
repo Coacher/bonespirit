@@ -59,9 +59,6 @@ src_prepare() {
 		-e 's|\<datadir\>|libdir|g' \
 		Makefile.am || die
 
-	# Fix broken completions.
-	sed -i -e 's|0..3|0..5|' completions/aclocal || die
-
 	autotools-utils_src_prepare
 }
 
