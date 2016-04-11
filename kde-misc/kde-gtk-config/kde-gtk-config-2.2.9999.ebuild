@@ -6,8 +6,8 @@ EAPI=5
 
 inherit kde4-base git-r3
 
-DESCRIPTION="KDE systemsettings kcm to set GTK application look&feel"
-HOMEPAGE="https://projects.kde.org/projects/kde/workspace/kde-gtk-config"
+DESCRIPTION="GTK2 and GTK3 Configurator for KDE"
+HOMEPAGE="https://quickgit.kde.org/?p=kde-gtk-config.git"
 EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
 EGIT_BRANCH="2.2"
 
