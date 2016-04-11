@@ -13,7 +13,7 @@ inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
-SRC_URI="https://gitlab.com/agmartin/${PN}/repository/archive.tar.gz?ref=upstream/${PV} -> ${P}.tar.gz"
+SRC_URI="https://gitlab.com/agmartin/${PN}/repository/archive.tar.gz?ref=v${PV} -> ${P}.tar.gz"
 
 LICENSE="MIT SGMLUG"
 SLOT="0"
@@ -37,7 +37,12 @@ DEPEND="${RDEPEND}
 
 DOCS=( ChangeLog README )
 
-PATCHES=( "${FILESDIR}/${P}-fix-parallel-doc-build.patch" )
+PATCHES=(
+	"${FILESDIR}/${P}-fix-parallel-doc-build.patch"
+	"${FILESDIR}/${P}-upgrade-deprecated-perl-regexs.patch"
+	"${FILESDIR}/${P}-upgrade-deprecated-latex-commands.patch"
+	"${FILESDIR}/${P}-fix-build-with-flex-2.6.1.patch"
+)
 
 S="${WORKDIR}/${PN}-upstream/${PV}-${GIT_SHA1}"
 
