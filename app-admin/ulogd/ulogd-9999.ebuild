@@ -37,6 +37,7 @@ DEPEND="${RDEPEND}
 	doc? (
 		app-text/linuxdoc-tools
 		app-text/texlive-core
+		dev-texlive/texlive-fontsrecommended
 		virtual/latex-base
 	)
 "
