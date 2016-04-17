@@ -131,6 +131,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-fix-use-after-free.patch"
 	"${FILESDIR}/${P}-remove-unneeded-X11-include.patch"
 	"${FILESDIR}/${P}-add-missing-math-include.patch"
+	"${FILESDIR}/${P}-fix-parsing-multiple-input-command-prefixes.patch"
 )
 
 pkg_pretend() {
