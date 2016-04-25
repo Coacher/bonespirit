@@ -23,7 +23,7 @@ RDEPEND="${DEPEND}
 	app-shells/bash-completion
 "
 
-DOCS=( BUGS README.mkd )
+PATCHES=( "${FILESDIR}/${P}-fix-no-flag-options-completion.patch" )
 
 src_compile() {
 	"${S}"/gen.sh > ${PN} || die
