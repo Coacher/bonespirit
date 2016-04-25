@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV='1.8.12'
 
-inherit fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
+inherit eutils fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -132,10 +132,11 @@ PATCHES=(
 	"${FILESDIR}/${PV}/${P}-remove-unneeded-X11-include.patch"
 	"${FILESDIR}/${PV}/${P}-add-missing-math-include.patch"
 	"${FILESDIR}/${PV}/${P}-fix-parsing-multiple-input-command-prefixes.patch"
+	"${FILESDIR}/${PV}/${P}-fix-early-audio-start.patch"
 	"${FILESDIR}/${PV}/${P}-avoid-deprecated-API-usage.patch"
 	"${FILESDIR}/${PV}/${P}-fix-hwdec-fallback.patch"
 	"${FILESDIR}/${PV}/${P}-fix-relative-seeking-with-coverart.patch"
-	"${FILESDIR}/${PV}/${P}-fix-coverart-unselecting.patch"
+	"${FILESDIR}/${PV}/${P}-fix-unselecting-video-track.patch"
 	"${FILESDIR}/${PV}/${P}-fix-video-frame-info-memleak.patch"
 )
 
@@ -270,6 +271,8 @@ src_install() {
 	if use cli && use luajit; then
 		pax-mark -m "${ED}usr/bin/${PN}"
 	fi
+
+	use cli && optfeature '>=app-shells/bash-completion-2.3-r2 support' app-shells/mpv-bash-completion
 }
 
 pkg_preinst() {
