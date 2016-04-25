@@ -20,7 +20,7 @@ DEPEND="
 	!<app-shells/bash-4
 "
 RDEPEND="${DEPEND}
-	>=app-shells/bash-completion-2.3-r2
+	>=app-shells/bash-completion-2.3-r1
 "
 
 PATCHES=( "${FILESDIR}/${P}-fix-no-flag-options-completion.patch" )
