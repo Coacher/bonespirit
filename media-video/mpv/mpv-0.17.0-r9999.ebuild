@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV='1.8.12'
 
-inherit eutils fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
+inherit fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -271,8 +271,6 @@ src_install() {
 	if use cli && use luajit; then
 		pax-mark -m "${ED}usr/bin/${PN}"
 	fi
-
-	use cli && optfeature '>=app-shells/bash-completion-2.3-r2 support' app-shells/mpv-bash-completion
 }
 
 pkg_preinst() {
@@ -282,6 +280,13 @@ pkg_preinst() {
 pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+
+	# bash-completion prior to 2.3-r1 installs (mostly broken) mpv completion.
+	if use cli && ! has_version '<app-shells/bash-completion-2.3-r1' && \
+		! has_version 'app-shells/mpv-bash-completion'; then
+		elog "If you want to have command-line completion via bash-completion,"
+		elog "please install app-shells/mpv-bash-completion."
+	fi;
 }
 
 pkg_postrm() {
