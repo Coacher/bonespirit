@@ -19,7 +19,7 @@ for ENCODING in ${SPELL_ENCODINGS}; do
 	"
 done
 
-LICENSE="myspell-ru_RU-ALexanderLebedev"
+LICENSE="myspell-ru_RU-AlexanderLebedev"
 KEYWORDS="~amd64 ~x86"
 
 RESTRICT=mirror
