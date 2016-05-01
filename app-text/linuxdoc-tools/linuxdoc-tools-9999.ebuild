@@ -4,15 +4,12 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
-inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs git-r3
+inherit autotools-utils latex-package perl-functions sgml-catalog toolchain-funcs git-r3
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
 EGIT_REPO_URI="https://gitlab.com/agmartin/${PN}.git"
-# Redefine SRC_URI, otherwise latex-package eclass interferes
+# Redefine SRC_URI, otherwise latex-package eclass interferes.
 SRC_URI=""
 
 LICENSE="MIT SGMLUG"
@@ -38,12 +35,14 @@ DEPEND="${RDEPEND}
 DOCS=( ChangeLog README )
 
 src_prepare() {
-	# Use Gentoo doc install path.
+	autotools-utils_src_prepare
+
+	# Update the build system with Gentoo paths.
 	sed -i \
-		-e "s%/share/doc/${PN}%/share/doc/${PF}%" \
+		-e "s|share/doc/${PN}|share/doc/${PF}|g" \
 		Makefile.in || die
 
-	autotools-utils_src_prepare
+	eautoreconf
 }
 
 src_configure() {
@@ -57,18 +56,18 @@ src_configure() {
 	)
 	use doc && myeconfargs+=(--enable-docs="txt pdf html")
 
-	autotools-utils_src_configure
+	econf "${myeconfargs[@]}"
 }
 
 src_compile() {
-	autotools-utils_src_compile
+	default
 }
 
 src_install() {
 	# Prevent access violations from bitmap font files generation.
-	export VARTEXFONTS="${T}/fonts"
+	use doc && export VARTEXFONTS="${T}/fonts"
 
-	autotools-utils_src_install
+	default
 }
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
