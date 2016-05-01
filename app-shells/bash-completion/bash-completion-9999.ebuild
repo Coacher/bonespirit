@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-AUTOTOOLS_AUTORECONF=1
-
-inherit autotools-utils git-r3
+inherit autotools git-r3
 
 DESCRIPTION="Programmable completion functions for bash"
 HOMEPAGE="https://github.com/scop/bash-completion"
@@ -18,15 +16,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	!app-eselect/eselect-bashcomp
 	>=app-shells/bash-4.3_p30-r1
+	!app-eselect/eselect-bashcomp
 "
 PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 
 # Tests require an interactive shell. See Gentoo bug 477066.
-RESTRICT="test"
+RESTRICT=test
 
-DOCS=( AUTHORS CHANGES README.md )
+DOCS=( CHANGES CONTRIBUTING.md README.md )
 
 # List unwanted completions to be removed later:
 STRIP_COMPLETIONS=(
@@ -53,26 +51,29 @@ STRIP_COMPLETIONS=(
 )
 
 src_prepare() {
+	default
+
 	# Update the build system with Gentoo paths.
 	sed -i \
-		-e 's|profile\.d|bash/bashrc.d|' \
+		-e 's|profile\.d|bash/bashrc.d|g' \
 		-e 's|\<datadir\>|libdir|g' \
 		Makefile.am || die
 
-	autotools-utils_src_prepare
+	eautoreconf
 }
 
 src_install() {
 	# Workaround race conditions. See Gentoo bug 526996.
 	mkdir -p "${ED}"/usr/share/${PN}/{completions,helpers} || die
 
-	autotools-utils_src_install
+	default
 
 	# Remove unwanted completions.
 	local file
 	for file in "${STRIP_COMPLETIONS[@]}"; do
 		rm "${ED}/usr/share/${PN}/completions/${file}" || die
 	done
+
 	# Remove deprecated completions (moved to other packages).
 	rm "${ED}"/usr/share/${PN}/completions/_* || die
 }
