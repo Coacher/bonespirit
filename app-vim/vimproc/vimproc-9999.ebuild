@@ -2,20 +2,22 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-inherit vim-plugin flag-o-matic git-r3
-
-EGIT_REPO_URI="git://github.com/Shougo/${PN}.vim.git"
-
-DESCRIPTION="vim plugin: asynchronous execution library for Vim"
-HOMEPAGE="https://github.com/Shougo/vimproc.vim"
-LICENSE="MIT"
-KEYWORDS="~amd64 ~x86"
+EAPI=6
 
 VIM_PLUGIN_HELPFILES="${PN}.txt"
 
+inherit flag-o-matic vim-plugin git-r3
+
+DESCRIPTION="vim plugin: asynchronous execution library for Vim"
+HOMEPAGE="https://github.com/Shougo/vimproc.vim"
+EGIT_REPO_URI="git://github.com/Shougo/${PN}.vim.git"
+
+LICENSE="MIT"
+KEYWORDS="~amd64 ~x86"
+IUSE=""
+
 src_prepare() {
+	default
 	mv make_unix.mak Makefile || die
 	rm -r *.mak *.yml lib/.gitkeep test/ tools/*.bat || die
 }
@@ -26,11 +28,11 @@ src_compile() {
 }
 
 src_install() {
-	# Do not install C sources
+	# Don't install C sources.
 	rm -r src/ || die
 
 	vim-plugin_src_install
 
-	# Make installed shared library executable
+	# Make the installed shared library executable.
 	fperms a+x /usr/share/vim/vimfiles/lib/${PN}_*.so
 }
