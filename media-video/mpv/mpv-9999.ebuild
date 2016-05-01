@@ -245,6 +245,10 @@ src_configure() {
 		)
 	fi
 
+	if ! use egl && ! use opengl && ! use raspberry-pi; then
+		mywafargs+=(--disable-gl)
+	fi;
+
 	# Create reproducible non-live builds
 	[[ ${PV} != *9999* ]] && mywafargs+=(--disable-build-date)
 
