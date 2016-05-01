@@ -6,11 +6,12 @@ EAPI=6
 
 inherit autotools multilib toolchain-funcs
 
-MY_PN=${PN,,}
+MY_PN="${PN,,}"
+MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="Package that implements coding theory algorithms in GAP"
+DESCRIPTION="A package that implements coding theory algorithms in GAP"
 HOMEPAGE="http://www.gap-system.org/Packages/guava.html https://osj1961.github.io/guava/"
-SRC_URI="http://www.gap-system.org/pub/gap/gap4/tar.gz/packages/${MY_PN}-${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="http://www.gap-system.org/pub/gap/gap4/tar.gz/packages/${MY_P}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2 GPL-3"
 SLOT="0"
@@ -20,9 +21,15 @@ IUSE=""
 DEPEND=">=sci-mathematics/gap-4.8"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${MY_PN}-${PV}"
+RESTRICT=mirror
+
+DOCS=( {CHANGES,HISTORY,README}.${MY_PN} )
+
+S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
+	default
+
 	# Don't call autoreconf in src_compile().
 	sed -i -e 's| autoreconf[^;]*;||g' Makefile.in || die
 
@@ -35,19 +42,15 @@ src_prepare() {
 	# Remove temporary files in src/leon/.
 	rm -r src/leon/{autom4te.cache,src/stamp-h1} src/leon/src/*~ || die
 
-	default
-
-	pushd src/leon > /dev/null || die
-		eautoreconf
-	popd > /dev/null || die
+	cd /src/leon/ || die
+	eautoreconf
 }
 
 src_configure() {
 	econf "${EPREFIX}/usr/$(get_libdir)/gap"
 
-	pushd src/leon > /dev/null || die
-		econf
-	popd > /dev/null || die
+	cd src/leon/ || die
+	econf
 }
 
 src_compile() {
@@ -58,9 +61,9 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/$(get_libdir)/gap/pkg/${MY_PN}-${PV}
+	insinto /usr/$(get_libdir)/gap/pkg/${MY_P}
 	doins -r bin/ doc/ lib/ tbl/ tst/
 	doins {PackageInfo,init,read}.g
 
-	dodoc CHANGES.${MY_PN} README.${MY_PN}
+	einstalldocs
 }

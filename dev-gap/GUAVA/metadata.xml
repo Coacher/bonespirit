@@ -5,4 +5,7 @@
 		<email>itumaykin+gentoo@gmail.com</email>
 		<name>Coacher</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">osj1961/guava</remote-id>
+	</upstream>
 </pkgmetadata>
