@@ -5,4 +5,7 @@
 		<email>itumaykin+gentoo@gmail.com</email>
 		<name>Coacher</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">scop/bash-completion</remote-id>
+	</upstream>
 </pkgmetadata>
