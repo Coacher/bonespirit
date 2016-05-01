@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-VIM_SPELL_LANGUAGE="Russian"
+VIM_SPELL_LANGUAGE=Russian
 
 inherit vim-spell
 
@@ -21,10 +21,11 @@ done
 
 LICENSE="myspell-ru_RU-ALexanderLebedev"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+
+RESTRICT=mirror
 
 src_unpack() {
 	mkdir -p "${WORKDIR}/${P}" || die
 	cd "${DISTDIR}" || die
-	cp -LR ${A} "${WORKDIR}/${P}" || die
+	cp -aLR ${A} "${WORKDIR}/${P}" || die
 }
