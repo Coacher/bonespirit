@@ -10,7 +10,7 @@
 		koi8-r and cp1251.
 	</longdescription>
 	<longdescription lang="ru">
-		Файлы необходимые для проверки правописания Русского языка (ru) в vim'е.
+		Файлы необходимые для проверки правописания Русского языка (ru) в Vim.
 		Поддерживаемые кодировки UTF-8, koi8-r и cp1251.
 	</longdescription>
 </pkgmetadata>
