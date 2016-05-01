@@ -5,4 +5,7 @@
 		<email>itumaykin+gentoo@gmail.com</email>
 		<name>Coacher</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">VundleVim/Vundle.vim</remote-id>
+	</upstream>
 </pkgmetadata>
