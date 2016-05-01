@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-AUTOTOOLS_AUTORECONF=1
-
-inherit autotools-utils eutils flag-o-matic linux-info readme.gentoo-r1 systemd user git-r3
+inherit autotools eutils flag-o-matic linux-info readme.gentoo-r1 systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
@@ -70,18 +68,21 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# - make all logs to be kept in a single dir /var/log/ulogd
-	# - place sockets in /run instead of /tmp
+	default
+
+	# Change default settings to:
+	# - keep log files in /var/log/ulogd instead of /var/log;
+	# - create sockets in /run instead of /tmp.
 	sed -i \
-		-e "s%var/log%var/log/${PN}%g" \
-		-e 's%tmp%run%g' \
+		-e "s|var/log|var/log/${PN}|g" \
+		-e 's|tmp|run|g' \
 		ulogd.conf.in || die
 
-	append-lfs-flags
-	autotools-utils_src_prepare
+	eautoreconf
 }
 
 src_configure() {
+	append-lfs-flags
 	local myeconfargs=(
 		$(use_with dbi)
 		$(use_with json jansson)
@@ -94,21 +95,22 @@ src_configure() {
 		$(use_with sqlite)
 		$(use_enable ulog)
 	)
-	autotools-utils_src_configure
+	econf "${myeconfargs[@]}"
 }
 
 src_compile() {
-	autotools-utils_src_compile
+	default
 
 	if use doc; then
-		# Prevent access violations from bitmap font files generation
+		# Prevent access violations from bitmap font files generation.
 		export VARTEXFONTS="${T}"/fonts
 		emake -C doc
 	fi
 }
 
 src_install() {
-	autotools-utils_src_install
+	default
+
 	prune_libtool_files --modules
 	readme.gentoo_create_doc
 
@@ -124,7 +126,7 @@ src_install() {
 	doman ${PN}.8
 
 	insinto /etc
-	doins "${BUILD_DIR}/${PN}.conf"
+	doins ${PN}.conf
 	fowners root:ulogd /etc/${PN}.conf
 	fperms 640 /etc/${PN}.conf
 
