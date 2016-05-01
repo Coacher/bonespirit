@@ -13,7 +13,7 @@ inherit autotools-utils latex-package perl-module sgml-catalog toolchain-funcs
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
-SRC_URI="https://gitlab.com/agmartin/${PN}/repository/archive.tar.gz?ref=v${PV} -> ${P}.tar.gz"
+SRC_URI="https://gitlab.com/agmartin/${PN}/repository/archive.tar.gz?ref=upstream/${PV} -> ${P}.tar.gz"
 
 LICENSE="MIT SGMLUG"
 SLOT="0"
