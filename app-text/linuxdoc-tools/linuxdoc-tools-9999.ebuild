@@ -32,8 +32,6 @@ DEPEND="${RDEPEND}
 	)
 "
 
-DOCS=( ChangeLog README )
-
 src_prepare() {
 	autotools-utils_src_prepare
 
@@ -67,7 +65,7 @@ src_install() {
 	# Prevent access violations from bitmap font files generation.
 	use doc && export VARTEXFONTS="${T}/fonts"
 
-	default
+	autotools-utils_src_install
 }
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
