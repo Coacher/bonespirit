@@ -107,21 +107,19 @@ src_compile() {
 }
 
 src_install() {
+	use doc && HTML_DOCS=( doc/${PN}.html )
+
 	default
 
 	prune_libtool_files --modules
 	readme.gentoo_create_doc
 
-	if use doc; then
-		dohtml doc/${PN}.html
-		dodoc doc/${PN}.{dvi,ps,txt}
-	fi
+	doman ${PN}.8
 
+	use doc && dodoc doc/${PN}.{dvi,ps,txt}
 	use mysql && dodoc doc/mysql-*.sql
 	use postgres && dodoc doc/pgsql-*.sql
 	use sqlite && dodoc doc/sqlite3.table
-
-	doman ${PN}.8
 
 	insinto /etc
 	doins ${PN}.conf
