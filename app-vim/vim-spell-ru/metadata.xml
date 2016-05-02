@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer type="project">
-		<email>vim@gentoo.org</email>
-		<name>Gentoo Vim Project</name>
+	<maintainer type="person">
+		<email>itumaykin+gentoo@gmail.com</email>
+		<name>Coacher</name>
 	</maintainer>
 	<longdescription lang="en">
 		Vim spell files for Russian (ru). Supported character sets are UTF-8,
