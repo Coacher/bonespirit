@@ -5,4 +5,7 @@
 		<email>itumaykin+gentoo@gmail.com</email>
 		<name>Coacher</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">Kuniwak/vint</remote-id>
+	</upstream>
 </pkgmetadata>
