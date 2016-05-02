@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 CABAL_FEATURES="bin lib profile haddock hoogle hscolour test-suite"
 
 inherit haskell-cabal git-r3
 
 DESCRIPTION="Shell script analysis tool"
-HOMEPAGE="http://www.shellcheck.net/"
+HOMEPAGE="https://www.shellcheck.net/ https://github.com/koalaman/shellcheck"
 EGIT_REPO_URI="git://github.com/koalaman/${PN}.git"
 
 LICENSE="GPL-3"
@@ -33,7 +33,7 @@ DEPEND="${RDEPEND}
 "
 
 src_test() {
-	# See bug #537500 for this beauty.
+	# See Gentoo bug 537500 for this beauty.
 	runghc Setup.hs test || die 'Test suite failed'
 }
 
