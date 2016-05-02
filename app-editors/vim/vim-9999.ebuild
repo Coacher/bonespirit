@@ -65,6 +65,8 @@ REQUIRED_USE="
 "
 
 src_prepare() {
+	default
+
 	# Use awk instead of nawk.
 	sed -i -e \
 		"1s|.*|#!${EPREFIX}/usr/bin/awk -f|" \
@@ -91,8 +93,6 @@ src_prepare() {
 	echo "#define SYS_GVIMRC_FILE \"${EPREFIX}/etc/vim/gvimrc\"" >> "${S}"/src/feature.h || die
 
 	gnome2_environment_reset
-
-	default
 }
 
 src_configure() {
