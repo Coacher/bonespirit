@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://github.com/BYVoid/${PN}.git"
 
 LICENSE="MPL-1.1"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~ppc64 ~x86"
+KEYWORDS=""
 IUSE="static-libs test"
 
 src_prepare() {
