@@ -16,7 +16,7 @@ EGIT_BRANCH="develop"
 # MIT license is used for docs only
 LICENSE="BSD-2 MIT-with-advertising"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
