@@ -9,16 +9,15 @@ PYTHON_COMPAT=( python{2_7,3_4} )
 inherit distutils-r1 git-r3
 
 DESCRIPTION="An improved Python library to control i3wm"
-HOMEPAGE="https://github.com/acrisci/i3ipc-python"
-EGIT_REPO_URI="git://github.com/Coacher/${PN}.git"
+HOMEPAGE="https://github.com/acrisci/i3ipc-python https://pypi.python.org/pypi/i3ipc"
+EGIT_REPO_URI="git://github.com/acrisci/${PN}.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND="virtual/python-enum34[${PYTHON_USEDEP}]"
-
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
@@ -26,7 +25,7 @@ DEPEND="${RDEPEND}
 DOCS=( README.rst )
 
 src_prepare() {
-	# virtual/python-enum34 is the Gentoo analogue of enum-compat.
+	# virtual/python-enum34 is the Gentoo equivalent of enum-compat.
 	sed -i -e "s/'enum-compat'//g" setup.py || die
 	distutils-r1_src_prepare
 }
