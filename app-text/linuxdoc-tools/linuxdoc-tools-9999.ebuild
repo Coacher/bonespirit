@@ -65,7 +65,7 @@ src_install() {
 	# Prevent access violations from bitmap font files generation.
 	use doc && export VARTEXFONTS="${T}/fonts"
 
-	autotools-utils_src_install
+	default
 }
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
