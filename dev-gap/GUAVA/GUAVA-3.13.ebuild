@@ -42,7 +42,7 @@ src_prepare() {
 	# Remove temporary files in src/leon/.
 	rm -r src/leon/{autom4te.cache,src/stamp-h1} src/leon/src/*~ || die
 
-	cd /src/leon/ || die
+	cd src/leon/ || die
 	eautoreconf
 }
 
