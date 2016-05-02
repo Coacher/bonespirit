@@ -37,5 +37,5 @@ DEPEND="${RDEPEND}
 "
 
 python_test() {
-	py.test -v || die "Testing failed with ${EPYTHON}"
+	py.test -v || die "Test suite failed with ${EPYTHON}"
 }

@@ -8,7 +8,7 @@ CABAL_FEATURES="bin lib profile haddock hoogle hscolour test-suite"
 
 inherit haskell-cabal git-r3
 
-DESCRIPTION="Shell script analysis tool"
+DESCRIPTION="A shell script static analysis tool"
 HOMEPAGE="https://www.shellcheck.net/ https://github.com/koalaman/shellcheck"
 EGIT_REPO_URI="git://github.com/koalaman/${PN}.git"
 
