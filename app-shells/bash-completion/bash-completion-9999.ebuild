@@ -64,16 +64,16 @@ src_prepare() {
 
 src_install() {
 	# Workaround race conditions. See Gentoo bug 526996.
-	mkdir -p "${ED}"/usr/share/${PN}/{completions,helpers} || die
+	mkdir -p "${ED}"usr/share/${PN}/{completions,helpers} || die
 
 	default
 
 	# Remove unwanted completions.
 	local file
 	for file in "${STRIP_COMPLETIONS[@]}"; do
-		rm "${ED}/usr/share/${PN}/completions/${file}" || die
+		rm "${ED}usr/share/${PN}/completions/${file}" || die
 	done
 
 	# Remove deprecated completions (moved to other packages).
-	rm "${ED}"/usr/share/${PN}/completions/_* || die
+	rm "${ED}"usr/share/${PN}/completions/_* || die
 }

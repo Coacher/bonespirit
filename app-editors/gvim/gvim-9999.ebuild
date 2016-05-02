@@ -223,9 +223,9 @@ src_install() {
 	dosym ${PN} /usr/bin/rgview
 
 	dodir /usr/share/man/man1
-	echo '.so vim.1' > "${ED}"/usr/share/man/man1/gvim.1 || die
-	echo '.so vim.1' > "${ED}"/usr/share/man/man1/gview.1 || die
-	echo '.so vimdiff.1' > "${ED}"/usr/share/man/man1/gvimdiff.1 || die
+	echo '.so vim.1' > "${ED}"usr/share/man/man1/gvim.1 || die
+	echo '.so vim.1' > "${ED}"usr/share/man/man1/gview.1 || die
+	echo '.so vimdiff.1' > "${ED}"usr/share/man/man1/gvimdiff.1 || die
 
 	domenu runtime/${PN}.desktop
 	for size in 16 32 48; do
@@ -235,7 +235,7 @@ src_install() {
 
 	insinto /etc/vim
 	newins "${FILESDIR}"/gvimrc-r1 gvimrc
-	eprefixify "${ED}"/etc/vim/gvimrc
+	eprefixify "${ED}"etc/vim/gvimrc
 
 	newbashcomp "${FILESDIR}"/${PN}-completion ${PN}
 	bashcomp_alias ${PN} evim eview gview gvimdiff rgvim rgview

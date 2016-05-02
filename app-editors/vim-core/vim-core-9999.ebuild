@@ -131,7 +131,7 @@ src_install() {
 	# Default vimrc is installed by vim-core as it applies to Vim and GVim.
 	insinto /etc/vim/
 	newins "${FILESDIR}"/vimrc-r4 vimrc
-	eprefixify "${ED}"/etc/vim/vimrc
+	eprefixify "${ED}"etc/vim/vimrc
 
 	newbashcomp "${FILESDIR}"/xxd-completion xxd
 
@@ -141,7 +141,7 @@ src_install() {
 
 		rm -r "${ED}${vimfiles}"/{compiler,doc,ftplugin,indent} || die
 		rm -r "${ED}${vimfiles}"/{macros,print,tools,tutor} || die
-		rm "${ED}"/usr/bin/vimtutor || die
+		rm "${ED}"usr/bin/vimtutor || die
 
 		local keep_colors="default"
 		ignore=$(rm "${ED}${vimfiles}"/colors/!(${keep_colors}).vim || die)
