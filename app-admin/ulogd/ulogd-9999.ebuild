@@ -40,8 +40,6 @@ DEPEND="${RDEPEND}
 	)
 "
 
-DOCS=( AUTHORS README TODO )
-
 DOC_CONTENTS="
 	You must have at least one logging stack enabled to make ulogd work.
 	Please edit the example configuration located at /etc/ulogd.conf.
