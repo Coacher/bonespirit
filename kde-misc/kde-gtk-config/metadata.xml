@@ -9,4 +9,7 @@
 		<flag name="gtk2">Build with GTK+ 2 preview support</flag>
 		<flag name="gtk3">Build with GTK+ 3 preview support</flag>
 	</use>
+	<upstream>
+		<bugs-to>https://bugs.kde.org/enter_bug.cgi?product=kde-gtk-config</bugs-to>
+	</upstream>
 </pkgmetadata>
