@@ -12,7 +12,7 @@ DESCRIPTION="A shell script static analysis tool"
 HOMEPAGE="https://www.shellcheck.net/ https://github.com/koalaman/shellcheck"
 EGIT_REPO_URI="git://github.com/koalaman/${PN}.git"
 
-LICENSE="GPL-3"
+LICENSE="GPL-3+"
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
