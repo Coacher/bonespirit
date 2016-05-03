@@ -7,6 +7,6 @@
 	</maintainer>
 	<upstream>
 		<remote-id type="sourceforge">kile</remote-id>
-		<bugs-to>https://bugs.kde.org/</bugs-to>
+		<bugs-to>https://bugs.kde.org/enter_bug.cgi?product=kile</bugs-to>
 	</upstream>
 </pkgmetadata>
