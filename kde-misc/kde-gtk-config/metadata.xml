@@ -6,7 +6,7 @@
 		<name>Gentoo KDE Project</name>
 	</maintainer>
 	<use>
-		<flag name="gtk">Build with GTK+ 2 preview support</flag>
+		<flag name="gtk2">Build with GTK+ 2 preview support</flag>
 		<flag name="gtk3">Build with GTK+ 3 preview support</flag>
 	</use>
 </pkgmetadata>

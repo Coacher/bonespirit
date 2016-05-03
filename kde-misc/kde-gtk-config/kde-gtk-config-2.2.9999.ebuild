@@ -2,54 +2,40 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit kde4-base git-r3
+inherit kde4-base
 
 DESCRIPTION="GTK2 and GTK3 Configurator for KDE"
 HOMEPAGE="https://quickgit.kde.org/?p=kde-gtk-config.git"
-EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
 EGIT_BRANCH="2.2"
 
 LICENSE="GPL-3"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 SLOT="4"
-IUSE="debug gtk gtk3"
+IUSE="debug gtk2 gtk3"
 
-CDEPEND="
+COMMON_DEPEND="
 	dev-libs/glib:2
-	gtk? ( x11-libs/gtk+:2 )
+	gtk2? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
 "
 DEPEND="
-	${CDEPEND}
+	${COMMON_DEPEND}
 	dev-util/automoc
 "
 RDEPEND="
-	${CDEPEND}
-	!kde-misc/kcm_gtk
+	${COMMON_DEPEND}
 	$(add_kdeapps_dep kcmshell)
+	!kde-misc/kcm_gtk
 "
 
-PATCHES=(
-	"${FILESDIR}/${PN}-optional-previews.patch"
-	"${FILESDIR}/${PN}-remove-dangling-spaces.patch"
-)
+src_prepare() {
+	kde4-base_src_prepare
 
-src_configure() {
-	local mycmakeargs=(
-		$(cmake-utils_use_with gtk GTK2_PREVIEW)
-		$(cmake-utils_use_with gtk3 GTK3_PREVIEW)
-	)
+	# Don't create trailing spaces in generated configs.
+	sed -i -e 's|\s\\n|\\n|g' src/appearancegtk2.cpp || die
 
-	kde4-base_src_configure
-}
-
-pkg_postinst() {
-	kde4-base_pkg_postinst
-	einfo
-	elog "If you notice missing icons in your GTK applications, you may have to install"
-	elog "the corresponding themes for GTK. A good guess would be x11-themes/oxygen-gtk"
-	elog "for example."
-	einfo
+	use gtk2 || cmake_comment_add_subdirectory gtkproxies
+	use gtk3 || cmake_comment_add_subdirectory gtk3proxies
 }
