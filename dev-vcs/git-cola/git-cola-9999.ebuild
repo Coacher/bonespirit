@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 DISTUTILS_SINGLE_IMPL=1
 PLOCALES="de es fr hu id_ID it ja pt_BR ru sv tr_TR zh_CN zh_TW"
 
-inherit distutils-r1 l10n readme.gentoo-r1 git-r3
+inherit eutils distutils-r1 fdo-mime gnome2-utils l10n readme.gentoo-r1 git-r3
 
 DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
@@ -91,6 +91,8 @@ python_install_all() {
 		docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		"${myemaketargets[@]}"
 
+	doicon -s scalable share/${PN}/icons/${PN}.svg
+
 	use doc || HTML_DOCS=( "${FILESDIR}/index.html" )
 
 	python_fix_shebang "${ED}"usr/share/${PN}/bin/git-xbase
@@ -100,6 +102,17 @@ python_install_all() {
 	readme.gentoo_create_doc
 }
 
+pkg_preinst() {
+	gnome2_icon_savelist
+}
+
 pkg_postinst() {
 	readme.gentoo_print_elog
+	fdo-mime_desktop_database_update
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+	fdo-mime_desktop_database_update
+	gnome2_icon_cache_update
 }
