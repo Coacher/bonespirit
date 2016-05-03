@@ -13,7 +13,7 @@ _gvim()
     if [[ "${prev}" == "--servername" ]]; then
         local servers
         servers=$(gvim --serverlist)
-        COMPREPLY=( $( compgen -W "${servers}" -- ${cur} ) )
+        COMPREPLY=( $( compgen -W "${servers}" -- "${cur}" ) )
 
     elif [[ "${prev}" == -[uUi] ]]; then
         COMPREPLY=( $( compgen -W "NONE" ) \
@@ -25,7 +25,7 @@ _gvim()
             -x -X -y -Y -Z --echo-wid --help --literal --noplugin --version
             --remote --remote-expr --remote-send --remote-silent --remote-wait
             --remote-wait-silent --serverlist --servername --socketid'
-        COMPREPLY=( $( compgen -W "${args}" -- ${cur} ) )
+        COMPREPLY=( $( compgen -W "${args}" -- "${cur}" ) )
     else
         _filedir
     fi

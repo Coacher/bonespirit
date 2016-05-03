@@ -122,18 +122,18 @@ src_install() {
 		install-languages \
 		install-icons \
 		DESTDIR="${D}" \
-		BINDIR="${EPREFIX}"/usr/bin \
-		MANDIR="${EPREFIX}"/usr/share/man \
-		DATADIR="${EPREFIX}"/usr/share
+		BINDIR="${EPREFIX}/usr/bin" \
+		MANDIR="${EPREFIX}/usr/share/man" \
+		DATADIR="${EPREFIX}/usr/share"
 
 	keepdir ${vimfiles}/keymap
 
 	# Default vimrc is installed by vim-core as it applies to Vim and GVim.
 	insinto /etc/vim/
-	newins "${FILESDIR}"/vimrc-r4 vimrc
+	newins "${FILESDIR}/vimrc-r4" vimrc
 	eprefixify "${ED}"etc/vim/vimrc
 
-	newbashcomp "${FILESDIR}"/xxd-completion xxd
+	newbashcomp "${FILESDIR}/xxd-completion" xxd
 
 	if use minimal; then
 		# Remove non-critical files to save some space. See Gentoo bug 65144.

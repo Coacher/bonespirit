@@ -140,7 +140,7 @@ src_configure() {
 			--without-x
 		)
 	else
-		use debug && append-flags "-DDEBUG"
+		use debug && append-flags -DDEBUG
 
 		local myeconfargs=(
 			--with-features=huge
@@ -197,7 +197,7 @@ src_configure() {
 
 	econf \
 		--with-modified-by="Gentoo-${PVR}" \
-		--with-vim-name=${PN} \
+		--with-vim-name="${PN}" \
 		"${myeconfargs[@]}"
 }
 
@@ -220,7 +220,7 @@ src_install() {
 	dosym ${PN} /usr/bin/rvim
 	dosym ${PN} /usr/bin/rview
 
-	newbashcomp "${FILESDIR}"/${PN}-completion ${PN}
+	newbashcomp "${FILESDIR}/${PN}-completion" ${PN}
 	bashcomp_alias ${PN} ex vi view rvim rview vimdiff
 }
 

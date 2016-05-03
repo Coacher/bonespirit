@@ -11,7 +11,7 @@ _xxd()
 
     if [[ "${cur}" == -* ]]; then
         args='-a -b -c -E -e -g -h -i -l -o -p -r -s -seek -u -v'
-        COMPREPLY=( $( compgen -W "${args}" -- ${cur} ) )
+        COMPREPLY=( $( compgen -W "${args}" -- "${cur}" ) )
     else
         _filedir
     fi

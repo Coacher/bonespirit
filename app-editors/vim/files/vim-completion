@@ -13,7 +13,7 @@ _vim()
     if [[ "${prev}" == "--servername" ]]; then
         local servers
         servers=$(vim --serverlist)
-        COMPREPLY=( $( compgen -W "${servers}" -- ${cur} ) )
+        COMPREPLY=( $( compgen -W "${servers}" -- "${cur}" ) )
 
     elif [[ "${prev}" == -[uUi] ]]; then
         COMPREPLY=( $( compgen -W "NONE" ) \
@@ -23,7 +23,7 @@ _vim()
         args='-t -q -c -S --cmd -A -b -C -d -D -e -E -f --nofork -F -g -h -H
             -i -L -l -m -M -N -n -nb -o -O -p -R -r -s -T -u -U -V -v -w -W
             -x -X -y -Y -Z --echo-wid --help --literal --noplugin --version'
-        COMPREPLY=( $( compgen -W "${args}" -- ${cur} ) )
+        COMPREPLY=( $( compgen -W "${args}" -- "${cur}" ) )
     else
         _filedir
     fi

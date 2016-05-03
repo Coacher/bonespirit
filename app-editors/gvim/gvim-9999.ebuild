@@ -119,7 +119,7 @@ src_configure() {
 	export vim_cv_tty_group=$(egetent group tty | cut -d ':' -f 3)
 	export vim_cv_tty_mode=0620
 
-	use debug && append-flags "-DDEBUG"
+	use debug && append-flags -DDEBUG
 
 	local myeconfargs=(
 		--with-features=huge
@@ -191,7 +191,7 @@ src_configure() {
 
 	econf \
 		--with-modified-by="Gentoo-${PVR}" \
-		--with-vim-name=${PN} \
+		--with-vim-name="${PN}" \
 		"${myeconfargs[@]}"
 }
 
@@ -231,13 +231,13 @@ src_install() {
 	for size in 16 32 48; do
 		newicon -s ${size} runtime/vim${size}x${size}.png ${PN}.png
 	done
-	doicon -s scalable "${FILESDIR}"/${PN}.svg
+	doicon -s scalable "${FILESDIR}/${PN}.svg"
 
 	insinto /etc/vim
-	newins "${FILESDIR}"/gvimrc-r1 gvimrc
+	newins "${FILESDIR}/gvimrc-r1" gvimrc
 	eprefixify "${ED}"etc/vim/gvimrc
 
-	newbashcomp "${FILESDIR}"/${PN}-completion ${PN}
+	newbashcomp "${FILESDIR}/${PN}-completion" ${PN}
 	bashcomp_alias ${PN} evim eview gview gvimdiff rgvim rgview
 }
 

@@ -101,7 +101,7 @@ src_compile() {
 
 	if use doc; then
 		# Prevent access violations from bitmap font files generation.
-		export VARTEXFONTS="${T}"/fonts
+		export VARTEXFONTS="${T}/fonts"
 		emake -C doc
 	fi
 }
