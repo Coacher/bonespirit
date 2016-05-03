@@ -7,12 +7,12 @@ EAPI=5
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 PLOCALES="ar bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS uk_UA vi zh_CN zh_TW"
-WX_GTK_VER="3.0"
+WX_GTK_VER=3.0
 
 inherit autotools-utils fdo-mime flag-o-matic gnome2-utils l10n wxwidgets git-2
 
 DESCRIPTION="Advanced subtitle editor"
-HOMEPAGE="http://www.aegisub.org/"
+HOMEPAGE="http://www.aegisub.org/ https://github.com/Aegisub/Aegisub"
 EGIT_REPO_URI="git://github.com/Aegisub/Aegisub.git"
 
 LICENSE="BSD"
@@ -37,24 +37,22 @@ RDEPEND="
 	virtual/libiconv
 	virtual/opengl
 	x11-libs/wxGTK:${WX_GTK_VER}[X,opengl,debug?]
-
 	alsa? ( media-libs/alsa-lib )
+	ffmpeg? ( media-libs/ffmpegsource:= )
+	fftw? ( >=sci-libs/fftw-3.3:= )
 	openal? ( media-libs/openal )
 	portaudio? ( =media-libs/portaudio-19* )
 	pulseaudio? ( media-sound/pulseaudio )
-
-	ffmpeg? ( media-libs/ffmpegsource:= )
-	fftw? ( >=sci-libs/fftw-3.3:= )
-
 	spell? ( app-text/hunspell )
 	uchardet? ( dev-libs/uchardet )
 "
 DEPEND="${RDEPEND}
-	oss? ( virtual/os-headers )
 	dev-util/intltool
 	sys-devel/gettext
 	virtual/pkgconfig
+	oss? ( virtual/os-headers )
 "
+
 REQUIRED_USE="
 	|| ( alsa openal oss portaudio pulseaudio )
 "
@@ -101,7 +99,7 @@ src_configure() {
 		$(use_with spell hunspell)
 		$(use_with uchardet)
 	)
-	autotools-utils_src_configure
+	econf "${myeconfargs[@]}"
 }
 
 pkg_preinst() {
