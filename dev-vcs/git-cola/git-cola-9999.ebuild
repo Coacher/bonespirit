@@ -33,8 +33,10 @@ DEPEND="${RDEPEND}
 		)
 	)
 	test? (
-		dev-python/mock[${PYTHON_USEDEP}]
 		dev-python/nose[${PYTHON_USEDEP}]
+		python_targets_python2_7? (
+			dev-python/mock[$(python_gen_usedep 'python2*')]
+		)
 	)
 "
 
