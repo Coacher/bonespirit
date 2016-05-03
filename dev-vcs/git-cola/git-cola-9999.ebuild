@@ -91,7 +91,7 @@ python_install_all() {
 		docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		"${myemaketargets[@]}"
 
-	use doc || HTML_DOCS=( "${FILESDIR}"/index.html )
+	use doc || HTML_DOCS=( "${FILESDIR}/index.html" )
 
 	python_fix_shebang "${ED}"usr/share/${PN}/bin/git-xbase
 	python_optimize "${ED}"usr/share/${PN}/lib/cola
