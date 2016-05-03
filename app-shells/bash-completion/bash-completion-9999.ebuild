@@ -10,7 +10,7 @@ DESCRIPTION="Programmable completion functions for bash"
 HOMEPAGE="https://github.com/scop/bash-completion"
 EGIT_REPO_URI="git://github.com/scop/${PN}.git"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
