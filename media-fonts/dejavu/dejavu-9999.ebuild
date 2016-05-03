@@ -7,12 +7,12 @@ EAPI=6
 inherit font git-r3
 
 DESCRIPTION="DejaVu fonts, Bitstream Vera with a wider range of characters"
-HOMEPAGE="http://dejavu.sourceforge.net/"
+HOMEPAGE="http://dejavu-fonts.org/wiki/Main_Page https://github.com/dejavu-fonts/dejavu-fonts"
 EGIT_REPO_URI="git://github.com/dejavu-fonts/dejavu-fonts.git"
 
 LICENSE="BitstreamVera"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
@@ -23,6 +23,10 @@ DEPEND="
 	x11-apps/mkfontdir
 	x11-apps/mkfontscale
 "
+
+RESTRICT="binchecks strip"
+
+DOCS="README.md"
 
 FONT_SUFFIX="ttf"
 FONT_S="${S}/build"
@@ -37,11 +41,10 @@ FONT_CONF=(
 
 src_compile() {
 	emake \
-		BLOCKS=/usr/share/unicode-data/Blocks.txt \
-		UNICODEDATA=/usr/share/unicode-data/UnicodeData.txt \
-		FC-LANG=/usr/share/fc-lang \
-		full sans \
-		|| die "emake failed"
+		BLOCKS="${EPREFIX}/usr/share/unicode-data/Blocks.txt" \
+		UNICODEDATA="${EPREFIX}/usr/share/unicode-data/UnicodeData.txt" \
+		FC-LANG="${EPREFIX}/usr/share/fc-lang" \
+		full sans
 }
 
 src_install() {
