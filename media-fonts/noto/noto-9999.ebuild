@@ -7,7 +7,7 @@ EAPI=6
 inherit font git-r3
 
 DESCRIPTION="Google's font family that aims to support all the world's languages"
-HOMEPAGE="https://www.google.com/get/noto/"
+HOMEPAGE="https://www.google.com/get/noto/ https://github.com/googlei18n/noto-fonts"
 EGIT_REPO_URI="git://github.com/googlei18n/noto-fonts.git"
 
 LICENSE="OFL-1.1"
@@ -17,7 +17,7 @@ IUSE=""
 
 RESTRICT="binchecks strip"
 
-DOCS="FAQ.md NEWS README.md"
+DOCS="FAQ.md README.md"
 
 FONT_SUFFIX="ttf"
 FONT_S="${S}/unhinted"
