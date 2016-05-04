@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 DISTUTILS_SINGLE_IMPL=1
 PLOCALES="de es fr hu id_ID it ja pt_BR ru sv tr_TR zh_CN zh_TW"
 
-inherit eutils distutils-r1 fdo-mime gnome2-utils l10n readme.gentoo-r1 git-r3
+inherit distutils-r1 eutils fdo-mime gnome2-utils l10n readme.gentoo-r1 git-r3
 
 DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
@@ -62,10 +62,10 @@ python_prepare_all() {
 	sed -i -e '/askpass =/s/\.share/.prefix/g' cola/app.py || die
 
 	# Disable unconditional documentation installation to the wrong directory.
-	sed -i -e "/share\/doc\/${PN}/d" setup.py || die
+	sed -i -e "/doc\/${PN}/d" setup.py || die
 
 	# Use proper directory to search for documentation.
-	sed -i -e "s/'doc', '${PN}'/'doc', '${PF}'/" cola/resources.py || die
+	sed -i -e "s/'doc', '${PN}'/'doc', '${PF}'/g" cola/resources.py || die
 
 	# Remove broken tests.
 	rm test/i18n_test.py || die
