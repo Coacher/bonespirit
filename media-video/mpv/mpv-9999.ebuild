@@ -25,7 +25,7 @@ fi
 SRC_URI+=" https://waf.io/waf-${WAF_PV}"
 DOCS+=( CONTRIBUTING.md README.md )
 
-# See Copyright in source tarball and bug #506946. Waf is BSD, libmpv is ISC.
+# See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
 IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl +enca
@@ -140,8 +140,8 @@ src_prepare() {
 
 src_configure() {
 	local mywafargs=(
-		--confdir="${EPREFIX}"/etc/${PN}
-		--docdir="${EPREFIX}"/usr/share/doc/${PF}
+		--confdir="${EPREFIX}/etc/${PN}"
+		--docdir="${EPREFIX}/usr/share/doc/${PF}"
 
 		--disable-gpl3			# Unclear license info. See Gentoo bug 571728.
 
@@ -259,7 +259,7 @@ src_install() {
 	waf-utils_src_install
 
 	if use cli && use luajit; then
-		pax-mark -m "${ED}usr/bin/${PN}"
+		pax-mark -m "${ED}"usr/bin/${PN}
 	fi
 }
 
