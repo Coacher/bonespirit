@@ -17,9 +17,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-RDEPEND="virtual/python-enum34[${PYTHON_USEDEP}]"
-DEPEND="${RDEPEND}
-	dev-python/setuptools[${PYTHON_USEDEP}]
+DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+RDEPEND="
+	virtual/python-enum34[${PYTHON_USEDEP}]
+	x11-wm/i3
 "
 
 DOCS=( README.rst )
