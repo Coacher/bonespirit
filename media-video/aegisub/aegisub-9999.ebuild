@@ -5,9 +5,8 @@
 # EAPI=6 is blocked by Gentoo bug 497164.
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=1
-PLOCALES="ar bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS uk_UA vi zh_CN zh_TW"
 WX_GTK_VER=3.0
+PLOCALES="ar bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS uk_UA vi zh_CN zh_TW"
 
 inherit autotools-utils fdo-mime flag-o-matic gnome2-utils l10n wxwidgets git-2
 
@@ -78,6 +77,8 @@ src_prepare() {
 
 	# See http://devel.aegisub.org/ticket/1914
 	config_rpath_update "${S}"/config.rpath
+
+	eautoreconf
 }
 
 src_configure() {
