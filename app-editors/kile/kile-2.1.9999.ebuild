@@ -7,7 +7,7 @@ EAPI=6
 inherit kde4-base
 
 DESCRIPTION="A user-friendly TeX/LaTeX editor for KDE"
-HOMEPAGE="http://kile.sourceforge.net/"
+HOMEPAGE="http://kile.sourceforge.net/ https://www.kde.org/applications/office/kile/"
 EGIT_BRANCH="2.1"
 
 LICENSE="FDL-1.2 GPL-2"
