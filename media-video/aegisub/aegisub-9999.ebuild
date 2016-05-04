@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
+# EAPI=6 is blocked by Gentoo bug 497164.
 EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=1
 PLOCALES="ar bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS uk_UA vi zh_CN zh_TW"
 WX_GTK_VER=3.0
 
@@ -77,13 +77,13 @@ src_prepare() {
 	l10n_for_each_disabled_locale_do remove_locale
 
 	# See http://devel.aegisub.org/ticket/1914
-	config_rpath_update "${S}/config.rpath"
+	config_rpath_update "${S}"/config.rpath
 
 	autotools-utils_src_prepare
 }
 
 src_configure() {
-	# Prevent sandbox violation from OpenAL detection. Gentoo bug #508184.
+	# Prevent sandbox violation from OpenAL detection. Gentoo bug 508184.
 	use openal && export agi_cv_with_openal="yes"
 	local myeconfargs=(
 		--disable-update-checker
