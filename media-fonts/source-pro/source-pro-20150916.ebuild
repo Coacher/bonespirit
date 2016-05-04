@@ -29,14 +29,11 @@ IUSE=""
 
 RESTRICT="binchecks strip"
 
-S="${WORKDIR}"
-
 FONT_SUFFIX="otf"
-FONT_S="${S}/${PN}"
 FONT_CONF=( "${FILESDIR}/60-${PN}.conf" )
 
 src_unpack() {
 	default
-	mkdir ${PN} || die
-	cp -aLR source-*/OTF/*.otf ${PN} || die
+	mkdir "${WORKDIR}/${P}" || die
+	cp -aLR source-*/OTF/*.otf "${WORKDIR}/${P}" || die
 }
