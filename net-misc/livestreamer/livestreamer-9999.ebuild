@@ -13,7 +13,7 @@ HOMEPAGE="http://docs.livestreamer.io/"
 EGIT_REPO_URI="git://github.com/chrippa/${PN}.git"
 EGIT_BRANCH="develop"
 
-# MIT license is used for docs only.
+# MIT is used by documentation only.
 LICENSE="BSD-2 MIT-with-advertising"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
