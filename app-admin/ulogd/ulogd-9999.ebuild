@@ -66,7 +66,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Change default settings to:
 	# - keep log files in /var/log/ulogd instead of /var/log;
@@ -97,7 +97,7 @@ src_configure() {
 }
 
 src_compile() {
-	default
+	default_src_compile
 
 	if use doc; then
 		# Prevent access violations from bitmap font files generation.
@@ -109,7 +109,7 @@ src_compile() {
 src_install() {
 	use doc && HTML_DOCS=( doc/${PN}.html )
 
-	default
+	default_src_install
 
 	prune_libtool_files --modules
 	readme.gentoo_create_doc

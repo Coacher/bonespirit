@@ -31,6 +31,6 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	default
+	default_src_prepare
 	eautoreconf
 }

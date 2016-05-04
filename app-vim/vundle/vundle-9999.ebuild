@@ -22,6 +22,6 @@ RDEPEND="
 "
 
 src_prepare() {
-	default
+	default_src_prepare
 	rm -r test/ LICENSE-MIT.txt || die
 }

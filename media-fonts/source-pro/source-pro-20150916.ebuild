@@ -33,7 +33,7 @@ FONT_SUFFIX="otf"
 FONT_CONF=( "${FILESDIR}/60-${PN}.conf" )
 
 src_unpack() {
-	default
+	default_src_unpack
 	mkdir "${WORKDIR}/${P}" || die
 	cp -aLR source-*/OTF/*.otf "${WORKDIR}/${P}" || die
 }

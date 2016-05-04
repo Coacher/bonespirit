@@ -15,6 +15,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 src_prepare() {
-	default
+	default_src_prepare
 	rm zb-vimball.txt || die
 }

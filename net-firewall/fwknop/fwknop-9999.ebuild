@@ -68,7 +68,7 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Install example configs with .example suffix.
 	if use server; then
@@ -95,7 +95,7 @@ src_configure() {
 }
 
 src_compile() {
-	default
+	default_src_compile
 
 	if use python; then
 		cd "${S}"/python || die
@@ -104,7 +104,7 @@ src_compile() {
 }
 
 src_install() {
-	default
+	default_src_install
 
 	prune_libtool_files --modules
 

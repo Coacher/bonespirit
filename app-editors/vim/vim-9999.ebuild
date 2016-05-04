@@ -65,7 +65,7 @@ REQUIRED_USE="
 "
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Use awk instead of nawk.
 	sed -i -e \

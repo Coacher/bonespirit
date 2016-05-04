@@ -58,7 +58,7 @@ PATCHES=(
 S="${WORKDIR}/${PN}/${PN}"
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	remove_locale() {
 		sed -i -e "s/${1}\.po//g" po/Makefile || die

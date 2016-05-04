@@ -51,7 +51,7 @@ STRIP_COMPLETIONS=(
 )
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Update the build system with Gentoo paths.
 	sed -i \
@@ -66,7 +66,7 @@ src_install() {
 	# Workaround race conditions. See Gentoo bug 526996.
 	mkdir -p "${ED}"usr/share/${PN}/{completions,helpers} || die
 
-	default
+	default_src_install
 
 	# Remove unwanted completions.
 	local file

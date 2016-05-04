@@ -20,7 +20,7 @@ DEPEND="sys-devel/autoconf"
 PDEPEND="!minimal? ( app-vim/gentoo-syntax )"
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Use awk instead of nawk.
 	sed -i -e \

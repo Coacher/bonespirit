@@ -28,7 +28,7 @@ DOCS=( {CHANGES,HISTORY,README}.${MY_PN} )
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Don't call autoreconf in src_compile().
 	sed -i -e 's| autoreconf[^;]*;||g' Makefile.in || die

@@ -59,14 +59,14 @@ src_configure() {
 }
 
 src_compile() {
-	default
+	default_src_compile
 }
 
 src_install() {
 	# Prevent access violations from bitmap font files generation.
 	use doc && export VARTEXFONTS="${T}/fonts"
 
-	default
+	default_src_install
 }
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"

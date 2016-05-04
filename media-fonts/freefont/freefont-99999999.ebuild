@@ -30,7 +30,7 @@ FONT_S="${S}/sfd"
 FONT_CONF=( "${FILESDIR}/69-${PN}.conf" )
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	# Disable broken fontforge version checks.
 	sed -i -e '/TESTFF\|ffversion/d' sfd/Makefile || die

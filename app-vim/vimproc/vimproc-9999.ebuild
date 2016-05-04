@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 src_prepare() {
-	default
+	default_src_prepare
 	mv make_unix.mak Makefile || die
 	rm -r *.mak *.yml lib/.gitkeep test/ tools/*.bat || die
 }
