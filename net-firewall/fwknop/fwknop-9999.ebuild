@@ -2,21 +2,18 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-AUTOTOOLS_AUTORECONF=1
-AUTOTOOLS_IN_SOURCE_BUILD=1
-DISABLE_AUTOFORMATTING=1
-
-DISTUTILS_OPTIONAL=1
-# Python extension supports only Python2
+# Python extension supports only Python2.
 # See https://github.com/mrash/fwknop/issues/167
 PYTHON_COMPAT=( python2_7 )
+DISTUTILS_OPTIONAL=1
+DISABLE_AUTOFORMATTING=1
 
-inherit autotools-utils eutils distutils-r1 linux-info readme.gentoo-r1 systemd git-r3
+inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd git-r3
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
-HOMEPAGE="http://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
+HOMEPAGE="https://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
 EGIT_REPO_URI="git://github.com/mrash/${PN}.git"
 
 LICENSE="GPL-2"
@@ -47,7 +44,7 @@ REQUIRED_USE="
 	udp-server? ( server )
 "
 
-DOCS=( ChangeLog README.md )
+DOCS=( AUTHORS ChangeLog README.md )
 
 DOC_CONTENTS="
 Example configuration files were installed in /etc/fwknopd directory.
@@ -71,17 +68,19 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	# Install example configs with .example suffix
+	default
+
+	# Install example configs with .example suffix.
 	if use server; then
 		sed -i -e 's/conf;/conf.example;/g' "${S}"/Makefile.am || die
 	fi
 
-	autotools-utils_src_prepare
+	eautoreconf
 }
 
 src_configure() {
 	local myeconfargs=(
-		--localstatedir=/run
+		--localstatedir="${EPREFIX}/run"
 		--enable-digest-cache
 		$(use_enable client)
 		$(use_enable !gdbm file-cache)
@@ -89,14 +88,14 @@ src_configure() {
 		$(use_enable udp-server)
 		$(use_with gpg gpgme)
 	)
-	use firewalld && myeconfargs+=(--with-firewalld=/usr/sbin/firewalld)
-	use iptables && myeconfargs+=(--with-iptables=/sbin/iptables)
+	use firewalld && myeconfargs+=(--with-firewalld="${EPREFIX}/usr/sbin/firewalld")
+	use iptables && myeconfargs+=(--with-iptables="${EPREFIX}/sbin/iptables")
 
-	autotools-utils_src_configure
+	econf "${myeconfargs[@]}"
 }
 
 src_compile() {
-	autotools-utils_src_compile
+	default
 
 	if use python; then
 		cd "${S}"/python || die
@@ -105,8 +104,22 @@ src_compile() {
 }
 
 src_install() {
-	autotools-utils_src_install
+	default
+
 	prune_libtool_files --modules
+
+	if use extras; then
+		dodoc "${S}"/extras/apparmor/usr.sbin.fwknopd
+		dodoc "${S}"/extras/console-qr/console-qr.sh
+		dodoc "${S}"/extras/fwknop-launcher/*
+	fi
+
+	if use python; then
+		cd "${S}"/python || die
+		# Redefine DOCS, otherwise distutils-r1 eclass interferes.
+		local DOCS=()
+		distutils-r1_src_install
+	fi
 
 	if use server; then
 		newinitd "${FILESDIR}/fwknopd.init" fwknopd
@@ -114,15 +127,6 @@ src_install() {
 		systemd_dounit extras/systemd/fwknopd.service
 		systemd_newtmpfilesd extras/systemd/fwknopd.tmpfiles.conf fwknopd.conf
 		readme.gentoo_create_doc
-	fi
-
-	use extras && dodoc "${S}/extras/apparmor/usr.sbin.fwknopd"
-
-	if use python; then
-		# Unset DOCS since distutils-r1.eclass interferes
-		local DOCS=()
-		cd "${S}"/python || die
-		distutils-r1_src_install
 	fi
 }
 
