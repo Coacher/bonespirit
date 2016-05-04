@@ -40,7 +40,7 @@ src_test() {
 src_install() {
 	cabal_src_install
 	if use doc; then
-		pandoc -s -t man "${PN}.1.md" -o "${PN}.1" || die
-		doman "${PN}.1"
+		pandoc -s -t man ${PN}.1.md -o ${PN}.1 || die
+		doman ${PN}.1
 	fi
 }
