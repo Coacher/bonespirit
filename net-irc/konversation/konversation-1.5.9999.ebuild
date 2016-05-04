@@ -2,13 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit kde4-base git-r3
+inherit kde4-base
 
-DESCRIPTION="A user-friendly and fully-featured IRC client"
+DESCRIPTION="A user-friendly IRC client for KDE"
 HOMEPAGE="https://konversation.kde.org https://www.kde.org/applications/internet/konversation/"
-EGIT_REPO_URI="git://anongit.kde.org/${PN}.git"
 EGIT_BRANCH="1.5"
 
 LICENSE="GPL-2"
@@ -25,10 +24,16 @@ RDEPEND="${DEPEND}
 	crypt? ( app-crypt/qca:2[openssl] )
 "
 
+src_prepare() {
+	kde4-base_src_prepare
+
+	# Disable unconditional docbook documentation build.
+	cmake_comment_add_subdirectory doc
+}
+
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_with crypt QCA2)
+		-DWITH_QCA2=$(usex crypt)
 	)
-
 	kde4-base_src_configure
 }
