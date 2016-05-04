@@ -59,13 +59,12 @@ src_configure() {
 }
 
 src_compile() {
+	# Prevent access violations from bitmap font files generation.
+	use doc && export VARTEXFONTS="${T}/fonts"
 	default_src_compile
 }
 
 src_install() {
-	# Prevent access violations from bitmap font files generation.
-	use doc && export VARTEXFONTS="${T}/fonts"
-
 	default_src_install
 }
 
