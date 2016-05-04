@@ -4,8 +4,8 @@
 
 EAPI=6
 
-PLOCALES="ar ca cs da de el es eu fa fi fr_FR hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS vi zh_CN zh_TW"
 WX_GTK_VER=2.9
+PLOCALES="ar ca cs da de el es eu fa fi fr_FR hu id it ja ko nl pl pt_BR pt_PT ru sr_RS@latin sr_RS vi zh_CN zh_TW"
 
 inherit autotools fdo-mime gnome2-utils l10n wxwidgets
 
