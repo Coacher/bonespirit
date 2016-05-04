@@ -47,9 +47,7 @@ DEPEND="${RDEPEND}
 	oss? ( virtual/os-headers )
 "
 
-REQUIRED_USE="
-	|| ( alsa openal oss portaudio pulseaudio )
-"
+REQUIRED_USE="|| ( alsa openal oss portaudio pulseaudio )"
 
 PATCHES=(
 	"${FILESDIR}/${P}-fix-lua-macro.patch"
