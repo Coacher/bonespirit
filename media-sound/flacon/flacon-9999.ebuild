@@ -52,6 +52,8 @@ DEPEND="${COMMON_DEPEND}
 REQUIRED_USE="^^ ( qt4 qt5 )"
 
 src_prepare() {
+	cmake-utils_src_prepare
+
 	# Ignore rudimentary et, uz@Latn, zh_TW translation(s).
 	rm "translations/${PN}_uz@Latn.desktop" || die
 	rm "translations/${PN}"_{et,zh_TW}.ts || die
@@ -62,8 +64,6 @@ src_prepare() {
 
 	l10n_find_plocales_changes 'translations' "${PN}_" '.ts'
 	l10n_for_each_disabled_locale_do remove_locale
-
-	cmake-utils_src_prepare
 }
 
 src_configure() {

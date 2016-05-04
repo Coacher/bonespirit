@@ -67,6 +67,8 @@ pkg_pretend() {
 }
 
 src_prepare() {
+	autotools-utils_src_prepare
+
 	remove_locale() {
 		rm "po/${1}.po" || die
 	}
@@ -76,8 +78,6 @@ src_prepare() {
 
 	# See http://devel.aegisub.org/ticket/1914
 	config_rpath_update "${S}"/config.rpath
-
-	autotools-utils_src_prepare
 }
 
 src_configure() {

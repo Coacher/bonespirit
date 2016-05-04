@@ -16,8 +16,8 @@ KEYWORDS=""
 IUSE="static-libs test"
 
 src_prepare() {
-	use test || cmake_comment_add_subdirectory test
 	cmake-utils_src_prepare
+	use test || cmake_comment_add_subdirectory test
 }
 
 src_configure() {
