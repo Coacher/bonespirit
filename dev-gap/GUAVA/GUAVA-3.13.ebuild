@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit autotools multilib toolchain-funcs
+inherit autotools toolchain-funcs
 
 MY_PN="${PN,,}"
 MY_P="${MY_PN}-${PV}"
