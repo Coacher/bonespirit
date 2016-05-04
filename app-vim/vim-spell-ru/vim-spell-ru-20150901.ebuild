@@ -25,7 +25,7 @@ KEYWORDS="~amd64 ~x86"
 RESTRICT=mirror
 
 src_unpack() {
-	mkdir -p "${WORKDIR}/${P}" || die
+	mkdir "${WORKDIR}/${P}" || die
 	cd "${DISTDIR}" || die
 	cp -aLR ${A} "${WORKDIR}/${P}" || die
 }
