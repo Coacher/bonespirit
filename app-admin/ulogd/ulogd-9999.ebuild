@@ -4,6 +4,8 @@
 
 EAPI=6
 
+DISABLE_AUTOFORMATTING=1
+
 inherit autotools eutils flag-o-matic linux-info readme.gentoo-r1 systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
@@ -41,8 +43,8 @@ DEPEND="${RDEPEND}
 "
 
 DOC_CONTENTS="
-	You must have at least one logging stack enabled to make ulogd work.
-	Please edit the example configuration located at /etc/ulogd.conf.
+You must have at least one logging stack enabled to make ulogd work.
+Please edit the example configuration located at /etc/ulogd.conf.
 "
 
 pkg_setup() {
