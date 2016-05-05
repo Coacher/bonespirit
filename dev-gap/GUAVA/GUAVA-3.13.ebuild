@@ -9,11 +9,11 @@ inherit autotools toolchain-funcs
 MY_PN="${PN,,}"
 MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="A package that implements coding theory algorithms in GAP"
+DESCRIPTION="GAP package for computing with error-correcting codes"
 HOMEPAGE="http://www.gap-system.org/Packages/guava.html https://osj1961.github.io/guava/"
 SRC_URI="http://www.gap-system.org/pub/gap/gap4/tar.gz/packages/${MY_P}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-2 GPL-3"
+LICENSE="|| ( GPL-2 GPL-3 )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
