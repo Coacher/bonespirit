@@ -38,7 +38,7 @@ REQUIRED_USE="
 RESTRICT="mirror strip"
 
 pkg_pretend() {
-	if use scanner; then
+	if use scanner && ! has_version ${CATEGORY}/${PN}[scanner]; then
 		if ! linux_config_exists || linux_chkconfig_present USB_PRINTER; then
 			ewarn "Samsung USB MFDs are normally managed via libusb."
 			ewarn "In this case, you need to either disable the USB_PRINTER"
