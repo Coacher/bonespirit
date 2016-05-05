@@ -25,7 +25,7 @@ IUSE="alsa debug +ffmpeg +fftw openal oss portaudio pulseaudio spell +uchardet"
 #
 # aegisub bundles luabins (https://github.com/agladysh/luabins).
 # Unfortunately, luabins upstream is practically dead since 2010.
-# Thus unbundling luabins is not worth the effort.
+# Thus unbundling luabins isn't worth the effort.
 RDEPEND="
 	dev-lang/luajit:2[lua52compat]
 	dev-libs/boost:=[icu,nls,threads]
