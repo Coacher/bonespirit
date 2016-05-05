@@ -58,13 +58,13 @@ python_prepare_all() {
 	# Remove bundled ssh-askpass scripts.
 	rm share/${PN}/bin/ssh-askpass* || die
 
-	# Use proper directory to search for ssh-askpass.
+	# Look for ssh-askpass under /usr.
 	sed -i -e '/askpass =/s/\.share/.prefix/g' cola/app.py || die
 
 	# Disable unconditional documentation installation to the wrong directory.
-	sed -i -e "/doc\/${PN}/d" setup.py || die
+	sed -i -e "\|share/doc/${PN}|d" setup.py || die
 
-	# Use proper directory to search for documentation.
+	# Look for documentation in Gentoo paths.
 	sed -i -e "s/'doc', '${PN}'/'doc', '${PF}'/g" cola/resources.py || die
 
 	# Remove broken tests.
