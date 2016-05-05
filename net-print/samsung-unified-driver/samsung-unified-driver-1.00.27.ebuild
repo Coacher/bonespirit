@@ -2,24 +2,20 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit linux-info multilib udev
+inherit linux-info udev vcs-snapshot
 
-DESCRIPTION="Samsung Unified Linux Driver"
+EXTRA_PV=04
+
+DESCRIPTION="Samsung Unified Linux Driver for printers and MFDs"
 HOMEPAGE="http://www.samsung.com"
-SRC_URI="http://downloadcenter.samsung.com/content/DR/201407/20140709152519621/ULD_v${PV}.tar.gz
--> ${P}.tar.gz"
+SRC_URI="http://downloadcenter.samsung.com/content/DR/201407/20140709152519621/ULD_v${PV}.${EXTRA_PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Samsung-EULA"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="-* ~amd64 ~arm ~x86"
 IUSE="cups network scanner"
-REQUIRED_USE="
-	network? ( cups )
-	|| ( cups scanner )
-"
-RESTRICT="mirror strip"
 
 RDEPEND="
 	cups? (
@@ -31,26 +27,15 @@ RDEPEND="
 		dev-libs/libxml2:2
 		virtual/libusb:0
 	)
-	network? (
-		virtual/libusb:0
-	)
+	network? ( virtual/libusb:0 )
 "
-DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/uld"
+REQUIRED_USE="
+	network? ( cups )
+	|| ( cups scanner )
+"
 
-if use cups; then
-	QA_SONAME="usr/$(get_libdir)/libscmssc.so"
-	QA_FLAGS_IGNORED+=" usr/$(get_libdir)/libscmssc.so"
-	QA_FLAGS_IGNORED+=" usr/libexec/cups/filter/pstosecps"
-	QA_FLAGS_IGNORED+=" usr/libexec/cups/filter/rastertospl"
-fi
-if use scanner; then
-	QA_FLAGS_IGNORED+=" usr/$(get_libdir)/sane/libsane-smfp.so.1.0.1"
-fi
-if use network; then
-	QA_FLAGS_IGNORED+=" usr/libexec/cups/backend/smfpnetdiscovery"
-fi
+RESTRICT="mirror strip"
 
 pkg_pretend() {
 	if use scanner; then
@@ -62,14 +47,29 @@ pkg_pretend() {
 	fi
 }
 
+pkg_setup() {
+	if use cups; then
+		QA_SONAME="usr/$(get_libdir)/libscmssc.so"
+		QA_FLAGS_IGNORED+=" usr/$(get_libdir)/libscmssc.so"
+		QA_FLAGS_IGNORED+=" usr/libexec/cups/filter/pstosecps"
+		QA_FLAGS_IGNORED+=" usr/libexec/cups/filter/rastertospl"
+	fi
+	if use scanner; then
+		QA_FLAGS_IGNORED+=" usr/$(get_libdir)/sane/libsane-smfp.so.1.0.1"
+	fi
+	if use network; then
+		QA_FLAGS_IGNORED+=" usr/libexec/cups/backend/smfpnetdiscovery"
+	fi
+}
+
 src_install() {
 	local MY_ARCH="x86_64"
 	use arm && MY_ARCH="arm"
 	use x86 && MY_ARCH="x86"
 
-	# Printer support
+	# Printer support.
 	if use cups; then
-		# libscmssc.so is required by rastertospl
+		# libscmssc.so is required by rastertospl.
 		dolib.so ${MY_ARCH}/libscmssc.so
 
 		exeinto /usr/libexec/cups/filter
@@ -85,7 +85,7 @@ src_install() {
 		doins noarch/share/ppd/cms/*.cts
 	fi
 
-	# Scanner support
+	# Scanner support.
 	if use scanner; then
 		insinto /etc/sane.d
 		doins noarch/etc/smfp.conf
@@ -103,7 +103,7 @@ src_install() {
 		udev_newrules "${FILESDIR}/${PV}-libsane-smfp.rules" 40-libsane-smfp.rules
 	fi
 
-	# Network support
+	# Network support.
 	if use network; then
 		exeinto /usr/libexec/cups/backend
 		doexe ${MY_ARCH}/smfpnetdiscovery
