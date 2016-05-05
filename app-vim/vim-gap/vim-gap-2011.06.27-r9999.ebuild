@@ -4,7 +4,7 @@
 
 EAPI=6
 
-VIM_PLUGIN_MESSAGES="filetype"
+VIM_PLUGIN_MESSAGES=filetype
 
 inherit vim-plugin vcs-snapshot
 
@@ -25,5 +25,6 @@ src_prepare() {
 	rm -r bin/ syntax_checkers/ || die
 
 	# Disable default mappings to avoid conflicts.
+	# See https://github.com/petRUShka/vim-gap/issues/1
 	sed -i -e '/^[nv]\?map\b/s/^/"/g' ftplugin/gap.vim || die
 }
