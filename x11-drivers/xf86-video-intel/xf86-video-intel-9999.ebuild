@@ -10,10 +10,8 @@ inherit linux-info xorg-2
 
 DESCRIPTION="X.Org driver for Intel cards"
 
-KEYWORDS="~amd64 ~x86 ~amd64-fbsd -x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc"
-
-REQUIRED_USE="|| ( sna uxa )"
 
 RDEPEND="
 	>=x11-libs/libdrm-2.4.52[video_cards_intel]
@@ -57,6 +55,8 @@ DEPEND="${RDEPEND}
 	uxa? ( x11-proto/randrproto )
 "
 
+REQUIRED_USE="|| ( sna uxa )"
+
 src_configure() {
 	XORG_CONFIGURE_OPTIONS=(
 		$(use_enable debug)
@@ -69,9 +69,8 @@ src_configure() {
 		$(use_enable ums)
 		$(use_enable uxa)
 		$(use_enable xvmc)
+		$(usex dri3 '--with-default-dri=3')
 	)
-	use dri3 && XORG_CONFIGURE_OPTIONS+=(--with-default-dri=3)
-
 	xorg-2_src_configure
 }
 
