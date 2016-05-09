@@ -7,15 +7,13 @@ EAPI=6
 inherit autotools elisp-common versionator
 
 DESCRIPTION="System for computational discrete algebra"
-HOMEPAGE="http://www.gap-system.org/"
+HOMEPAGE="http://www.gap-system.org/ https://github.com/gap-system/gap"
 SRC_URI="https://github.com/gap-system/gap/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="emacs readline vim-syntax"
-
-RESTRICT="mirror"
 
 DEPEND="
 	dev-libs/gmp:=
@@ -27,9 +25,11 @@ RDEPEND="${DEPEND}
 "
 PDEPEND="dev-gap/GAPDoc"
 
+RESTRICT=mirror
+
 PATCHES=(
-	"${FILESDIR}"/${PN}-4.5.7-writeandcheck.patch
-	"${FILESDIR}"/${PN}-4.8.3-configdir.patch
+	"${FILESDIR}/${PN}-4.5.7-writeandcheck.patch"
+	"${FILESDIR}/${PN}-4.8.3-configdir.patch"
 )
 
 update_version_info() {
@@ -68,7 +68,7 @@ update_version_info() {
 }
 
 src_prepare() {
-	default
+	default_src_prepare
 
 	update_version_info
 
@@ -80,10 +80,9 @@ src_prepare() {
 		mv configure configure.out || die
 	popd > /dev/null || die
 
-	# Removing dev stuff in doc.
-	pushd doc > /dev/null || die
-		rm -r -- dev/ *.{bib,tex} manualindex README* || die
-	popd > /dev/null || die
+	# Remove development files in doc/.
+	cd doc || die
+	rm -r -- dev/ *.{bib,tex} manualindex README* || die
 }
 
 src_configure() {
@@ -96,15 +95,15 @@ src_configure() {
 }
 
 src_compile() {
-	default
+	default_src_compile
 
 	source sysinfo.gap
-	pushd "bin/${GAParch_system}" > /dev/null || die
-		# Replace the objects needed by gac with an archive.
-		# compstat.o is omitted on purpose from this list, see cnf/gac.in.
-		rm compstat.o || die
-		ar qv libgap.a *.o || die "failed to produce the libgap archive"
-	popd > /dev/null || die
+
+	cd "bin/${GAParch_system}" || die
+	# Replace objects needed by gac with an archive.
+	# compstat.o is omitted on purpose from this list, see cnf/gac.in.
+	rm compstat.o || die
+	ar qv libgap.a *.o || die "failed to create libgap.a archive"
 }
 
 src_install() {
