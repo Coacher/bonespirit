@@ -16,7 +16,8 @@ KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~spa
 IUSE_SERVERS="dmx kdrive xephyr xnest xorg xvfb"
 IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
 
-CDEPEND=">=app-eselect/eselect-opengl-1.3.0
+COMMON_DEPEND="
+	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl )
 	media-libs/freetype
@@ -83,7 +84,7 @@ CDEPEND=">=app-eselect/eselect-opengl-1.3.0
 		sys-apps/systemd
 	)"
 
-DEPEND="${CDEPEND}
+DEPEND="${COMMON_DEPEND}
 	sys-devel/flex
 	>=x11-proto/bigreqsproto-1.1.0
 	>=x11-proto/compositeproto-0.4
@@ -124,7 +125,7 @@ DEPEND="${CDEPEND}
 		>=x11-proto/dri2proto-2.8
 	)"
 
-RDEPEND="${CDEPEND}
+RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-xserver )
 	!x11-drivers/xf86-video-modesetting
 "
@@ -138,7 +139,6 @@ REQUIRED_USE="!minimal? (
 	xephyr? ( kdrive )"
 
 PATCHES=(
-	"${UPSTREAMED_PATCHES[@]}"
 	"${FILESDIR}"/${PN}-1.12-unloadsubmodule.patch
 	# needed for new eselect-opengl, bug #541232
 	"${FILESDIR}"/${PN}-1.18-support-multiple-Files-sections.patch
