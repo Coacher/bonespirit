@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit autotools flag-o-matic git-r3
+inherit autotools eutils flag-o-matic git-r3
 
 DESCRIPTION="A libav/ffmpeg based source library for easy frame accurate access"
 HOMEPAGE="https://github.com/FFMS/ffms2"
@@ -33,4 +33,9 @@ pkg_pretend() {
 src_prepare() {
 	default_src_prepare
 	eautoreconf
+}
+
+src_install() {
+	default_src_install
+	prune_libtool_files --modules
 }
