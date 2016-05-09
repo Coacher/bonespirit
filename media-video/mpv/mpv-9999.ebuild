@@ -247,7 +247,7 @@ src_configure() {
 
 	if ! use egl && ! use opengl && ! use raspberry-pi; then
 		mywafargs+=(--disable-gl)
-	fi;
+	fi
 
 	# Create reproducible non-live builds.
 	[[ ${PV} != *9999* ]] && mywafargs+=(--disable-build-date)
@@ -276,13 +276,13 @@ pkg_postinst() {
 		! has_version 'app-shells/mpv-bash-completion'; then
 		elog "If you want to have command-line completion via bash-completion,"
 		elog "please install app-shells/mpv-bash-completion."
-	fi;
+	fi
 
 	if use cli && [[ -n ${REPLACING_VERSIONS} ]] && \
 		has_version 'app-shells/mpv-bash-completion'; then
 		elog "If command-line completion doesn't work after mpv update,"
 		elog "please rebuild app-shells/mpv-bash-completion."
-	fi;
+	fi
 }
 
 pkg_postrm() {
