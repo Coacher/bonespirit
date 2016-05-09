@@ -2,24 +2,23 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit bash-completion-r1 eutils linux-info multilib systemd git-r3
+inherit bash-completion-r1 eutils linux-info systemd git-r3
 
 DESCRIPTION="Generic initramfs generation tool"
 HOMEPAGE="https://dracut.wiki.kernel.org"
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/boot/${PN}/${PN}.git"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="debug selinux systemd"
 
-RESTRICT="test"
-
-CDEPEND="virtual/udev
+COMMON_DEPEND="virtual/udev
 	systemd? ( >=sys-apps/systemd-199 )
 	"
-RDEPEND="${CDEPEND}
+RDEPEND="${COMMON_DEPEND}
 	app-arch/cpio
 	>=app-shells/bash-4.0
 	>sys-apps/kmod-5[tools]
@@ -29,7 +28,6 @@ RDEPEND="${CDEPEND}
 		sys-apps/systemd-sysv-utils
 	)
 	>=sys-apps/util-linux-2.21
-
 	debug? ( dev-util/strace )
 	selinux? (
 		sys-libs/libselinux
@@ -37,7 +35,7 @@ RDEPEND="${CDEPEND}
 		sec-policy/selinux-dracut
 	)
 	"
-DEPEND="${CDEPEND}
+DEPEND="${COMMON_DEPEND}
 	app-text/asciidoc
 	>=dev-libs/libxslt-1.1.26
 	app-text/docbook-xml-dtd:4.5
@@ -45,12 +43,16 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	"
 
-DOCS=( NEWS README README.generic README.kernel README.modules TODO )
-MY_LIBDIR=/usr/lib
+RESTRICT=test
+
+HTML_DOCS=( ${PN}.html )
+
 QA_MULTILIB_PATHS="
 	usr/lib/dracut/dracut-install
 	usr/lib/dracut/skipcpio
 	"
+
+MY_LIBDIR=/usr/lib
 
 #
 # Helper functions
@@ -111,18 +113,18 @@ src_prepare() {
 			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 	fi
 
-	epatch_user
+	eapply_user
 }
 
 src_configure() {
-	local myconf="--libdir=${MY_LIBDIR}"
-	myconf+=" --bashcompletiondir=$(get_bashcompdir)"
+	local myconf=( --libdir="${MY_LIBDIR}" )
+	myconf+=(--bashcompletiondir="$(get_bashcompdir)")
 
 	if use systemd; then
-		myconf+=" --systemdsystemunitdir='$(systemd_get_unitdir)'"
+		myconf+=(--systemdsystemunitdir="$(systemd_get_unitdir)")
 	fi
 
-	econf ${myconf}
+	econf "${myconf[@]}"
 }
 
 src_compile() {
@@ -131,7 +133,7 @@ src_compile() {
 }
 
 src_install() {
-	default
+	default_src_install
 
 	local my_libdir="${MY_LIBDIR}"
 	local dracutlibdir="${my_libdir#/}/dracut"
@@ -146,8 +148,6 @@ src_install() {
 
 	dodir /var/lib/dracut/overlay
 
-	dohtml dracut.html
-
 	if ! use systemd; then
 		# Scripts in kernel/install.d are systemd-specific
 		rm -r "${D%/}/${my_libdir}/kernel" || die
@@ -156,7 +156,6 @@ src_install() {
 	#
 	# Modules
 	#
-	local module
 	modules_dir="${D%/}/${dracutlibdir}/modules.d"
 
 	use debug || rm_module 95debug
@@ -189,8 +188,7 @@ pkg_postinst() {
 
 		# Kernel configuration options descriptions:
 		local desc_DEVTMPFS="Maintain a devtmpfs filesystem to mount at /dev"
-		local desc_BLK_DEV_INITRD="Initial RAM filesystem and RAM disk "\
-"(initramfs/initrd) support"
+		local desc_BLK_DEV_INITRD="Initial RAM filesystem and RAM disk (initramfs/initrd) support"
 
 		local opt desc
 
@@ -218,12 +216,12 @@ pkg_postinst() {
 	elog "To get additional features, a number of optional runtime"
 	elog "dependencies may be installed:"
 	elog ""
-	optfeature "Networking support"  net-misc/curl "net-misc/dhcp[client]" \
+	optfeature "Networking support" net-misc/curl "net-misc/dhcp[client]" \
 		sys-apps/iproute2
 	optfeature \
 		"Measure performance of the boot process for later visualisation" \
 		app-benchmarks/bootchart2 app-admin/killproc sys-process/acct
-	optfeature "Scan for Btrfs on block devices"  sys-fs/btrfs-progs
+	optfeature "Scan for Btrfs on block devices" sys-fs/btrfs-progs
 	optfeature "Load kernel modules and drop this privilege for real init" \
 		sys-libs/libcap
 	optfeature "Support CIFS" net-fs/cifs-utils
@@ -241,7 +239,7 @@ pkg_postinst() {
 	optfeature "Support MD devices, also known as software RAID devices" \
 		sys-fs/mdadm
 	optfeature "Support Device Mapper multipathing" sys-fs/multipath-tools
-	optfeature "Plymouth boot splash"  '>=sys-boot/plymouth-0.8.5-r5'
+	optfeature "Plymouth boot splash" '>=sys-boot/plymouth-0.8.5-r5'
 	optfeature "Support network block devices" sys-block/nbd
 	optfeature "Support NFS" net-fs/nfs-utils net-nds/rpcbind
 	optfeature \
