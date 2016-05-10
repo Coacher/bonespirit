@@ -1,0 +1,2 @@
+# Missing dependencies. See Gentoo bug 582500.
+=media-video/subliminal-2.0_rc1-r9999
