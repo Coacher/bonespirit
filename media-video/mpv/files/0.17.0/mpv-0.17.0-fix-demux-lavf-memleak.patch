@@ -1,0 +1,25 @@
+commit 2f8b4dd4808d796cff955354caf804df00e53ebb
+Author: wm4 <wm4@nowhere>
+Date:   Sun May 8 13:24:22 2016 +0200
+
+demux_lavf: fix a minor memory leak
+---
+
+diff --git a/demux/demux_lavf.c b/demux/demux_lavf.c
+index e4ad588..ea0c15e 100644
+--- a/demux/demux_lavf.c
++++ b/demux/demux_lavf.c
+@@ -1101,8 +1101,12 @@ static void demux_close_lavf(demuxer_t *demuxer)
+             av_freep(&priv->pb->buffer);
+         av_freep(&priv->pb);
+         for (int n = 0; n < priv->num_streams; n++) {
+-            if (priv->streams[n])
++            if (priv->streams[n]) {
+                 avcodec_free_context(&priv->streams[n]->codec->lav_headers);
++#if HAVE_AVCODEC_HAS_CODECPAR
++                avcodec_parameters_free(&priv->streams[n]->codec->lav_codecpar);
++#endif
++            }
+         }
+         if (priv->stream != demuxer->stream)
+             free_stream(priv->stream);

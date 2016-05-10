@@ -1,0 +1,49 @@
+commit 7e6e47b8c4e2e01a2a5c1af02402772f92416980
+Author: wm4 <wm4@nowhere>
+Date:   Tue May 10 11:48:43 2016 +0200
+
+sd_lavc: work around bug in older ffmpeg releases
+
+Older ffmpeg releases don't have ffmpeg git commit
+50401f5fb7d778583b03a13bc4440f71063d319d, which fixes ffmpeg's
+pkt_timebase check to reject its default "unset" timebase as invalid.
+The consequence was that all non-PGS bitmap subtitle timestamps were
+forced to 0.
+
+Of course this hit _only_ shitty distros using outdated/badly maintained
+ffmpeg releases, so this is not worth working around. I've already
+wasted a lot of time on analyzing this dumb issue, and it could be
+useful for bisecting, so don't drop pre-3.0 ffmpeg just yet.
+
+Fixes #3109.
+---
+
+diff --git a/sub/sd_lavc.c b/sub/sd_lavc.c
+index 56377b2..ab1b659 100644
+--- a/sub/sd_lavc.c
++++ b/sub/sd_lavc.c
+@@ -118,6 +118,7 @@ static int init(struct sd *sd)
+     if (!ctx)
+         goto error;
+     mp_lavc_set_extradata(ctx, sd->codec->extradata, sd->codec->extradata_size);
++#if LIBAVCODEC_VERSION_MICRO >= 100
+     if (cid == AV_CODEC_ID_HDMV_PGS_SUBTITLE) {
+         // We don't always want to set this, because the ridiculously shitty
+         // libavcodec API will mess with certain fields (end_display_time)
+@@ -129,11 +130,14 @@ static int init(struct sd *sd)
+         // which coincidentally won't be overridden by the ridiculously shitty
+         // pkt_timebase code. also, Libav doesn't have the pkt_timebase field,
+         // because Libav tends to avoid _adding_ ridiculously shitty APIs.
+-#if LIBAVCODEC_VERSION_MICRO >= 100
+         priv->pkt_timebase = (AVRational){1, AV_TIME_BASE};
+         ctx->pkt_timebase = priv->pkt_timebase;
+-#endif
++    } else {
++        // But old ffmpeg releases have a buggy pkt_timebase check, because the
++        // shit above wasn't bad enough!
++        ctx->pkt_timebase = (AVRational){0, 0};
+     }
++#endif
+     if (avcodec_open2(ctx, sub_codec, NULL) < 0)
+         goto error;
+     priv->avctx = ctx;

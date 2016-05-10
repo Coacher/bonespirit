@@ -1,0 +1,40 @@
+commit 8fe33a11e2911751b9726146a6f31acfb77b6b03
+Author: wm4 <wm4@nowhere>
+Date:   Sun May 8 11:04:44 2016 +0200
+
+x11: slightly safer X11 error handler behavior
+
+The X11 error handler is global, and not per-display. If another Xlib
+user exists in the process, they can conflict. In theory, it might
+happen that e.g. another library sets an error handler (overwriting the
+mpv one), and some time after mpv closes its display, restores the error
+handler to mpv's one. To mitigate this, check if the error log instance
+is actually set, instead of possibly crashing.
+
+The change in vo_x11_uninit() is mostly cosmetic.
+---
+
+diff --git a/video/out/x11_common.c b/video/out/x11_common.c
+index 009f7e4..656509e 100644
+--- a/video/out/x11_common.c
++++ b/video/out/x11_common.c
+@@ -280,6 +280,9 @@ static void vo_set_cursor_hidden(struct vo *vo, bool cursor_hidden)
+ static int x11_errorhandler(Display *display, XErrorEvent *event)
+ {
+     struct mp_log *log = x11_error_output;
++    if (!log)
++        return 0;
++
+     char msg[60];
+     XGetErrorText(display, event->error_code, (char *) &msg, sizeof(msg));
+
+@@ -746,8 +749,8 @@ void vo_x11_uninit(struct vo *vo)
+     if (x11->xim)
+         XCloseIM(x11->xim);
+     if (x11->display) {
+-        x11_error_output = NULL;
+         XSetErrorHandler(NULL);
++        x11_error_output = NULL;
+         XCloseDisplay(x11->display);
+     }
+
