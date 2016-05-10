@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}
 python_prepare_all() {
 	# Remove base64-encoded zip archive with pytest.
 	rm runtests.py || die
+
 	# Disable unconditional dependency on dev-python/pytest-runner.
 	sed -i -e "s|'pytest-runner'||g" setup.py || die
 
