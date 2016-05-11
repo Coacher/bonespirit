@@ -31,7 +31,7 @@ RDEPEND="
 	>=dev-python/pysrt-1.0.1[${PYTHON_USEDEP}]
 	>=dev-python/six-1.9.0[${PYTHON_USEDEP}]
 	>=dev-python/appdirs-1.3[${PYTHON_USEDEP}]
-	>=dev-python/rarfile-2.7[${PYTHON_USEDEP}]
+	>=dev-python/rarfile-2.7[compressed,${PYTHON_USEDEP}]
 	>=dev-python/pytz-2012c[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	virtual/python-futures[${PYTHON_USEDEP}]
