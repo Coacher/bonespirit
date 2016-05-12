@@ -28,15 +28,11 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext
 	doc? (
 		dev-python/sphinx[${PYTHON_USEDEP}]
-		python_targets_python2_7? (
-			dev-python/sphinxtogithub[$(python_gen_usedep 'python2*')]
-		)
+		$(python_gen_cond_dep 'dev-python/sphinxtogithub[${PYTHON_USEDEP}]' python2_7)
 	)
 	test? (
 		dev-python/nose[${PYTHON_USEDEP}]
-		python_targets_python2_7? (
-			dev-python/mock[$(python_gen_usedep 'python2*')]
-		)
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 	)
 "
 
