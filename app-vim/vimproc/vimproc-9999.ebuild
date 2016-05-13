@@ -6,7 +6,7 @@ EAPI=6
 
 VIM_PLUGIN_HELPFILES="${PN}.txt"
 
-inherit flag-o-matic vim-plugin git-r3
+inherit flag-o-matic toolchain-funcs vim-plugin git-r3
 
 DESCRIPTION="vim plugin: asynchronous execution library for Vim"
 HOMEPAGE="https://github.com/Shougo/vimproc.vim"
@@ -23,8 +23,9 @@ src_prepare() {
 }
 
 src_compile() {
-	append-cflags -shared -fPIC
-	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}"
+	append-cflags -fPIC -shared
+	append-ldflags -lutil
+	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 }
 
 src_install() {
