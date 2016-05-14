@@ -36,7 +36,6 @@ COMMON_DEPEND="
 	>=x11-misc/xbitmaps-1.0.1
 	>=x11-misc/xkeyboard-config-2.4.1-r3
 	dmx? (
-		x11-libs/libXt
 		>=x11-libs/libdmx-1.0.99.1
 		>=x11-libs/libX11-1.1.5
 		>=x11-libs/libXaw-1.0.4
@@ -44,9 +43,10 @@ COMMON_DEPEND="
 		>=x11-libs/libXfixes-5.0
 		>=x11-libs/libXi-1.2.99.1
 		>=x11-libs/libXmu-1.0.3
-		x11-libs/libXrender
 		>=x11-libs/libXres-1.0.3
 		>=x11-libs/libXtst-1.0.99.2
+		x11-libs/libXrender
+		x11-libs/libXt
 	)
 	glamor? (
 		media-libs/libepoxy
@@ -90,11 +90,9 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/damageproto-1.1
 	>=x11-proto/fixesproto-5.0
 	>=x11-proto/fontsproto-2.1.3
-	>=x11-proto/glproto-1.4.17-r1
 	>=x11-proto/inputproto-2.3
 	>=x11-proto/kbproto-1.0.3
 	>=x11-proto/randrproto-1.5.0
-	>=x11-proto/recordproto-1.13.99.1
 	>=x11-proto/renderproto-0.11
 	>=x11-proto/resourceproto-1.2.0
 	>=x11-proto/scrnsaverproto-1.1
@@ -106,8 +104,6 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
 	>=x11-proto/xineramaproto-1.1.3
 	>=x11-proto/xproto-7.0.28
-	>=x11-proto/presentproto-1.0
-	>=x11-proto/dri3proto-1.0
 	dmx? (
 		>=x11-proto/dmxproto-2.2.99.1
 		doc? (
@@ -119,8 +115,12 @@ DEPEND="${COMMON_DEPEND}
 		)
 	)
 	!minimal? (
-		>=x11-proto/xf86driproto-2.1.0
 		>=x11-proto/dri2proto-2.8
+		>=x11-proto/dri3proto-1.0
+		>=x11-proto/glproto-1.4.17-r1
+		>=x11-proto/presentproto-1.0
+		>=x11-proto/recordproto-1.13.99.1
+		>=x11-proto/xf86driproto-2.1.0
 	)"
 
 RDEPEND="${COMMON_DEPEND}
