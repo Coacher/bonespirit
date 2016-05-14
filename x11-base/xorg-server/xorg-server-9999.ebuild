@@ -101,7 +101,6 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/videoproto-2.2.2
 	>=x11-proto/xcmiscproto-1.2.0
 	>=x11-proto/xextproto-7.2.99.901
-	>=x11-proto/xf86bigfontproto-1.2.0
 	>=x11-proto/xf86dgaproto-2.0.99.1
 	>=x11-proto/xf86rushproto-1.1.2
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
@@ -151,40 +150,43 @@ src_configure() {
 	# localstatedir is used for the logs location; we need to override the default.
 	# sysconfdir is used for the xorg.conf location; same applies.
 	XORG_CONFIGURE_OPTIONS=(
-		$(use_enable ipv6)
+		$(use_enable !minimal record)
+		$(use_enable !minimal glx)
+		$(use_enable !minimal dri)
+		$(use_enable !minimal dri2)
+		$(use_enable !minimal dri3)
+		$(use_enable !minimal present)
+		$(use_enable !minimal xfree86-utils)
+		$(use_enable tslib)
+		$(use_enable udev config-udev)
+		$(use_enable systemd systemd-logind)
+		$(use_enable xorg)
 		$(use_enable dmx)
+		$(use_enable xvfb)
+		$(use_enable xnest)
+		$(use_enable wayland xwayland)
 		$(use_enable glamor)
+		$(use_enable xephyr)
 		$(use_enable kdrive)
 		$(use_enable kdrive kdrive-kbd)
 		$(use_enable kdrive kdrive-mouse)
 		$(use_enable kdrive kdrive-evdev)
-		$(use_enable suid install-setuid)
-		$(use_enable tslib)
 		$(use_enable unwind libunwind)
-		$(use_enable wayland xwayland)
-		$(use_enable !minimal record)
-		$(use_enable !minimal xfree86-utils)
-		$(use_enable !minimal dri)
-		$(use_enable !minimal dri2)
-		$(use_enable !minimal glx)
-		$(use_enable xephyr)
-		$(use_enable xnest)
-		$(use_enable xorg)
-		$(use_enable xvfb)
-		$(use_enable udev config-udev)
+		$(use_enable suid install-setuid)
+		$(use_enable ipv6)
 		$(use_with doc doxygen)
 		$(use_with doc xmlto)
 		$(use_with systemd systemd-daemon)
-		$(use_enable systemd systemd-logind)
-		--enable-libdrm
 		--sysconfdir="${EPREFIX}"/etc/X11
 		--localstatedir="${EPREFIX}"/var
 		--with-fontrootdir="${EPREFIX}"/usr/share/fonts
 		--with-xkb-output="${EPREFIX}"/var/lib/xkb
 		--disable-config-hal
+		--enable-libdrm
 		--disable-linux-acpi
-		--without-dtrace
+		--disable-linux-apm
 		--without-fop
+		--without-dtrace
 		--with-os-vendor=Gentoo
 		--with-sha1=libcrypto
 	)
