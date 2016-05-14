@@ -191,7 +191,6 @@ src_configure() {
 		--with-os-vendor=Gentoo
 		--with-sha1=libcrypto
 	)
-
 	xorg-2_src_configure
 }
 
@@ -215,22 +214,23 @@ src_install() {
 }
 
 pkg_postinst() {
-	# sets up libGL and DRI2 symlinks if needed (ie, on a fresh install)
+	# sets up libGL and DRI2 symlinks if needed (i.e., on a fresh install)
 	eselect opengl set xorg-x11 --use-old
 }
 
 pkg_postrm() {
 	# Get rid of module dir to ensure opengl-update works properly
-	if [[ -z ${REPLACED_BY_VERSION} && -e ${EROOT}/usr/$(get_libdir)/xorg/modules ]]; then
-		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules
+	if [[ -z ${REPLACED_BY_VERSION} && -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
+		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules || die
 	fi
 }
 
 server_based_install() {
 	if ! use xorg; then
-		rm "${ED}"/usr/share/man/man1/Xserver.1x \
+		rm \
+			"${ED}"/usr/share/man/man1/Xserver.1x \
 			"${ED}"/usr/$(get_libdir)/xserver/SecurityPolicy \
 			"${ED}"/usr/$(get_libdir)/pkgconfig/xorg-server.pc \
-			"${ED}"/usr/share/man/man1/Xserver.1x
+			"${ED}"/usr/share/man/man1/Xserver.1x || die
 	fi
 }
