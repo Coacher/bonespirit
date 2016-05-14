@@ -142,17 +142,14 @@ PATCHES=(
 )
 
 pkg_pretend() {
-	# older gcc is not supported
+	# GCC < 4 isn't supported.
 	[[ "${MERGE_TYPE}" != "binary" && $(gcc-major-version) -lt 4 ]] && \
-		die "Sorry, but gcc earlier than 4.0 will not work for xorg-server."
+		die "Sorry, but GCC earlier than 4.0 will not work for xorg-server."
 }
 
 src_configure() {
-	# localstatedir is used for the log location; we need to override the default
-	#	from ebuild.sh
-	# sysconfdir is used for the xorg.conf location; same applies
-	# NOTE: fop is used for doc generating; and I have no idea if Gentoo
-	#	package it somewhere
+	# localstatedir is used for the logs location; we need to override the default.
+	# sysconfdir is used for the xorg.conf location; same applies.
 	XORG_CONFIGURE_OPTIONS=(
 		$(use_enable ipv6)
 		$(use_enable dmx)
@@ -200,26 +197,26 @@ src_install() {
 	server_based_install
 
 	if ! use minimal && use xorg; then
-		# Install xorg.conf.example into docs
-		dodoc "${AUTOTOOLS_BUILD_DIR}"/hw/xfree86/xorg.conf.example
+		# Install xorg.conf.example into docs.
+		dodoc "${BUILD_DIR}"/hw/xfree86/xorg.conf.example
 	fi
 
 	newinitd "${FILESDIR}"/xdm-setup.initd-1 xdm-setup
 	newinitd "${FILESDIR}"/xdm.initd-11 xdm
 	newconfd "${FILESDIR}"/xdm.confd-4 xdm
 
-	# install the @x11-module-rebuild set for Portage
+	# Install @x11-module-rebuild set for Portage.
 	insinto /usr/share/portage/config/sets
 	newins "${FILESDIR}"/xorg-sets.conf xorg.conf
 }
 
 pkg_postinst() {
-	# sets up libGL and DRI2 symlinks if needed (i.e., on a fresh install)
+	# Set up libGL and DRI2 symlinks if needed (e.g. on a fresh install).
 	eselect opengl set xorg-x11 --use-old
 }
 
 pkg_postrm() {
-	# Get rid of module dir to ensure opengl-update works properly
+	# Get rid of module dir to ensure opengl-update works properly.
 	if [[ -z ${REPLACED_BY_VERSION} && -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
 		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules || die
 	fi
