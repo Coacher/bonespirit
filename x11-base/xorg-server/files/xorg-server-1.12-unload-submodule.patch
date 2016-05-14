@@ -1,7 +1,7 @@
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=686152
 
 diff --git a/hw/xfree86/loader/loadmod.c b/hw/xfree86/loader/loadmod.c
-index fdf5bd8..9dfd6be 100644
+index 73dc1b8..abf9b19 100644
 --- a/hw/xfree86/loader/loadmod.c
 +++ b/hw/xfree86/loader/loadmod.c
 @@ -1099,19 +1099,18 @@ RemoveChild(ModuleDescPtr child)
@@ -31,5 +31,5 @@ index fdf5bd8..9dfd6be 100644
      child->sib = NULL;
 -    return;
  }
- 
+
  void

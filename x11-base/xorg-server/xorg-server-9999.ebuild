@@ -7,7 +7,6 @@ EAPI=5
 XORG_DOC=doc
 inherit xorg-2 multilib versionator flag-o-matic
 EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
-EGIT_BRANCH="server-1.18-branch"
 
 DESCRIPTION="X.Org X servers"
 SLOT="0/${PV}"
@@ -99,10 +98,10 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/renderproto-0.11
 	>=x11-proto/resourceproto-1.2.0
 	>=x11-proto/scrnsaverproto-1.1
-	>=x11-proto/trapproto-3.4.3
 	>=x11-proto/videoproto-2.2.2
 	>=x11-proto/xcmiscproto-1.2.0
 	>=x11-proto/xextproto-7.2.99.901
+	>=x11-proto/xf86bigfontproto-1.2.0
 	>=x11-proto/xf86dgaproto-2.0.99.1
 	>=x11-proto/xf86rushproto-1.1.2
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
@@ -139,8 +138,8 @@ REQUIRED_USE="!minimal? (
 	xephyr? ( kdrive )"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.12-unloadsubmodule.patch
-	# needed for new eselect-opengl, bug #541232
+	"${FILESDIR}"/${PN}-1.12-unload-submodule.patch
+	# Needed for new eselect-opengl, see Gentoo bug 541232.
 	"${FILESDIR}"/${PN}-1.18-support-multiple-Files-sections.patch
 )
 
