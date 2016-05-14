@@ -5,7 +5,7 @@
 EAPI=5
 
 XORG_DOC=doc
-inherit xorg-2 multilib flag-o-matic
+inherit xorg-2 multilib toolchain-funcs
 EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
 
 DESCRIPTION="X.Org X servers"
@@ -131,15 +131,14 @@ RDEPEND="${COMMON_DEPEND}
 
 PDEPEND="xorg? ( x11-base/xorg-drivers )"
 
-REQUIRED_USE="!minimal? (
-		|| ( ${IUSE_SERVERS} )
-	)
+REQUIRED_USE="
+	!minimal? ( || ( ${IUSE_SERVERS} ) )
 	xephyr? ( kdrive )"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.12-unload-submodule.patch
+	"${FILESDIR}/${PN}-1.12-unload-submodule.patch"
 	# Needed for new eselect-opengl, see Gentoo bug 541232.
-	"${FILESDIR}"/${PN}-1.18-support-multiple-Files-sections.patch
+	"${FILESDIR}/${PN}-1.18-support-multiple-Files-sections.patch"
 )
 
 pkg_pretend() {
