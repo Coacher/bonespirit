@@ -16,6 +16,7 @@ IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc"
 RDEPEND="
 	>=x11-libs/libdrm-2.4.52[video_cards_intel]
 	>=x11-libs/pixman-0.27.1
+	dri3? ( >=x11-base/xorg-server-1.15 )
 	sna? ( >=x11-base/xorg-server-1.10 )
 	tools? (
 		x11-libs/libX11
@@ -24,12 +25,12 @@ RDEPEND="
 		x11-libs/libXdamage
 		x11-libs/libXext
 		x11-libs/libXfixes
+		x11-libs/libXinerama
 		x11-libs/libXrandr
 		x11-libs/libXrender
 		x11-libs/libXtst
 		x11-libs/libxcb
 		x11-libs/libxshmfence
-		x11-libs/libXinerama
 	)
 	udev? ( virtual/libudev )
 	ums? ( x11-libs/libpciaccess )
