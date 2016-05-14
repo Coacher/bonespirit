@@ -5,7 +5,7 @@
 EAPI=5
 
 XORG_DOC=doc
-inherit xorg-2 multilib versionator flag-o-matic
+inherit xorg-2 multilib flag-o-matic
 EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
 
 DESCRIPTION="X.Org X servers"
@@ -129,8 +129,7 @@ RDEPEND="${COMMON_DEPEND}
 	!x11-drivers/xf86-video-modesetting
 "
 
-PDEPEND="
-	xorg? ( >=x11-base/xorg-drivers-$(get_version_component_range 1-2) )"
+PDEPEND="xorg? ( x11-base/xorg-drivers )"
 
 REQUIRED_USE="!minimal? (
 		|| ( ${IUSE_SERVERS} )
