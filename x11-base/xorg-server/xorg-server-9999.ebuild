@@ -213,12 +213,12 @@ src_install() {
 }
 
 pkg_postinst() {
-	# Set up libGL and DRI2 symlinks if needed (e.g. on a fresh install).
+	# Set up libGL and DRI symlinks if needed (e.g. on a fresh install).
 	eselect opengl set xorg-x11 --use-old
 }
 
 pkg_postrm() {
-	# Get rid of module dir to ensure opengl-update works properly.
+	# Get rid of module directory to ensure opengl-update works properly.
 	if [[ -z ${REPLACED_BY_VERSION} && -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
 		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules || die
 	fi
