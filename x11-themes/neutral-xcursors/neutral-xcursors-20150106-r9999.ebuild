@@ -20,7 +20,7 @@ WHITE_PN="Neutral++_White"
 WHITE_PV="1.1.1"		# 2015-01-06
 WHITE_P="${WHITE_PN}-${WHITE_PV}"
 
-inherit vcs-snapshot
+inherit gnome2-utils vcs-snapshot
 
 DESCRIPTION="A family of smoothed and shadowed cursors that resemble the standard X ones"
 HOMEPAGE="
@@ -84,4 +84,16 @@ src_install() {
 		insinto /usr/share/icons/${WHITE_PN}
 		doins -r index.theme cursors/
 	popd > /dev/null || die
+}
+
+pkg_preinst() {
+	gnome2_icon_savelist
+}
+
+pkg_postinst() {
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+	gnome2_icon_cache_update
 }
