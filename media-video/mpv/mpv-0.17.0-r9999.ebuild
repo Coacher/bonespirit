@@ -142,6 +142,7 @@ PATCHES=(
 	"${FILESDIR}/${PV}/${P}-fix-crash-re-X11-error-handler.patch"
 	"${FILESDIR}/${PV}/${P}-fix-demux-lavf-memleak.patch"
 	"${FILESDIR}/${PV}/${P}-fix-fullscreen-on-wayland.patch"
+	"${FILESDIR}/${PV}/${P}-use-correct-libass-C-types.patch"
 	"${FILESDIR}/${PV}/${P}-fix-dvd-subtitles-with-ffmpeg2.patch"
 )
 
