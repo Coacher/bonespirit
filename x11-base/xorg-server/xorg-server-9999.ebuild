@@ -5,24 +5,22 @@
 EAPI=5
 
 XORG_DOC=doc
+
 inherit xorg-2 multilib toolchain-funcs
-EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
 
 DESCRIPTION="X.Org X servers"
-SLOT="0/${PV}"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
+EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
 
+SLOT="0/${PV}"
+KEYWORDS="~amd64 ~x86"
 IUSE_SERVERS="dmx kdrive xephyr xnest xorg xvfb"
 IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
-	libressl? ( dev-libs/libressl )
+	libressl? ( dev-libs/libressl:= )
 	media-libs/freetype
-	>=x11-apps/iceauth-1.0.2
-	>=x11-apps/rgb-1.0.3
-	>=x11-apps/xauth-1.0.3
 	x11-apps/xkbcomp
 	>=x11-libs/libdrm-2.4.46
 	>=x11-libs/libpciaccess-0.12.901
@@ -54,7 +52,7 @@ COMMON_DEPEND="
 		!x11-libs/glamor
 	)
 	kdrive? (
-		>=x11-libs/libXext-1.0.5
+		>=x11-libs/libXext-1.0.99.4
 		x11-libs/libXv
 	)
 	xephyr? (
@@ -67,7 +65,7 @@ COMMON_DEPEND="
 	)
 	!minimal? (
 		>=x11-libs/libX11-1.1.5
-		>=x11-libs/libXext-1.0.5
+		>=x11-libs/libXext-1.0.99.4
 		>=media-libs/mesa-10.3.4-r1
 	)
 	tslib? ( >=x11-libs/tslib-1.0 )
@@ -77,12 +75,11 @@ COMMON_DEPEND="
 		>=dev-libs/wayland-1.3.0
 		media-libs/libepoxy
 	)
-	>=x11-apps/xinit-1.3.3-r1
 	systemd? (
 		sys-apps/dbus
 		sys-apps/systemd
-	)"
-
+	)
+"
 DEPEND="${COMMON_DEPEND}
 	sys-devel/flex
 	>=x11-proto/bigreqsproto-1.1.0
@@ -100,7 +97,6 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/xcmiscproto-1.2.0
 	>=x11-proto/xextproto-7.2.99.901
 	>=x11-proto/xf86dgaproto-2.0.99.1
-	>=x11-proto/xf86rushproto-1.1.2
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
 	>=x11-proto/xineramaproto-1.1.3
 	>=x11-proto/xproto-7.0.28
@@ -121,34 +117,38 @@ DEPEND="${COMMON_DEPEND}
 		>=x11-proto/presentproto-1.0
 		>=x11-proto/recordproto-1.13.99.1
 		>=x11-proto/xf86driproto-2.1.0
-	)"
-
+	)
+"
 RDEPEND="${COMMON_DEPEND}
+	>=x11-apps/iceauth-1.0.2
+	>=x11-apps/rgb-1.0.3
+	>=x11-apps/xauth-1.0.3
+	>=x11-apps/xinit-1.3.3-r1
 	selinux? ( sec-policy/selinux-xserver )
 	!x11-drivers/xf86-video-modesetting
 "
-
 PDEPEND="xorg? ( x11-base/xorg-drivers )"
 
 REQUIRED_USE="
 	!minimal? ( || ( ${IUSE_SERVERS} ) )
-	xephyr? ( kdrive )"
+	xephyr? ( kdrive )
+"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-1.12-unload-submodule.patch"
-	# Needed for new eselect-opengl, see Gentoo bug 541232.
+	# Needed for newer eselect-opengl, see Gentoo bug 541232.
 	"${FILESDIR}/${PN}-1.18-support-multiple-Files-sections.patch"
 )
 
 pkg_pretend() {
-	# GCC < 4 isn't supported.
-	[[ "${MERGE_TYPE}" != "binary" && $(gcc-major-version) -lt 4 ]] && \
-		die "Sorry, but GCC earlier than 4.0 will not work for xorg-server."
+	if [[ "${MERGE_TYPE}" != "binary" ]] && [[ $(gcc-major-version) -lt 4 ]]; then
+		die "Your compiler isn't supported. Use GCC >= 4."
+	fi
 }
 
 src_configure() {
-	# localstatedir is used for the logs location; we need to override the default.
-	# sysconfdir is used for the xorg.conf location; same applies.
+	# localstatedir is used for log files; we need to override the default.
+	# sysconfdir is used for the xorg.conf; same applies.
 	XORG_CONFIGURE_OPTIONS=(
 		$(use_enable !minimal record)
 		$(use_enable !minimal glx)
@@ -177,12 +177,12 @@ src_configure() {
 		$(use_with doc doxygen)
 		$(use_with doc xmlto)
 		$(use_with systemd systemd-daemon)
-		--sysconfdir="${EPREFIX}"/etc/X11
-		--localstatedir="${EPREFIX}"/var
-		--with-fontrootdir="${EPREFIX}"/usr/share/fonts
-		--with-xkb-output="${EPREFIX}"/var/lib/xkb
-		--disable-config-hal
+		--sysconfdir="${EPREFIX}/etc/X11"
+		--localstatedir="${EPREFIX}/var"
+		--with-fontrootdir="${EPREFIX}/usr/share/fonts"
+		--with-xkb-output="${EPREFIX}/var/lib/xkb"
 		--enable-libdrm
+		--disable-config-hal
 		--disable-linux-acpi
 		--disable-linux-apm
 		--without-fop
@@ -199,7 +199,6 @@ src_install() {
 	server_based_install
 
 	if ! use minimal && use xorg; then
-		# Install xorg.conf.example into docs.
 		dodoc "${BUILD_DIR}"/hw/xfree86/xorg.conf.example
 	fi
 
@@ -207,7 +206,6 @@ src_install() {
 	newinitd "${FILESDIR}"/xdm.initd-11 xdm
 	newconfd "${FILESDIR}"/xdm.confd-4 xdm
 
-	# Install @x11-module-rebuild set for Portage.
 	insinto /usr/share/portage/config/sets
 	newins "${FILESDIR}"/xorg-sets.conf xorg.conf
 }
@@ -218,8 +216,8 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	# Get rid of module directory to ensure opengl-update works properly.
-	if [[ -z ${REPLACED_BY_VERSION} && -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
+	# Remove modules directory to ensure opengl-update works properly.
+	if [[ -z ${REPLACED_BY_VERSION} ]] && [[ -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
 		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules || die
 	fi
 }
