@@ -29,7 +29,7 @@ HOMEPAGE="
 	https://opendesktop.org/content/show.php/Neutral%2B%2B?content=108142
 	https://opendesktop.org/content/show.php/Neutral%2B%2B+White?content=108143
 "
-# Note that for Neutral++{,_White} URI returns tar.xz archive that is actually tar.bz2.
+# Neutral++{,_White} URIs return tar.xz archives that are actually tar.bz2.
 SRC_URI="
 	https://opendesktop.org/CONTENT/content-files/28310-neutral-${NEUTRAL_PV}.tar.gz -> ${NEUTRAL_P}.tar.gz
 	https://opendesktop.org/CONTENT/content-files/48837-Neutral_Plus_${PLUS_PV}.tar.bz2 -> ${PLUS_P}.tar.bz2
@@ -56,31 +56,31 @@ src_prepare() {
 
 src_compile() {
 	for cursor_dir in ${NEUTRAL_P} ${PLUS_P} ${PLUSPLUS_P} ${WHITE_P}; do
-		pushd "${S}/${cursor_dir}/source" > /dev/null || die
+		pushd ${cursor_dir}/source > /dev/null || die
 			sh make.sh || die
 		popd > /dev/null || die
 	done
 }
 
 src_install() {
-	pushd "${S}/${NEUTRAL_P}" > /dev/null || die
+	pushd ${NEUTRAL_P} > /dev/null || die
 		insinto /usr/share/icons/${NEUTRAL_PN}
 		doins -r index.theme source/cursors/
 	popd > /dev/null || die
 
-	pushd "${S}/${PLUS_P}" > /dev/null || die
+	pushd ${PLUS_P} > /dev/null || die
 		insinto /usr/share/icons/${PLUS_PN}
 		# Upstream ships an invalid (as per freedesktop.org) index.theme.
 		# See https://www.freedesktop.org/wiki/Specifications/icon-theme-spec/
 		doins -r "${FILESDIR}/index.theme" source/cursors/
 	popd > /dev/null || die
 
-	pushd "${S}/${PLUSPLUS_P}" > /dev/null || die
+	pushd ${PLUSPLUS_P} > /dev/null || die
 		insinto /usr/share/icons/${PLUSPLUS_PN}
 		doins -r index.theme cursors/
 	popd > /dev/null || die
 
-	pushd "${S}/${WHITE_P}" > /dev/null || die
+	pushd ${WHITE_P} > /dev/null || die
 		insinto /usr/share/icons/${WHITE_PN}
 		doins -r index.theme cursors/
 	popd > /dev/null || die
