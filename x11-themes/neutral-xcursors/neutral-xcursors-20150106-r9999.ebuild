@@ -51,7 +51,7 @@ S="${WORKDIR}"
 src_prepare() {
 	default_src_prepare
 	sed -i -e 's|neutral|Neutral|g' ${NEUTRAL_P}/index.theme || die
-	mkdir -p {${NEUTRAL_P},${PLUS_P}}/source/cursors || die
+	mkdir -p ${PLUS_P}/source/cursors || die
 }
 
 src_compile() {
