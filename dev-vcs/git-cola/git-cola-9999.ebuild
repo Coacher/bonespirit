@@ -61,7 +61,7 @@ python_prepare_all() {
 	sed -i -e "\|share/doc/${PN}|d" setup.py || die
 
 	# Look for documentation in Gentoo paths.
-	sed -i -e "s/'doc', '${PN}'/'doc', '${PF}'/g" cola/resources.py || die
+	sed -i -e "s|'doc', '${PN}'|'doc', '${PF}'|g" cola/resources.py || die
 
 	# Remove broken tests.
 	rm test/i18n_test.py || die

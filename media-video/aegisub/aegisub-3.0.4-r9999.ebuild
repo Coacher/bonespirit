@@ -61,7 +61,7 @@ src_prepare() {
 	default_src_prepare
 
 	remove_locale() {
-		sed -i -e "s/${1}\.po//g" po/Makefile || die
+		sed -i -e "s|${1}\.po||g" po/Makefile || die
 	}
 
 	l10n_find_plocales_changes 'po' '' '.po'

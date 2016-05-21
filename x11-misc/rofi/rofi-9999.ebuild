@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	default_src_prepare
-	sed -i -e 's/-Werror //g' configure.ac || die
+	sed -i -e 's| -Werror||g' configure.ac || die
 	eautoreconf
 }
 

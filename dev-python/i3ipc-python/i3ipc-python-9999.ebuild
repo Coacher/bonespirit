@@ -27,7 +27,7 @@ DOCS=( README.rst )
 
 src_prepare() {
 	# virtual/python-enum34 is the Gentoo equivalent of enum-compat.
-	sed -i -e "s/'enum-compat'//g" setup.py || die
+	sed -i -e "s|'enum-compat'||g" setup.py || die
 	distutils-r1_src_prepare
 }
 
