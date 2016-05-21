@@ -1,7 +1,7 @@
-diff --git a/aegisub/configure.ac b/aegisub/configure.ac
+diff --git a/configure.ac b/configure.ac
 index d961bd6..e0bdc46 100644
---- a/aegisub/configure.ac
-+++ b/aegisub/configure.ac
+--- a/configure.ac
++++ b/configure.ac
 @@ -157,23 +157,18 @@ AS_IF([test x$enable_compiler_flags != xno], [
    AC_C_FLAG([-Wextra],[AC_C_FLAG([-W])])
    AC_C_FLAG([-Wno-unused-parameter])

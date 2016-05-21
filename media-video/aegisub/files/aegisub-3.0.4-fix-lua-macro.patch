@@ -1,7 +1,7 @@
-diff --git a/aegisub/configure.ac b/aegisub/configure.ac
+diff --git a/configure.ac b/configure.ac
 index d961bd6..17df012 100644
---- a/aegisub/configure.ac
-+++ b/aegisub/configure.ac
+--- a/configure.ac
++++ b/configure.ac
 @@ -369,7 +369,7 @@ AC_ARG_WITH(lua,
              AS_HELP_STRING([--without-lua],
                             [build without lua 5.1 (auto4)]))
