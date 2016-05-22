@@ -70,8 +70,8 @@ src_prepare() {
 	default_src_prepare
 
 	# Use awk instead of nawk.
-	sed -i -e \
-		"1s|.*|#!${EPREFIX}/usr/bin/awk -f|" \
+	sed -i \
+		-e "1s|.*|#!${EPREFIX}/usr/bin/awk -f|" \
 		runtime/tools/mve.awk || die
 
 	# Fix NeXT misdetection caused by dev-libs/9libs. See Gentoo bug 43885.
