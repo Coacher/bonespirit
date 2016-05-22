@@ -1,22 +1,20 @@
-# Author: Ciaran McCreesh <ciaranm@gentoo.org>
-#
-# Completion for xxd.
+# xxd completion
 
 _xxd()
 {
-    local cur args
-
-    COMPREPLY=()
-    cur=${COMP_WORDS[COMP_CWORD]}
+    local cur prev words cword
+    _init_completion || return
 
     if [[ "${cur}" == -* ]]; then
-        args='-a -b -c -E -e -g -h -i -l -o -p -r -s -seek -u -v'
-        COMPREPLY=( $( compgen -W "${args}" -- "${cur}" ) )
-    else
-        _filedir
+        local opts='-autoskip -bits -cols -EBCDIC -e -groupsize -help -include
+        -len -o -ps -postscript -plain -revert -seek -s -u -version'
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return
     fi
+
+    _filedir
 }
 
 complete -F _xxd xxd
 
-# vim: set ft=sh sw=4 et sts=4 :
+# vim:set filetype=sh:
