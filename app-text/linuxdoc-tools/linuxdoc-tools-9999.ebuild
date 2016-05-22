@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://gitlab.com/agmartin/${PN}.git"
 # Redefine SRC_URI, otherwise latex-package eclass interferes.
 SRC_URI=""
 
-LICENSE="MIT SGMLUG"
+LICENSE="GPL-3+ MIT SGMLUG"
 SLOT="0"
 KEYWORDS=""
 IUSE="doc"
