@@ -33,10 +33,5 @@ _gvim()
 
     _filedir
 }
-
-# Remove default completion that only completes files.
-complete -r gvim gview rgvim rgview
-
 complete -F _gvim gvim evim eview gview gvimdiff rgvim rgview
-
 # vim:set filetype=sh:

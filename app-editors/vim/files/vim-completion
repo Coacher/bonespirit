@@ -32,10 +32,5 @@ _vim()
 
     _filedir
 }
-
-# Remove default completion that only completes files.
-complete -r vim vi view rvim rview
-
 complete -F _vim vim ex vi view rvim rview vimdiff
-
 # vim:set filetype=sh:
