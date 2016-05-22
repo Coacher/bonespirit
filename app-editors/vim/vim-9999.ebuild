@@ -68,29 +68,29 @@ src_prepare() {
 	default_src_prepare
 
 	# Use awk instead of nawk.
-	sed -i -e \
-		"1s|.*|#!${EPREFIX}/usr/bin/awk -f|" \
-		"${S}"/runtime/tools/mve.awk || die
+	sed -i \
+		-e "1s|.*|#!${EPREFIX}/usr/bin/awk -f|" \
+		runtime/tools/mve.awk || die
 
 	# Fix NeXT misdetection caused by dev-libs/9libs. See Gentoo bug 43885.
-	sed -i -e 's|libc\.h||' "${S}"/src/configure.in || die
+	sed -i -e 's|libc\.h||' src/configure.in || die
 
 	# Fix EOF misdetection on SPARC. See Gentoo bug 66162.
 	find "${S}" -name '*.c' | while read -r file; do echo >> "${file}"; done
 
 	# Fix configure failure. See Gentoo bug 360217.
 	if version_is_at_least 7.3.122; then
-		cp "${S}"/src/config.mk.dist "${S}"/src/auto/config.mk || die
+		cp src/config.mk.dist src/auto/config.mk || die
 	fi
 
 	# Don't create symlinks that are managed by app-eselect/eselect-vi.
 	sed -i \
 		-e '/ln -s.*\<\(ex\|view\)name\.1$/d' \
-		"${S}"/src/installml.sh || die
+		src/installml.sh || die
 
 	# Read vimrc and gvimrc from /etc/vim.
-	echo "#define SYS_VIMRC_FILE \"${EPREFIX}/etc/vim/vimrc\"" >> "${S}"/src/feature.h || die
-	echo "#define SYS_GVIMRC_FILE \"${EPREFIX}/etc/vim/gvimrc\"" >> "${S}"/src/feature.h || die
+	echo "#define SYS_VIMRC_FILE \"${EPREFIX}/etc/vim/vimrc\"" >> src/feature.h || die
+	echo "#define SYS_GVIMRC_FILE \"${EPREFIX}/etc/vim/gvimrc\"" >> src/feature.h || die
 
 	gnome2_environment_reset
 }

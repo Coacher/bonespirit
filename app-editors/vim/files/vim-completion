@@ -1,34 +1,41 @@
-# Author: Ciaran McCreesh <ciaranm@gentoo.org>
-#
-# Completion for vim.
+# vim completion
 
 _vim()
 {
-    local cur prev args
+    local cur prev words cword
+    _init_completion || return
 
-    COMPREPLY=()
-    cur=${COMP_WORDS[COMP_CWORD]}
-    prev=${COMP_WORDS[COMP_CWORD-1]}
+    case "${prev}" in
+        --serverlist|-h|--help|--version)
+            return
+            ;;
+        --servername)
+            COMPREPLY=( $(compgen -W "$(vim --serverlist)" -- "${cur}") )
+            return
+            ;;
+        -[-uUswWi]|--remote|--remote-silent|--remote-wait*|--remote-tab*|--startuptime)
+            _filedir
+            return
+            ;;
+    esac
 
-    if [[ "${prev}" == "--servername" ]]; then
-        local servers
-        servers=$(vim --serverlist)
-        COMPREPLY=( $( compgen -W "${servers}" -- "${cur}" ) )
-
-    elif [[ "${prev}" == -[uUi] ]]; then
-        COMPREPLY=( $( compgen -W "NONE" ) \
-            $( compgen -f -X "!*vim*" -- "${cur}" ) )
-
-    elif [[ "${cur}" == -* ]]; then
-        args='-t -q -c -S --cmd -A -b -C -d -D -e -E -f --nofork -F -g -h -H
-            -i -L -l -m -M -N -n -nb -o -O -p -R -r -s -T -u -U -V -v -w -W
-            -x -X -y -Y -Z --echo-wid --help --literal --noplugin --version'
-        COMPREPLY=( $( compgen -W "${args}" -- "${cur}" ) )
-    else
-        _filedir
+    if [[ "${cur}" == -* ]]; then
+        local opts='-t -q -g -f --nofork -v -e -E -s -d -y -R -Z -m -M -b -l -C
+        -N -V -D -n -r -L -A -H -F -T --not-a-term -u -U --noplugin -p -o -O
+        --cmd -c -S -s -w -W -x -X --remote --remote-silent --remote-wait
+        --remote-wait-silent --remote-tab --remote-tab-silent --remote-tab-wait
+        --remote-tab-wait-silent --remote-send --remote-expr --serverlist
+        --servername --startuptime -i -h --help --version -nb'
+        COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+        return
     fi
+
+    _filedir
 }
 
-complete -o filenames -F _vim vim ex vi view rvim rview vimdiff
+# Remove default completion that only completes files.
+complete -r vim vi view rvim rview
 
-# vim: set ft=sh sw=4 et sts=4 :
+complete -F _vim vim ex vi view rvim rview vimdiff
+
+# vim:set filetype=sh:
