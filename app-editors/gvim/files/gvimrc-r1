@@ -12,18 +12,18 @@ scriptencoding utf-8
 " great annoyance of users.
 
 " Pre-GUI settings
-set columns=80 lines=30       " don't inherit geometry from parent term
-set mousemodel=popup          " right mouse button pops up a menu in the GUI
+set columns=80 lines=30         " Don't inherit geometry from parent terminal
+set mousemodel=popup            " Right mouse button pops up a menu in the GUI
 
 " Use a sufficiently wide window automatically when started as "gvimdiff"
-if (&foldmethod ==# 'diff')
+if (&diff)
   set columns=165
 endif
 
-" For bug 33327, add a mapping which allows shift-insert to function
-" as expected in insert and command-line modes
-map! <s-insert> <c-r>*
+" Add a mapping which allows Shift-Insert to function as expected in Insert and
+" command-line modes. See Gentoo bug 33327.
+map! <S-Insert> <C-R>*
 
-if filereadable("@GENTOO_PORTAGE_EPREFIX@/etc/vim/gvimrc.local")
+if filereadable('@GENTOO_PORTAGE_EPREFIX@/etc/vim/gvimrc.local')
   source @GENTOO_PORTAGE_EPREFIX@/etc/vim/gvimrc.local
 endif
