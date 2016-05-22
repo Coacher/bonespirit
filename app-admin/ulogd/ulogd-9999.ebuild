@@ -48,9 +48,6 @@ Please edit the example configuration located at /etc/ulogd.conf.
 "
 
 pkg_setup() {
-	enewgroup ulogd
-	enewuser ulogd -1 -1 /var/log/ulogd ulogd
-
 	linux-info_pkg_setup
 
 	if kernel_is lt 2 6 14; then
@@ -65,6 +62,9 @@ pkg_setup() {
 		ewarn "ULOG target has been removed in the 3.17 kernel release."
 		ewarn "Consider enabling NFACCT, NFCT, or NFLOG support instead."
 	fi
+
+	enewgroup ulogd
+	enewuser ulogd -1 -1 /var/log/ulogd ulogd
 }
 
 src_prepare() {
