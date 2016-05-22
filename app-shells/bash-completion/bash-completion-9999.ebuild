@@ -59,6 +59,9 @@ src_prepare() {
 		-e 's|\<datadir\>|libdir|g' \
 		Makefile.am || die
 
+	# Don't interfere with app-editors/{,g}vim completions.
+	sed -i -e '/vim gvim/d' bash_completion || die
+
 	eautoreconf
 }
 
