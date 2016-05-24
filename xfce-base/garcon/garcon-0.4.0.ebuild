@@ -5,16 +5,17 @@
 EAPI=5
 inherit xfconf
 
-DESCRIPTION="Xfce's freedesktop.org specification compatible menu implementation library"
+DESCRIPTION="A freedesktop.org compliant menu implementation"
 HOMEPAGE="http://git.xfce.org/xfce/garcon/"
 SRC_URI="mirror://xfce/src/libs/${PN}/${PV%.*}/${P}.tar.bz2"
 
-LICENSE="LGPL-2 FDL-1.1"
+LICENSE="FDL-1.1 LGPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~x86-interix ~amd64-linux ~x86-linux ~x86-solaris"
 IUSE="debug"
 
-RDEPEND=">=dev-libs/glib-2.30:=
+RDEPEND="
+	>=dev-libs/glib-2.30:=
 	>=x11-libs/gtk+-2.24:2=
 	>=xfce-base/libxfce4ui-4.11:=
 	>=xfce-base/libxfce4util-4.11:="
@@ -25,9 +26,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 pkg_setup() {
-	XFCONF=(
-		$(xfconf_use_debug)
-		)
-
 	DOCS=( AUTHORS ChangeLog HACKING NEWS README STATUS TODO )
+	XFCONF=( $(xfconf_use_debug) )
 }
