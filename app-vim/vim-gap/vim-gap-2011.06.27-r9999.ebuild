@@ -14,7 +14,7 @@ DESCRIPTION="vim plugin: GAP syntax highlighting and indentation"
 HOMEPAGE="https://github.com/petRUShka/vim-gap"
 SRC_URI="https://github.com/petRUShka/${PN}/archive/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
