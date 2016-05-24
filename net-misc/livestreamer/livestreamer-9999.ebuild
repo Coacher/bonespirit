@@ -14,7 +14,7 @@ EGIT_REPO_URI="git://github.com/chrippa/${PN}.git"
 EGIT_BRANCH="develop"
 
 # MIT is used by documentation only.
-LICENSE="BSD-2 MIT-with-advertising"
+LICENSE="BSD-2 MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
