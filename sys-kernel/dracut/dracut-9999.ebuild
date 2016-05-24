@@ -6,18 +6,19 @@ EAPI=6
 
 inherit bash-completion-r1 eutils linux-info systemd git-r3
 
-DESCRIPTION="Generic initramfs generation tool"
+DESCRIPTION="Initramfs generator using udev"
 HOMEPAGE="https://dracut.wiki.kernel.org"
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/boot/${PN}/${PN}.git"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="debug selinux systemd"
 
-COMMON_DEPEND="virtual/udev
+COMMON_DEPEND="
+	virtual/udev
 	systemd? ( >=sys-apps/systemd-199 )
-	"
+"
 RDEPEND="${COMMON_DEPEND}
 	app-arch/cpio
 	>=app-shells/bash-4.0
@@ -34,14 +35,14 @@ RDEPEND="${COMMON_DEPEND}
 		sys-libs/libsepol
 		sec-policy/selinux-dracut
 	)
-	"
+"
 DEPEND="${COMMON_DEPEND}
 	app-text/asciidoc
-	>=dev-libs/libxslt-1.1.26
 	app-text/docbook-xml-dtd:4.5
 	>=app-text/docbook-xsl-stylesheets-1.75.2
+	>=dev-libs/libxslt-1.1.26
 	virtual/pkgconfig
-	"
+"
 
 RESTRICT=test
 
@@ -50,7 +51,7 @@ HTML_DOCS=( ${PN}.html )
 QA_MULTILIB_PATHS="
 	usr/lib/dracut/dracut-install
 	usr/lib/dracut/skipcpio
-	"
+"
 
 MY_LIBDIR=/usr/lib
 
@@ -87,7 +88,7 @@ src_prepare() {
 	local udevdir="$("$(tc-getPKG_CONFIG)" udev --variable=udevdir)"
 	einfo "Setting udevdir to ${udevdir}..."
 	sed -r -e "s|^(udevdir=).*$|\1${udevdir}|" \
-			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
+		-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 
 	if use systemd; then
 		local systemdutildir="$(systemd_get_utildir)"
@@ -117,8 +118,10 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf=( --libdir="${MY_LIBDIR}" )
-	myconf+=(--bashcompletiondir="$(get_bashcompdir)")
+	local myconf=(
+		--libdir="${MY_LIBDIR}"
+		--bashcompletiondir="$(get_bashcompdir)"
+	)
 
 	if use systemd; then
 		myconf+=(--systemdsystemunitdir="$(systemd_get_unitdir)")
@@ -172,7 +175,7 @@ src_install() {
 
 	# Remove modules which won't work for sure
 	rm_module 95fcoe # no tools
-	# fips module depends on masked app-crypt/hmaccalc
+	# FIPS module depends on masked app-crypt/hmaccalc
 	rm_module 01fips 02fips-aesni
 }
 
@@ -196,8 +199,7 @@ pkg_postinst() {
 		for opt in ${CONFIG_CHECK}; do
 			opt=${opt#\~}
 			desc=desc_${opt}
-			eval "local ERROR_${opt}='CONFIG_${opt}: \"${!desc}\"" \
-				"is missing and REQUIRED'"
+			eval "local ERROR_${opt}='CONFIG_${opt}: \"${!desc}\" is missing and REQUIRED'"
 		done
 
 		check_extra_config
@@ -239,7 +241,7 @@ pkg_postinst() {
 	optfeature "Support MD devices, also known as software RAID devices" \
 		sys-fs/mdadm
 	optfeature "Support Device Mapper multipathing" sys-fs/multipath-tools
-	optfeature "Plymouth boot splash" '>=sys-boot/plymouth-0.8.5-r5'
+	optfeature "Plymouth boot splash" ">=sys-boot/plymouth-0.8.5-r5"
 	optfeature "Support network block devices" sys-block/nbd
 	optfeature "Support NFS" net-fs/nfs-utils net-nds/rpcbind
 	optfeature \
