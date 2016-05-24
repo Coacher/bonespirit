@@ -10,7 +10,7 @@ DESCRIPTION="A user-friendly IRC client for KDE"
 HOMEPAGE="https://konversation.kde.org https://www.kde.org/applications/internet/konversation/"
 EGIT_BRANCH="1.5"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="4"
 KEYWORDS="~amd64 ~x86"
 IUSE="+crypt debug"
