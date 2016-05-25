@@ -9,15 +9,15 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
 
-inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd git-r3
+inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd vcs-snapshot
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="https://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
-EGIT_REPO_URI="git://github.com/mrash/${PN}.git"
+SRC_URI="https://github.com/mrash/${PN}/archive/${PV/_rc/-pre}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2 python? ( GPL-1 )"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="client extras firewalld gdbm gpg iptables nfqueue python server udp-server"
 
 DEPEND="
