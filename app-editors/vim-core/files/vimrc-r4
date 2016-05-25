@@ -131,7 +131,7 @@ if empty(&shell)
     set shell=@GENTOO_PORTAGE_EPREFIX@/bin/sh
   endif
 endif
-"}}}
+" }}}
 
 " {{{ Default shell script highlighting
 " Our default /bin/sh is bash, not ksh, so syntax highlighting for .sh files
