@@ -13,15 +13,14 @@ HOMEPAGE="http://docs.livestreamer.io/"
 EGIT_REPO_URI="git://github.com/chrippa/${PN}.git"
 EGIT_BRANCH="develop"
 
-# MIT is used by documentation only.
 LICENSE="BSD-2 MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
-	>=dev-python/requests-1.0[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
+	dev-python/requests[${PYTHON_USEDEP}]
 	virtual/python-futures[${PYTHON_USEDEP}]
 	virtual/python-singledispatch[${PYTHON_USEDEP}]
 	media-video/rtmpdump
