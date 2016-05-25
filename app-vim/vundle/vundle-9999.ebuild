@@ -18,7 +18,7 @@ IUSE=""
 
 RDEPEND="
 	dev-vcs/git
-	net-misc/curl
+	|| ( net-misc/curl net-misc/wget )
 "
 
 src_prepare() {
