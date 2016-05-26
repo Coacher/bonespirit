@@ -17,7 +17,7 @@ EGIT_REPO_URI="git://github.com/vim/vim.git"
 LICENSE="vim"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acl cscope debug gnome gtk gtk3 lua luajit netbeans nls perl python racket ruby selinux session tcl"
+IUSE="acl cscope debug gtk3 lua luajit netbeans nls perl python racket ruby selinux session tcl"
 
 RDEPEND="
 	~app-editors/vim-core-${PV}[acl?]
@@ -27,10 +27,7 @@ RDEPEND="
 	x11-libs/libXt
 	acl? ( virtual/acl )
 	cscope? ( dev-util/cscope )
-	gtk? (
-		x11-libs/gtk+:2
-		gnome? ( gnome-base/libgnomeui )
-	)
+	!gtk3? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
 	lua? (
 		!luajit? ( =dev-lang/lua-5*:=[deprecated] )
@@ -56,8 +53,6 @@ DEPEND="${RDEPEND}
 "
 
 REQUIRED_USE="
-	|| ( gtk gtk3 )
-	gnome? ( gtk )
 	luajit? ( lua )
 	python? (
 		|| ( $(python_gen_useflags '*') )
@@ -160,17 +155,12 @@ src_configure() {
 		)
 	fi
 
-	if use gtk; then
-		myeconfargs+=(--enable-gtk2-check)
-		if use gnome; then
-			myeconfargs+=(
-				--enable-gnome-check
-				--enable-gui=gnome2
-			)
-		else
-			myeconfargs+=(--enable-gui=gtk2)
-		fi
-	elif use gtk3; then
+	if ! use gtk3; then
+		myeconfargs+=(
+			--enable-gtk2-check
+			--enable-gui=gtk2
+		)
+	else
 		myeconfargs+=(
 			--enable-gtk3-check
 			--enable-gui=gtk3
