@@ -1,4 +1,4 @@
-See http://lists.x.org/archives/xorg-devel/2015-February/045755.html
+https://lists.x.org/archives/xorg-devel/2015-February/045755.html
 
 diff --git a/hw/xfree86/parser/Files.c b/hw/xfree86/parser/Files.c
 index 849bf92..5cc3ec7 100644
