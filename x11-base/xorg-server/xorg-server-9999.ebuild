@@ -10,6 +10,7 @@ inherit xorg-2 multilib toolchain-funcs
 
 DESCRIPTION="X.Org X servers"
 EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
+EGIT_COMMIT="8cf832c288dec13cbf3c25478a8ccef52d61f3db"
 
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
