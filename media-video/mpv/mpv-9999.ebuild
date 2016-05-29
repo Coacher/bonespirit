@@ -137,7 +137,7 @@ src_prepare() {
 	chmod +x "${S}"/waf || die
 	default_src_prepare
 
-	# Don't install tests.
+	# Don't install tests, only build them.
 	sed -i -e '/test\.srcpath(),/a install_path = None,' wscript_build.py || die
 }
 

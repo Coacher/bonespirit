@@ -138,7 +138,7 @@ src_prepare() {
 	default_src_prepare
 	EPATCH_SUFFIX=patch EPATCH_FORCE=yes epatch "${FILESDIR}/${PV}"
 
-	# Don't install tests.
+	# Don't install tests, only build them.
 	sed -i -e '/test\.srcpath(),/a install_path = None,' wscript_build.py || die
 }
 
