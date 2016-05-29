@@ -137,6 +137,9 @@ src_prepare() {
 	chmod +x "${S}"/waf || die
 	default_src_prepare
 	EPATCH_SUFFIX=patch EPATCH_FORCE=yes epatch "${FILESDIR}/${PV}"
+
+	# Don't install tests.
+	sed -i -e '/test\.srcpath(),/a install_path = None,' wscript_build.py || die
 }
 
 src_configure() {
@@ -254,8 +257,6 @@ src_configure() {
 
 src_install() {
 	waf-utils_src_install
-	# Remove tests, if they are present, otherwise they get installed.
-	rm -f "${ED}"usr/bin/{chmap,chmap_sel,gl_video} || die
 
 	if use cli && use luajit; then
 		pax-mark -m "${ED}"usr/bin/${PN}
