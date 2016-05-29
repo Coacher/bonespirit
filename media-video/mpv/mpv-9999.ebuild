@@ -136,9 +136,6 @@ src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
 	default_src_prepare
-
-	# Don't install tests, only build them.
-	sed -i -e '/test\.srcpath(),/a install_path = None,' wscript_build.py || die
 }
 
 src_configure() {
