@@ -1,0 +1,116 @@
+commit af0a8d7478f0b026d4c5815af8c3ac3acb541e19
+Author: wm4 <wm4@nowhere>
+Date:   Mon May 9 22:54:49 2016 +0200
+
+player: restore usual seeking behavior
+
+Commit 786f37ae accidentally changed seeking behavior such that
+continuous seeking (holding the seek button down) would use the previous
+seek target timestamp, instead of the new video timestamp. (This is for
+the default mode, seeking to keyframes.)
+
+The result is that the movement on the seekbar is smooth, but the way
+the video updates is awkward. Some might actually prefer the new
+behavior (and some players effectively show similar bahavior), but I
+don't. So restore the old behavior.
+
+This is done in two steps:
+
+First: strictly wait for the entire seek process to finish, which will
+effectively make the seeking code pick up the new video timestamp
+correctly.
+
+This would play audio immediately, which would result in noise during
+continuous seeking, which leads to second: explicitly abort the playback
+restarting process if this case is detected, and never play audio.
+---
+
+diff --git a/player/playloop.c b/player/playloop.c
+index cf26fbd..4e6910f 100644
+--- a/player/playloop.c
++++ b/player/playloop.c
+@@ -343,7 +343,7 @@ void execute_queued_seek(struct MPContext *mpctx)
+         /* If the user seeks continuously (keeps arrow key down)
+          * try to finish showing a frame from one location before doing
+          * another seek (which could lead to unchanging display). */
+-        if (!mpctx->seek.immediate && mpctx->video_status < STATUS_READY &&
++        if (!mpctx->seek.immediate && mpctx->video_status < STATUS_PLAYING &&
+             mp_time_sec() - mpctx->start_timestamp < 0.3)
+             return;
+         mp_seek(mpctx, mpctx->seek);
+@@ -838,6 +838,21 @@ static void handle_dummy_ticks(struct MPContext *mpctx)
+     }
+ }
+
++// Update current playback time.
++static void handle_playback_time(struct MPContext *mpctx)
++{
++    if (mpctx->vo_chain && !mpctx->vo_chain->is_coverart &&
++        mpctx->video_status >= STATUS_PLAYING &&
++        mpctx->video_status < STATUS_EOF)
++    {
++        mpctx->playback_pts = mpctx->video_pts;
++    } else if (mpctx->audio_status >= STATUS_PLAYING &&
++               mpctx->audio_status < STATUS_EOF)
++    {
++        mpctx->playback_pts = playing_audio_pts(mpctx);
++    }
++}
++
+ // We always make sure audio and video buffers are filled before actually
+ // starting playback. This code handles starting them at the same time.
+ static void handle_playback_restart(struct MPContext *mpctx)
+@@ -854,8 +869,17 @@ static void handle_playback_restart(struct MPContext *mpctx)
+         mpctx->sleeptime = 0;
+     }
+
+-    if (mpctx->audio_status == STATUS_READY)
++    if (mpctx->audio_status == STATUS_READY) {
++        // If a new seek is queued while the current one finishes, don't
++        // actually play the audio, but resume seeking immediately.
++        if (mpctx->seek.type && mpctx->video_status == STATUS_PLAYING) {
++            handle_playback_time(mpctx);
++            execute_queued_seek(mpctx);
++            return;
++        }
++
+         fill_audio_out_buffers(mpctx); // actually play prepared buffer
++    }
+
+     if (!mpctx->restart_complete) {
+         mpctx->hrseek_active = false;
+@@ -955,20 +979,6 @@ void run_playloop(struct MPContext *mpctx)
+     handle_heartbeat_cmd(mpctx);
+     handle_command_updates(mpctx);
+
+-    fill_audio_out_buffers(mpctx);
+-    write_video(mpctx);
+-
+-    if (mpctx->vo_chain && !mpctx->vo_chain->is_coverart &&
+-        mpctx->video_status >= STATUS_PLAYING &&
+-        mpctx->video_status < STATUS_EOF)
+-    {
+-        mpctx->playback_pts = mpctx->video_pts;
+-    } else if (mpctx->audio_status >= STATUS_PLAYING &&
+-               mpctx->audio_status < STATUS_EOF)
+-    {
+-        mpctx->playback_pts = playing_audio_pts(mpctx);
+-    }
+-
+     if (mpctx->lavfi) {
+         if (lavfi_process(mpctx->lavfi))
+             mpctx->sleeptime = 0;
+@@ -976,8 +986,13 @@ void run_playloop(struct MPContext *mpctx)
+             mpctx->stop_play = AT_END_OF_FILE;
+     }
+
++    fill_audio_out_buffers(mpctx);
++    write_video(mpctx);
++
+     handle_playback_restart(mpctx);
+
++    handle_playback_time(mpctx);
++
+     handle_dummy_ticks(mpctx);
+
+     update_osd_msg(mpctx);

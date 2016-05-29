@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
+inherit eutils fdo-mime gnome2-utils pax-utils python-any-r1 toolchain-funcs waf-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -126,26 +126,6 @@ RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )
 "
 
-PATCHES=(
-	"${FILESDIR}/${PV}/${P}-fix-seeking-without-first-index-entry.patch"
-	"${FILESDIR}/${PV}/${P}-fix-use-after-free.patch"
-	"${FILESDIR}/${PV}/${P}-remove-unneeded-X11-include.patch"
-	"${FILESDIR}/${PV}/${P}-add-missing-math-include.patch"
-	"${FILESDIR}/${PV}/${P}-fix-parsing-multiple-input-command-prefixes.patch"
-	"${FILESDIR}/${PV}/${P}-fix-early-audio-start.patch"
-	"${FILESDIR}/${PV}/${P}-avoid-deprecated-API-usage.patch"
-	"${FILESDIR}/${PV}/${P}-fix-hwdec-fallback.patch"
-	"${FILESDIR}/${PV}/${P}-fix-relative-seeking-with-coverart.patch"
-	"${FILESDIR}/${PV}/${P}-fix-unselecting-video-track.patch"
-	"${FILESDIR}/${PV}/${P}-fix-timestamp-resets.patch"
-	"${FILESDIR}/${PV}/${P}-fix-video-frame-info-memleak.patch"
-	"${FILESDIR}/${PV}/${P}-fix-crash-re-X11-error-handler.patch"
-	"${FILESDIR}/${PV}/${P}-fix-demux-lavf-memleak.patch"
-	"${FILESDIR}/${PV}/${P}-fix-fullscreen-on-wayland.patch"
-	"${FILESDIR}/${PV}/${P}-use-correct-libass-C-types.patch"
-	"${FILESDIR}/${PV}/${P}-fix-dvd-subtitles-with-ffmpeg2.patch"
-)
-
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && ! tc-has-tls && use vaapi && use egl; then
 		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
@@ -156,6 +136,7 @@ src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
 	default_src_prepare
+	EPATCH_SUFFIX=patch EPATCH_FORCE=yes epatch "${FILESDIR}/${PV}"
 }
 
 src_configure() {
