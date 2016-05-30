@@ -43,7 +43,7 @@ STRIP_COMPLETIONS=(
 	# Fedora completions;
 	koji arm-koji ppc-koji s390-koji sparc-koji
 
-	# Completions installed in app-editors/vim-core;
+	# Completions installed by app-editors/vim-core;
 	xxd
 
 	# Symlinks to deprecated completions.
