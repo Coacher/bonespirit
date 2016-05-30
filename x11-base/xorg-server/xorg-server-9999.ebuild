@@ -20,7 +20,7 @@ IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal selinux +suid systemd tslib +
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
-	libressl? ( dev-libs/libressl:= )
+	libressl? ( dev-libs/libressl:0= )
 	media-libs/freetype
 	x11-apps/xkbcomp
 	>=x11-libs/libdrm-2.4.46
@@ -212,18 +212,6 @@ src_install() {
 	newins "${FILESDIR}"/xorg-sets.conf xorg.conf
 }
 
-pkg_postinst() {
-	# Set up libGL and DRI symlinks if needed (e.g. on a fresh install).
-	eselect opengl set xorg-x11 --use-old
-}
-
-pkg_postrm() {
-	# Remove modules directory to ensure opengl-update works properly.
-	if [[ -z ${REPLACED_BY_VERSION} ]] && [[ -e "${EROOT}/usr/$(get_libdir)/xorg/modules" ]]; then
-		rm -rf "${EROOT}"/usr/$(get_libdir)/xorg/modules || die
-	fi
-}
-
 server_based_install() {
 	if ! use xorg; then
 		rm \
@@ -232,4 +220,9 @@ server_based_install() {
 			"${ED}"/usr/$(get_libdir)/pkgconfig/xorg-server.pc \
 			"${ED}"/usr/share/man/man1/Xserver.1x || die
 	fi
+}
+
+pkg_postinst() {
+	# Set up libGL and DRI symlinks if needed (e.g. on a fresh install).
+	eselect opengl set xorg-x11 --use-old
 }
