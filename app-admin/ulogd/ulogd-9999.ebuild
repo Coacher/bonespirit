@@ -111,7 +111,6 @@ src_install() {
 	use doc && HTML_DOCS=( doc/${PN}.html )
 
 	default_src_install
-
 	prune_libtool_files --modules
 	readme.gentoo_create_doc
 

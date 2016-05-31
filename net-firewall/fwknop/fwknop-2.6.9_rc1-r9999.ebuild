@@ -96,7 +96,6 @@ src_compile() {
 
 src_install() {
 	default_src_install
-
 	prune_libtool_files --modules
 
 	if use extras; then
