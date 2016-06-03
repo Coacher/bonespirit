@@ -71,7 +71,7 @@ pkg_pretend() {
 src_prepare() {
 	default_src_prepare
 
-	# Remove tests that require unavailable uuid module.
+	# Remove tests that require unavailable uuid Lua module.
 	rm automation/tests/modules/lfs.moon || die
 
 	remove_locale() {
