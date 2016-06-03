@@ -15,7 +15,7 @@ DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="https://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
 EGIT_REPO_URI="git://github.com/mrash/${PN}.git"
 
-LICENSE="GPL-2 python? ( GPL-1 )"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS=""
 IUSE="client extras firewalld gdbm gpg iptables nfqueue python server udp-server"
