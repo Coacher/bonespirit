@@ -109,12 +109,12 @@ src_configure() {
 }
 
 src_compile() {
-	emake WITH_SYSTEM_GTEST=$(usex test) || die
+	emake WITH_SYSTEM_GTEST=$(usex test)
 }
 
 src_test() {
-	emake test-automation || die
-	emake test-libaegisub || die
+	emake test-automation
+	emake test-libaegisub
 }
 
 pkg_preinst() {
