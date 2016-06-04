@@ -24,7 +24,7 @@ PDEPEND=">=app-shells/gentoo-bashcomp-20140911"
 # Tests require an interactive shell. See Gentoo bug 477066.
 RESTRICT=test
 
-DOCS=( CHANGES CONTRIBUTING.md README.md )
+DOCS=( AUTHORS CHANGES CONTRIBUTING.md README.md )
 
 # List unwanted completions to be removed later:
 STRIP_COMPLETIONS=(
