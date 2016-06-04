@@ -57,9 +57,9 @@ DEPEND="${RDEPEND}
 REQUIRED_USE="|| ( alsa openal oss portaudio pulseaudio )"
 
 PATCHES=(
-	"${FILESDIR}/${P}-fix-system-luajit-build.patch"
-	"${FILESDIR}/${P}-respect-compiler-flags.patch"
-	"${FILESDIR}/${P}-support-system-gtest.patch"
+	"${FILESDIR}/${PV}/${P}-fix-system-luajit-build.patch"
+	"${FILESDIR}/${PV}/${P}-respect-compiler-flags.patch"
+	"${FILESDIR}/${PV}/${P}-support-system-gtest.patch"
 )
 
 pkg_pretend() {
