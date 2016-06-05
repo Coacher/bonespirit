@@ -82,8 +82,7 @@ python_install_all() {
 	local myemaketargets=( install-files )
 	use doc && myemaketargets+=(install-html install-man)
 
-	emake \
-		-C share/doc/${PN} \
+	emake -C share/doc/${PN} \
 		DESTDIR="${D}" \
 		prefix="${EPREFIX}/usr" \
 		docdir="${EPREFIX}/usr/share/doc/${PF}" \
