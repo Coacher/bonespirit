@@ -24,8 +24,7 @@ src_prepare() {
 
 src_compile() {
 	append-cflags -fPIC -shared
-	append-ldflags -lutil
-	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}"
 }
 
 src_install() {
