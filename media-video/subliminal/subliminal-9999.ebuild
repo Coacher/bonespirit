@@ -22,7 +22,7 @@ RDEPEND="
 	>=dev-python/guessit-2.0.1[${PYTHON_USEDEP}]
 	>=dev-python/babelfish-0.5.2[${PYTHON_USEDEP}]
 	>=dev-python/enzyme-0.4.1[${PYTHON_USEDEP}]
-	>=dev-python/beautifulsoup-4.2.0:4[${PYTHON_USEDEP}]
+	>=dev-python/beautifulsoup-4.4.0:4[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.0[${PYTHON_USEDEP}]
 	>=dev-python/click-4.0[${PYTHON_USEDEP}]
 	>=dev-python/dogpile-cache-0.5.4[${PYTHON_USEDEP}]
@@ -47,7 +47,7 @@ DEPEND="${RDEPEND}
 	)
 "
 
-# Tests require network and severely broken too.
+# Tests require network.
 RESTRICT=test
 
 python_prepare_all() {
