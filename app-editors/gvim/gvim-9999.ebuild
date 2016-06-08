@@ -6,7 +6,7 @@ EAPI=6
 VIM_VERSION=7.4
 
 PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
-PYTHON_REQ_USE=threads
+PYTHON_REQ_USE='threads(+)'
 
 inherit bash-completion-r1 eutils fdo-mime flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc git-r3
 
