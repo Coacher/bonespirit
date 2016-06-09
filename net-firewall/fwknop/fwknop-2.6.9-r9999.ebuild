@@ -9,11 +9,11 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_OPTIONAL=1
 
-inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd vcs-snapshot
+inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="https://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
-SRC_URI="https://github.com/mrash/${PN}/archive/${PV/_rc/-pre}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/mrash/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
