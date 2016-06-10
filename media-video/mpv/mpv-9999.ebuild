@@ -180,7 +180,6 @@ src_configure() {
 		--disable-vapoursynth-lazy
 		$(use_enable archive libarchive)
 
-		--enable-unsupported-ffmpeg
 		--enable-libavdevice
 
 		# Audio outputs:
