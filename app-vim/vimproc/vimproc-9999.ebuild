@@ -23,7 +23,7 @@ src_prepare() {
 }
 
 src_compile() {
-	append-cflags -fPIC -shared
+	append-cflags -std=gnu99 -fPIC -shared
 	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}"
 }
 
