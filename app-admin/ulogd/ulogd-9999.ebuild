@@ -43,7 +43,7 @@ DEPEND="${RDEPEND}
 DISABLE_AUTOFORMATTING=1
 DOC_CONTENTS="
 You must have at least one logging stack enabled to make ulogd work.
-Please edit the example configuration located at /etc/ulogd.conf.
+Please edit the example configuration located at ${EPREFIX}/etc/ulogd.conf.
 "
 
 pkg_setup() {
