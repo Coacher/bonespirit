@@ -30,7 +30,7 @@ RDEPEND="
 	!gtk3? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
 	lua? (
-		!luajit? ( =dev-lang/lua-5*:=[deprecated] )
+		!luajit? ( dev-lang/lua:=[deprecated] )
 		luajit? ( dev-lang/luajit:2 )
 	)
 	nls? ( virtual/libintl )

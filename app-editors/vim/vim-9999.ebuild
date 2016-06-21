@@ -26,7 +26,7 @@ RDEPEND="
 	cscope? ( dev-util/cscope )
 	gpm? ( sys-libs/gpm )
 	lua? (
-		!luajit? ( =dev-lang/lua-5*:=[deprecated] )
+		!luajit? ( dev-lang/lua:=[deprecated] )
 		luajit? ( dev-lang/luajit:2 )
 	)
 	!minimal? (
