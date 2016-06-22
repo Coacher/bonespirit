@@ -15,10 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="
-	media-video/mpv[cli]
-	!<app-shells/bash-4
-"
+DEPEND="media-video/mpv[cli]"
 RDEPEND="${DEPEND}
 	>=app-shells/bash-completion-2.3-r1
 "
