@@ -19,14 +19,14 @@ REQUIRED_USE="i3? ( windowmode )"
 
 RDEPEND="
 	dev-libs/glib:2
-	x11-libs/cairo[X,xcb]
-	x11-libs/libX11
+	x11-libs/cairo[xcb]
 	x11-libs/libxcb[xkb]
 	x11-libs/libxkbcommon[X]
 	x11-libs/pango[X]
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-libs/xcb-util-wm
+	x11-libs/xcb-util-xrm
 	i3? ( x11-wm/i3 )
 "
 DEPEND="${RDEPEND}
