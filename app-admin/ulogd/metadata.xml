@@ -14,7 +14,7 @@
 		<flag name="pcap">Build PCAP output plugin to save packets in libpcap file format</flag>
 		<flag name="mysql">Build MYSQL output plugin to save packets in a mysql database</flag>
 		<flag name="postgres">Build PGSQL output plugin to save packets in a postgresql database</flag>
-		<flag name="sqlite">Build SQLITE3 output plugin to save packets in a sqlite database</flag>
+		<flag name="sqlite">Build SQLITE3 output plugin to save packets in a sqlite3 database</flag>
 		<flag name="nfacct">Build NFACCT input plugin to support traffic accounting via nfnetlink_acct</flag>
 		<flag name="nfct">Build NFCT input plugin to support stateful flow-based logging via nfnetlink_conntrack</flag>
 		<flag name="nflog">Build NFLOG input plugin to support stateless packet-based logging via nfnetlink_log</flag>
