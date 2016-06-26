@@ -1,0 +1,19 @@
+commit 68796fbdf5277b2c1a48263c770bc6595ed61482
+Author: wm4 <wm4@nowhere>
+Date:   Tue Jun 7 21:56:09 2016 +0200
+
+demux: fix memory leak when loading of ordered chapter file is aborted
+---
+
+diff --git a/demux/demux.c b/demux/demux.c
+index bedc2bf..6038d24 100644
+--- a/demux/demux.c
++++ b/demux/demux.c
+@@ -1129,6 +1129,7 @@ static struct demuxer *open_given_type(struct mpv_global *global,
+                                                   &params2, DEMUX_CHECK_FORCE);
+             if (sub)
+                 return sub;
++            timeline_destroy(tl);
+         }
+         return demuxer;
+     }
