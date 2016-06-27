@@ -13,17 +13,19 @@ EGIT_REPO_URI="git://github.com/2ion/${PN}.git"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="luajit"
 
-DEPEND="media-video/mpv[cli]"
-RDEPEND="${DEPEND}
+COMMON_DEPEND="media-video/mpv[cli]"
+DEPEND="${COMMON_DEPEND}
+	!luajit? ( dev-lang/lua:* )
+	luajit? ( dev-lang/luajit:2 )
+"
+RDEPEND="${COMMON_DEPEND}
 	>=app-shells/bash-completion-2.3-r1
 "
 
-DOCS=( KNOWN_BUGS README.mkd )
-
 src_compile() {
-	"${S}"/gen.sh > ${PN} || die
+	$(usex luajit 'luajit' 'lua') gen.lua > ${PN} || die
 }
 
 src_install() {
