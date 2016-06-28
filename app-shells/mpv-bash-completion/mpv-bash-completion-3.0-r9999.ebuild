@@ -24,6 +24,12 @@ RDEPEND="${COMMON_DEPEND}
 	>=app-shells/bash-completion-2.3-r1
 "
 
+src_prepare() {
+	default_src_prepare
+	# Disable screen resolution autodetection via xrandr.
+	sed -i -e '/x11ResList/{N;d;}' -e 's|, "Dimen"||' gen.lua || die
+}
+
 src_compile() {
 	$(usex luajit 'luajit' 'lua') gen.lua > ${PN} || die
 }
