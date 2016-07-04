@@ -13,9 +13,9 @@ EGIT_REPO_URI="https://gitlab.com/o9000/${PN}.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="battery svg startup-notification tint2conf"
+IUSE="svg startup-notification tint2conf"
 
-DEPEND="
+RDEPEND="
 	>=media-libs/imlib2-1.4.2[X]
 	>=x11-libs/libXrandr-1.3
 	dev-libs/glib:2
@@ -30,7 +30,9 @@ DEPEND="
 	svg? ( gnome-base/librsvg:2 )
 	tint2conf? ( x11-libs/gtk+:2 )
 "
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig
+"
 
 src_prepare() {
 	# Don't hardcode gtk-update-con-cache path.
@@ -43,7 +45,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DENABLE_BATTERY=$(usex battery)
 		-DENABLE_TINT2CONF=$(usex tint2conf)
 		-DENABLE_RSVG=$(usex svg)
 		-DENABLE_SN=$(usex startup-notification)
