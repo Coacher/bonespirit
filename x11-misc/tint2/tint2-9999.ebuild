@@ -13,7 +13,7 @@ EGIT_REPO_URI="https://gitlab.com/o9000/${PN}.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="svg startup-notification tint2conf"
+IUSE="startup-notification svg tint2conf"
 
 RDEPEND="
 	>=media-libs/imlib2-1.4.2[X]
