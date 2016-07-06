@@ -13,9 +13,7 @@ EGIT_REPO_URI="git://github.com/DaveDavenport/${PN}.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="i3 windowmode"
-
-REQUIRED_USE="i3? ( windowmode )"
+IUSE="windowmode"
 
 RDEPEND="
 	dev-libs/glib:2
@@ -27,7 +25,6 @@ RDEPEND="
 	x11-libs/xcb-util
 	x11-libs/xcb-util-wm
 	x11-libs/xcb-util-xrm
-	i3? ( x11-wm/i3 )
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
@@ -41,9 +38,7 @@ src_prepare() {
 
 src_configure() {
 	tc-export CC
-	econf \
-		$(use_enable windowmode) \
-		$(use_enable i3 i3support)
+	econf $(use_enable windowmode)
 }
 
 src_test() {
