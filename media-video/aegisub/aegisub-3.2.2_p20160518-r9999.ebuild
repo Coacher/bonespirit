@@ -70,6 +70,10 @@ pkg_pretend() {
 	fi
 }
 
+pkg_setup() {
+	setup-wxwidgets
+}
+
 src_prepare() {
 	default_src_prepare
 
