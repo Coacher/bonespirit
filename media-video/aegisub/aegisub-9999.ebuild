@@ -57,8 +57,6 @@ DEPEND="${RDEPEND}
 
 REQUIRED_USE="|| ( alsa openal oss portaudio pulseaudio )"
 
-RESTRICT="x86? ( test )"
-
 PATCHES=(
 	"${FILESDIR}/${PV}/${P}-fix-system-luajit-build.patch"
 	"${FILESDIR}/${PV}/${P}-respect-compiler-flags.patch"
