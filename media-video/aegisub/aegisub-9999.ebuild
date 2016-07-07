@@ -69,10 +69,6 @@ pkg_pretend() {
 	fi
 }
 
-pkg_setup() {
-	setup-wxwidgets
-}
-
 src_prepare() {
 	default_src_prepare
 
@@ -96,6 +92,7 @@ src_configure() {
 	# Prevent access violations from OpenAL detection. See Gentoo bug 508184.
 	use openal && export agi_cv_with_openal="yes"
 
+	setup-wxwidgets
 	local myeconfargs=(
 		--disable-update-checker
 		--with-ffms2
