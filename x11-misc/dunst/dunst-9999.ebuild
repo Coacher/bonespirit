@@ -37,25 +37,31 @@ src_prepare() {
 	default_src_prepare
 
 	# Remove flags that cause problems.
-	sed -i -e 's| -Os\>||' -e 's| -g\>||' config.mk || die
+	sed -i -e 's| -g\>||' -e 's| -Os\>||' config.mk || die
 
 	# Respect CFLAGS when building dunstify.
 	sed -i -e '/dunstify\.c/s|-o|${CFLAGS} -o|' Makefile || die
 
-	# Remove forgotten Xft include.
+	# Remove forgotten, unneeded Xft include.
 	sed -i -e '/Xft\.h/d' x.h || die
+
+	# Add missing includes.
+	sed -i -e '/_GNU_SOURCE/a #include <stdlib.h>' {menu,notification}.c || die
+	sed -i -e '/glib\.h/a #include <stdio.h>' dunst.h || die
+	sed -i \
+		-e '/glib\.h/a #include <string.h>' \
+		-e '/glib\.h/a #include <stdlib.h>' \
+		settings.c || die
 }
 
 src_compile() {
 	tc-export CC
 	default_src_compile
-
 	use dunstify && emake dunstify
 }
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX="/usr" install
-	einstalldocs
-
 	use dunstify && dobin dunstify
+	einstalldocs
 }
