@@ -4,8 +4,8 @@
 
 EAPI=6
 
-KDE_MINIMAL="4.8"
-KDE_REQUIRED="optional"
+KDE_MINIMAL=4.8
+KDE_REQUIRED=optional
 
 inherit eutils fdo-mime gnome2-utils kde4-base qmake-utils subversion
 
