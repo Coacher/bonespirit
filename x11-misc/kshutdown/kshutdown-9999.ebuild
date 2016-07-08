@@ -19,6 +19,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+	!kde-misc/kshutdown
 	!kde? (
 		dev-qt/qtcore:4
 		dev-qt/qtdbus:4
