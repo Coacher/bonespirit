@@ -22,11 +22,11 @@ RDEPEND="
 	|| ( app-text/openjade app-text/opensp )
 	app-text/sgml-common
 	dev-lang/perl:=
-	|| ( sys-apps/gawk sys-apps/mawk )
 	sys-apps/groff
 "
 DEPEND="${RDEPEND}
 	sys-devel/flex
+	virtual/awk
 	doc? (
 		dev-texlive/texlive-fontsrecommended
 		virtual/latex-base
