@@ -13,9 +13,7 @@ DESCRIPTION="KDE Activity Manager"
 KEYWORDS="~amd64 ~arm ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="
-	|| ( $(add_kdebase_dep kactivitymanagerd) <kde-frameworks/kactivities-5.20.0:5 kde-plasma/kactivitymanagerd:5 )
-"
+RDEPEND="kde-plasma/kactivitymanagerd"
 
 src_configure() {
 	local mycmakeargs=(
