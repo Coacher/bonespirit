@@ -15,13 +15,17 @@ DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
 EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
 
-LICENSE="GPL-2+ doc? ( BSD )"
+LICENSE="GPL-2+ MIT doc? ( BSD )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
-	dev-python/PyQt4[${PYTHON_USEDEP}]
+	|| (
+		dev-python/PyQt4[${PYTHON_USEDEP}]
+		dev-python/PyQt5[${PYTHON_USEDEP}]
+		dev-python/pyside[${PYTHON_USEDEP}]
+	)
 	dev-python/send2trash[${PYTHON_USEDEP}]
 	dev-vcs/git
 "
