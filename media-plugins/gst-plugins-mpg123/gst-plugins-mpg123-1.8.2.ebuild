@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-GST_ORG_MODULE=gst-plugins-bad
+EAPI=6
+GST_ORG_MODULE=gst-plugins-ugly
 
 inherit gstreamer
 
