@@ -12,8 +12,8 @@ HOMEPAGE="https://www.gentoo.org"
 LICENSE="metapackage"
 SLOT="1.0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x64-macos ~x86-solaris"
-IUSE="aac a52 alsa cdda dts dv dvb dvd ffmpeg flac http jack lame libass libvisual mms mp3 mpg123 modplug mpeg ogg opus oss pulseaudio taglib theora v4l vaapi vcd vorbis vpx wavpack X x264"
-REQUIRED_USE="mpg123? ( mp3 ) opus? ( ogg ) theora? ( ogg ) vorbis? ( ogg )"
+IUSE="a52 aac alsa cdda dts dv dvb dvd ffmpeg flac http jack lame libass libvisual mad mms modplug mpeg mpg123 ogg opus oss pulseaudio taglib theora v4l vaapi vcd vorbis vpx wavpack X x264"
+REQUIRED_USE="opus? ( ogg ) theora? ( ogg ) vorbis? ( ogg )"
 
 RDEPEND="
 	>=media-libs/gstreamer-${PV}:1.0[${MULTILIB_USEDEP}]
@@ -42,13 +42,11 @@ RDEPEND="
 	lame? ( >=media-plugins/gst-plugins-lame-${PV}:1.0[${MULTILIB_USEDEP}] )
 	libass? ( >=media-plugins/gst-plugins-assrender-${PV}:1.0[${MULTILIB_USEDEP}] )
 	libvisual? ( >=media-plugins/gst-plugins-libvisual-${PV}:1.0[${MULTILIB_USEDEP}] )
+	mad? ( >=media-plugins/gst-plugins-mad-${PV}:1.0[${MULTILIB_USEDEP}] )
 	mms? ( >=media-plugins/gst-plugins-libmms-${PV}:1.0[${MULTILIB_USEDEP}] )
 	modplug? ( >=media-plugins/gst-plugins-modplug-${PV}:1.0[${MULTILIB_USEDEP}] )
-	mp3? (
-		>=media-libs/gst-plugins-ugly-${PV}:1.0[${MULTILIB_USEDEP}]
-		!mpg123? ( >=media-plugins/gst-plugins-mad-${PV}:1.0[${MULTILIB_USEDEP}] )
-		mpg123? ( >=media-plugins/gst-plugins-mpg123-${PV}:1.0[${MULTILIB_USEDEP}] ) )
 	mpeg? ( >=media-plugins/gst-plugins-mpeg2dec-${PV}:1.0[${MULTILIB_USEDEP}] )
+	mpg123? ( >=media-plugins/gst-plugins-mpg123-${PV}:1.0[${MULTILIB_USEDEP}] )
 	opus? ( >=media-plugins/gst-plugins-opus-${PV}:1.0[${MULTILIB_USEDEP}] )
 	oss? ( >=media-plugins/gst-plugins-oss-${PV}:1.0[${MULTILIB_USEDEP}] )
 	pulseaudio? ( >=media-plugins/gst-plugins-pulse-${PV}:1.0[${MULTILIB_USEDEP}] )

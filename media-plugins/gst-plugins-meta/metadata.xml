@@ -22,7 +22,7 @@ since gstreamer plugins are all run-time dependencies.
 		<pkg>media-libs/libvisual</pkg></flag>
 	<flag name="vpx">Enables vp8 codec support using libvpx, required to
 		play some HTML5 videos</flag>
-	<flag name="mpg123">Enable mp3 decoding support via <pkg>media-sound/mpg123</pkg>
-		instead of <pkg>media-libs/libmad</pkg></flag>
+	<flag name="mpg123">Enable mp3 decoding support via
+		<pkg>media-sound/mpg123</pkg></flag>
 </use>
 </pkgmetadata>
