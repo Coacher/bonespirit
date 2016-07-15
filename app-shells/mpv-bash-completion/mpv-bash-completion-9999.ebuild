@@ -32,3 +32,11 @@ src_install() {
 	einstalldocs
 	newbashcomp ${PN} mpv
 }
+
+pkg_postinst() {
+	if ! has_version 'x11-apps/xrandr'; then
+		echo
+		elog "If you want completion of window sizes, please install x11-apps/xrandr."
+		echo
+	fi
+}
