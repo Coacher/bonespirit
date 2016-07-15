@@ -16,12 +16,12 @@ KEYWORDS=""
 IUSE="luajit"
 
 COMMON_DEPEND="media-video/mpv[cli]"
+RDEPEND="${COMMON_DEPEND}
+	>=app-shells/bash-completion-2.3-r1
+"
 DEPEND="${COMMON_DEPEND}
 	!luajit? ( dev-lang/lua:* )
 	luajit? ( dev-lang/luajit:2 )
-"
-RDEPEND="${COMMON_DEPEND}
-	>=app-shells/bash-completion-2.3-r1
 "
 
 src_compile() {
