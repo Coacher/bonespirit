@@ -17,9 +17,9 @@ IUSE="debug +pdf +png"
 
 DEPEND="x11-misc/shared-mime-info"
 RDEPEND="${DEPEND}
-	$(add_kdeapps_dep kdebase-data)
-	|| ( $(add_kdeapps_dep konsolepart) $(add_kdeapps_dep konsole) )
 	|| ( $(add_kdeapps_dep okular 'pdf?,postscript') app-text/acroread )
+	$(add_kdeapps_dep kdebase-data)
+	$(add_kdeapps_dep konsolepart)
 	virtual/latex-base
 	virtual/tex-base
 	pdf? (
