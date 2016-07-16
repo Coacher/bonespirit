@@ -20,6 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
+# git-cola bundles QtPy. See Gentoo bug 588566.
 RDEPEND="
 	|| (
 		dev-python/PyQt4[${PYTHON_USEDEP}]
@@ -84,8 +85,16 @@ python_test() {
 }
 
 python_install_all() {
+	python_fix_shebang "${ED}"usr/share/${PN}/bin/git-xbase
+	python_optimize "${ED}"usr/share/${PN}/lib/
+
+	use doc || HTML_DOCS=( "${FILESDIR}/index.html" )
+
+	distutils-r1_python_install_all
+	readme.gentoo_create_doc
+
 	local myemaketargets=( install-files )
-	use doc && myemaketargets+=(install-html install-man)
+	use doc && myemaketargets+=( install-html install-man )
 
 	emake -C share/doc/${PN} \
 		DESTDIR="${D}" \
@@ -94,14 +103,6 @@ python_install_all() {
 		"${myemaketargets[@]}"
 
 	doicon -s scalable share/${PN}/icons/${PN}.svg
-
-	use doc || HTML_DOCS=( "${FILESDIR}/index.html" )
-
-	python_fix_shebang "${ED}"usr/share/${PN}/bin/git-xbase
-	python_optimize "${ED}"usr/share/${PN}/lib/cola
-
-	distutils-r1_python_install_all
-	readme.gentoo_create_doc
 }
 
 pkg_preinst() {
