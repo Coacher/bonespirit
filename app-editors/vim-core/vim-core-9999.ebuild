@@ -19,6 +19,8 @@ IUSE="acl minimal nls"
 DEPEND="sys-devel/autoconf"
 PDEPEND="!minimal? ( app-vim/gentoo-syntax )"
 
+RESTRICT=test
+
 src_prepare() {
 	default_src_prepare
 
@@ -103,8 +105,6 @@ src_compile() {
 
 	emake tools
 }
-
-src_test() { :; }
 
 src_install() {
 	local vimfiles=/usr/share/vim/vim${VIM_VERSION/.}
