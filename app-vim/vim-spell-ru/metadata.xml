@@ -6,8 +6,8 @@
 		<name>Coacher</name>
 	</maintainer>
 	<longdescription lang="en">
-		Vim spell files for Russian (ru). Supported character sets are UTF-8,
-		koi8-r and cp1251.
+		Vim spell files for Russian (ru) language.
+		Supported character sets are UTF-8, koi8-r and cp1251.
 	</longdescription>
 	<longdescription lang="ru">
 		Файлы необходимые для проверки правописания Русского языка (ru) в Vim.
