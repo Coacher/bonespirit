@@ -6,8 +6,8 @@ _xxd()
     _init_completion || return
 
     if [[ "${cur}" == -* ]]; then
-        local opts='-autoskip -bits -cols -EBCDIC -e -groupsize -help -include
-        -len -o -ps -postscript -plain -revert -seek -s -u -version'
+        local opts='-autoskip -bits -cols -EBCDIC -groupsize -help -include
+            -len -ps -postscript -plain -revert -seek -s -version'
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return
     fi

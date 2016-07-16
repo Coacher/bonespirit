@@ -13,20 +13,19 @@ _gvim()
             COMPREPLY=( $(compgen -W "$(gvim --serverlist)" -- "${cur}") )
             return
             ;;
-        -[-uUswWi]|--remote|--remote-silent|--remote-wait*|--remote-tab*|--startuptime)
+        -[-rLuUSswWi]|--remote|--remote-silent|--remote-wait*|--remote-tab*|--startuptime)
             _filedir
             return
             ;;
     esac
 
     if [[ "${cur}" == -* ]]; then
-        local opts='-t -q -g -f --nofork -v -e -E -s -d -y -R -Z -m -M -b -l -C
-        -N -V -D -n -r -L -A -H -F -T --not-a-term -u -U --noplugin -p -o -O
-        --cmd -c -S -s -w -W -x -X --remote --remote-silent --remote-wait
-        --remote-wait-silent --remote-tab --remote-tab-silent --remote-tab-wait
-        --remote-tab-wait-silent --remote-send --remote-expr --serverlist
-        --servername --startuptime -i -h --help --version -font -fn -geometry
-        -reverse -rv -display --display --role --socketid --echo-wid -nb'
+        local opts='--nofork --not-a-term --noplugin --cmd --remote
+            --remote-silent --remote-wait --remote-wait-silent --remote-tab
+            --remote-tab-silent --remote-tab-wait --remote-tab-wait-silent
+            --remote-send --remote-expr --serverlist --servername --startuptime
+            --help --version -font -fn -geometry -reverse -rv -display
+            --display --role --socketid --echo-wid -nb'
         COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
         return
     fi
