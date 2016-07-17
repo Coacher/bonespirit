@@ -41,6 +41,6 @@ python_test() {
 }
 
 python_install_all() {
-	use doc && local HTML_DOCS=( docs/_build/html/. )
+	use doc && HTML_DOCS=( docs/_build/html/. )
 	distutils-r1_python_install_all
 }
