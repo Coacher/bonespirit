@@ -6,7 +6,7 @@ EAPI=6
 
 inherit font
 
-DESCRIPTION="Open licensed fonts metrically compatible with Microsoft corefonts"
+DESCRIPTION="Open licensed fonts metrically compatible with Microsoft core fonts"
 HOMEPAGE="
 	https://www.google.com/fonts/specimen/Arimo
 	https://www.google.com/fonts/specimen/Cousine
