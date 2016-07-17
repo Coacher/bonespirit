@@ -20,8 +20,6 @@ DEPEND="
 	dev-perl/Font-TTF
 	media-gfx/fontforge
 	media-libs/fontconfig
-	x11-apps/mkfontdir
-	x11-apps/mkfontscale
 "
 
 RESTRICT="binchecks strip"
