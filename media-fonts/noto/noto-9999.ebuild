@@ -20,5 +20,10 @@ RESTRICT="binchecks strip"
 DOCS="FAQ.md README.md"
 
 FONT_SUFFIX="ttf"
-FONT_S="${S}/unhinted"
+FONT_S="${S}/hinted"
 FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
+
+src_prepare() {
+	default_src_prepare
+	rm -r "${FONT_S}"/Arimo* "${FONT_S}"/Cousine* "${FONT_S}"/Tinos* || die
+}
