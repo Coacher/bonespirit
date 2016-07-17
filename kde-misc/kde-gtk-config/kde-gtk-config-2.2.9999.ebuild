@@ -6,7 +6,7 @@ EAPI=6
 
 inherit kde4-base
 
-DESCRIPTION="GTK2 and GTK3 Configurator for KDE"
+DESCRIPTION="GTK2 and GTK3 configurator for KDE"
 HOMEPAGE="https://quickgit.kde.org/?p=kde-gtk-config.git"
 EGIT_BRANCH="2.2"
 
@@ -20,14 +20,12 @@ COMMON_DEPEND="
 	gtk2? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
 "
-DEPEND="
-	${COMMON_DEPEND}
-	dev-util/automoc
-"
-RDEPEND="
-	${COMMON_DEPEND}
+RDEPEND="${COMMON_DEPEND}
 	$(add_kdeapps_dep kcmshell)
 	!kde-misc/kcm_gtk
+"
+DEPEND="${COMMON_DEPEND}
+	dev-util/automoc
 "
 
 src_prepare() {
