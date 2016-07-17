@@ -10,7 +10,7 @@ inherit kde4-base vcs-snapshot
 
 COMMIT_ID="35991b911c228731726d119084936a40ebc1447d"
 
-DESCRIPTION="Alternative configuration module for the Baloo file indexer"
+DESCRIPTION="Advanced configuration module for the Baloo file indexer"
 HOMEPAGE="https://gitlab.com/baloo-kcmadv/baloo-kcmadv"
 SRC_URI="https://gitlab.com/${PN}/${PN}/repository/archive.tar.gz?ref=${COMMIT_ID} -> ${P}.tar.gz"
 
