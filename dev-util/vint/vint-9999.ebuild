@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_4} )
 
 inherit distutils-r1 git-r3
 
-DESCRIPTION="Lint tool for Vim script Language"
+DESCRIPTION="Lint tool for Vim script language"
 HOMEPAGE="https://github.com/Kuniwak/vint https://pypi.python.org/pypi/vim-vint/"
 EGIT_REPO_URI="git://github.com/Kuniwak/${PN}.git"
 
