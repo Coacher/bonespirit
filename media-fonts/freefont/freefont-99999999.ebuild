@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_7,3_4} )
 
 inherit font python-single-r1 subversion
 
-DESCRIPTION="Free UCS Outline Fonts"
+DESCRIPTION="Free UCS outline fonts"
 HOMEPAGE="https://www.gnu.org/software/freefont/ https://savannah.gnu.org/projects/freefont/"
 ESVN_REPO_URI="svn://svn.savannah.gnu.org/${PN}/trunk/${PN}"
 
