@@ -40,7 +40,7 @@ src_prepare() {
 }
 
 src_configure() {
-	cd src/ || die && $(usex qt5 'eqmake5' 'eqmake4')
+	cd src || die && $(usex qt5 'eqmake5' 'eqmake4')
 }
 
 src_compile() {
