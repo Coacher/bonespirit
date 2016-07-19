@@ -11,7 +11,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x8
 IUSE=""
 
 DEPEND="
-	media-libs/gst-plugins-base:1.0[${MULTILIB_USEDEP}]
+	>=media-libs/gst-plugins-base-${PV}:1.0[${MULTILIB_USEDEP}]
 	>=media-sound/mpg123-1.13[${MULTILIB_USEDEP}]
 "
 RDEPEND="${DEPEND}"
