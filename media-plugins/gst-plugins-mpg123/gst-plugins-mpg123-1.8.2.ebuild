@@ -12,6 +12,6 @@ IUSE=""
 
 DEPEND="
 	media-libs/gst-plugins-base:1.0[${MULTILIB_USEDEP}]
-	media-sound/mpg123[${MULTILIB_USEDEP}]
+	>=media-sound/mpg123-1.13[${MULTILIB_USEDEP}]
 "
 RDEPEND="${DEPEND}"
