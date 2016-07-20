@@ -37,9 +37,13 @@ src_install() {
 }
 
 pkg_postinst() {
+	if [[ -z ${REPLACING_VERSIONS} ]]; then
+		ewarn "qt5ct configuration won't be applied to the currently running sessions."
+		ewarn "Please relogin."
+	fi
 	if ! has_version 'dev-qt/qtsvg:5'; then
 		echo
-		elog "For SVG icon themes, please install dev-qt/qtsvg:5."
+		elog "For SVG icon themes, please install 'dev-qt/qtsvg:5'."
 		echo
 	fi
 
