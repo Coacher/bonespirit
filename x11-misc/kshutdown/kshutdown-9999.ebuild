@@ -33,10 +33,6 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	default_src_prepare
-
-	# Avoid hardcoded icon install paths in Qt builds.
-	# See https://sourceforge.net/p/kshutdown/bugs/25/
-	sed -i -e '/\.extra/s|/usr|$(INSTALL_ROOT)/usr|' src/src.pro || die
 }
 
 src_configure() {
