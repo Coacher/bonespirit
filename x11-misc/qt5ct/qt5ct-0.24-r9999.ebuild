@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit fdo-mime qmake-utils
+inherit qmake-utils
 
 DESCRIPTION="Qt5 configuration tool, similar to qtconfig for Qt4"
 HOMEPAGE="https://sourceforge.net/projects/qt5ct/"
@@ -46,10 +46,4 @@ pkg_postinst() {
 		elog "For SVG icon themes, please install 'dev-qt/qtsvg:5'."
 		echo
 	fi
-
-	fdo-mime_desktop_database_update
-}
-
-pkg_postrm() {
-	fdo-mime_desktop_database_update
 }
