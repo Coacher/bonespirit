@@ -24,19 +24,25 @@ DEPEND="${COMMON_DEPEND}
 	luajit? ( dev-lang/luajit:2 )
 "
 
+src_prepare() {
+	default_src_prepare
+	# Avoid 'mpv' make target that supports lua only.
+	sed -i -e 's|check: mpv|check:|' Makefile || die
+}
+
 src_compile() {
-	$(usex luajit 'luajit' 'lua') gen.lua > ${PN} || die
+	$(usex luajit 'luajit' 'lua') gen.lua > mpv || die
 }
 
 src_install() {
+	dobashcomp mpv
 	einstalldocs
-	newbashcomp ${PN} mpv
 }
 
 pkg_postinst() {
 	if ! has_version 'x11-apps/xrandr'; then
 		echo
-		elog "If you want completion of window sizes, please install x11-apps/xrandr."
+		elog "If you want completion of window sizes, please install 'x11-apps/xrandr'."
 		echo
 	fi
 }
