@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit cmake-utils fdo-mime gnome2-utils git-r3
+inherit cmake-utils gnome2-utils git-r3
 
 DESCRIPTION="tint2 is a lightweight panel/taskbar"
 HOMEPAGE="https://gitlab.com/o9000/tint2"
@@ -57,11 +57,9 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 }
