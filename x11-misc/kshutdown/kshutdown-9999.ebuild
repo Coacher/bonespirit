@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit eutils fdo-mime gnome2-utils qmake-utils subversion
+inherit eutils gnome2-utils qmake-utils subversion
 
 DESCRIPTION="A graphical shutdown utility"
 HOMEPAGE="http://kshutdown.sourceforge.net/"
@@ -59,11 +59,9 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 }
