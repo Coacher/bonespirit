@@ -128,10 +128,13 @@ RDEPEND="${COMMON_DEPEND}
 
 PATCHES=(
 	"${FILESDIR}/${P}-make-ffmpeg-version-check-non-fatal.patch"
+	"${FILESDIR}/${PV}/${P}-show-osd-with-ao-volume.patch"
 	"${FILESDIR}/${PV}/${P}-respect-deinterlace-auto.patch"
 	"${FILESDIR}/${PV}/${P}-fix-stuck-volume-on-pulseaudio.patch"
 	"${FILESDIR}/${PV}/${P}-fix-doc-build.patch"
 	"${FILESDIR}/${PV}/${P}-fix-audio-uninit-crash.patch"
+	"${FILESDIR}/${PV}/${P}-fix-high-CPU-on-wayland.patch"
+	"${FILESDIR}/${PV}/${P}-handle-ffmpeg-ABI-changes.patch"
 )
 
 pkg_pretend() {
