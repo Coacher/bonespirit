@@ -135,6 +135,7 @@ PATCHES=(
 	"${FILESDIR}/${PV}/${P}-fix-audio-uninit-crash.patch"
 	"${FILESDIR}/${PV}/${P}-fix-high-CPU-on-wayland.patch"
 	"${FILESDIR}/${PV}/${P}-handle-ffmpeg-ABI-changes.patch"
+	"${FILESDIR}/${PV}/${P}-add-htmldir-option.patch"
 )
 
 pkg_pretend() {
@@ -153,6 +154,7 @@ src_configure() {
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
+		--htmldir="${EPREFIX}/usr/share/doc/${PF}/html"
 
 		$(usex cli '' '--disable-cplayer')
 		$(use_enable libmpv libmpv-shared)
@@ -162,8 +164,8 @@ src_configure() {
 		--disable-static-build
 		--disable-optimize		# Don't add '-O2' to CFLAGS.
 		--disable-debug-build	# Don't add '-g' to CFLAGS.
+		--enable-html-build
 
-		$(use_enable doc html-build)
 		$(use_enable doc pdf-build)
 		$(use_enable vf-dlopen vf-dlopen-filters)
 		$(use_enable zsh-completion zsh-comp)
