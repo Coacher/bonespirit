@@ -85,14 +85,20 @@ python_test() {
 	emake test
 }
 
-python_install_all() {
+python_install() {
+	# Remove this when git-cola supports multiple Python implementations.
+	distutils-r1_python_install
 	python_fix_shebang "${ED}"usr/share/${PN}/bin/git-xbase
 	python_optimize "${ED}"usr/share/${PN}/lib/
+}
 
+src_install() {
 	use doc || HTML_DOCS=( "${FILESDIR}/index.html" )
 
-	distutils-r1_python_install_all
+	distutils-r1_src_install
 	readme.gentoo_create_doc
+
+	doicon -s scalable share/${PN}/icons/${PN}.svg
 
 	local myemaketargets=( install-files )
 	use doc && myemaketargets+=( install-html install-man )
@@ -102,8 +108,6 @@ python_install_all() {
 		prefix="${EPREFIX}/usr" \
 		docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		"${myemaketargets[@]}"
-
-	doicon -s scalable share/${PN}/icons/${PN}.svg
 }
 
 pkg_preinst() {
