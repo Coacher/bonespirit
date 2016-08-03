@@ -21,6 +21,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 # git-cola bundles QtPy. See Gentoo bug 588566.
+# git-cola bundles sphinxtogithub. See Gentoo bug 588568.
 RDEPEND="
 	|| (
 		dev-python/PyQt4[${PYTHON_USEDEP}]
