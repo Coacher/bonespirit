@@ -4,7 +4,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit font python-single-r1 subversion
 
@@ -37,7 +37,5 @@ src_prepare() {
 }
 
 src_compile() {
-	emake \
-		FF="${EPREFIX}/usr/bin/fontforge" \
-		"${FONT_SUFFIX}"
+	emake FF="${EPREFIX}/usr/bin/fontforge" "${FONT_SUFFIX}"
 }
