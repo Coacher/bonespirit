@@ -54,6 +54,9 @@ src_prepare() {
 	l10n_find_plocales_changes 'po' '' '.po'
 	l10n_for_each_disabled_locale_do remove_locale
 
+	# Avoid installing broken symlink to 'relnotes.rst'.
+	rm CHANGELOG || die
+
 	distutils-r1_src_prepare
 }
 
