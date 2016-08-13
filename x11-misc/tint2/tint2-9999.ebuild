@@ -19,7 +19,7 @@ RDEPEND="
 	>=media-libs/imlib2-1.4.2[X]
 	>=x11-libs/libXrandr-1.3
 	dev-libs/glib:2
-	x11-libs/cairo
+	x11-libs/cairo[X]
 	x11-libs/libX11
 	x11-libs/libXcomposite
 	x11-libs/libXdamage
