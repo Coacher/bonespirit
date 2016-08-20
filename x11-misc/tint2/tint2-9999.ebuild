@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="startup-notification svg tint2conf"
 
 RDEPEND="
-	>=media-libs/imlib2-1.4.2[X]
+	>=media-libs/imlib2-1.4.2[X,png]
 	>=x11-libs/libXrandr-1.3
 	dev-libs/glib:2
 	x11-libs/cairo[X]
