@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="5"
+EAPI=6
 
 inherit multilib-build
 
@@ -52,7 +52,7 @@ RDEPEND="
 	pulseaudio? ( >=media-plugins/gst-plugins-pulse-${PV}:1.0[${MULTILIB_USEDEP}] )
 	taglib? ( >=media-plugins/gst-plugins-taglib-${PV}:1.0[${MULTILIB_USEDEP}] )
 	v4l? ( >=media-plugins/gst-plugins-v4l2-${PV}:1.0[${MULTILIB_USEDEP}] )
-	vaapi? ( >=media-plugins/gst-plugins-vaapi-0.6:1.0[${MULTILIB_USEDEP}] )
+	vaapi? ( >=media-plugins/gst-plugins-vaapi-${PV}:1.0[${MULTILIB_USEDEP}] )
 	vcd? (
 		>=media-plugins/gst-plugins-mplex-${PV}:1.0[${MULTILIB_USEDEP}]
 		>=media-plugins/gst-plugins-mpeg2dec-${PV}:1.0[${MULTILIB_USEDEP}] )
