@@ -29,9 +29,9 @@ DOCS+=( README.md )
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
 IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl +enca
-	encode gbm +iconv jack jpeg lcms +libass libav libcaca libguess libmpv lua
+	encode gbm +iconv jack jpeg lcms +libass libav libcaca libguess libmpv +lua
 	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl
-	selinux test uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
+	selinux test +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 
 REQUIRED_USE="
@@ -126,7 +126,7 @@ RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )
 "
 
-PATCHES=( "${FILESDIR}/${P}-make-ffmpeg-version-check-non-fatal.patch" )
+PATCHES=( "${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch" )
 
 pkg_pretend() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && ! tc-has-tls && use vaapi && use egl; then
@@ -258,6 +258,11 @@ src_configure() {
 
 src_install() {
 	waf-utils_src_install
+
+	if use lua; then
+		insinto /usr/share/${PN}
+		doins -r TOOLS/lua
+	fi
 
 	if use cli && use luajit; then
 		pax-mark -m "${ED}"usr/bin/${PN}
