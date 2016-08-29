@@ -8,7 +8,7 @@ VIM_VERSION=7.4
 PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 PYTHON_REQ_USE='threads(+)'
 
-inherit bash-completion-r1 eutils fdo-mime flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc git-r3
+inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc xdg git-r3
 
 DESCRIPTION="GUI version of the Vim text editor"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
@@ -217,11 +217,11 @@ src_install() {
 	echo '.so vim.1' > "${ED}"usr/share/man/man1/gview.1 || die
 	echo '.so vimdiff.1' > "${ED}"usr/share/man/man1/gvimdiff.1 || die
 
-	domenu runtime/${PN}.desktop
 	for size in 16 32 48; do
 		newicon -s ${size} runtime/vim${size}x${size}.png ${PN}.png
 	done
 	doicon -s scalable "${FILESDIR}/${PN}.svg"
+	domenu runtime/${PN}.desktop
 
 	insinto /etc/vim
 	newins "${FILESDIR}/gvimrc-r1" gvimrc
@@ -233,19 +233,20 @@ src_install() {
 
 pkg_preinst() {
 	gnome2_icon_savelist
+	xdg_pkg_preinst
 }
 
 pkg_postinst() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+	xdg_pkg_postinst
 
 	eselect vi update --if-unset
 	update_vim_helptags
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+	xdg_pkg_postrm
 
 	eselect vi update --if-unset
 	update_vim_helptags
