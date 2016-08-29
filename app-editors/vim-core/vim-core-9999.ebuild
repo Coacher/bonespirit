@@ -115,9 +115,7 @@ src_install() {
 		-C src \
 		installruntime \
 		installmanlinks \
-		installmacros \
 		installtutorbin \
-		installtutor \
 		installtools \
 		install-languages \
 		DESTDIR="${D}" \
