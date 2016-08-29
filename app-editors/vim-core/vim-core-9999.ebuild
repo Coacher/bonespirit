@@ -120,7 +120,6 @@ src_install() {
 		installtutor \
 		installtools \
 		install-languages \
-		install-icons \
 		DESTDIR="${D}" \
 		BINDIR="${EPREFIX}/usr/bin" \
 		MANDIR="${EPREFIX}/usr/share/man" \
