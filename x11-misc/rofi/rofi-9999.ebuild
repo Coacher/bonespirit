@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/DaveDavenport/${PN}.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="drun windowmode"
+IUSE="drun +windowmode"
 
 RDEPEND="
 	dev-libs/glib:2
