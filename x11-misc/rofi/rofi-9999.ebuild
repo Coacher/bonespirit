@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/DaveDavenport/${PN}.git"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="windowmode"
+IUSE="drun windowmode"
 
 RDEPEND="
 	dev-libs/glib:2
@@ -38,7 +38,11 @@ src_prepare() {
 
 src_configure() {
 	tc-export CC
-	econf $(use_enable windowmode)
+	local myeconfargs=(
+		$(use_enable drun)
+		$(use_enable windowmode)
+	)
+	econf "${myeconfargs[@]}"
 }
 
 src_test() {
