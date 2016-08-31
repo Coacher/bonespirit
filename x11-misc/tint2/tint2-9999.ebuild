@@ -6,7 +6,7 @@ EAPI=6
 
 inherit cmake-utils gnome2-utils git-r3
 
-DESCRIPTION="tint2 is a lightweight panel/taskbar"
+DESCRIPTION="A lightweight panel/taskbar"
 HOMEPAGE="https://gitlab.com/o9000/tint2"
 EGIT_REPO_URI="https://gitlab.com/o9000/${PN}.git"
 
