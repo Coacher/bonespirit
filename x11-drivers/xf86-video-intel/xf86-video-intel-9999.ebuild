@@ -9,7 +9,6 @@ XORG_DRI=dri
 inherit linux-info xorg-2
 
 DESCRIPTION="X.Org driver for Intel cards"
-
 KEYWORDS="~amd64 ~x86"
 IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc"
 
