@@ -4,7 +4,7 @@
 
 EAPI=6
 
-# python3_5 is blocked by Gentoo bugs 590352, 590356.
+# python3_5 is blocked by Gentoo bug 590356.
 PYTHON_COMPAT=( python{2_7,3_4} )
 PYTHON_REQ_USE='xml(+)'
 
