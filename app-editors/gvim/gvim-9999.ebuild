@@ -217,6 +217,7 @@ src_install() {
 	echo '.so vim.1' > "${ED}"usr/share/man/man1/gview.1 || die
 	echo '.so vimdiff.1' > "${ED}"usr/share/man/man1/gvimdiff.1 || die
 
+	local size
 	for size in 16 32 48; do
 		newicon -s ${size} runtime/vim${size}x${size}.png ${PN}.png
 	done
