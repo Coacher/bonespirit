@@ -8,7 +8,7 @@ VIM_VERSION=7.4
 PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 PYTHON_REQ_USE='threads(+)'
 
-inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc xdg git-r3
+inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc xdg-utils git-r3
 
 DESCRIPTION="GUI version of the Vim text editor"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
@@ -234,12 +234,11 @@ src_install() {
 
 pkg_preinst() {
 	gnome2_icon_savelist
-	xdg_pkg_preinst
 }
 
 pkg_postinst() {
 	gnome2_icon_cache_update
-	xdg_pkg_postinst
+	xdg_desktop_database_update
 
 	eselect vi update --if-unset
 	update_vim_helptags
@@ -247,7 +246,7 @@ pkg_postinst() {
 
 pkg_postrm() {
 	gnome2_icon_cache_update
-	xdg_pkg_postrm
+	xdg_desktop_database_update
 
 	eselect vi update --if-unset
 	update_vim_helptags
