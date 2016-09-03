@@ -281,7 +281,6 @@ pkg_postinst() {
 	done
 
 	if [[ ${softvol_0_18_1} -eq 1 ]]; then
-		echo
 		elog "Starting from version 0.18.1 the software volume control is"
 		elog "enabled by default, see:"
 		elog "https://github.com/mpv-player/mpv/blob/v0.18.1/DOCS/interface-changes.rst"
@@ -290,8 +289,9 @@ pkg_postinst() {
 		elog "This means that volume controls don't change the system volume,"
 		elog "e.g. per-application volume with PulseAudio."
 		elog "If you want to restore the old behaviour, please refer to"
+		elog
 		elog "https://bugs.gentoo.org/show_bug.cgi?id=588492#c7"
-		echo
+		elog
 	fi
 
 	# bash-completion < 2.3-r1 already installs (mostly broken) mpv completion.
