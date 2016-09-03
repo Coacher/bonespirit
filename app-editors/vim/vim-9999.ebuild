@@ -8,7 +8,7 @@ VIM_VERSION=7.4
 PYTHON_COMPAT=( python{2_7,3_3,3_4,3_5} )
 PYTHON_REQ_USE='threads(+)'
 
-inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc git-r3
+inherit bash-completion-r1 flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc git-r3
 
 DESCRIPTION="Highly configurable text editor built to enable efficient text editing"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
