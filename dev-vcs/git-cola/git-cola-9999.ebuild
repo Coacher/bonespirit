@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+),xml(+)'
 DISTUTILS_SINGLE_IMPL=1 # https://github.com/git-cola/git-cola/issues/181
 PLOCALES="de es fr hu id_ID it ja pt_BR ru sv tr_TR zh_CN zh_TW"
 
-inherit distutils-r1 eutils fdo-mime gnome2-utils l10n readme.gentoo-r1 git-r3
+inherit distutils-r1 eutils gnome2-utils l10n readme.gentoo-r1 xdg-utils git-r3
 
 DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
@@ -119,11 +119,12 @@ pkg_preinst() {
 
 pkg_postinst() {
 	readme.gentoo_print_elog
-	fdo-mime_desktop_database_update
+
 	gnome2_icon_cache_update
+	xdg_desktop_database_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+	xdg_desktop_database_update
 }
