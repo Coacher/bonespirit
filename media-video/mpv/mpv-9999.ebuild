@@ -274,9 +274,6 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	gnome2_icon_cache_update
-	xdg_desktop_database_update
-
 	local rv softvol_0_18_1=0
 	for rv in ${REPLACING_VERSIONS}; do
 		version_compare ${rv} 0.18.1-r1
@@ -309,6 +306,9 @@ pkg_postinst() {
 		elog "If command-line completion doesn't work after mpv update,"
 		elog "please rebuild app-shells/mpv-bash-completion."
 	fi
+
+	gnome2_icon_cache_update
+	xdg_desktop_database_update
 }
 
 pkg_postrm() {
