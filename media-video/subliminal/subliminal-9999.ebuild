@@ -4,8 +4,7 @@
 
 EAPI=6
 
-# python3_5 is blocked by Gentoo bug 590356.
-PYTHON_COMPAT=( python{2_7,3_4} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 PYTHON_REQ_USE='xml(+)'
 
 inherit distutils-r1 git-r3
