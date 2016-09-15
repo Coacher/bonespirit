@@ -44,13 +44,14 @@ multilib_src_configure() {
 	# Workaround automagic virtual/libiconv dependency.
 	use iconv || export am_cv_func_iconv=no
 
-	# Workaround broken cross-compilation support.
+	# Workaround cross compilation issues. See Gentoo bug 593220.
 	tc-is-cross-compiler && export am_cv_func_iconv=no
 
 	ECONF_SOURCE="${S}" econf "${myeconfargs[@]}"
 }
 
 multilib_src_compile() {
+	# Workaround cross compilation issues. See Gentoo bug 424473.
 	tc-is-cross-compiler && tc-env_build emake -e -C tools
 
 	if ! multilib_is_native_abi; then
