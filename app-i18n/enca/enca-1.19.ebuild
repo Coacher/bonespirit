@@ -24,6 +24,12 @@ DEPEND="${RDEPEND}
 	doc? ( dev-util/gtk-doc )
 "
 
+pkg_pretend() {
+	if tc-is-cross-compiler && use iconv; then
+		die "${PN} cannot be cross compiled with iconv USE enabled. See Gentoo bug 593220."
+	fi
+}
+
 src_prepare() {
 	default_src_prepare
 
@@ -43,9 +49,6 @@ multilib_src_configure() {
 
 	# Workaround automagic virtual/libiconv dependency.
 	use iconv || export am_cv_func_iconv=no
-
-	# Workaround cross compilation issues. See Gentoo bug 593220.
-	tc-is-cross-compiler && export am_cv_func_iconv=no
 
 	ECONF_SOURCE="${S}" econf "${myeconfargs[@]}"
 }
