@@ -44,6 +44,7 @@ multilib_src_configure() {
 		--disable-static
 		--enable-external
 		$(use_enable doc gtk-doc)
+		$(use_with iconv libiconv-prefix "${EPREFIX}/usr")
 		$(use_with recode librecode "${EPREFIX}/usr")
 	)
 
