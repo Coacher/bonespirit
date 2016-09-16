@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}
 
 pkg_pretend() {
 	if tc-is-cross-compiler && use iconv; then
-		die "${PN} cannot be cross compiled with iconv USE enabled. See Gentoo bug 593220."
+		die "${PN} can't be cross built with iconv USE enabled. See Gentoo bug 593220."
 	fi
 }
 
