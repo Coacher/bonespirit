@@ -4,7 +4,7 @@
 
 EAPI=6
 
-inherit autotools eutils multilib-minimal toolchain-funcs
+inherit autotools eutils flag-o-matic multilib-minimal toolchain-funcs
 
 DESCRIPTION="Detect and convert encoding of text files"
 HOMEPAGE="https://cihar.com/software/enca/"
@@ -40,6 +40,11 @@ src_prepare() {
 }
 
 multilib_src_configure() {
+	# Workaround GCC-4.8 brokenness. See Gentoo bug 501386.
+	if tc-is-gcc && [[ $(gcc-version) = '4.8' ]]; then
+		replace-flags -O[3-9] -O2
+	fi
+
 	local myeconfargs=(
 		--disable-static
 		--enable-external
