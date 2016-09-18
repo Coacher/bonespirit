@@ -13,7 +13,7 @@ SRC_URI="https://dl.cihar.com/${PN}/${P}.tar.xz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x86-freebsd ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x86-solaris"
-IUSE="doc +iconv recode"
+IUSE="doc +iconv recode static-libs"
 
 RDEPEND="
 	iconv? ( virtual/libiconv[${MULTILIB_USEDEP}] )
@@ -46,9 +46,9 @@ multilib_src_configure() {
 	fi
 
 	local myeconfargs=(
-		--disable-static
 		--enable-external
 		$(use_enable doc gtk-doc)
+		$(use_enable static-libs static)
 		$(use_with iconv libiconv-prefix "${EPREFIX}/usr")
 		$(use_with recode librecode "${EPREFIX}/usr")
 	)
