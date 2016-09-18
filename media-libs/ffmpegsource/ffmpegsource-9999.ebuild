@@ -45,5 +45,5 @@ src_configure() {
 
 src_install() {
 	default_src_install
-	prune_libtool_files --modules
+	prune_libtool_files
 }
