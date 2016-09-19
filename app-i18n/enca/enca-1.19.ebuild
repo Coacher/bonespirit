@@ -67,7 +67,7 @@ multilib_src_compile() {
 		emake -C lib
 	else
 		emake
-		use doc && emake -C devel-docs
+		use doc && emake -C devel-docs docs
 	fi
 }
 
