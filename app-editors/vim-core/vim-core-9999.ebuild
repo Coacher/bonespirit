@@ -3,7 +3,7 @@
 # $Id$
 
 EAPI=6
-VIM_VERSION=7.4
+VIM_VERSION=8.0
 
 inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix user versionator vim-doc git-r3
 
