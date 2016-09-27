@@ -99,7 +99,7 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/xf86dgaproto-2.0.99.1
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
 	>=x11-proto/xineramaproto-1.1.3
-	>=x11-proto/xproto-7.0.28
+	>=x11-proto/xproto-7.0.31
 	dmx? (
 		>=x11-proto/dmxproto-2.2.99.1
 		doc? (
