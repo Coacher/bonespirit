@@ -222,6 +222,7 @@ src_configure() {
 		--disable-android
 		$(use_enable raspberry-pi rpi)
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
+		--disable-mali-fbdev	# Only available in overlays.
 
 		# HWaccels:
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
