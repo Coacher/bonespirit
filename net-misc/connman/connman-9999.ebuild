@@ -72,7 +72,7 @@ src_configure() {
 src_install() {
 	default_src_install
 	dobin client/connmanctl
-	use doci && dodoc doc/*.txt
+	use doc && dodoc doc/*.txt
 
 	keepdir /var/lib/${PN}
 	newinitd "${FILESDIR}"/${PN}.initd ${PN}
