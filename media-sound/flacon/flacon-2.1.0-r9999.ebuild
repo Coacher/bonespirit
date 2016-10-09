@@ -7,15 +7,15 @@ EAPI=6
 # Ignore rudimentary et, uz@Latn, zh_TW translation(s).
 PLOCALES="cs cs_CZ de es es_MX fr gl hu it ja_JP lt nb nl pl pl_PL pt_BR pt_PT ro_RO ru sr sr@latin tr uk zh_CN"
 
-inherit cmake-utils eutils gnome2-utils l10n virtualx xdg-utils git-r3
+inherit cmake-utils eutils gnome2-utils l10n virtualx xdg-utils
 
 DESCRIPTION="Extracts audio tracks from an audio CD image to separate tracks"
 HOMEPAGE="https://flacon.github.io/"
-EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
+SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="qt5 test"
 
 COMMON_DEPEND="
