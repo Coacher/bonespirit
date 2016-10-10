@@ -10,9 +10,8 @@ PYTHON_REQ_USE='threads(+),xml(+)'
 inherit distutils-r1 git-r3
 
 DESCRIPTION="Extracts streams from various services and pipes them into a video player"
-HOMEPAGE="http://docs.livestreamer.io/"
-EGIT_REPO_URI="git://github.com/chrippa/${PN}.git"
-EGIT_BRANCH="develop"
+HOMEPAGE="https://streamlink.github.io/"
+EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
 
 LICENSE="BSD-2 MIT"
 SLOT="0"
@@ -28,7 +27,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	doc? (
+		dev-python/docutils[${PYTHON_USEDEP}]
+		dev-python/sphinx[${PYTHON_USEDEP}]
+	)
 	test? ( ${RDEPEND} )
 "
 
