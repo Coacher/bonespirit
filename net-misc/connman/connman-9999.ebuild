@@ -16,8 +16,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bluetooth debug doc +ethernet examples l2tp ofono openconnect openvpn policykit pptp tools vpnc +wifi wispr"
 
 RDEPEND="
-	>=net-firewall/iptables-1.4.8
 	dev-libs/glib:2
+	net-firewall/iptables
 	sys-apps/dbus
 	bluetooth? ( net-wireless/bluez )
 	l2tp? ( net-dialup/xl2tpd )
@@ -76,6 +76,9 @@ src_install() {
 	default_src_install
 	dobin client/connmanctl
 	use doc && dodoc doc/*.txt
+
+	# Avoid installing empty directory. See Gentoo bug 596874.
+	keepdir /usr/$(get_libdir)/${PN}/scripts
 
 	keepdir /var/lib/${PN}
 	newinitd "${FILESDIR}"/${PN}.initd ${PN}
