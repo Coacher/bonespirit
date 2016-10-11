@@ -16,9 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bluetooth debug doc +ethernet examples l2tp ofono openconnect openvpn policykit pptp tools vpnc +wifi wispr"
 
 RDEPEND="
-	>=dev-libs/glib-2.28
-	>=sys-apps/dbus-1.4
 	>=net-firewall/iptables-1.4.8
+	dev-libs/glib:2
+	sys-apps/dbus
 	bluetooth? ( net-wireless/bluez )
 	l2tp? ( net-dialup/xl2tpd )
 	ofono? ( net-misc/ofono )
@@ -38,8 +38,11 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	default_src_prepare
 
-	# Fix polkit detection.
+	# Fix polkit detection. See Gentoo bug 596276.
 	sed -i -e '/actiondir/s/polkit/polkit-gobject-1/' configure.ac || die
+
+	# Don't overwrite existing '/etc/resolv.conf' file.
+	sed -i -e '/resolv\.conf/s/^L+/L/' scripts/connman_resolvconf.conf.in || die
 
 	eautoreconf
 }
