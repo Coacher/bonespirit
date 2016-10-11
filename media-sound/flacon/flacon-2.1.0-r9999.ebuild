@@ -79,8 +79,8 @@ pkg_preinst() {
 
 pkg_postinst() {
 	elog "${PN} optionally supports formats listed below."
+	elog "(List will be empty if all extra packages are installed.)"
 	elog "Please install the required packages and restart ${PN}."
-	elog "(List will be empty if all optional packages are installed.)"
 	optfeature 'FLAC input and output support' media-libs/flac
 	optfeature 'WavPack input and output support' media-sound/wavpack
 	optfeature 'APE input support' media-sound/mac
