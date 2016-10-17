@@ -11,7 +11,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="Extracts streams from various services and pipes them into a video player"
 HOMEPAGE="https://streamlink.github.io/"
-EGIT_REPO_URI="git://github.com/${PN}/${PN}.git"
+EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
 
 LICENSE="BSD-2 MIT"
 SLOT="0"

@@ -8,7 +8,7 @@ inherit bash-completion-r1 eutils linux-info systemd git-r3
 
 DESCRIPTION="Initramfs generator using udev"
 HOMEPAGE="https://dracut.wiki.kernel.org"
-EGIT_REPO_URI="git://git.kernel.org/pub/scm/boot/${PN}/${PN}.git"
+EGIT_REPO_URI=( {https,git}://git.kernel.org/pub/scm/boot/${PN}/${PN}.git )
 
 LICENSE="GPL-2+ LGPL-2+"
 SLOT="0"

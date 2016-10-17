@@ -9,7 +9,10 @@ XORG_DOC=doc
 inherit xorg-2 multilib toolchain-funcs
 
 DESCRIPTION="X.Org X servers"
-EGIT_REPO_URI="git://anongit.freedesktop.org/xorg/xserver"
+EGIT_REPO_URI=(
+	https://anongit.freedesktop.org/git/xorg/xserver.git
+	git://anongit.freedesktop.org/xorg/xserver
+)
 
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"

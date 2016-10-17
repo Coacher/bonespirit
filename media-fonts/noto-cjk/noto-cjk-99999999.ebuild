@@ -8,7 +8,7 @@ inherit font git-r3
 
 DESCRIPTION="Google's font family that aims to support all the world's languages"
 HOMEPAGE="https://www.google.com/get/noto/help/cjk/ https://github.com/googlei18n/noto-cjk"
-EGIT_REPO_URI="git://github.com/googlei18n/${PN}.git"
+EGIT_REPO_URI=( {https,git}://github.com/googlei18n/${PN}.git )
 
 LICENSE="OFL-1.1"
 SLOT="0"

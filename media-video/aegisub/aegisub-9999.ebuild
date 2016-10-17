@@ -11,7 +11,7 @@ inherit autotools flag-o-matic gnome2-utils l10n wxwidgets xdg-utils git-r3
 
 DESCRIPTION="Advanced subtitle editor"
 HOMEPAGE="http://www.aegisub.org/ https://github.com/Aegisub/Aegisub"
-EGIT_REPO_URI="git://github.com/Aegisub/Aegisub.git"
+EGIT_REPO_URI=( {https,git}://github.com/${PN^}/${PN^}.git )
 # Submodules are used to pull bundled libraries.
 EGIT_SUBMODULES=()
 

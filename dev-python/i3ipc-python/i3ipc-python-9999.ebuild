@@ -10,7 +10,7 @@ inherit distutils-r1 git-r3
 
 DESCRIPTION="An improved Python library to control i3wm"
 HOMEPAGE="https://github.com/acrisci/i3ipc-python https://pypi.python.org/pypi/i3ipc"
-EGIT_REPO_URI="git://github.com/acrisci/${PN}.git"
+EGIT_REPO_URI=( {https,git}://github.com/acrisci/${PN}.git )
 
 LICENSE="BSD"
 SLOT="0"

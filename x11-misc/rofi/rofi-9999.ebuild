@@ -8,7 +8,7 @@ inherit autotools toolchain-funcs git-r3
 
 DESCRIPTION="A window switcher, run dialog and dmenu replacement"
 HOMEPAGE="https://davedavenport.github.io/rofi/"
-EGIT_REPO_URI="git://github.com/DaveDavenport/${PN}.git"
+EGIT_REPO_URI=( {https,git}://github.com/DaveDavenport/${PN}.git )
 
 LICENSE="MIT"
 SLOT="0"
