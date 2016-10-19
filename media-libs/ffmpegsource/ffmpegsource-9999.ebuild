@@ -13,7 +13,7 @@ EGIT_REPO_URI=( {https,git}://github.com/FFMS/ffms2.git )
 LICENSE="MIT"
 SLOT="0/4"
 KEYWORDS=""
-IUSE="libav static-libs"
+IUSE="libav"
 
 RDEPEND="
 	sys-libs/zlib
@@ -33,14 +33,6 @@ pkg_pretend() {
 src_prepare() {
 	default_src_prepare
 	eautoreconf
-}
-
-src_configure() {
-	local myeconfargs=(
-		$(use_enable static-libs static)
-	)
-
-	econf "${myeconfargs[@]}"
 }
 
 src_install() {
