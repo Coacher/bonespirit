@@ -140,6 +140,7 @@ pkg_pretend() {
 
 pkg_setup() {
 	mpv_check_compiler
+	python-any-r1_pkg_setup
 }
 
 src_prepare() {
