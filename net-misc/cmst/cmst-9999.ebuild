@@ -26,6 +26,15 @@ RDEPEND="${DEPEND}
 	net-misc/connman
 "
 
+src_prepare() {
+	default_src_prepare
+
+	# Use Gentoo groups for permissions. See Gentoo bug 596744.
+	sed -i \
+		-e '/group=/s/network/plugdev/' \
+		apps/rootapp/system/distro/arch/org.cmst.roothelper.conf || die
+}
+
 src_configure() {
 	export USE_LIBPATH="${EPREFIX}/usr/$(get_libdir)/${PN}"
 	eqmake5
