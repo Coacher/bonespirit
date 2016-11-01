@@ -34,8 +34,8 @@ map Q gq
 set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 
 " When displaying line numbers, don't use an annoyingly wide number column.
-" This doesn't enable line numbers -- :set number will do that. The value given
-" is a minimum width to use for the number column, not a fixed size.
+" This doesn't enable line numbers -- :set number will do that.
+" The value is a minimum width to use for the number column, not a fixed size.
 if v:version >= 700
   set numberwidth=3
 endif
@@ -167,7 +167,7 @@ augroup gentoo
   autocmd BufReadPost *
         \ if ! exists("g:leave_my_cursor_position_alone") |
         \   if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \     exe "normal g'\"" |
+        \     exe "normal! g'\"" |
         \   endif |
         \ endif
 
@@ -189,6 +189,10 @@ augroup END
 
 endif " has("autocmd")
 " }}}
+
+" We don't want VIM to load their own built-in defaults, preferring ours here
+" instead:
+let g:skip_defaults_vim = 1
 
 " {{{ vimrc.local
 if filereadable('@GENTOO_PORTAGE_EPREFIX@/etc/vim/vimrc.local')

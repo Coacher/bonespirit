@@ -127,7 +127,7 @@ src_install() {
 
 	# Default vimrc is installed by vim-core as it applies to Vim and GVim.
 	insinto /etc/vim/
-	newins "${FILESDIR}/vimrc-r4" vimrc
+	newins "${FILESDIR}/vimrc-r5" vimrc
 	eprefixify "${ED}"etc/vim/vimrc
 
 	newbashcomp "${FILESDIR}/xxd-completion" xxd
