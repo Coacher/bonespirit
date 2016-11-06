@@ -20,8 +20,8 @@ SLOT="4"
 IUSE=""
 
 DEPEND="
-	$(add_kdebase_dep baloo '-minimal(-)')
-	$(add_kdebase_dep kfilemetadata)
+	kde-frameworks/baloo:4[-minimal]
+	kde-frameworks/kfilemetadata:4
 	dev-libs/qjson
 	dev-libs/xapian
 "
