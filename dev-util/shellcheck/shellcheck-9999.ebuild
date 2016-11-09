@@ -4,7 +4,7 @@
 
 EAPI=6
 
-CABAL_FEATURES="bin lib profile haddock hoogle hscolour test-suite"
+CABAL_FEATURES="lib profile haddock hoogle hscolour test-suite"
 
 inherit haskell-cabal git-r3
 
@@ -21,9 +21,8 @@ RDEPEND="
 	dev-haskell/json:=[profile?]
 	>=dev-haskell/mtl-2.2.1:=[profile?]
 	dev-haskell/parsec:=[profile?]
-	>=dev-haskell/quickcheck-2.7.4:2=[profile?]
+	>=dev-haskell/quickcheck-2.7.4:2=[template_haskell,profile?]
 	dev-haskell/regex-tdfa:=[profile?]
-	dev-haskell/transformers:=[profile?]
 	>=dev-lang/ghc-7.8.4:=
 "
 DEPEND="${RDEPEND}
