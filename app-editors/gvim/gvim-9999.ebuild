@@ -95,7 +95,7 @@ src_prepare() {
 src_configure() {
 	# Remove flags that cause problems.
 	filter-flags -funroll-all-loops		# See Gentoo bugs 37354, 57859.
-	replace-flags -O3 -O2				# See Gentoo bug 76331.
+	replace-flags -O[3-9] -O2			# See Gentoo bug 76331.
 
 	# Prevent the following chain of events:
 	# (1) Notice configure.in is newer than auto/configure due to sed;
