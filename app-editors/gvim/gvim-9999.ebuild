@@ -70,7 +70,7 @@ src_prepare() {
 		runtime/tools/mve.awk || die
 
 	# Fix NeXT misdetection caused by dev-libs/9libs. See Gentoo bug 43885.
-	sed -i -e 's|libc\.h||' src/configure.in || die
+	sed -i -e 's|libc\.h||' src/configure.ac || die
 
 	# Fix EOF misdetection on SPARC. See Gentoo bug 66162.
 	find "${S}" -name '*.c' | while read -r file; do echo >> "${file}"; done
@@ -98,7 +98,7 @@ src_configure() {
 	replace-flags -O[3-9] -O2			# See Gentoo bug 76331.
 
 	# Prevent the following chain of events:
-	# (1) Notice configure.in is newer than auto/configure due to sed;
+	# (1) Notice configure.ac is newer than auto/configure due to sed;
 	# (2) Rebuild auto/configure;
 	# (3) Notice auto/configure is newer than auto/config.mk;
 	# (4) Run ./configure (with incorrect args) to remake auto/config.mk.
