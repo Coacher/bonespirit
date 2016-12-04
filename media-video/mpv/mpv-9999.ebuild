@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit gnome2-utils pax-utils python-any-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -31,7 +31,7 @@ SLOT="0"
 IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl +enca
 	encode gbm +iconv jack jpeg lcms +libass libav libcaca libguess libmpv +lua
 	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl
-	selinux test +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
+	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 
 REQUIRED_USE="
@@ -43,6 +43,7 @@ REQUIRED_USE="
 	lcms? ( || ( opengl egl ) )
 	libguess? ( iconv )
 	luajit? ( lua )
+	tools? ( cli )
 	uchardet? ( iconv )
 	v4l? ( || ( alsa oss ) )
 	vaapi? ( || ( gbm X wayland ) )
@@ -124,6 +125,7 @@ DEPEND="${COMMON_DEPEND}
 "
 RDEPEND="${COMMON_DEPEND}
 	selinux? ( sec-policy/selinux-mplayer )
+	tools? ( ${PYTHON_DEPS} )
 "
 
 PATCHES=( "${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch" )
@@ -140,7 +142,7 @@ pkg_pretend() {
 
 pkg_setup() {
 	mpv_check_compiler
-	python-any-r1_pkg_setup
+	[[ ${MERGE_TYPE} != "binary" ]] && python_setup
 }
 
 src_prepare() {
@@ -278,6 +280,12 @@ src_install() {
 
 	if use cli && use luajit; then
 		pax-mark -m "${ED}"usr/bin/${PN}
+	fi
+
+	if use tools; then
+		dobin TOOLS/{mpv_identify.sh,umpv}
+		newbin TOOLS/idet.sh mpv_idet.sh
+		python_replicate_script "${ED}"usr/bin/umpv
 	fi
 }
 
