@@ -36,6 +36,13 @@ DEPEND="${RDEPEND}
 	test? ( ${RDEPEND} )
 "
 
+python_prepare_all() {
+	# Remove pycryptodome dependency until it's added to the tree.
+	sed -i -e '/pycryptodome/d' setup.py || die
+
+	distutils-r1_python_prepare_all
+}
+
 python_compile_all() {
 	use doc && emake -C docs html
 }
