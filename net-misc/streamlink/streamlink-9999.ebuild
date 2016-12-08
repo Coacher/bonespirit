@@ -21,6 +21,8 @@ IUSE="doc test"
 RDEPEND="
 	dev-python/pycrypto[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
+	!=dev-python/requests-2.12.0[${PYTHON_USEDEP}]
+	!=dev-python/requests-2.12.1[${PYTHON_USEDEP}]
 	virtual/python-futures[${PYTHON_USEDEP}]
 	virtual/python-singledispatch[${PYTHON_USEDEP}]
 	media-video/rtmpdump
