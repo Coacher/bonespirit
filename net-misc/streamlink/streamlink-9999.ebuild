@@ -33,7 +33,10 @@ DEPEND="${RDEPEND}
 		dev-python/docutils[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]
 	)
-	test? ( ${RDEPEND} )
+	test? (
+		${RDEPEND}
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
+	)
 "
 
 python_prepare_all() {
