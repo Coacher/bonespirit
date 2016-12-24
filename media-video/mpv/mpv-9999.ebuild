@@ -186,7 +186,9 @@ src_configure() {
 		--disable-vapoursynth-lazy
 		$(use_enable archive libarchive)
 
-		--enable-libavdevice
+		# libavdevice doesn't work with current libav release or git.
+		# See Gentoo bug 603122.
+		$(use_enable !libav libavdevice)
 
 		# Audio outputs:
 		$(use_enable sdl sdl2)	# Listed under audio, but also includes video.
