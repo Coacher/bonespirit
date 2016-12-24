@@ -235,7 +235,7 @@ src_configure() {
 		# HWaccels:
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
 		$(use_enable vaapi vaapi-hwaccel)
-		# Automagic VDPAU HW acceleration. See Gentoo bug 558870.
+		$(use_enable vdpau vdpau-hwaccel)
 		--disable-cuda			# No support in ffmpeg. See Gentoo bug 595450.
 
 		# TV features:
