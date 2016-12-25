@@ -124,7 +124,10 @@ RDEPEND="${COMMON_DEPEND}
 	tools? ( ${PYTHON_DEPS} )
 "
 
-PATCHES=( "${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
+	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
+)
 
 mpv_check_compiler() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && use vaapi && use egl && ! tc-has-tls; then
@@ -186,9 +189,7 @@ src_configure() {
 		--disable-vapoursynth-lazy
 		$(use_enable archive libarchive)
 
-		# libavdevice doesn't work with current libav release or git.
-		# See Gentoo bug 603122.
-		$(use_enable !libav libavdevice)
+		--enable-libavdevice
 
 		# Audio outputs:
 		$(use_enable sdl sdl2)	# Listed under audio, but also includes video.
