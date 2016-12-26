@@ -101,7 +101,7 @@ src_configure() {
 
 src_compile() {
 	# This allows 'emake tools' to be used.
-	emake -j1 -C src auto/osdef.h objects
+	emake -C src auto/osdef.h objects
 
 	emake tools
 }
