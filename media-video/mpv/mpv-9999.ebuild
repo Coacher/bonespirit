@@ -196,6 +196,7 @@ src_configure() {
 		--disable-sdl1
 		$(use_enable oss oss-audio)
 		--disable-rsound		# Only available in overlays.
+		--disable-sndio			# Only available in overlays.
 		$(use_enable pulseaudio pulse)
 		$(use_enable jack)
 		$(use_enable openal)
@@ -237,7 +238,7 @@ src_configure() {
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
 		$(use_enable vaapi vaapi-hwaccel)
 		$(use_enable vdpau vdpau-hwaccel)
-		--disable-cuda			# No support in ffmpeg. See Gentoo bug 595450.
+		--disable-cuda-hwaccel	# No support in ffmpeg. See Gentoo bug 595450.
 
 		# TV features:
 		$(use_enable v4l tv)
