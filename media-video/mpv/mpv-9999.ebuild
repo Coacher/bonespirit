@@ -28,11 +28,11 @@ DOCS+=( README.md )
 # See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="aqua +alsa archive bluray cdda +cli coreaudio doc drm dvb dvd +egl encode
-	gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua luajit openal
-	+opengl oss pulseaudio raspberry-pi rubberband samba -sdl selinux test
-	tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama +xscreensaver
-	+xv zsh-completion"
+IUSE="aqua +alsa archive bluray cdda +cli coreaudio cuda doc drm dvb dvd +egl
+	encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua luajit
+	openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl selinux
+	test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
+	+xscreensaver +xv zsh-completion"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -61,6 +61,7 @@ COMMON_DEPEND="
 	archive? ( >=app-arch/libarchive-3.0.0:= )
 	bluray? ( >=media-libs/libbluray-0.3.0 )
 	cdda? ( dev-libs/libcdio-paranoia )
+	cuda? ( dev-util/nvidia-cuda-toolkit )
 	drm? ( x11-libs/libdrm )
 	dvb? ( virtual/linuxtv-dvb-headers )
 	dvd? (
@@ -120,6 +121,7 @@ DEPEND="${COMMON_DEPEND}
 	zsh-completion? ( dev-lang/perl )
 "
 RDEPEND="${COMMON_DEPEND}
+	cuda? ( x11-drivers/nvidia-drivers[X] )
 	selinux? ( sec-policy/selinux-mplayer )
 	tools? ( ${PYTHON_DEPS} )
 "
@@ -238,7 +240,7 @@ src_configure() {
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
 		$(use_enable vaapi vaapi-hwaccel)
 		$(use_enable vdpau vdpau-hwaccel)
-		--disable-cuda-hwaccel	# No support in ffmpeg. See Gentoo bug 595450.
+		$(use_enable cuda cuda-hwaccel)
 
 		# TV features:
 		$(use_enable v4l tv)
