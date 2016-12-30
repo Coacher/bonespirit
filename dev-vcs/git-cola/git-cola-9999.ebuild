@@ -15,19 +15,14 @@ DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
 EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
 
-LICENSE="GPL-2 MIT doc? ( BSD )"
+LICENSE="GPL-2 doc? ( BSD )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
-# git-cola bundles QtPy. See Gentoo bug 588566.
 # git-cola bundles sphinxtogithub. See Gentoo bug 588568.
 RDEPEND="
-	|| (
-		dev-python/PyQt4[${PYTHON_USEDEP}]
-		dev-python/PyQt5[${PYTHON_USEDEP}]
-		dev-python/pyside[${PYTHON_USEDEP}]
-	)
+	dev-python/QtPy[gui,webkit,${PYTHON_USEDEP}]
 	dev-python/send2trash[${PYTHON_USEDEP}]
 	dev-vcs/git
 "
@@ -77,6 +72,10 @@ python_prepare_all() {
 	rm test/i18n_test.py || die
 
 	distutils-r1_python_prepare_all
+}
+
+python_configure_all() {
+	mydistutilsargs=( --no-vendor-libs )
 }
 
 python_compile_all() {
