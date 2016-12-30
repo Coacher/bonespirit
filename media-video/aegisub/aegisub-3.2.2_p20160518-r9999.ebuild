@@ -8,7 +8,7 @@ WX_GTK_VER=3.0
 PLOCALES="ar bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS sr_RS@latin uk_UA vi zh_CN zh_TW"
 COMMIT_ID="b118fe7e7a5c37540e2f0aa75af105e272bad234"
 
-inherit autotools fdo-mime flag-o-matic gnome2-utils l10n wxwidgets vcs-snapshot
+inherit autotools flag-o-matic gnome2-utils l10n wxwidgets xdg-utils vcs-snapshot
 
 DESCRIPTION="Advanced subtitle editor"
 HOMEPAGE="http://www.aegisub.org/ https://github.com/Aegisub/Aegisub"
@@ -137,11 +137,11 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+	xdg_desktop_database_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
+	xdg_desktop_database_update
 }
