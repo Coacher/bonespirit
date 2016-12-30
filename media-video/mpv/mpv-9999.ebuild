@@ -153,6 +153,8 @@ src_prepare() {
 }
 
 src_configure() {
+	use cuda && append-cflags -I"${EPREFIX}/opt/cuda/include"
+
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
