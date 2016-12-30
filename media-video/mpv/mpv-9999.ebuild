@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit flag-o-matic gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
