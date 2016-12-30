@@ -22,7 +22,7 @@ IUSE="doc test"
 
 # git-cola bundles sphinxtogithub. See Gentoo bug 588568.
 RDEPEND="
-	dev-python/QtPy[gui,webkit,${PYTHON_USEDEP}]
+	dev-python/QtPy[gui,${PYTHON_USEDEP}]
 	dev-python/send2trash[${PYTHON_USEDEP}]
 	dev-vcs/git
 "
