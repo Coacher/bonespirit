@@ -37,6 +37,7 @@ IUSE="aqua +alsa archive bluray cdda +cli coreaudio cuda doc drm dvb dvd +egl
 REQUIRED_USE="
 	|| ( cli libmpv )
 	aqua? ( opengl )
+	cuda? ( !libav )
 	egl? ( || ( gbm X wayland ) )
 	gbm? ( drm egl )
 	lcms? ( || ( opengl egl ) )
