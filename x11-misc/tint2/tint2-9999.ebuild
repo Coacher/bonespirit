@@ -25,7 +25,7 @@ RDEPEND="
 	x11-libs/libXdamage
 	x11-libs/libXinerama
 	x11-libs/libXrender
-	x11-libs/pango[X]
+	x11-libs/pango
 	startup-notification? ( x11-libs/startup-notification )
 	svg? ( gnome-base/librsvg:2 )
 	tint2conf? ( x11-libs/gtk+:2 )
