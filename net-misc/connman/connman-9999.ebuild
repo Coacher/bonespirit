@@ -28,7 +28,7 @@ RDEPEND="
 	pptp? ( net-dialup/pptpclient )
 	vpnc? ( net-misc/vpnc )
 	wifi? ( >=net-wireless/wpa_supplicant-2.0[dbus] )
-	wispr? ( net-libs/gnutls )
+	wispr? ( net-libs/gnutls:= )
 "
 DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6.39
