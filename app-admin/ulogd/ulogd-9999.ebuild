@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://git.netfilter.org/${PN}2.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="dbi doc json mysql nfacct +nfct +nflog pcap postgres sqlite -ulog"
+IUSE="dbi doc json mysql nfacct +nfct +nflog pcap postgres sqlite ulog"
 
 RDEPEND="
 	|| ( net-firewall/iptables net-firewall/nftables )

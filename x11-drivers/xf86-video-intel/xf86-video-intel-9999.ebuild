@@ -10,7 +10,7 @@ inherit linux-info xorg-2
 
 DESCRIPTION="X.Org driver for Intel cards"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug dri3 +sna +tools +udev -ums uxa xvmc"
+IUSE="debug dri3 +sna +tools +udev ums uxa xvmc"
 
 RDEPEND="
 	>=x11-libs/libdrm-2.4.52[video_cards_intel]

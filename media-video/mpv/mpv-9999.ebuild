@@ -30,7 +30,7 @@ LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
 IUSE="aqua +alsa archive bluray cdda +cli coreaudio cuda doc drm dvb dvd +egl
 	encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua luajit
-	openal +opengl oss pulseaudio raspberry-pi rubberband samba -sdl selinux
+	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
 	test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 
