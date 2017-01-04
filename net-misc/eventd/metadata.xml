@@ -7,7 +7,8 @@
 	</maintainer>
 	<use>
 		<flag name="libcanberra">Enable plugin for sounds via <pkg>media-libs/libcanberra</pkg></flag>
-		<flag name="libnotify">Enable plugin to relay events to notification daemon</flag>
+		<flag name="libnotify">Enable plugin to relay events to notification daemon
+			(Note: not required for local notifications via <pkg>net-misc/eventd</pkg>)</flag>
 		<flag name="notification">Enable plugin to display on-screen notifications</flag>
 		<flag name="purple">Enable plugin for IM notifications via libpurple</flag>
 		<flag name="sound">Enable plugin for sounds via <pkg>media-libs/libsndfile</pkg> and <pkg>media-sound/pulseaudio</pkg></flag>
