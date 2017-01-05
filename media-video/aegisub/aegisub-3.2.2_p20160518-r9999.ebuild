@@ -46,7 +46,6 @@ DEPEND="${RDEPEND}
 	dev-util/intltool
 	sys-devel/gettext
 	virtual/pkgconfig
-	oss? ( virtual/os-headers )
 	test? (
 		~dev-cpp/gtest-1.7.0
 		dev-lua/busted
