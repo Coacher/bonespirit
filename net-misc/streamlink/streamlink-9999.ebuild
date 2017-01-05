@@ -31,10 +31,7 @@ DEPEND="${RDEPEND}
 		dev-python/docutils[${PYTHON_USEDEP}]
 		dev-python/sphinx[${PYTHON_USEDEP}]
 	)
-	test? (
-		${RDEPEND}
-		dev-python/mock[${PYTHON_USEDEP}]
-	)
+	test? ( ${RDEPEND} )
 "
 
 python_prepare_all() {
