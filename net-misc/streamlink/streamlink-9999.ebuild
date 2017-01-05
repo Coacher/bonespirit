@@ -4,7 +4,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+PYTHON_COMPAT=( python{3_4,3_5} )
 PYTHON_REQ_USE='threads(+),xml(+)'
 
 inherit distutils-r1 git-r3
@@ -23,8 +23,6 @@ RDEPEND="
 	dev-python/requests[${PYTHON_USEDEP}]
 	!=dev-python/requests-2.12.0[${PYTHON_USEDEP}]
 	!=dev-python/requests-2.12.1[${PYTHON_USEDEP}]
-	virtual/python-futures[${PYTHON_USEDEP}]
-	virtual/python-singledispatch[${PYTHON_USEDEP}]
 	media-video/rtmpdump
 "
 DEPEND="${RDEPEND}
