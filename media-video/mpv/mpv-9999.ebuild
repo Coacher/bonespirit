@@ -65,7 +65,6 @@ COMMON_DEPEND="
 	cdda? ( dev-libs/libcdio-paranoia )
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	drm? ( x11-libs/libdrm )
-	dvb? ( virtual/linuxtv-dvb-headers )
 	dvd? (
 		>=media-libs/libdvdnav-4.2.0
 		>=media-libs/libdvdread-4.1.0
@@ -119,7 +118,9 @@ DEPEND="${COMMON_DEPEND}
 	dev-python/docutils
 	virtual/pkgconfig
 	doc? ( dev-python/rst2pdf )
+	dvb? ( virtual/linuxtv-dvb-headers )
 	test? ( >=dev-util/cmocka-1.0.0 )
+	v4l? ( virtual/os-headers )
 	zsh-completion? ( dev-lang/perl )
 "
 RDEPEND="${COMMON_DEPEND}
