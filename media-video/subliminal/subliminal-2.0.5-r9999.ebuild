@@ -11,7 +11,9 @@ inherit distutils-r1
 
 DESCRIPTION="Python library to search and download subtitles"
 HOMEPAGE="https://github.com/Diaoul/subliminal https://pypi.python.org/pypi/subliminal"
-SRC_URI="https://github.com/Diaoul/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="
+	https://github.com/Diaoul/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz
+	https://dev.gentoo.org/~soap/distfiles/${P}-fix-tests.patch"
 
 LICENSE="MIT"
 SLOT="0"
@@ -49,6 +51,8 @@ DEPEND="${RDEPEND}
 
 # Tests require network.
 RESTRICT=test
+
+PATCHES=( "${DISTDIR}/${P}-fix-tests.patch" )
 
 python_prepare_all() {
 	# Disable code checkers as they require unavailable dependencies.
