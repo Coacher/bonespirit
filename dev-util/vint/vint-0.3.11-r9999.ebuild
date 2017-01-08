@@ -6,15 +6,15 @@ EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Lint tool for Vim script language"
 HOMEPAGE="https://github.com/Kuniwak/vint https://pypi.python.org/pypi/vim-vint/"
-EGIT_REPO_URI=( {https,git}://github.com/Kuniwak/${PN}.git )
+SRC_URI="mirror://pypi/${PN:0:1}/vim-${PN}/vim-${P}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="test"
 
 RDEPEND="

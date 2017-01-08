@@ -5,6 +5,10 @@
 		<email>itumaykin+gentoo@gmail.com</email>
 		<name>Coacher</name>
 	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
 	<upstream>
 		<remote-id type="github">Kuniwak/vint</remote-id>
 		<remote-id type="pypi">vim-vint</remote-id>
