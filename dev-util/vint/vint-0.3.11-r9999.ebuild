@@ -10,7 +10,7 @@ inherit distutils-r1
 
 DESCRIPTION="Lint tool for Vim script language"
 HOMEPAGE="https://github.com/Kuniwak/vint https://pypi.python.org/pypi/vim-vint/"
-SRC_URI="mirror://pypi/${PN:0:1}/vim-${PN}/vim-${P}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/Kuniwak/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
