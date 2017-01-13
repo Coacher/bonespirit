@@ -35,9 +35,9 @@ src_unpack() {
 
 python_prepare_all() {
 	if use test; then
-		mkdir enzyme/tests/test_{parsers,mkv} || die
-		ln -s "${WORKDIR}"/test* enzyme/tests/test_parsers/ || die
-		ln -s "${WORKDIR}"/test* enzyme/tests/test_mkv/ || die
+		mkdir enzyme/tests/test_{mkv,parsers} || die
+		ln -s "${WORKDIR}"/test*.mkv enzyme/tests/test_mkv/ || die
+		ln -s "${WORKDIR}"/test*.mkv enzyme/tests/test_parsers/ || die
 	fi
 
 	distutils-r1_python_prepare_all
