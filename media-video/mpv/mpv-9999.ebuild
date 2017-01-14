@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit flag-o-matic gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -63,7 +63,7 @@ COMMON_DEPEND="
 	archive? ( >=app-arch/libarchive-3.0.0:= )
 	bluray? ( >=media-libs/libbluray-0.3.0 )
 	cdda? ( dev-libs/libcdio-paranoia )
-	cuda? ( dev-util/nvidia-cuda-toolkit )
+	cuda? ( >=media-video/ffmpeg-3.3:0 )
 	drm? ( x11-libs/libdrm )
 	dvd? (
 		>=media-libs/libdvdnav-4.2.0
@@ -156,8 +156,6 @@ src_prepare() {
 }
 
 src_configure() {
-	use cuda && append-cflags -I"${EPREFIX}/opt/cuda/include"
-
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
