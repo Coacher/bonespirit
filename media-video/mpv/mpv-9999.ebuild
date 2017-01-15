@@ -311,7 +311,6 @@ pkg_postinst() {
 		elog "Since version 0.18.1 the software volume control is always enabled."
 		elog "This means that volume controls don't change the system volume,"
 		elog "e.g. per-application volume with PulseAudio."
-		elog
 		elog "If you want to restore the previous behaviour, please refer to"
 		elog
 		elog "https://wiki.gentoo.org/wiki/Mpv#Volume_in_0.18.1"
@@ -320,7 +319,6 @@ pkg_postinst() {
 
 	if [[ ${osc_0_21_0} -eq 1 ]]; then
 		elog "Since version 0.21.0 the default OSC layout was changed."
-		elog
 		elog "If you want to restore the previous layout, please refer to"
 		elog
 		elog "https://wiki.gentoo.org/wiki/Mpv#OSC_in_0.21.0"
