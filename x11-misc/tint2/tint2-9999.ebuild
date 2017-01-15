@@ -34,15 +34,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
-src_prepare() {
-	# Don't hardcode gtk-update-con-cache path.
-	sed -i \
-		-e '/gtk-update-icon-cache/d' \
-		CMakeLists.txt src/tint2conf/CMakeLists.txt || die
-
-	cmake-utils_src_prepare
-}
-
 src_configure() {
 	local mycmakeargs=(
 		-DENABLE_TINT2CONF=$(usex tint2conf)
