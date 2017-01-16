@@ -17,7 +17,7 @@
 		<flag name="archive">Enable support for various archive formats via <pkg>app-arch/libarchive</pkg></flag>
 		<flag name="bluray">Enable playback of Blu-ray filesystems</flag>
 		<flag name="cli">Build mpv CLI player</flag>
-		<flag name="cuda">Enable video hardware acceleration via NVIDIA CUDA</flag>
+		<flag name="cuda">Enable video hardware acceleration via Nvidia CUDA</flag>
 		<flag name="drm">Enable Kernel Mode Setting / Direct Rendering Manager based video output</flag>
 		<flag name="egl">Enable support for various EGL-based video outputs / backends</flag>
 		<flag name="gbm">Enable Graphics Buffer Manager based EGL video output</flag>
