@@ -42,6 +42,7 @@ REQUIRED_USE="
 	gbm? ( drm egl )
 	lcms? ( || ( opengl egl ) )
 	luajit? ( lua )
+	raspberry-pi? ( opengl )
 	test? ( || ( opengl egl ) )
 	tools? ( cli )
 	uchardet? ( iconv )
