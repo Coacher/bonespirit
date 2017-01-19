@@ -136,7 +136,7 @@ PATCHES=(
 )
 
 mpv_check_compiler() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && use vaapi && use egl && ! tc-has-tls; then
+	if [[ ${MERGE_TYPE} != "binary" ]] && ( use opengl || use egl ) && ! tc-has-tls; then
 		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
 	fi
 }
