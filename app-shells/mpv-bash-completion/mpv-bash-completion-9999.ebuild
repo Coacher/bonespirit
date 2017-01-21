@@ -41,8 +41,8 @@ src_install() {
 
 pkg_postinst() {
 	if ! has_version 'x11-apps/xrandr'; then
-		echo
+		elog
 		elog "If you want completion of window sizes, please install 'x11-apps/xrandr'."
-		echo
+		elog
 	fi
 }
