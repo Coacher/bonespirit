@@ -33,6 +33,7 @@ IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
 	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
 	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
+IUSE+=" cpu_flags_x86_sse4_1"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -136,8 +137,14 @@ PATCHES=(
 )
 
 mpv_check_compiler() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && ( use opengl || use egl ) && ! tc-has-tls; then
-		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
+	if [[ ${MERGE_TYPE} != "binary" ]]; then
+		if ( use opengl || use egl ) && ! tc-has-tls; then
+			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
+		fi
+		if use vaapi && use cpu_flags_x86_sse4_1 && ( ! tc-is-gcc || \
+			( [[ $(gcc-major-version) -lt 4 ]] && [[ $(gcc-minor-version) -lt 3 ]] ) ); then
+			die "SSE4 intrinsics require GCC>=4.3."
+		fi
 	fi
 }
 
