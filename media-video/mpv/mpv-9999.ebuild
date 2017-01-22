@@ -44,6 +44,7 @@ REQUIRED_USE="
 	lcms? ( || ( opengl egl ) )
 	luajit? ( lua )
 	raspberry-pi? ( opengl )
+	opengl? ( || ( aqua X !cli? ( libmpv ) ) )
 	test? ( || ( opengl egl ) )
 	tools? ( cli )
 	uchardet? ( iconv )
