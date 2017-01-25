@@ -43,8 +43,8 @@ pkg_postinst() {
 		ewarn "Please relogin."
 	fi
 	if ! has_version 'dev-qt/qtsvg:5'; then
-		echo
+		elog
 		elog "For SVG icon themes, please install 'dev-qt/qtsvg:5'."
-		echo
+		elog
 	fi
 }
