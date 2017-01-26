@@ -43,7 +43,6 @@ REQUIRED_USE="
 	gbm? ( drm egl )
 	lcms? ( || ( opengl egl ) )
 	luajit? ( lua )
-	raspberry-pi? ( opengl )
 	opengl? ( || ( aqua X !cli? ( libmpv ) ) )
 	test? ( || ( opengl egl ) )
 	tools? ( cli )
