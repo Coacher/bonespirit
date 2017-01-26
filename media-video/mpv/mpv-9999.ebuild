@@ -147,7 +147,7 @@ mpv_check_compiler() {
 			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
 		fi
 		if use vaapi && use cpu_flags_x86_sse4_1 && ! tc-is-gcc; then
-			die "SSE4.1 intrinsics require GCC."
+			die "${PN} requires GCC for SSE4.1 intrinsics."
 		fi
 	fi
 }
