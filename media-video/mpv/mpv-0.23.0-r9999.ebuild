@@ -33,6 +33,7 @@ IUSE="+alsa aqua archive bluray cdda +cli coreaudio cuda doc drm dvb dvd +egl
 	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
 	test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
+IUSE+=" cpu_flags_x86_sse4_1"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -42,6 +43,7 @@ REQUIRED_USE="
 	gbm? ( drm egl )
 	lcms? ( || ( opengl egl ) )
 	luajit? ( lua )
+	opengl? ( || ( aqua X !cli? ( libmpv ) ) )
 	test? ( || ( opengl egl ) )
 	tools? ( cli )
 	uchardet? ( iconv )
@@ -87,7 +89,7 @@ COMMON_DEPEND="
 		luajit? ( dev-lang/luajit:2 )
 	)
 	openal? ( >=media-libs/openal-1.13 )
-	opengl? ( !aqua? ( virtual/opengl ) )
+	opengl? ( X? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
 	raspberry-pi? (
 		>=media-libs/raspberrypi-userland-0_pre20160305-r1
@@ -98,6 +100,7 @@ COMMON_DEPEND="
 	sdl? ( media-libs/libsdl2[sound,threads,video,X?,wayland?] )
 	v4l? ( media-libs/libv4l )
 	vaapi? ( >=x11-libs/libva-1.4.0[drm?,X?,wayland?] )
+	vdpau? ( >=x11-libs/libvdpau-0.2 )
 	wayland? (
 		>=dev-libs/wayland-1.6.0
 		>=x11-libs/libxkbcommon-0.3.0
@@ -107,7 +110,6 @@ COMMON_DEPEND="
 		x11-libs/libXext
 		>=x11-libs/libXrandr-1.2.0
 		opengl? ( x11-libs/libXdamage )
-		vdpau? ( >=x11-libs/libvdpau-0.2 )
 		xinerama? ( x11-libs/libXinerama )
 		xscreensaver? ( x11-libs/libXScrnSaver )
 		xv? ( x11-libs/libXv )
@@ -135,8 +137,17 @@ PATCHES=(
 )
 
 mpv_check_compiler() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && use vaapi && use egl && ! tc-has-tls; then
-		die "Your compiler lacks C++11 TLS support. Use GCC>=4.8.0 or Clang>=3.3."
+	if [[ ${MERGE_TYPE} != "binary" ]]; then
+		if tc-is-gcc && ( [[ $(gcc-major-version) -lt 4 ]] || \
+			( [[ $(gcc-major-version) -eq 4 ]] && [[ $(gcc-minor-version) -lt 5 ]] ) ); then
+			die "${PN} requires GCC>=4.5."
+		fi
+		if ( use opengl || use egl ) && ! tc-has-tls; then
+			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
+		fi
+		if use vaapi && use cpu_flags_x86_sse4_1 && ! tc-is-gcc; then
+			die "${PN} requires GCC for SSE4.1 intrinsics."
+		fi
 	fi
 }
 
