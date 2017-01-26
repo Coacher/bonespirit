@@ -25,7 +25,7 @@ COMMON_DEPEND="
 	libressl? ( dev-libs/libressl:0= )
 	media-libs/freetype
 	x11-apps/xkbcomp
-	>=x11-libs/libdrm-2.4.46
+	>=x11-libs/libdrm-2.4.65
 	>=x11-libs/libpciaccess-0.12.901
 	>=x11-libs/libXau-1.0.4
 	>=x11-libs/libXdmcp-1.0.2
@@ -59,7 +59,7 @@ COMMON_DEPEND="
 		x11-libs/libXv
 	)
 	xephyr? (
-		x11-libs/libxcb
+		x11-libs/libxcb[xkb]
 		x11-libs/xcb-util
 		x11-libs/xcb-util-image
 		x11-libs/xcb-util-keysyms
