@@ -89,7 +89,7 @@ COMMON_DEPEND="
 		luajit? ( dev-lang/luajit:2 )
 	)
 	openal? ( >=media-libs/openal-1.13 )
-	opengl? ( !aqua? ( virtual/opengl ) )
+	opengl? ( X? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
 	raspberry-pi? (
 		>=media-libs/raspberrypi-userland-0_pre20160305-r1
