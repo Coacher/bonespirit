@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit flag-o-matic gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -168,6 +168,11 @@ src_prepare() {
 
 src_configure() {
 	tc-export CC PKG_CONFIG AR
+
+	if use raspberry-pi; then
+		append-cflags -I"${SYSROOT%/}${EPREFIX}/opt/vc/include"
+		append-ldflags -L"${SYSROOT%/}${EPREFIX}/opt/vc/lib"
+	fi
 
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
