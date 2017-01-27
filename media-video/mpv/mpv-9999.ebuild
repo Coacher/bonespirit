@@ -167,7 +167,7 @@ src_prepare() {
 }
 
 src_configure() {
-	tc-export PKG_CONFIG
+	tc-export CC PKG_CONFIG AR
 
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
