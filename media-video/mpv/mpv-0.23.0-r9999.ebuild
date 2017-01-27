@@ -9,7 +9,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.8.12
 
-inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit flag-o-matic gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -93,7 +93,7 @@ COMMON_DEPEND="
 	pulseaudio? ( media-sound/pulseaudio )
 	raspberry-pi? (
 		>=media-libs/raspberrypi-userland-0_pre20160305-r1
-		media-libs/mesa[egl,gles2]
+		virtual/opengl
 	)
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba[smbclient(+)] )
@@ -134,6 +134,7 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
+	"${FILESDIR}/${PN}-add-missing-linker-flags-for-raspberrypi.patch"
 )
 
 mpv_check_compiler() {
@@ -167,6 +168,13 @@ src_prepare() {
 }
 
 src_configure() {
+	tc-export CC PKG_CONFIG AR
+
+	if use raspberry-pi; then
+		append-cflags -I"${SYSROOT%/}${EPREFIX}/opt/vc/include"
+		append-ldflags -L"${SYSROOT%/}${EPREFIX}/opt/vc/lib"
+	fi
+
 	local mywafargs=(
 		--confdir="${EPREFIX}/etc/${PN}"
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
