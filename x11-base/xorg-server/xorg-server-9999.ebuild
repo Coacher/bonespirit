@@ -172,8 +172,6 @@ src_configure() {
 		$(use_enable glamor)
 		$(use_enable xephyr)
 		$(use_enable kdrive)
-		$(use_enable kdrive kdrive-kbd)
-		$(use_enable kdrive kdrive-mouse)
 		$(use_enable kdrive kdrive-evdev)
 		$(use_enable unwind libunwind)
 		$(use_enable suid install-setuid)
