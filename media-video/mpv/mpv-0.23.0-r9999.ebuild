@@ -338,7 +338,7 @@ pkg_postinst() {
 	fi
 
 	if [[ ${osc_0_21_0} -eq 1 ]]; then
-		elog "Since version 0.21.0 the default OSC layout was changed."
+		elog "In version 0.21.0 the default OSC layout was changed."
 		elog "If you want to restore the previous layout, please refer to"
 		elog
 		elog "https://wiki.gentoo.org/wiki/Mpv#OSC_in_0.21.0"
