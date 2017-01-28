@@ -171,8 +171,8 @@ src_configure() {
 
 	if tc-is-cross-compiler && use raspberry-pi; then
 		export EXTRA_PKG_CONFIG_LIBDIR="${SYSROOT%/}${EPREFIX}/opt/vc/lib/pkgconfig"
-		# Drop the next line if Gentoo bug 607344 is fixed or you fixed it locally.
-		die "${PN} can't be cross built with raspberrypi USE enabled. See Gentoo bug 607344."
+		# Drop next line when Gentoo bug 607344 is fixed or if you fixed it locally.
+		die "${PN} can't be cross built with raspberry-pi USE enabled. See Gentoo bug 607344."
 	fi
 
 	local mywafargs=(
