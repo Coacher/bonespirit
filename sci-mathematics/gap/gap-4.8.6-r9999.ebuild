@@ -29,11 +29,11 @@ RESTRICT=mirror
 
 PATCHES=(
 	"${FILESDIR}/${PN}-4.5.7-writeandcheck.patch"
-	"${FILESDIR}/${PN}-4.8.3-configdir.patch"
+	"${FILESDIR}/${PN}-4.8.6-configdir.patch"
 )
 
 update_version_info() {
-	local RELEASE_DATE='19-Mar-2016' # XXX: update this every release.
+	local RELEASE_DATE='12-Nov-2016' # XXX: update this every release.
 	local RELEASE_YEAR=${RELEASE_DATE##*-}
 
 	# See DistributionUpdate/updateversioninfo script from

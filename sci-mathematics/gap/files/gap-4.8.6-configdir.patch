@@ -1,8 +1,7 @@
-# See cnf/Makefile for AC_CONFIG_HEADER and srcdir changes.
-
+See cnf/Makefile for AC_CONFIG_HEADER and srcdir changes.
 
 diff --git a/Makefile.in b/Makefile.in
-index 1d9b1d5..8c95341 100644
+index 16d7f14f..733c1977 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -114,7 +114,7 @@ bin/$(GAPARCH)/config.status : bin/$(GAPARCH)/configure cnf/config.hin cnf/gac.i
@@ -15,7 +14,7 @@ index 1d9b1d5..8c95341 100644
  extern: config
  	( cd bin/$(GAPARCH)/extern ; \
 diff --git a/cnf/configure.in b/cnf/configure.in
-index 8518a0a..bc2ece6 100644
+index d4089385..8eda290a 100644
 --- a/cnf/configure.in
 +++ b/cnf/configure.in
 @@ -16,7 +16,7 @@ dnl ##
@@ -27,19 +26,19 @@ index 8518a0a..bc2ece6 100644
 
 
  dnl #########################################################################
-@@ -375,7 +375,9 @@ AC_SUBST(CPPFLAGS)
+@@ -387,7 +387,9 @@ AC_SUBST(CPPFLAGS)
  AC_SUBST(LDFLAGS)
 
  AC_SUBST(gapbin)
 -gapbin=`pwd`
 +gapbin=$libdir/gap/bin/${GAPARCH}
 +AC_SUBST(gapinc)
-+gapinc=$prefix/include/gap-${PACKAGE_VERSION}
++gapinc=$prefix/include/gap-4.8.6
 
  AC_SUBST(ABI)
  AC_SUBST(ABI_CFLAGS)
 diff --git a/cnf/gac.in b/cnf/gac.in
-index b4a4c0c..431f58a 100644
+index ad603201..431f58ac 100644
 --- a/cnf/gac.in
 +++ b/cnf/gac.in
 @@ -67,7 +67,7 @@ else
@@ -51,7 +50,7 @@ index b4a4c0c..431f58a 100644
  stat_identifier="USER";
 
  # These three should be filled in by the standard autoconf procedures 
-@@ -87,71 +87,7 @@ c_addlibs=""
+@@ -87,72 +87,7 @@ c_addlibs=""
  # hardwire this for now. There is probably a nicer way 
  # note: compstat.o is omitted on purpose from this list
 
@@ -97,6 +96,7 @@ index b4a4c0c..431f58a 100644
 -    plist.o \
 -    pperm.o \
 -    precord.o \
+-    profile.o \
 -    range.o \
 -    rational.o \
 -    read.o \
@@ -125,7 +125,7 @@ index b4a4c0c..431f58a 100644
  EXTOBJS=
 
 diff --git a/configure.in b/configure.in
-index 1424bd9..fde7d48 100644
+index 1424bd96..fde7d481 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -52,7 +52,7 @@ BASECC=`basename ${CC}`
