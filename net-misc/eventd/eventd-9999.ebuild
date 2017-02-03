@@ -84,7 +84,7 @@ src_prepare() {
 	eautoreconf
 }
 
-# Wayland plugin requires wayland-wall, which has no releases yet.
+# Wayland plugin requires wayland-wall, which is currently WIP.
 # See https://github.com/wayland-wall/wayland-wall/issues/1
 src_configure() {
 	local myeconfargs=(
