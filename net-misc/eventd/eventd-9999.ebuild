@@ -118,8 +118,8 @@ src_test() {
 
 pkg_postinst() {
 	if ! has_version 'gnome-base/librsvg'; then
-		echo
+		elog
 		elog "For SVG icons, please install 'gnome-base/librsvg'."
-		echo
+		elog
 	fi
 }

@@ -78,7 +78,7 @@ src_configure() {
 pkg_postinst() {
 	if kernel_is -lt 4 3 && linux_config_exists && \
 		! linux_chkconfig_present DRM_I915_KMS; then
-		echo
+		ewarn
 		ewarn "${PN} requires KMS support in your kernel"
 		ewarn "  Device Drivers  --->"
 		ewarn "    Graphics support  --->"
@@ -86,6 +86,6 @@ pkg_postinst() {
 		ewarn "        Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->"
 		ewarn "        <*>   Intel 8xx/9xx/G3x/G4x/HD Graphics"
 		ewarn "        [*]     Enable modesetting on intel by default"
-		echo
+		ewarn
 	fi
 }
