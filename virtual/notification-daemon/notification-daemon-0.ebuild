@@ -29,6 +29,6 @@ RDEPEND="
 		x11-wm/enlightenment[e_modules_notification]
 		x11-misc/mate-notification-daemon
 		lxqt-base/lxqt-notificationd
-		net-misc/eventd[notification,X]
+		net-misc/eventd[notification]
 		kde-misc/colibri ) ) )"
 DEPEND=""
