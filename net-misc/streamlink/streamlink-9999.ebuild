@@ -19,6 +19,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
+	dev-python/pycountry[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 	!=dev-python/requests-2.12.0[${PYTHON_USEDEP}]
