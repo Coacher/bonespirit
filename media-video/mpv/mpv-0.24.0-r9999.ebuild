@@ -16,7 +16,7 @@ HOMEPAGE="https://mpv.io/"
 
 if [[ ${PV} != *9999* ]]; then
 	SRC_URI="https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux"
+	KEYWORDS="~amd64 ~hppa ~x86 ~amd64-linux"
 	DOCS=( RELEASE_NOTES )
 else
 	EGIT_REPO_URI=( {https,git}://github.com/mpv-player/mpv.git )
@@ -28,10 +28,10 @@ DOCS+=( README.md )
 # See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
 LICENSE="GPL-2+ BSD ISC"
 SLOT="0"
-IUSE="+alsa aqua archive bluray cdda +cli coreaudio cuda doc drm dvb dvd +egl
-	encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua luajit
-	openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl selinux
-	test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
+IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
+	dvd +egl encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua
+	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
+	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
 	+xscreensaver +xv zsh-completion"
 IUSE+=" cpu_flags_x86_sse4_1"
 
@@ -134,7 +134,6 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
-	"${FILESDIR}/${PN}-rely-on-pkgconfig-for-raspberrypi-compiler-flags.patch"
 )
 
 mpv_check_compiler() {
@@ -192,6 +191,7 @@ src_configure() {
 		--enable-html-build
 
 		$(use_enable doc pdf-build)
+		$(use_enable cplugins)
 		$(use_enable vf-dlopen vf-dlopen-filters)
 		$(use_enable zsh-completion zsh-comp)
 		$(use_enable test)
