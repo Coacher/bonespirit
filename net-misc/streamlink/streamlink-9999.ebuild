@@ -39,8 +39,9 @@ DEPEND="${RDEPEND}
 python_prepare_all() {
 	# Remove pycryptodome dependency until it's added to the tree.
 	sed -i -e '/pycryptodome/d' setup.py || die
-	# Remove iso-639, iso3166 dependencies since we use pycountry.
-	sed -i -e '/deps\.append.\+iso/d' setup.py || die
+
+	# Avoid iso-639, iso3166 dependencies since we use pycountry.
+	export STREAMLINK_USE_PYCOUNTRY=1
 
 	distutils-r1_python_prepare_all
 }
