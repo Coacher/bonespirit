@@ -76,7 +76,7 @@ COMMON_DEPEND="
 	unwind? ( sys-libs/libunwind )
 	wayland? (
 		>=dev-libs/wayland-1.3.0
-		>=dev-libs/wayland-protocols-1.7
+		>=dev-libs/wayland-protocols-1.1
 		media-libs/libepoxy
 	)
 	systemd? (
