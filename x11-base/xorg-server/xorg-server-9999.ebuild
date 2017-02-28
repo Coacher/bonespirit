@@ -17,13 +17,12 @@ EGIT_REPO_URI=(
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
 IUSE_SERVERS="dmx kdrive xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
+IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl:0= )
-	media-libs/freetype
 	x11-apps/xkbcomp
 	>=x11-libs/libdrm-2.4.65
 	>=x11-libs/libpciaccess-0.12.901
@@ -154,6 +153,7 @@ src_configure() {
 	# localstatedir is used for log files; we need to override the default.
 	# sysconfdir is used for the xorg.conf; same applies.
 	XORG_CONFIGURE_OPTIONS=(
+		$(use_enable debug)
 		$(use_enable !minimal record)
 		$(use_enable !minimal glx)
 		$(use_enable !minimal dri)
