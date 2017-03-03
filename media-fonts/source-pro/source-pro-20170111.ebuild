@@ -7,7 +7,7 @@ inherit font
 
 CODE_PV="2.030R-ro/1.050R-it" # 2016-07-19
 SANS_PV="2.020R-ro/1.075R-it" # 2015-09-16
-SERIF_PV="1.017R"             # 2014-12-11
+SERIF_PV="2.000R"             # 2017-01-11
 
 DESCRIPTION="Adobe's open source font family designed for UI environments"
 HOMEPAGE="
