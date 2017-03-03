@@ -19,7 +19,6 @@ DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6.37
 	>=x11-proto/inputproto-2.1.99.3
 	>=x11-proto/recordproto-1.14
-	x11-proto/randrproto
 "
 
 pkg_pretend() {

@@ -13,6 +13,7 @@ RDEPEND="
 	>=x11-base/xorg-server-1.18[udev]
 	dev-libs/libevdev
 	sys-libs/mtdev
+	virtual/libudev:=
 "
 DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6
