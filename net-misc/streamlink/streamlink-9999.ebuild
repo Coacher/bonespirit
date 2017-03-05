@@ -21,8 +21,6 @@ RDEPEND="
 	dev-python/pycountry[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
-	!=dev-python/requests-2.12.0[${PYTHON_USEDEP}]
-	!=dev-python/requests-2.12.1[${PYTHON_USEDEP}]
 	media-video/rtmpdump
 	virtual/ffmpeg
 "
