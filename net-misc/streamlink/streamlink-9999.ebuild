@@ -12,7 +12,7 @@ DESCRIPTION="Extracts streams from various services and pipes them into a video 
 HOMEPAGE="https://streamlink.github.io/"
 EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
 
-LICENSE="BSD-2 MIT"
+LICENSE="BSD-2 Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
