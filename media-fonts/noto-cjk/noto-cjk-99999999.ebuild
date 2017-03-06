@@ -20,3 +20,8 @@ DOCS="HISTORY README.formats"
 
 FONT_SUFFIX="otf"
 FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
+
+src_prepare() {
+	default_src_prepare
+	rm -r NotoSansJP* NotoSansKR* NotoSansSC* NotoSansTC* || die
+}
