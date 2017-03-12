@@ -35,6 +35,7 @@ DEPEND="${RDEPEND}
 
 src_configure() {
 	local mycmakeargs=(
+		-DCMAKE_INSTALL_DOCDIR="${EPREFIX}/usr/share/doc/${PF}"
 		-DENABLE_TINT2CONF=$(usex tint2conf)
 		-DENABLE_RSVG=$(usex svg)
 		-DENABLE_SN=$(usex startup-notification)
