@@ -142,12 +142,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-1.18-support-multiple-Files-sections.patch"
 )
 
-pkg_pretend() {
-	if [[ "${MERGE_TYPE}" != "binary" ]] && [[ $(gcc-major-version) -lt 4 ]]; then
-		die "Your compiler isn't supported. Use GCC >= 4."
-	fi
-}
-
 src_configure() {
 	# localstatedir is used for log files; we need to override the default.
 	# sysconfdir is used for the xorg.conf; same applies.
