@@ -15,8 +15,8 @@ EGIT_REPO_URI=(
 
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
-IUSE_SERVERS="dmx kdrive xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind wayland"
+IUSE_SERVERS="dmx kdrive wayland xephyr xnest xorg xvfb"
+IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
