@@ -22,34 +22,34 @@ COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl:0= )
-	x11-apps/xkbcomp
 	>=x11-libs/libdrm-2.4.65
 	>=x11-libs/libpciaccess-0.12.901
-	>=x11-libs/libXau-1.0.4
-	>=x11-libs/libXdmcp-1.0.2
 	>=x11-libs/libXfont2-2.0.0
-	>=x11-libs/libxkbfile-1.0.4
 	>=x11-libs/libxshmfence-1.1
 	>=x11-libs/pixman-0.27.2
 	>=x11-libs/xtrans-1.3.5
-	>=x11-misc/xbitmaps-1.0.1
-	>=x11-misc/xkeyboard-config-2.4.1-r3
+	x11-apps/xkbcomp
+	x11-libs/libXau
+	x11-libs/libXdmcp
+	x11-libs/libxkbfile
+	x11-misc/xbitmaps
+	x11-misc/xkeyboard-config
 	dmx? (
 		>=x11-libs/libdmx-1.0.99.1
-		>=x11-libs/libX11-1.1.5
+		>=x11-libs/libX11-1.6
 		>=x11-libs/libXaw-1.0.4
 		>=x11-libs/libXext-1.0.99.4
 		>=x11-libs/libXfixes-5.0
 		>=x11-libs/libXi-1.2.99.1
-		>=x11-libs/libXmu-1.0.3
-		>=x11-libs/libXres-1.0.3
 		>=x11-libs/libXtst-1.0.99.2
+		x11-libs/libXmu
 		x11-libs/libXrender
+		x11-libs/libXres
 		x11-libs/libXt
 	)
 	glamor? (
-		media-libs/libepoxy
-		>=media-libs/mesa-10.3.4-r1[egl,gbm]
+		media-libs/libepoxy[X]
+		media-libs/mesa[egl,gbm]
 		!x11-libs/glamor
 	)
 	kdrive? (
@@ -67,10 +67,10 @@ COMMON_DEPEND="
 	!minimal? (
 		>=x11-libs/libX11-1.1.5
 		>=x11-libs/libXext-1.0.99.4
-		>=media-libs/mesa-10.3.4-r1
+		media-libs/mesa
 	)
-	tslib? ( >=x11-libs/tslib-1.0 )
-	udev? ( >=virtual/udev-150 )
+	tslib? ( x11-libs/tslib )
+	udev? ( virtual/udev )
 	unwind? ( sys-libs/libunwind )
 	wayland? (
 		>=dev-libs/wayland-1.3.0
@@ -84,6 +84,8 @@ COMMON_DEPEND="
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/flex
+	x11-proto/videoproto
+	x11-proto/xineramaproto
 	>=x11-proto/bigreqsproto-1.1.0
 	>=x11-proto/compositeproto-0.4
 	>=x11-proto/damageproto-1.1
@@ -95,12 +97,10 @@ DEPEND="${COMMON_DEPEND}
 	>=x11-proto/renderproto-0.11
 	>=x11-proto/resourceproto-1.2.0
 	>=x11-proto/scrnsaverproto-1.1
-	>=x11-proto/videoproto-2.2.2
 	>=x11-proto/xcmiscproto-1.2.0
 	>=x11-proto/xextproto-7.2.99.901
 	>=x11-proto/xf86dgaproto-2.0.99.1
 	>=x11-proto/xf86vidmodeproto-2.2.99.1
-	>=x11-proto/xineramaproto-1.1.3
 	>=x11-proto/xproto-7.0.31
 	dmx? (
 		>=x11-proto/dmxproto-2.2.99.1
