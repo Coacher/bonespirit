@@ -19,7 +19,7 @@ SLOT="4"
 IUSE=""
 
 DEPEND="
-	kde-frameworks/baloo:4[-minimal(-)]
+	kde-frameworks/baloo:4[-minimal]
 	kde-frameworks/kfilemetadata:4
 	dev-libs/qjson
 	dev-libs/xapian
