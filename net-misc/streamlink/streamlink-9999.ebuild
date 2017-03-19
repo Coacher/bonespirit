@@ -33,16 +33,11 @@ DEPEND="${RDEPEND}
 	test? ( ${RDEPEND} )
 "
 
-python_prepare_all() {
-	# Remove pycryptodome dependency until migration is complete.
-	sed -i -e '/pycryptodome/d' setup.py || die
-
-	distutils-r1_python_prepare_all
-}
-
 python_configure_all() {
 	# Avoid iso-639, iso3166 dependencies since we use pycountry.
 	export STREAMLINK_USE_PYCOUNTRY=1
+	# Use pycrypto for compatibility. See Gentoo bug 611568.
+	export STREAMLINK_USE_PYCRYPTO=1
 }
 
 python_compile_all() {
