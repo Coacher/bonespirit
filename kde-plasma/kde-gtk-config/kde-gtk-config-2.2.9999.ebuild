@@ -6,7 +6,7 @@ EAPI=6
 inherit kde4-base
 
 DESCRIPTION="GTK2 and GTK3 configurator for KDE"
-HOMEPAGE="https://quickgit.kde.org/?p=kde-gtk-config.git"
+HOMEPAGE="https://cgit.kde.org/kde-gtk-config.git/"
 EGIT_BRANCH="2.2"
 
 LICENSE="GPL-3"
