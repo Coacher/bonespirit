@@ -16,13 +16,13 @@ EGIT_REPO_URI=(
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
 IUSE_SERVERS="dmx kdrive wayland xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd tslib +udev unwind"
+IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd +udev unwind"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl:0= )
-	>=x11-libs/libdrm-2.4.65
+	>=x11-libs/libdrm-2.4.74
 	>=x11-libs/libpciaccess-0.12.901
 	>=x11-libs/libXfont2-2.0.0
 	>=x11-libs/libxshmfence-1.1
@@ -69,7 +69,6 @@ COMMON_DEPEND="
 		>=x11-libs/libXext-1.0.99.4
 		media-libs/mesa
 	)
-	tslib? ( x11-libs/tslib )
 	udev? ( virtual/udev )
 	unwind? ( sys-libs/libunwind )
 	wayland? (
@@ -154,7 +153,6 @@ src_configure() {
 		$(use_enable !minimal dri3)
 		$(use_enable !minimal present)
 		$(use_enable !minimal xfree86-utils)
-		$(use_enable tslib)
 		$(use_enable udev config-udev)
 		$(use_enable systemd systemd-logind)
 		$(use_enable xorg)
