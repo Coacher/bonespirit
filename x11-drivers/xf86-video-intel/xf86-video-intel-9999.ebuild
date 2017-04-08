@@ -5,7 +5,7 @@ EAPI=5
 
 XORG_DRI=dri
 
-inherit linux-info xorg-2
+inherit xorg-2
 
 DESCRIPTION="X.Org driver for Intel cards"
 KEYWORDS="~amd64 ~x86"
@@ -72,19 +72,4 @@ src_configure() {
 		$(usex dri3 '--with-default-dri=3')
 	)
 	xorg-2_src_configure
-}
-
-pkg_postinst() {
-	if kernel_is -lt 4 3 && linux_config_exists && \
-		! linux_chkconfig_present DRM_I915_KMS; then
-		ewarn
-		ewarn "${PN} requires KMS support in your kernel"
-		ewarn "  Device Drivers  --->"
-		ewarn "    Graphics support  --->"
-		ewarn "      Direct Rendering Manager  --->"
-		ewarn "        Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->"
-		ewarn "        <*>   Intel 8xx/9xx/G3x/G4x/HD Graphics"
-		ewarn "        [*]     Enable modesetting on intel by default"
-		ewarn
-	fi
 }
