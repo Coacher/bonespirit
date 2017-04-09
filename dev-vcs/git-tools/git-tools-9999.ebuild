@@ -27,15 +27,19 @@ src_compile() {
 
 src_install() {
 	SCRIPTS_BASH="git-branches-rename git-clone-subset git-find-uncommitted-repos git-rebase-theirs git-strip-merge"
+	dobin ${SCRIPTS_BASH}
+
 	SCRIPTS_PYTHON="git-restore-mtime"
-	dobin $SCRIPTS_BASH
-	dobin $SCRIPTS_PYTHON
-	for p in $SCRIPTS_PYTHON ; do
+	dobin ${SCRIPTS_PYTHON}
+	for p in ${SCRIPTS_PYTHON} ; do
 		python_replicate_script "${ED}"usr/bin/$p
 	done
+
 	# Make it possible to use the tools as 'git $TOOLNAME'
-	for i in $SCRIPTS_BASH $SCRIPTS_PYTHON ; do
+	for i in ${SCRIPTS_BASH} ${SCRIPTS_PYTHON} ; do
 		dosym /usr/bin/$i /usr/libexec/git-core/$i
 	done
+
 	einstalldocs
+	doman man1/*.1
 }
