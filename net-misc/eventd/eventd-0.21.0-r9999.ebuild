@@ -3,11 +3,11 @@
 
 EAPI=6
 
-inherit autotools linux-info systemd
+inherit linux-info systemd
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
-SRC_URI="https://github.com/sardemff7/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://www.eventd.org/download/${PN}/${P}.tar.xz"
 
 LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"
@@ -79,8 +79,6 @@ src_prepare() {
 	sed -i \
 		-e 's|libspeechd|speech-dispatcher/libspeechd|g' \
 		plugins/tts/src/tts.c || die
-
-	eautoreconf
 }
 
 # Wayland plugin requires wayland-wall, which is currently WIP.
