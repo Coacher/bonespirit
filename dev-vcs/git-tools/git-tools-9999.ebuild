@@ -5,7 +5,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
-inherit eutils python-r1
+inherit eutils python-r1 git-r3
 
 DESCRIPTION="Assorted git-related scripts"
 HOMEPAGE="https://github.com/MestreLion/git-tools/"
