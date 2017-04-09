@@ -11,7 +11,7 @@ EGIT_REPO_URI=( {https,git}://github.com/sardemff7/${PN}.git )
 
 LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="debug fbcon +introspection ipv6 libcanberra libnotify +notification
 	purple sound speech ssdp systemd test websocket +X zeroconf"
 
@@ -61,7 +61,7 @@ RDEPEND="${COMMON_DEPEND}
 "
 
 pkg_setup() {
-	if use kernel_linux && use ipv6; then
+	if use ipv6; then
 		if ! use test; then
 			CONFIG_CHECK="~IPV6"
 		else
