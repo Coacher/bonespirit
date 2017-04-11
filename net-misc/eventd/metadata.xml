@@ -13,7 +13,6 @@
 		<flag name="purple">Enable plugin for IM notifications via libpurple</flag>
 		<flag name="sound">Enable plugin for sounds via <pkg>media-libs/libsndfile</pkg> and <pkg>media-sound/pulseaudio</pkg></flag>
 		<flag name="speech">Enable plugin for Text-To-Speech support</flag>
-		<flag name="ssdp">Enable support for SSDP protocol</flag>
 		<flag name="websocket">Enable support for WebSocket protocol</flag>
 	</use>
 	<upstream>

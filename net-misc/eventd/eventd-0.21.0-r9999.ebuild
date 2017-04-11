@@ -13,7 +13,7 @@ LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="debug fbcon +introspection ipv6 libcanberra libnotify +notification
-	purple sound speech ssdp systemd test websocket +X zeroconf"
+	purple sound speech systemd test upnp websocket +X zeroconf"
 
 REQUIRED_USE="
 	X? ( notification )
@@ -22,9 +22,9 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
-	dev-libs/glib:2
+	>=dev-libs/glib-2.40:2
 	sys-apps/util-linux
-	introspection? ( dev-libs/gobject-introspection )
+	introspection? ( >=dev-libs/gobject-introspection-1.42 )
 	libcanberra? ( media-libs/libcanberra )
 	libnotify? ( x11-libs/gdk-pixbuf:2 )
 	notification? (
@@ -44,9 +44,9 @@ COMMON_DEPEND="
 		media-sound/pulseaudio
 	)
 	speech? ( app-accessibility/speech-dispatcher )
-	ssdp? ( net-libs/gssdp:= )
 	systemd? ( sys-apps/systemd:= )
-	websocket? ( net-libs/libsoup:2.4 )
+	upnp? ( net-libs/gssdp:= )
+	websocket? ( >=net-libs/libsoup-2.50:2.4 )
 	zeroconf? ( net-dns/avahi[dbus] )
 "
 DEPEND="${COMMON_DEPEND}
@@ -90,7 +90,7 @@ src_configure() {
 		--with-dbussessionservicedir="${EPREFIX}/usr/share/dbus-1/services"
 		$(use_enable websocket)
 		$(use_enable zeroconf dns-sd)
-		$(use_enable ssdp)
+		$(use_enable upnp ssdp)
 		$(use_enable introspection)
 		$(use_enable ipv6)
 		$(use_enable systemd)
