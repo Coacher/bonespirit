@@ -114,7 +114,7 @@ src_test() {
 }
 
 pkg_postinst() {
-	if (use notification || use libnotify) && ! has_version 'gnome-base/librsvg'; then
+	if { use notification || use libnotify; } && ! has_version 'gnome-base/librsvg'; then
 		elog
 		elog "For SVG icons in notifications, please install 'gnome-base/librsvg'."
 		elog
