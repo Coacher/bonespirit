@@ -83,8 +83,6 @@ src_prepare() {
 	eautoreconf
 }
 
-# Wayland plugin requires wayland-wall, which is currently WIP.
-# See https://github.com/wayland-wall/wayland-wall/issues/1
 src_configure() {
 	local myeconfargs=(
 		--with-systemduserunitdir="$(systemd_get_userunitdir)"
@@ -97,6 +95,8 @@ src_configure() {
 		$(use_enable ipv6)
 		$(use_enable systemd)
 		$(use_enable notification notification-daemon)
+		# Wayland plugin requires wayland-wall, which is currently WIP.
+		# See https://github.com/wayland-wall/wayland-wall/issues/1
 		--disable-nd-wayland
 		$(use_enable X nd-xcb)
 		$(use_enable fbcon nd-fbdev)
