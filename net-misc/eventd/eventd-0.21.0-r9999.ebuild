@@ -109,7 +109,7 @@ src_configure() {
 }
 
 src_test() {
-	export EVENTD_TESTS_TMP_DIR="${T}"
+	local -x EVENTD_TESTS_TMP_DIR="${T}"
 	default_src_test
 }
 
