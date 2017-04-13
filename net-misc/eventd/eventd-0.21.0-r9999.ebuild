@@ -62,12 +62,7 @@ RDEPEND="${COMMON_DEPEND}
 
 pkg_setup() {
 	if use ipv6; then
-		if ! use test; then
-			CONFIG_CHECK="~IPV6"
-		else
-			CONFIG_CHECK="IPV6"
-		fi
-
+		CONFIG_CHECK=$(usex test 'IPV6' '~IPV6')
 		linux-info_pkg_setup
 	fi
 }
