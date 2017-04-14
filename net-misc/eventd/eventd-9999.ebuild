@@ -13,7 +13,7 @@ LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug fbcon +introspection ipv6 libcanberra libnotify +notification
-	purple sound speech systemd test upnp websocket +X zeroconf"
+	pulseaudio purple speech systemd test upnp websocket +X zeroconf"
 
 REQUIRED_USE="
 	X? ( notification )
@@ -38,11 +38,11 @@ COMMON_DEPEND="
 			x11-libs/xcb-util-wm
 		)
 	)
-	purple? ( net-im/pidgin )
-	sound? (
+	pulseaudio? (
 		media-libs/libsndfile
 		media-sound/pulseaudio
 	)
+	purple? ( net-im/pidgin )
 	speech? ( app-accessibility/speech-dispatcher )
 	systemd? ( sys-apps/systemd:= )
 	upnp? ( net-libs/gssdp:= )
@@ -96,7 +96,7 @@ src_configure() {
 		$(use_enable X nd-xcb)
 		$(use_enable fbcon nd-fbdev)
 		$(use_enable purple im)
-		$(use_enable sound)
+		$(use_enable pulseaudio sound)
 		$(use_enable speech tts)
 		$(use_enable libnotify)
 		$(use_enable libcanberra)
