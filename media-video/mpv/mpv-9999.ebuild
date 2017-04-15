@@ -91,10 +91,7 @@ COMMON_DEPEND="
 	openal? ( >=media-libs/openal-1.13 )
 	opengl? ( X? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
-	raspberry-pi? (
-		>=media-libs/raspberrypi-userland-0_pre20160305-r1
-		virtual/opengl
-	)
+	raspberry-pi? ( >=media-libs/raspberrypi-userland-0_pre20160305-r1 )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba[smbclient(+)] )
 	sdl? ( media-libs/libsdl2[sound,threads,video] )
