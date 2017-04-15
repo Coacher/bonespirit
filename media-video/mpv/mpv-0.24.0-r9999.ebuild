@@ -25,7 +25,7 @@ SRC_URI+=" https://waf.io/waf-${WAF_PV}"
 DOCS+=( README.md )
 
 # See Copyright in sources and Gentoo bug 506946. Waf is BSD, libmpv is ISC.
-LICENSE="GPL-2+ BSD ISC"
+LICENSE="LGPL-2.1+ GPL-2+ BSD ISC"
 SLOT="0"
 IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
 	dvd +egl encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua
@@ -184,9 +184,9 @@ src_configure() {
 		$(usex cli '' '--disable-cplayer')
 		$(use_enable libmpv libmpv-shared)
 
-		# See deep down below for build-date.
 		--disable-libmpv-static
 		--disable-static-build
+		# See deep down below for build-date.
 		--disable-optimize		# Don't add '-O2' to CFLAGS.
 		--disable-debug-build	# Don't add '-g' to CFLAGS.
 		--enable-html-build
@@ -257,7 +257,6 @@ src_configure() {
 		--disable-android
 		$(use_enable raspberry-pi rpi)
 		$(usex opengl "$(use_enable !aqua standard-gl)" '--disable-standard-gl')
-		--disable-ios-gl
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 		--disable-mali-fbdev	# Only available in overlays.
 
