@@ -89,7 +89,6 @@ COMMON_DEPEND="
 		luajit? ( dev-lang/luajit:2 )
 	)
 	openal? ( >=media-libs/openal-1.13 )
-	opengl? ( X? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
 	raspberry-pi? ( >=media-libs/raspberrypi-userland-0_pre20160305-r1 )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
@@ -106,7 +105,10 @@ COMMON_DEPEND="
 		x11-libs/libX11
 		x11-libs/libXext
 		>=x11-libs/libXrandr-1.2.0
-		opengl? ( x11-libs/libXdamage )
+		opengl? (
+			x11-libs/libXdamage
+			virtual/opengl
+		)
 		xinerama? ( x11-libs/libXinerama )
 		xscreensaver? ( x11-libs/libXScrnSaver )
 		xv? ( x11-libs/libXv )
