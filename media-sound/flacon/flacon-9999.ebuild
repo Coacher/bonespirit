@@ -62,8 +62,7 @@ src_configure() {
 	local mycmakeargs=(
 		-DUSE_QT4="$(usex !qt5)"
 		-DUSE_QT5="$(usex qt5)"
-		-DTEST_DATA_DIR="${S}/tests/data/"
-		-DBUILD_TESTS="$(usex test 'Yes')"
+		-DBUILD_TESTS="$(usex test)"
 	)
 	cmake-utils_src_configure
 }
