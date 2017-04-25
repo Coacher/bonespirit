@@ -32,7 +32,6 @@ IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
 	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
 	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X +xv
 	zsh-completion"
-IUSE+=" cpu_flags_x86_sse4_1"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
@@ -93,8 +92,14 @@ COMMON_DEPEND="
 	samba? ( net-fs/samba[smbclient(+)] )
 	sdl? ( media-libs/libsdl2[sound,threads,video] )
 	v4l? ( media-libs/libv4l )
-	vaapi? ( >=x11-libs/libva-1.4.0[drm?,X?,wayland?] )
-	vdpau? ( >=x11-libs/libvdpau-0.2 )
+	vaapi? (
+		>=media-video/ffmpeg-3.3:0
+		>=x11-libs/libva-1.4.0[drm?,X?,wayland?]
+	)
+	vdpau? (
+		>=media-video/ffmpeg-3.3:0
+		>=x11-libs/libvdpau-0.2
+	)
 	wayland? (
 		>=dev-libs/wayland-1.6.0
 		>=x11-libs/libxkbcommon-0.3.0
@@ -141,10 +146,6 @@ mpv_check_compiler() {
 		fi
 		if { use opengl || use egl; } && ! tc-has-tls; then
 			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
-		fi
-		if ! tc-is-gcc && use vaapi && use cpu_flags_x86_sse4_1 && \
-				has_version '<media-video/ffmpeg-3.3:0'; then
-			die "${PN} requires GCC for SSE4.1 intrinsics."
 		fi
 	fi
 }
