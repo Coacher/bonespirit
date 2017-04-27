@@ -95,11 +95,13 @@ COMMON_DEPEND="
 	sdl? ( media-libs/libsdl2[sound,threads,video] )
 	v4l? ( media-libs/libv4l )
 	vaapi? (
-		>=media-video/ffmpeg-3.3:0
+		!libav? ( >=media-video/ffmpeg-3.3:0 )
+		libav? ( >=media-video/libav-13:0 )
 		>=x11-libs/libva-1.4.0[drm?,X?,wayland?]
 	)
 	vdpau? (
-		>=media-video/ffmpeg-3.3:0
+		!libav? ( >=media-video/ffmpeg-3.3:0 )
+		libav? ( >=media-video/libav-13:0 )
 		>=x11-libs/libvdpau-0.2
 	)
 	wayland? (
