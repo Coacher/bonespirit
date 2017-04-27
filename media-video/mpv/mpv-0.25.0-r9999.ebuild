@@ -6,7 +6,7 @@ EAPI=6
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 PYTHON_REQ_USE='threads(+)'
 
-WAF_PV=1.8.12
+WAF_PV=1.9.8
 
 inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
@@ -30,28 +30,28 @@ SLOT="0"
 IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
 	dvd +egl encode gbm +iconv jack jpeg lcms +libass libav libcaca libmpv +lua
 	luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
-	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X xinerama
-	+xscreensaver +xv zsh-completion"
+	selinux test tools +uchardet v4l vaapi vdpau vf-dlopen wayland +X +xv
+	zsh-completion"
 IUSE+=" cpu_flags_x86_sse4_1"
 
 REQUIRED_USE="
 	|| ( cli libmpv )
 	aqua? ( opengl )
-	cuda? ( !libav || ( opengl egl ) )
+	cuda? ( !libav opengl )
 	egl? ( || ( gbm X wayland ) )
-	gbm? ( drm egl )
-	lcms? ( || ( opengl egl ) )
+	gbm? ( drm egl opengl )
+	lcms? ( opengl )
 	luajit? ( lua )
-	opengl? ( || ( aqua X !cli? ( libmpv ) ) )
-	test? ( || ( opengl egl ) )
+	opengl? ( || ( aqua egl X raspberry-pi !cli? ( libmpv ) ) )
+	raspberry-pi? ( opengl )
+	test? ( opengl )
 	tools? ( cli )
 	uchardet? ( iconv )
 	v4l? ( || ( alsa oss ) )
 	vaapi? ( || ( gbm X wayland ) )
 	vdpau? ( X )
 	wayland? ( egl )
-	xinerama? ( X )
-	xscreensaver? ( X )
+	X? ( egl? ( opengl ) )
 	xv? ( X )
 	zsh-completion? ( cli )
 	${PYTHON_REQUIRED_USE}
@@ -89,15 +89,11 @@ COMMON_DEPEND="
 		luajit? ( dev-lang/luajit:2 )
 	)
 	openal? ( >=media-libs/openal-1.13 )
-	opengl? ( X? ( virtual/opengl ) )
 	pulseaudio? ( media-sound/pulseaudio )
-	raspberry-pi? (
-		>=media-libs/raspberrypi-userland-0_pre20160305-r1
-		virtual/opengl
-	)
+	raspberry-pi? ( >=media-libs/raspberrypi-userland-0_pre20160305-r1 )
 	rubberband? ( >=media-libs/rubberband-1.8.0 )
 	samba? ( net-fs/samba[smbclient(+)] )
-	sdl? ( media-libs/libsdl2[sound,threads,video,X?,wayland?] )
+	sdl? ( media-libs/libsdl2[sound,threads,video] )
 	v4l? ( media-libs/libv4l )
 	vaapi? ( >=x11-libs/libva-1.4.0[drm?,X?,wayland?] )
 	vdpau? ( >=x11-libs/libvdpau-0.2 )
@@ -107,11 +103,14 @@ COMMON_DEPEND="
 	)
 	X? (
 		x11-libs/libX11
+		x11-libs/libXScrnSaver
 		x11-libs/libXext
-		>=x11-libs/libXrandr-1.2.0
-		opengl? ( x11-libs/libXdamage )
-		xinerama? ( x11-libs/libXinerama )
-		xscreensaver? ( x11-libs/libXScrnSaver )
+		x11-libs/libXinerama
+		x11-libs/libXrandr
+		opengl? (
+			x11-libs/libXdamage
+			virtual/opengl
+		)
 		xv? ( x11-libs/libXv )
 	)
 "
@@ -134,19 +133,20 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
-	"${FILESDIR}/${PV}/${PN}-fix-build-without-gl.patch"
+	"${FILESDIR}/${PV}/${PN}-use-internal-GL-definitions.patch"
 )
 
 mpv_check_compiler() {
 	if [[ ${MERGE_TYPE} != "binary" ]]; then
-		if tc-is-gcc && ( [[ $(gcc-major-version) -lt 4 ]] || \
-			( [[ $(gcc-major-version) -eq 4 ]] && [[ $(gcc-minor-version) -lt 5 ]] ) ); then
-			die "${PN} requires GCC>=4.5."
+		if tc-is-gcc && [[ $(gcc-major-version) -lt 4 || \
+			( $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 5 ) ]]; then
+				die "${PN} requires GCC>=4.5."
 		fi
-		if ( use opengl || use egl ) && ! tc-has-tls; then
+		if use opengl && ! tc-has-tls; then
 			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
 		fi
-		if use vaapi && use cpu_flags_x86_sse4_1 && ! tc-is-gcc; then
+		if ! tc-is-gcc && use vaapi && use cpu_flags_x86_sse4_1 && \
+				has_version '<media-video/ffmpeg-3.3:0'; then
 			die "${PN} requires GCC for SSE4.1 intrinsics."
 		fi
 	fi
@@ -236,16 +236,12 @@ src_configure() {
 		$(use_enable gbm)
 		$(use_enable wayland)
 		$(use_enable X x11)
-		$(use_enable xscreensaver xss)
-		$(use_enable X xext)
 		$(use_enable xv)
-		$(use_enable xinerama)
-		$(use_enable X xrandr)
 		$(usex opengl "$(use_enable aqua gl-cocoa)" '--disable-gl-cocoa')
 		$(usex opengl "$(use_enable X gl-x11)" '--disable-gl-x11')
 		$(usex egl "$(use_enable X egl-x11)" '--disable-egl-x11')
 		$(usex egl "$(use_enable gbm egl-drm)" '--disable-egl-drm')
-		$(use_enable wayland gl-wayland)
+		$(usex opengl "$(use_enable wayland gl-wayland)" '--disable-gl-wayland')
 		$(use_enable vdpau)
 		$(usex vdpau "$(use_enable opengl vdpau-gl-x11)" '--disable-vdpau-gl-x11')
 		$(use_enable vaapi)		# See below for vaapi-glx, vaapi-x-egl.
@@ -256,9 +252,9 @@ src_configure() {
 		$(use_enable jpeg)
 		--disable-android
 		$(use_enable raspberry-pi rpi)
-		$(usex opengl "$(use_enable !aqua standard-gl)" '--disable-standard-gl')
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 		--disable-mali-fbdev	# Only available in overlays.
+		$(usex opengl '' '--disable-gl')
 
 		# HWaccels:
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
@@ -282,10 +278,6 @@ src_configure() {
 			$(use_enable opengl vaapi-glx)
 			$(use_enable egl vaapi-x-egl)
 		)
-	fi
-
-	if ! use egl && ! use opengl && ! use raspberry-pi; then
-		mywafargs+=(--disable-gl)
 	fi
 
 	# Create reproducible non-live builds.
@@ -318,13 +310,15 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	local rv softvol_0_18_1=0 osc_0_21_0=0
+	local rv softvol_0_18_1=0 osc_0_21_0=0 opengl_0_25_0=0
 
 	for rv in ${REPLACING_VERSIONS}; do
 		version_compare ${rv} 0.18.1
 		[[ $? -eq 1 ]] && softvol_0_18_1=1
 		version_compare ${rv} 0.21.0
 		[[ $? -eq 1 ]] && osc_0_21_0=1
+		version_compare ${rv} 0.25.0
+		[[ $? -eq 1 ]] && ! use opengl && opengl_0_25_0=1
 	done
 
 	if [[ ${softvol_0_18_1} -eq 1 ]]; then
@@ -343,6 +337,12 @@ pkg_postinst() {
 		elog
 		elog "https://wiki.gentoo.org/wiki/Mpv#OSC_in_0.21.0"
 		elog
+	fi
+
+	if [[ ${opengl_0_25_0} -eq 1 ]]; then
+		elog "Since version 0.25.0 the 'opengl' USE flag is mapped to"
+		elog "the 'opengl' video output and no longer depends on X11"
+		elog "or Mac OS Aqua. Consider enabling the 'opengl' USE flag."
 	fi
 
 	# bash-completion < 2.3-r1 already installs (mostly broken) mpv completion.
