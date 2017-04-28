@@ -18,11 +18,5 @@ RESTRICT="binchecks strip"
 
 DOCS="HISTORY README.formats"
 
-FONT_SUFFIX="otf"
+FONT_SUFFIX="ttc"
 FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
-
-src_prepare() {
-	default_src_prepare
-	rm -r NotoSansJP* NotoSansKR* NotoSansSC* NotoSansTC* \
-		NotoSerifJP* NotoSerifKR* NotoSerifSC* NotoSerifTC* || die
-}
