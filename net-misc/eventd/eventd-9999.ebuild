@@ -62,11 +62,22 @@ RDEPEND="${COMMON_DEPEND}
 	net-libs/glib-networking[ssl]
 "
 
+eventd_check_compiler() {
+	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++11; then
+		die "Your compiler lacks C++11 support. Use GCC>=4.7.0 or Clang>=3.3."
+	fi
+}
+
+pkg_pretend() {
+	eventd_check_compiler
+}
+
 pkg_setup() {
 	if use ipv6; then
 		CONFIG_CHECK=$(usex test 'IPV6' '~IPV6')
 		linux-info_pkg_setup
 	fi
+	eventd_check_compiler
 }
 
 MESON_BUILD_DIR="${WORKDIR}/${P}_mesonbuild"
