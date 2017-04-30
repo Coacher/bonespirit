@@ -20,6 +20,7 @@ REQUIRED_USE="
 	X? ( notification )
 	fbcon? ( notification )
 	notification? ( || ( X fbcon ) )
+	test? ( websocket )
 "
 
 COMMON_DEPEND="
