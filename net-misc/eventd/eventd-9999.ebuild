@@ -3,7 +3,8 @@
 
 EAPI=6
 
-inherit autotools linux-info systemd git-r3
+# Convert to a meson eclass when it's ready. Gentoo bug 597182.
+inherit flag-o-matic linux-info multiprocessing systemd git-r3
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
@@ -50,6 +51,7 @@ COMMON_DEPEND="
 	zeroconf? ( net-dns/avahi[dbus] )
 "
 DEPEND="${COMMON_DEPEND}
+	>=dev-util/meson-0.39.1
 	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
@@ -67,6 +69,8 @@ pkg_setup() {
 	fi
 }
 
+MESON_BUILD_DIR="${WORKDIR}/${P}_mesonbuild"
+
 src_prepare() {
 	default_src_prepare
 
@@ -75,39 +79,74 @@ src_prepare() {
 		-e 's|libspeechd|speech-dispatcher/libspeechd|g' \
 		plugins/tts/src/tts.c || die
 
-	eautoreconf
+	mkdir -p "${MESON_BUILD_DIR}" || die
+}
+
+emesonconf() {
+	set -- meson \
+		--prefix="${EPREFIX}/usr" \
+		--libdir="$(get_libdir)" \
+		--sysconfdir="${EPREFIX}/etc" \
+		--localstatedir="${EPREFIX}/var/lib" \
+		--buildtype=plain \
+		"${@}" \
+		"${MESON_BUILD_DIR}"
+	echo "${@}"
+	"${@}" || die
+}
+
+meson_use_enable() {
+	echo "-Denable-${2:-${1}}=$(usex ${1} 'true' 'false')"
 }
 
 src_configure() {
-	local myeconfargs=(
-		--with-systemduserunitdir="$(systemd_get_userunitdir)"
-		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)"
-		--with-dbussessionservicedir="${EPREFIX}/usr/share/dbus-1/services"
-		$(use_enable websocket)
-		$(use_enable zeroconf dns-sd)
-		$(use_enable upnp ssdp)
-		$(use_enable introspection)
-		$(use_enable ipv6)
-		$(use_enable systemd)
-		$(use_enable notification notification-daemon)
+	local mymesonargs=(
+		-Dsystemduserunitdir="$(systemd_get_userunitdir)"
+		-Dsystemdsystemunitdir="$(systemd_get_systemunitdir)"
+		-Ddbussessionservicedir="${EPREFIX}/usr/share/dbus-1/services"
+		$(meson_use_enable websocket)
+		$(meson_use_enable zeroconf dns-sd)
+		$(meson_use_enable upnp ssdp)
+		$(meson_use_enable introspection)
+		$(meson_use_enable ipv6)
+		$(meson_use_enable systemd)
+		$(meson_use_enable notification notification-daemon)
 		# Wayland plugin requires wayland-wall, which is currently WIP.
 		# See https://github.com/wayland-wall/wayland-wall/issues/1
-		--disable-nd-wayland
-		$(use_enable X nd-xcb)
-		$(use_enable fbcon nd-fbdev)
-		$(use_enable purple im)
-		$(use_enable pulseaudio sound)
-		$(use_enable speech tts)
-		$(use_enable libnotify)
-		$(use_enable libcanberra)
-		$(use_enable debug)
+		-Denable-nd-wayland="false"
+		$(meson_use_enable X nd-xcb)
+		$(meson_use_enable fbcon nd-fbdev)
+		$(meson_use_enable purple im)
+		$(meson_use_enable pulseaudio sound)
+		$(meson_use_enable speech tts)
+		$(meson_use_enable libnotify)
+		$(meson_use_enable libcanberra)
+		$(meson_use_enable debug)
 	)
-	econf "${myeconfargs[@]}"
+
+	emesonconf "${mymesonargs[@]}"
+}
+
+eninja() {
+	if [[ -z ${NINJAOPTS+set} ]]; then
+		NINJAOPTS="-j$(makeopts_jobs) -l$(makeopts_loadavg)"
+	fi
+	set -- ninja -v ${NINJAOPTS} -C "${MESON_BUILD_DIR}" "${@}"
+	echo "${@}"
+	"${@}" || die
+}
+
+src_compile() {
+	eninja
+}
+
+src_install() {
+	DESTDIR="${ED%/}" eninja install
 }
 
 src_test() {
 	local -x EVENTD_TESTS_TMP_DIR="${T}"
-	default_src_test
+	eninja test
 }
 
 pkg_postinst() {
