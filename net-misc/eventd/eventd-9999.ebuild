@@ -154,6 +154,7 @@ src_compile() {
 
 src_install() {
 	DESTDIR="${ED%/}" eninja install
+	einstalldocs
 }
 
 src_test() {
