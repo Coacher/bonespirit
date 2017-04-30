@@ -12,7 +12,7 @@ EGIT_REPO_URI=( {https,git}://github.com/DaveDavenport/${PN}.git )
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="drun +windowmode"
+IUSE="drun test +windowmode"
 
 RDEPEND="
 	dev-libs/glib:2
@@ -26,7 +26,10 @@ RDEPEND="
 	x11-libs/xcb-util-xrm
 "
 DEPEND="${RDEPEND}
+	sys-devel/bison
+	sys-devel/flex
 	virtual/pkgconfig
+	test? ( dev-libs/check )
 "
 
 src_prepare() {
@@ -40,6 +43,7 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable drun)
 		$(use_enable windowmode)
+		$(use_enable test check)
 	)
 	econf "${myeconfargs[@]}"
 }
