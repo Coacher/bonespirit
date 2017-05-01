@@ -37,7 +37,7 @@ src_install() {
 
 	# Make it possible to use the tools as 'git $TOOLNAME'
 	for i in ${SCRIPTS_BASH} ${SCRIPTS_PYTHON} ; do
-		dosym /usr/bin/$i /usr/libexec/git-core/$i
+		dosym ../../bin/$i /usr/libexec/git-core/$i
 	done
 
 	einstalldocs
