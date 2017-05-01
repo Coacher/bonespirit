@@ -121,7 +121,7 @@ src_install() {
 		trans \
 		sysinfo.gap*
 
-	dosym /usr/$(get_libdir)/${PN}/sysinfo.gap /etc/sysinfo.gap
+	dosym ../usr/$(get_libdir)/${PN}/sysinfo.gap /etc/sysinfo.gap
 
 	source sysinfo.gap
 
