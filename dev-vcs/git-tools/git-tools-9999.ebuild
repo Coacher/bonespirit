@@ -3,9 +3,10 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+# Track https://github.com/MestreLion/git-tools/issues/23 for Python-3 support
+PYTHON_COMPAT=( python2_7 )
 
-inherit eutils python-r1 git-r3
+inherit python-r1 git-r3
 
 DESCRIPTION="Assorted git-related scripts"
 HOMEPAGE="https://github.com/MestreLion/git-tools/"
@@ -15,8 +16,10 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="
+DEPEND="${PYTHON_DEPS}"
+RDEPEND="${DEPEND}
 	>=app-shells/bash-4
 	dev-vcs/git
 "
