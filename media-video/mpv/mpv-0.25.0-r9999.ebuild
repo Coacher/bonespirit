@@ -146,7 +146,7 @@ mpv_check_compiler() {
 			die "Your compiler lacks C++11 TLS support. Use GCC>=4.8 or Clang>=3.3."
 		fi
 		if ! tc-is-gcc && use vaapi && use cpu_flags_x86_sse4_1 && \
-				has_version '<media-video/ffmpeg-3.3:0'; then
+				{ has_version '<media-video/ffmpeg-3.3:0' || has_version '<media-video/libav-13:0'; }; then
 			die "${PN} requires GCC for SSE4.1 intrinsics."
 		fi
 	fi
