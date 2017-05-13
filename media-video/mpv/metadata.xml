@@ -37,7 +37,6 @@
 		<flag name="vf-dlopen">Install additional video filters to be used with -vf dlopen</flag>
 	</use>
 	<upstream>
-		<changelog>https://github.com/mpv-player/mpv/releases</changelog>
 		<remote-id type="github">mpv-player/mpv</remote-id>
 	</upstream>
 </pkgmetadata>
