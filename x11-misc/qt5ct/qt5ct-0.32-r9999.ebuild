@@ -12,20 +12,23 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+systray"
+IUSE="+dbus"
 
 RDEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5=
 	dev-qt/qtwidgets:5
-	systray? ( dev-qt/qtgui:5[dbus] )
+	dbus? (
+		dev-qt/qtdbus:5
+		dev-qt/qtgui:5[dbus]
+	)
 "
 DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
 "
 
 src_configure() {
-	eqmake5 DEFINES="$(usex systray '' QT_NO_SYSTEMTRAYICON)" ${PN}.pro
+	eqmake5 DEFINES="$(usex dbus '' QT_NO_DBUS)" ${PN}.pro
 }
 
 src_install() {

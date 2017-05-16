@@ -14,7 +14,7 @@
 		icons, etc.) under DE/WM without Qt5 integration.
 	</longdescription>
 	<use>
-		<flag name="systray">Enable system tray support</flag>
+		<flag name="dbus">Enable system tray and global menu support</flag>
 	</use>
 	<upstream>
 		<remote-id type="sourceforge">qt5ct</remote-id>
