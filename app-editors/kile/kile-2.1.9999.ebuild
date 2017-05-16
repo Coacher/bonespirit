@@ -16,9 +16,14 @@ IUSE="debug +pdf +png"
 
 DEPEND="x11-misc/shared-mime-info"
 RDEPEND="${DEPEND}
-	|| ( $(add_kdeapps_dep okular 'pdf?,postscript') app-text/acroread )
+	$(add_kdeapps_dep katepart '' 4.14.3)
 	$(add_kdeapps_dep kdebase-data)
 	$(add_kdeapps_dep konsolepart)
+	|| (
+		kde-apps/okular[pdf?,postscript]
+		app-text/evince
+		app-text/acroread
+	)
 	virtual/latex-base
 	virtual/tex-base
 	pdf? (
@@ -27,7 +32,7 @@ RDEPEND="${DEPEND}
 	)
 	png? (
 		app-text/dvipng
-		media-gfx/imagemagick[png]
+		virtual/imagemagick-tools[png]
 	)
 "
 
