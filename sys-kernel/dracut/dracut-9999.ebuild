@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit bash-completion-r1 eutils linux-info systemd git-r3
+inherit bash-completion-r1 linux-info toolchain-funcs systemd git-r3
 
 DESCRIPTION="Initramfs generator using udev"
 HOMEPAGE="https://dracut.wiki.kernel.org"
@@ -91,7 +91,7 @@ src_prepare() {
 
 	if use systemd; then
 		local systemdutildir="$(systemd_get_utildir)"
-		local systemdsystemunitdir="$(systemd_get_unitdir)"
+		local systemdsystemunitdir="$(systemd_get_systemunitdir)"
 		local systemdsystemconfdir="$("$(tc-getPKG_CONFIG)" systemd \
 			--variable=systemdsystemconfdir)"
 		[[ ${systemdsystemconfdir} ]] \
@@ -113,7 +113,7 @@ src_prepare() {
 			-i "${S}/dracut.conf.d/gentoo.conf.example" || die
 	fi
 
-	eapply_user
+	default_src_prepare
 }
 
 src_configure() {
@@ -123,7 +123,7 @@ src_configure() {
 	)
 
 	if use systemd; then
-		myconf+=(--systemdsystemunitdir="$(systemd_get_unitdir)")
+		myconf+=(--systemdsystemunitdir="$(systemd_get_systemunitdir)")
 	fi
 
 	econf "${myconf[@]}"
