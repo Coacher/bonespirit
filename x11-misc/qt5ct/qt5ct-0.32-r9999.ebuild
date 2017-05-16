@@ -27,11 +27,7 @@ DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
 "
 
-src_prepare() {
-	default_src_prepare
-
-	epatch "${FILESDIR}/${P}-fix-build-without-dbus.patch"
-}
+PATCHES=( "${FILESDIR}/${P}-fix-build-without-dbus.patch" )
 
 src_configure() {
 	eqmake5 DEFINES="$(usex dbus '' QT_NO_DBUS)" ${PN}.pro
