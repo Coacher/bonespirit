@@ -4,7 +4,7 @@
 EAPI=6
 
 # Convert to a meson eclass when it's ready. Gentoo bug 597182.
-inherit flag-o-matic linux-info multiprocessing systemd git-r3
+inherit flag-o-matic linux-info multiprocessing systemd xdg-utils git-r3
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
@@ -90,6 +90,9 @@ src_prepare() {
 	sed -i \
 		-e 's|libspeechd|speech-dispatcher/libspeechd|g' \
 		plugins/tts/src/tts.c || die
+
+	# Prevent access violations from introspection metadata generation.
+	xdg_environment_reset
 
 	mkdir -p "${MESON_BUILD_DIR}" || die
 }
