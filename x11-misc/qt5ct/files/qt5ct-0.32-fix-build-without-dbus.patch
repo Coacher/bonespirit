@@ -1,3 +1,5 @@
+See https://sourceforge.net/p/qt5ct/tickets/36/
+
 diff --git a/src/qt5ct-qtplugin/qt5ct-qtplugin.pro b/src/qt5ct-qtplugin/qt5ct-qtplugin.pro
 --- a/src/qt5ct-qtplugin/qt5ct-qtplugin.pro	(revision 408)
 +++ b/src/qt5ct-qtplugin/qt5ct-qtplugin.pro	(working copy)
