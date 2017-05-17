@@ -29,7 +29,7 @@ src_prepare() {
 		runtime/tools/mve.awk || die
 
 	# Fix NeXT misdetection caused by dev-libs/9libs. See Gentoo bug 43885.
-	sed -i -e 's|libc\.h||' src/configure.ac || die
+	sed -i -e 's|libc\.h ||' src/configure.ac || die
 
 	# Fix EOF misdetection on SPARC. See Gentoo bug 66162.
 	find "${S}" -name '*.c' | while read -r file; do echo >> "${file}"; done
