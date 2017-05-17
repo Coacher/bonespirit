@@ -4,7 +4,7 @@
 EAPI=6
 
 # Convert to a meson eclass when it's ready. Gentoo bug 597182.
-inherit flag-o-matic linux-info multiprocessing systemd xdg-utils
+inherit flag-o-matic linux-info ninja-utils systemd xdg-utils
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
@@ -110,8 +110,8 @@ emesonconf() {
 	"${@}" || die
 }
 
-meson_use_enable() {
-	echo "-Denable-${2:-${1}}=$(usex ${1} 'true' 'false')"
+eventd_use_enable() {
+	echo "-Denable-${2:-${1}}=$(usex ${1} 'true' 'false')" || die
 }
 
 src_configure() {
@@ -119,36 +119,27 @@ src_configure() {
 		-Dsystemduserunitdir="$(systemd_get_userunitdir)"
 		-Dsystemdsystemunitdir="$(systemd_get_systemunitdir)"
 		-Ddbussessionservicedir="${EPREFIX}/usr/share/dbus-1/services"
-		$(meson_use_enable websocket)
-		$(meson_use_enable zeroconf dns-sd)
-		$(meson_use_enable upnp ssdp)
-		$(meson_use_enable introspection)
-		$(meson_use_enable ipv6)
-		$(meson_use_enable systemd)
-		$(meson_use_enable notification notification-daemon)
+		$(eventd_use_enable websocket)
+		$(eventd_use_enable zeroconf dns-sd)
+		$(eventd_use_enable upnp ssdp)
+		$(eventd_use_enable introspection)
+		$(eventd_use_enable ipv6)
+		$(eventd_use_enable systemd)
+		$(eventd_use_enable notification notification-daemon)
 		# Wayland plugin requires wayland-wall, which is currently WIP.
 		# See https://github.com/wayland-wall/wayland-wall/issues/1
 		-Denable-nd-wayland="false"
-		$(meson_use_enable X nd-xcb)
-		$(meson_use_enable fbcon nd-fbdev)
-		$(meson_use_enable purple im)
-		$(meson_use_enable pulseaudio sound)
-		$(meson_use_enable speech tts)
-		$(meson_use_enable libnotify)
-		$(meson_use_enable libcanberra)
-		$(meson_use_enable debug)
+		$(eventd_use_enable X nd-xcb)
+		$(eventd_use_enable fbcon nd-fbdev)
+		$(eventd_use_enable purple im)
+		$(eventd_use_enable pulseaudio sound)
+		$(eventd_use_enable speech tts)
+		$(eventd_use_enable libnotify)
+		$(eventd_use_enable libcanberra)
+		$(eventd_use_enable debug)
 	)
 
 	emesonconf "${mymesonargs[@]}"
-}
-
-eninja() {
-	if [[ -z ${NINJAOPTS+set} ]]; then
-		NINJAOPTS="-j$(makeopts_jobs) -l$(makeopts_loadavg)"
-	fi
-	set -- ninja -v ${NINJAOPTS} -C "${MESON_BUILD_DIR}" "${@}"
-	echo "${@}"
-	"${@}" || die
 }
 
 src_compile() {
