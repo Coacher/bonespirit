@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="qt5 test"
 
-COMMON_DEPEND="
+RDEPEND="
 	app-i18n/uchardet
 	!qt5? (
 		dev-qt/qtcore:4
@@ -29,15 +29,15 @@ COMMON_DEPEND="
 		dev-qt/qtwidgets:5
 	)
 "
-RDEPEND="${COMMON_DEPEND}
-	media-sound/shntool
-"
-DEPEND="${COMMON_DEPEND}
+DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	qt5? ( dev-qt/linguist-tools:5 )
 	test? (
+		media-libs/flac
+		media-sound/mac
+		media-sound/ttaenc
+		media-sound/wavpack
 		media-sound/shntool
-		virtual/ffmpeg
 		!qt5? ( dev-qt/qttest:4 )
 		qt5? ( dev-qt/qttest:5 )
 	)
