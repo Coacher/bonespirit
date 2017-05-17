@@ -1,7 +1,7 @@
 See cnf/Makefile for AC_CONFIG_HEADER and srcdir changes.
 
 diff --git a/Makefile.in b/Makefile.in
-index 16d7f14f..733c1977 100644
+index 1f2f28044..03e4f27cd 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -114,7 +114,7 @@ bin/$(GAPARCH)/config.status : bin/$(GAPARCH)/configure cnf/config.hin cnf/gac.i
@@ -14,7 +14,7 @@ index 16d7f14f..733c1977 100644
  extern: config
  	( cd bin/$(GAPARCH)/extern ; \
 diff --git a/cnf/configure.in b/cnf/configure.in
-index d4089385..8eda290a 100644
+index 9c57e492a..c0d48559e 100644
 --- a/cnf/configure.in
 +++ b/cnf/configure.in
 @@ -16,7 +16,7 @@ dnl ##
@@ -26,19 +26,19 @@ index d4089385..8eda290a 100644
 
 
  dnl #########################################################################
-@@ -387,7 +387,9 @@ AC_SUBST(CPPFLAGS)
+@@ -389,7 +389,9 @@ AC_SUBST(CPPFLAGS)
  AC_SUBST(LDFLAGS)
 
  AC_SUBST(gapbin)
 -gapbin=`pwd`
 +gapbin=$libdir/gap/bin/${GAPARCH}
 +AC_SUBST(gapinc)
-+gapinc=$prefix/include/gap-4.8.6
++gapinc=$prefix/include/gap-4.8.7
 
  AC_SUBST(ABI)
  AC_SUBST(ABI_CFLAGS)
 diff --git a/cnf/gac.in b/cnf/gac.in
-index ad603201..431f58ac 100644
+index ad603201e..431f58ace 100644
 --- a/cnf/gac.in
 +++ b/cnf/gac.in
 @@ -67,7 +67,7 @@ else
@@ -125,7 +125,7 @@ index ad603201..431f58ac 100644
  EXTOBJS=
 
 diff --git a/configure.in b/configure.in
-index 1424bd96..fde7d481 100644
+index 1424bd962..fde7d4811 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -52,7 +52,7 @@ BASECC=`basename ${CC}`

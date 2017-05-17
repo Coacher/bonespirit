@@ -11,7 +11,7 @@ SRC_URI="https://github.com/gap-system/gap/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
+KEYWORDS="~amd64 ~x86"
 IUSE="emacs readline vim-syntax"
 
 DEPEND="
@@ -27,12 +27,13 @@ PDEPEND="dev-gap/GAPDoc"
 RESTRICT=mirror
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.5.7-writeandcheck.patch"
-	"${FILESDIR}/${PN}-4.8.6-configdir.patch"
+	"${FILESDIR}/${P}-nodefaultpackages.patch"
+	"${FILESDIR}/${P}-writeandcheck.patch"
+	"${FILESDIR}/${P}-configdir.patch"
 )
 
 update_version_info() {
-	local RELEASE_DATE='12-Nov-2016' # XXX: update this every release.
+	local RELEASE_DATE='24-Mar-2017' # XXX: update this every release.
 	local RELEASE_YEAR=${RELEASE_DATE##*-}
 
 	# See DistributionUpdate/updateversioninfo script from

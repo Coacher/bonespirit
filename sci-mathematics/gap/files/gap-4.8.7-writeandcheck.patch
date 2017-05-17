@@ -1,8 +1,8 @@
 diff --git a/src/sysfiles.c b/src/sysfiles.c
-index 792b671..bc5b102 100644
+index 04731c8e8..37438fe71 100644
 --- a/src/sysfiles.c
 +++ b/src/sysfiles.c
-@@ -88,12 +88,17 @@ extern int errno;
+@@ -92,12 +92,17 @@ extern int errno;
 
  /* utility to check return value of 'write'  */
  ssize_t writeandcheck(int fd, const char *buf, size_t count) {
