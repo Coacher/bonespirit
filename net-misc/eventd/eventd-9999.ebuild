@@ -142,27 +142,18 @@ src_configure() {
 	emesonconf "${mymesonargs[@]}"
 }
 
-eninja() {
-	if [[ -z ${NINJAOPTS+set} ]]; then
-		NINJAOPTS="-j$(makeopts_jobs) -l$(makeopts_loadavg)"
-	fi
-	set -- ninja -v ${NINJAOPTS} -C "${MESON_BUILD_DIR}" "${@}"
-	echo "${@}"
-	"${@}" || die
-}
-
 src_compile() {
-	eninja
+	eninja -C "${MESON_BUILD_DIR}"
 }
 
 src_install() {
-	DESTDIR="${ED%/}" eninja install
+	DESTDIR="${ED%/}" eninja -C "${MESON_BUILD_DIR}" install
 	einstalldocs
 }
 
 src_test() {
 	local -x EVENTD_TESTS_TMP_DIR="${T}"
-	eninja test
+	eninja -C "${MESON_BUILD_DIR}" test
 }
 
 pkg_postinst() {

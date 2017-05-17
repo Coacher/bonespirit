@@ -143,17 +143,17 @@ src_configure() {
 }
 
 src_compile() {
-	eninja
+	eninja -C "${MESON_BUILD_DIR}"
 }
 
 src_install() {
-	DESTDIR="${ED%/}" eninja install
+	DESTDIR="${ED%/}" eninja -C "${MESON_BUILD_DIR}" install
 	einstalldocs
 }
 
 src_test() {
 	local -x EVENTD_TESTS_TMP_DIR="${T}"
-	eninja test
+	eninja -C "${MESON_BUILD_DIR}" test
 }
 
 pkg_postinst() {
