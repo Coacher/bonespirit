@@ -12,14 +12,18 @@ EGIT_REPO_URI=( {https,git}://git.kernel.org/pub/scm/network/${PN}/${PN}.git )
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bluetooth debug doc +ethernet examples l2tp ofono openconnect openvpn policykit pptp tools vpnc +wifi wispr"
+IUSE="bluetooth debug doc dundee +ethernet examples l2tp networkmanager nfc
+	ofono openconnect openvpn policykit pptp selinux tools usb vpnc +wifi
+	wispr"
 
 RDEPEND="
 	dev-libs/glib:2
 	net-firewall/iptables
 	sys-apps/dbus
 	bluetooth? ( net-wireless/bluez )
+	dundee? ( net-misc/ofono[dundee] )
 	l2tp? ( net-dialup/xl2tpd )
+	nfc? ( net-wireless/neard )
 	ofono? ( net-misc/ofono )
 	openconnect? ( net-vpn/openconnect )
 	openvpn? ( net-vpn/openvpn )
@@ -47,28 +51,39 @@ src_prepare() {
 }
 
 src_configure() {
-	econf \
-		--localstatedir=/var \
-		--enable-client \
-		--enable-datafiles \
-		--enable-loopback=builtin \
-		--disable-hh2serial-gps \
-		--disable-iospm \
-		--disable-tist \
-		$(use_enable debug) \
-		$(use_enable openconnect openconnect builtin) \
-		$(use_enable openvpn openvpn builtin) \
-		$(use_enable vpnc vpnc builtin) \
-		$(use_enable l2tp l2tp builtin) \
-		$(use_enable pptp pptp builtin) \
-		$(use_enable examples test) \
-		$(use_enable policykit polkit builtin) \
-		$(use_enable ethernet ethernet builtin) \
-		$(use_enable wifi wifi builtin) \
-		$(use_enable bluetooth bluetooth builtin) \
-		$(use_enable ofono ofono builtin) \
-		$(use_enable wispr wispr builtin) \
+	local myeconfargs=(
+		--localstatedir="${EPREFIX}/var"
+		--with-systemdunitdir=$(systemd_get_systemunitdir)
+		--with-tmpfilesdir="${EPREFIX}/usr/lib/tmpfiles.d"
+		--disable-hh2serial-gps	# Requires specific hardware.
+		--disable-iospm			# Requires specific hardware.
+		--disable-tist			# Requires specific hardware.
+		--enable-session-policy-local=builtin
+		--enable-loopback
+		--disable-pacrunner		# Only available in overlays.
+		--enable-client
+		--enable-datafiles
+		$(use_enable debug)
+		$(use_enable openconnect openconnect builtin)
+		$(use_enable openvpn openvpn builtin)
+		$(use_enable vpnc vpnc builtin)
+		$(use_enable l2tp l2tp builtin)
+		$(use_enable pptp pptp builtin)
+		$(use_enable examples test)
+		$(use_enable networkmanager nmcompat)
+		$(use_enable policykit polkit)
+		$(use_enable selinux)
+		$(use_enable ethernet)
+		$(use_enable usb gadget)
+		$(use_enable wifi)
+		$(use_enable bluetooth)
+		$(use_enable ofono)
+		$(use_enable dundee)
+		$(use_enable nfc neard)
+		$(use_enable wispr)
 		$(use_enable tools)
+	)
+	econf "${myeconfargs[@]}"
 }
 
 src_install() {
@@ -76,10 +91,8 @@ src_install() {
 	dobin client/connmanctl
 	use doc && dodoc doc/*.txt
 
-	# Avoid installing empty directory. See Gentoo bug 596874.
-	keepdir /usr/$(get_libdir)/${PN}/scripts
-
 	keepdir /var/lib/${PN}
+	keepdir /usr/$(get_libdir)/${PN}/scripts
 	newinitd "${FILESDIR}"/${PN}.initd ${PN}
 	newconfd "${FILESDIR}"/${PN}.confd ${PN}
 }

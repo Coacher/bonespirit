@@ -2,20 +2,14 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>nvinson234@gmail.com</email>
-		<name>Nicholas Vinson</name>
-	</maintainer>
-	<maintainer type="person">
-		<email>dlan@gentoo.org</email>
-		<name>Yixun Lan</name>
-	</maintainer>
-	<maintainer type="project">
-		<email>proxy-maint@gentoo.org</email>
-		<name>Proxy Maintainers</name>
+		<email>itumaykin+gentoo@gmail.com</email>
+		<name>Coacher</name>
 	</maintainer>
 	<use>
+		<flag name="dundee">Use <pkg>net-misc/ofono</pkg> for BlueTooth DUN support.</flag>
 		<flag name="ethernet">Enable ethernet support.</flag>
 		<flag name="l2tp">Use <pkg>net-dialup/xl2tpd</pkg> for L2TP VPN support.</flag>
+		<flag name="nfc">Use <pkg>net-wireless/neard</pkg> for NFC support.</flag>
 		<flag name="ofono">Use <pkg>net-misc/ofono</pkg> for telephony support.</flag>
 		<flag name="openconnect">Use <pkg>net-vpn/openconnect</pkg> for VPN support.</flag>
 		<flag name="openvpn">Use <pkg>net-vpn/openvpn</pkg> for openvpn support.</flag>
