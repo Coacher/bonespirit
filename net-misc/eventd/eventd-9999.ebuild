@@ -103,7 +103,6 @@ src_configure() {
 		$(eventd_use_enable websocket)
 		$(eventd_use_enable zeroconf dns-sd)
 		$(eventd_use_enable upnp ssdp)
-		$(eventd_use_enable introspection)
 		$(eventd_use_enable ipv6)
 		$(eventd_use_enable systemd)
 		$(eventd_use_enable notification notification-daemon)
@@ -117,6 +116,7 @@ src_configure() {
 		$(eventd_use_enable speech tts)
 		$(eventd_use_enable libnotify)
 		$(eventd_use_enable libcanberra)
+		$(eventd_use_enable introspection gobject-introspection)
 		$(eventd_use_enable debug)
 	)
 	meson_src_configure
