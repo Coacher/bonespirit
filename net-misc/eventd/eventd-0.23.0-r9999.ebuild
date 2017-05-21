@@ -122,12 +122,6 @@ src_configure() {
 	meson_src_configure
 }
 
-src_install() {
-	meson_src_install
-	# meson.eclass being dumb, see Gentoo bug 619178.
-	einstalldocs
-}
-
 src_test() {
 	EVENTD_TESTS_TMP_DIR="${T}" meson_src_test
 }
