@@ -3,8 +3,7 @@
 
 EAPI=6
 
-# Convert to a meson eclass when it's ready. Gentoo bug 597182.
-inherit flag-o-matic linux-info ninja-utils systemd xdg-utils
+inherit flag-o-matic linux-info meson ninja-utils systemd xdg-utils
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
@@ -52,7 +51,6 @@ COMMON_DEPEND="
 	zeroconf? ( net-dns/avahi[dbus] )
 "
 DEPEND="${COMMON_DEPEND}
-	>=dev-util/meson-0.39.1
 	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
@@ -81,8 +79,6 @@ pkg_setup() {
 	eventd_check_compiler
 }
 
-MESON_BUILD_DIR="${WORKDIR}/${P}_mesonbuild"
-
 src_prepare() {
 	default_src_prepare
 
@@ -93,21 +89,6 @@ src_prepare() {
 
 	# Prevent access violations from introspection metadata generation.
 	xdg_environment_reset
-
-	mkdir -p "${MESON_BUILD_DIR}" || die
-}
-
-emesonconf() {
-	set -- meson \
-		--prefix="${EPREFIX}/usr" \
-		--libdir="$(get_libdir)" \
-		--sysconfdir="${EPREFIX}/etc" \
-		--localstatedir="${EPREFIX}/var/lib" \
-		--buildtype=plain \
-		"${@}" \
-		"${MESON_BUILD_DIR}"
-	echo "${@}"
-	"${@}" || die
 }
 
 eventd_use_enable() {
@@ -115,7 +96,7 @@ eventd_use_enable() {
 }
 
 src_configure() {
-	local mymesonargs=(
+	local emesonargs=(
 		-Dsystemduserunitdir="$(systemd_get_userunitdir)"
 		-Dsystemdsystemunitdir="$(systemd_get_systemunitdir)"
 		-Ddbussessionservicedir="${EPREFIX}/usr/share/dbus-1/services"
@@ -138,22 +119,17 @@ src_configure() {
 		$(eventd_use_enable libcanberra)
 		$(eventd_use_enable debug)
 	)
-
-	emesonconf "${mymesonargs[@]}"
-}
-
-src_compile() {
-	eninja -C "${MESON_BUILD_DIR}"
+	meson_src_configure
 }
 
 src_install() {
-	DESTDIR="${ED%/}" eninja -C "${MESON_BUILD_DIR}" install
+	meson_src_install
+	# meson.eclass being dumb, see Gentoo bug 619178.
 	einstalldocs
 }
 
 src_test() {
-	local -x EVENTD_TESTS_TMP_DIR="${T}"
-	eninja -C "${MESON_BUILD_DIR}" test
+	EVENTD_TESTS_TMP_DIR="${T}" meson_src_test
 }
 
 pkg_postinst() {
