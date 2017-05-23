@@ -13,7 +13,7 @@ LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug fbcon +introspection ipv6 libcanberra libnotify +notification
-	pulseaudio purple speech systemd test upnp websocket +X zeroconf"
+	pulseaudio purple speech systemd test upnp webhook websocket +X zeroconf"
 
 REQUIRED_USE="
 	X? ( notification )
@@ -47,6 +47,7 @@ COMMON_DEPEND="
 	speech? ( app-accessibility/speech-dispatcher )
 	systemd? ( sys-apps/systemd:= )
 	upnp? ( net-libs/gssdp:= )
+	webhook? ( >=net-libs/libsoup-2.42:2.4 )
 	websocket? ( >=net-libs/libsoup-2.50:2.4 )
 	zeroconf? ( net-dns/avahi[dbus] )
 "
@@ -114,6 +115,7 @@ src_configure() {
 		$(eventd_use_enable purple im)
 		$(eventd_use_enable pulseaudio sound)
 		$(eventd_use_enable speech tts)
+		$(eventd_use_enable webhook)
 		$(eventd_use_enable libnotify)
 		$(eventd_use_enable libcanberra)
 		$(eventd_use_enable introspection gobject-introspection)
