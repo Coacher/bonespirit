@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit flag-o-matic linux-info meson ninja-utils systemd xdg-utils
+inherit flag-o-matic linux-info meson systemd xdg-utils
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
