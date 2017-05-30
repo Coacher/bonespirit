@@ -134,6 +134,11 @@ PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
 	"${FILESDIR}/${PV}/${PN}-use-internal-GL-definitions.patch"
+	"${FILESDIR}/${PV}/${PN}-fix-segfault-with-sdh-filter.patch"
+	"${FILESDIR}/${PV}/${PN}-fix-segfault-with-dvd-disabled.patch"
+	"${FILESDIR}/${PV}/${PN}-fix-memory-leaks.patch"
+	"${FILESDIR}/${PV}/${PN}-fix-unnecessary-seek-blocking.patch"
+	"${FILESDIR}/${PV}/${PN}-fix-vp9-alpha-channel.patch"
 )
 
 mpv_check_compiler() {
