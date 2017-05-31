@@ -16,6 +16,7 @@ IUSE="drun test +windowmode"
 
 RDEPEND="
 	dev-libs/glib:2
+	gnome-base/librsvg:2
 	x11-libs/cairo[xcb]
 	x11-libs/libxcb[xkb]
 	x11-libs/libxkbcommon[X]
