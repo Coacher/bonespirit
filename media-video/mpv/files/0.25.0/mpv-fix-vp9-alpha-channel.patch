@@ -21,3 +21,38 @@ index 3e7958b82..b1edb7c69 100644
              if (track->parse_timebase) {
                  new->pts = track->av_parser->pts == AV_NOPTS_VALUE
                           ? MP_NOPTS_VALUE : track->av_parser->pts / tb;
+
+
+commit c443aa68d36a3c4e6ab6d3f13d20a5cc280d6160
+Author: wm4 <wm4@nowhere>
+Date:   Tue May 30 22:50:05 2017 +0200
+
+demux_mkv: vp9 alpha, second try
+
+The parser is used to split superframes, and the decoder didn't like
+when the blockadditional was duplicated on the second split packet.
+
+diff --git a/demux/demux_mkv.c b/demux/demux_mkv.c
+index b1edb7c69..9515cd10c 100644
+--- a/demux/demux_mkv.c
++++ b/demux/demux_mkv.c
+@@ -2381,6 +2381,7 @@ static void mkv_parse_and_add_packet(demuxer_t *demuxer, mkv_track_t *track,
+     double tb = track->parse_timebase;
+     int64_t pts = dp->pts == MP_NOPTS_VALUE ? AV_NOPTS_VALUE : dp->pts * tb;
+     int64_t dts = dp->dts == MP_NOPTS_VALUE ? AV_NOPTS_VALUE : dp->dts * tb;
++    bool copy_sidedata = true;
+
+     while (dp->len) {
+         uint8_t *data = NULL;
+@@ -2399,8 +2400,10 @@ static void mkv_parse_and_add_packet(demuxer_t *demuxer, mkv_track_t *track,
+                 break;
+             demux_packet_copy_attribs(new, dp);
+ #if LIBAVCODEC_VERSION_MICRO >= 100
+-            av_copy_packet_side_data(new->avpacket, dp->avpacket);
++            if (copy_sidedata)
++                av_copy_packet_side_data(new->avpacket, dp->avpacket);
+ #endif
++            copy_sidedata = false;
+             if (track->parse_timebase) {
+                 new->pts = track->av_parser->pts == AV_NOPTS_VALUE
+                          ? MP_NOPTS_VALUE : track->av_parser->pts / tb;
