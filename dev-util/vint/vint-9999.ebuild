@@ -33,6 +33,14 @@ DEPEND="${RDEPEND}
 	)
 "
 
+python_prepare_all() {
+	distutils-r1_python_prepare_all
+
+	# Don't try to use an installed vint executable.
+	# See https://github.com/Kuniwak/vint/issues/22
+	sed -i -e "s|'vint'|'bin/vint'|" test/acceptance/test_cli{,_vital}.py || die
+}
+
 python_test() {
 	py.test -v || die "Test suite failed with ${EPYTHON}"
 }
