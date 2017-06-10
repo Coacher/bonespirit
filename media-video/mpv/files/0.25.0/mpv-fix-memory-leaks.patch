@@ -33,7 +33,6 @@ index 889505324..fa79e9bc6 100644
          vdp_st = vdp->output_surface_destroy(ctx->preemption_obj);
          CHECK_VDP_WARNING(ctx, "Error when calling vdp_output_surface_destroy");
 
-
 commit bc3365b1693ce2a2c795a489c64738a42d5c7e6b
 Author: Raúl Peñacoba <raul.mikaop.zelda@gmail.com>
 Date:   Wed May 10 22:21:16 2017 +0200
@@ -62,3 +61,29 @@ index aae590eba..dce3ca433 100644
          return NULL;
      }
 
+commit 79dc1834f5932b36b0a2b48388654d2c4dcd2817
+Author: wm4 <wm4@nowhere>
+Date:   Thu Jun 8 21:12:18 2017 +0200
+
+m_option: fix leaks with OPT_KEYVALUELIST options
+
+For example, specifying --script-opts multiple times could leak some
+data.
+
+diff --git a/options/m_option.c b/options/m_option.c
+index fa93dd47c..87e6eead3 100644
+--- a/options/m_option.c
++++ b/options/m_option.c
+@@ -1509,9 +1509,12 @@ static int parse_keyvalue_list(struct mp_log *log, const m_option_t *opt,
+     }
+
+     if (dst) {
++        free_str_list(dst);
+         VAL(dst) = lst;
+         if (r < 0)
+             free_str_list(dst);
++    } else {
++        free_str_list(&lst);
+     }
+     return r;
+ }
