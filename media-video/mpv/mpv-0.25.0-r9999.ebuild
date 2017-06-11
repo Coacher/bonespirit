@@ -8,7 +8,7 @@ PYTHON_REQ_USE='threads(+)'
 
 WAF_PV=1.9.8
 
-inherit epatch gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
+inherit gnome2-utils pax-utils python-r1 toolchain-funcs versionator waf-utils xdg-utils
 
 DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
@@ -160,7 +160,7 @@ src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
 	default_src_prepare
-	epatch "${WORKDIR}/${PV}"/*.patch
+	eapply "${WORKDIR}/${PV}"
 }
 
 src_configure() {
