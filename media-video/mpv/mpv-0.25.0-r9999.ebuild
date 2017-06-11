@@ -14,7 +14,10 @@ DESCRIPTION="Media player based on MPlayer and mplayer2"
 HOMEPAGE="https://mpv.io/"
 
 if [[ ${PV} != *9999* ]]; then
-	SRC_URI="https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="
+		https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz
+		https://dev.gentoo.org/~kensington/distfiles/${P}-patches-r1.tar.xz
+	"
 	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86 ~amd64-linux"
 	DOCS=( RELEASE_NOTES )
 else
@@ -157,7 +160,7 @@ src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
 	default_src_prepare
-	epatch "${FILESDIR}/${PV}"/*.patch
+	epatch "${WORKDIR}/${PV}"/*.patch
 }
 
 src_configure() {
