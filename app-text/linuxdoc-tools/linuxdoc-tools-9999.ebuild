@@ -63,7 +63,13 @@ src_compile() {
 	default_src_compile
 }
 
+src_test() {
+	# Override autotools-utils.eclass
+	default_src_test
+}
+
 src_install() {
+	# Override autotools-utils.eclass
 	default_src_install
 }
 
