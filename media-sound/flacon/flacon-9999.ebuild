@@ -5,8 +5,10 @@ EAPI=6
 
 # Ignore rudimentary et, uz@Latn, zh_TW translation(s).
 PLOCALES="cs cs_CZ de es es_MX fr gl hu it ja_JP lt nb nl pl pl_PL pt_BR pt_PT ro_RO ru sr sr@latin tr uk zh_CN"
+# Tests require lots of disk space
+CHECKREQS_DISK_BUILD=10G
 
-inherit cmake-utils eutils gnome2-utils l10n virtualx xdg-utils git-r3
+inherit check-reqs cmake-utils eutils gnome2-utils l10n virtualx xdg-utils git-r3
 
 DESCRIPTION="Extracts audio tracks from an audio CD image to separate tracks"
 HOMEPAGE="https://flacon.github.io/"
@@ -42,6 +44,14 @@ DEPEND="${RDEPEND}
 		qt5? ( dev-qt/qttest:5 )
 	)
 "
+
+pkg_pretend() {
+	use test && check-reqs_pkg_pretend
+}
+
+pkg_setup() {
+	use test && check-reqs_pkg_setup
+}
 
 src_prepare() {
 	cmake-utils_src_prepare
