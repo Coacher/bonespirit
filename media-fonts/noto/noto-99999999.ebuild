@@ -19,10 +19,17 @@ RESTRICT="binchecks strip"
 DOCS="FAQ.md README.md"
 
 FONT_SUFFIX="ttf"
-FONT_S="${S}/hinted"
+FONT_S="${WORKDIR}/${PN}-ttf"
 FONT_CONF=( "${FILESDIR}/59-${PN}.conf" )
 
 src_prepare() {
 	default_src_prepare
-	rm -r "${FONT_S}"/Arimo* "${FONT_S}"/Cousine* "${FONT_S}"/Tinos* || die
+	rm "${S}"/hinted/Arimo* "${S}"/hinted/Cousine* "${S}"/hinted/Tinos* || die
+
+	mkdir "${FONT_S}" || die
+	mv \
+		"${S}"/hinted/NotoSans-*.ttf \
+		"${S}"/hinted/NotoSerif-*.ttf \
+		"${S}"/hinted/NotoMono-*.ttf \
+		"${FONT_S}" || die
 }
