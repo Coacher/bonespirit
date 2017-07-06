@@ -62,6 +62,11 @@ src_compile() {
 	default_src_compile
 }
 
+src_install() {
+	# Override latex-package.eclass
+	default_src_install
+}
+
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
 
 pkg_postinst() {
