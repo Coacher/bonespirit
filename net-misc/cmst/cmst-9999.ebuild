@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit gnome2-utils qmake-utils git-r3
+inherit qmake-utils git-r3
 
 DESCRIPTION="Qt GUI for Connman with system tray icon"
 HOMEPAGE="https://github.com/andrew-bibb/cmst"
@@ -25,6 +25,14 @@ RDEPEND="${DEPEND}
 	net-misc/connman
 "
 
+PATCHES=( "${FILESDIR}/${PN}-fix-icons-install-check.patch" )
+
+src_prepare() {
+	default_src_prepare
+	# Do not install ugly default icon.
+	rm images/application/cmst-icon.png || die
+}
+
 src_configure() {
 	export USE_LIBPATH="${EPREFIX}/usr/$(get_libdir)/${PN}"
 	eqmake5 DISTRO=gentoo
@@ -33,16 +41,4 @@ src_configure() {
 src_install() {
 	emake INSTALL_ROOT="${D}" install
 	rm -r "${ED}"usr/share/licenses || die
-}
-
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
-pkg_postinst() {
-	gnome2_icon_cache_update
-}
-
-pkg_postrm() {
-	gnome2_icon_cache_update
 }
