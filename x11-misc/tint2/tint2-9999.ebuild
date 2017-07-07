@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit cmake-utils gnome2-utils git-r3
+inherit cmake-utils gnome2-utils xdg-utils git-r3
 
 DESCRIPTION="A lightweight panel/taskbar"
 HOMEPAGE="https://gitlab.com/o9000/tint2"
@@ -49,8 +49,10 @@ pkg_preinst() {
 
 pkg_postinst() {
 	gnome2_icon_cache_update
+	use tint2conf && xdg_desktop_database_update
 }
 
 pkg_postrm() {
 	gnome2_icon_cache_update
+	use tint2conf && xdg_desktop_database_update
 }
