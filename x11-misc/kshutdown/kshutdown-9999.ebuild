@@ -30,10 +30,6 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-src_prepare() {
-	default_src_prepare
-}
-
 src_configure() {
 	cd src || die && $(usex qt5 'eqmake5' 'eqmake4')
 }
