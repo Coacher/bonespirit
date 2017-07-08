@@ -25,8 +25,6 @@ RDEPEND="${DEPEND}
 	net-misc/connman
 "
 
-PATCHES=( "${FILESDIR}/${PN}-fix-icons-install-check.patch" )
-
 src_prepare() {
 	default_src_prepare
 	# Do not install ugly default icon.
