@@ -22,7 +22,6 @@ RDEPEND="${DEPEND}
 	|| (
 		kde-apps/okular[pdf?,postscript]
 		app-text/evince
-		app-text/acroread
 	)
 	virtual/latex-base
 	virtual/tex-base
