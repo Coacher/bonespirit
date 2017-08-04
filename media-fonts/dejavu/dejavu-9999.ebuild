@@ -17,6 +17,7 @@ IUSE=""
 DEPEND="
 	app-i18n/unicode-data
 	dev-perl/Font-TTF
+	dev-perl/IO-String
 	media-gfx/fontforge
 	media-libs/fontconfig
 "
