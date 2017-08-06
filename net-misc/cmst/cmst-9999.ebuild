@@ -27,8 +27,14 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	default_src_prepare
+
 	# Do not install ugly default icon.
 	rm images/application/cmst-icon.png || die
+
+	# Disable tear off menu in systray.
+	sed -i \
+		-e '/setTearOff/s/true/false/g' \
+		apps/cmstapp/code/control_box/controlbox.cpp || die
 }
 
 src_configure() {
