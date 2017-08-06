@@ -81,4 +81,6 @@ src_install() {
 
 	# Remove deprecated completions (moved to other packages).
 	rm "${ED}"usr/share/${PN}/completions/_* || die
+	# Remove dangling symlinks from stripped completions.
+	rm "${ED}"usr/share/${PN}/completions/aptitude-curses || die
 }
