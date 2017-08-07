@@ -21,6 +21,7 @@ RDEPEND="
 	dev-python/pycountry[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
+	dev-python/websocket-client[${PYTHON_USEDEP}]
 	media-video/rtmpdump
 	virtual/ffmpeg
 "
