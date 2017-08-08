@@ -181,6 +181,7 @@ src_configure() {
 		$(use_enable zsh-completion zsh-comp)
 		$(use_enable test)
 
+		--disable-android
 		$(use_enable iconv)
 		$(use_enable samba libsmbclient)
 		$(use_enable lua)
@@ -236,7 +237,6 @@ src_configure() {
 		$(usex vaapi "$(use_enable gbm vaapi-drm)" '--disable-vaapi-drm')
 		$(use_enable libcaca caca)
 		$(use_enable jpeg)
-		--disable-android
 		$(use_enable raspberry-pi rpi)
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 		--disable-mali-fbdev	# Only available in overlays.
