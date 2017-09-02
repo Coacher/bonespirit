@@ -9,7 +9,7 @@ inherit haskell-cabal git-r3
 
 DESCRIPTION="A shell script static analysis tool"
 HOMEPAGE="https://www.shellcheck.net/ https://github.com/koalaman/shellcheck"
-EGIT_REPO_URI=( {https,git}://github.com/koalaman/${PN}.git )
+EGIT_REPO_URI="https://github.com/koalaman/shellcheck.git"
 
 LICENSE="GPL-3+"
 SLOT="0/${PV}"
