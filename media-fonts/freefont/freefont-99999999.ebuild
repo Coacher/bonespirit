@@ -9,7 +9,7 @@ inherit font python-single-r1 subversion
 
 DESCRIPTION="Free UCS outline fonts"
 HOMEPAGE="https://www.gnu.org/software/freefont/ https://savannah.gnu.org/projects/freefont/"
-ESVN_REPO_URI="svn://svn.savannah.gnu.org/${PN}/trunk/${PN}"
+ESVN_REPO_URI="svn://svn.savannah.gnu.org/freefont/trunk/freefont"
 
 LICENSE="GPL-3+"
 SLOT="0"
