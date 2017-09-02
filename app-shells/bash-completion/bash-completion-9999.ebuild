@@ -7,7 +7,7 @@ inherit autotools git-r3
 
 DESCRIPTION="Programmable completion functions for bash"
 HOMEPAGE="https://github.com/scop/bash-completion"
-EGIT_REPO_URI=( {https,git}://github.com/scop/${PN}.git )
+EGIT_REPO_URI="https://github.com/scop/bash-completion.git"
 
 LICENSE="GPL-2+"
 SLOT="0"
