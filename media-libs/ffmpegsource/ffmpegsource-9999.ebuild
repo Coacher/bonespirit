@@ -7,7 +7,7 @@ inherit autotools eutils git-r3
 
 DESCRIPTION="A libav/ffmpeg based source library for easy frame accurate access"
 HOMEPAGE="https://github.com/FFMS/ffms2"
-EGIT_REPO_URI=( {https,git}://github.com/FFMS/ffms2.git )
+EGIT_REPO_URI="https://github.com/FFMS/ffms2.git"
 
 LICENSE="MIT"
 SLOT="0/4"
