@@ -7,7 +7,7 @@ inherit font git-r3
 
 DESCRIPTION="Google's font family that aims to support all the world's languages"
 HOMEPAGE="https://www.google.com/get/noto/ https://github.com/googlei18n/noto-fonts"
-EGIT_REPO_URI=( {https,git}://github.com/googlei18n/${PN}-fonts.git )
+EGIT_REPO_URI="https://github.com/googlei18n/noto-fonts.git"
 
 LICENSE="OFL-1.1"
 SLOT="0"

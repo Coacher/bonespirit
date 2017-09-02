@@ -7,7 +7,7 @@ inherit font git-r3
 
 DESCRIPTION="DejaVu fonts, Bitstream Vera with a wider range of characters"
 HOMEPAGE="http://dejavu-fonts.org/wiki/Main_Page https://github.com/dejavu-fonts/dejavu-fonts"
-EGIT_REPO_URI=( {https,git}://github.com/${PN}-fonts/${PN}-fonts.git )
+EGIT_REPO_URI="https://github.com/dejavu-fonts/dejavu-fonts.git"
 
 LICENSE="BitstreamVera"
 SLOT="0"
