@@ -1,8 +1,8 @@
 diff --git a/data/scripts/Xsession b/data/scripts/Xsession
-index 0c923a8..1b9fa4e 100755
+index 9dd3814..8a4fcbc 100755
 --- a/data/scripts/Xsession
 +++ b/data/scripts/Xsession
-@@ -91,5 +91,5 @@ fi
+@@ -97,5 +97,5 @@ fi
  if [ -z "$@" ]; then
      exec xmessage -center -buttons OK:0 -default OK "Sorry, $DESKTOP_SESSION is no valid session."
  else

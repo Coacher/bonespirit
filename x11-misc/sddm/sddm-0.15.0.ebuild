@@ -3,12 +3,11 @@
 
 EAPI=6
 
-inherit cmake-utils user git-r3
+inherit cmake-utils user
 
 DESCRIPTION="Simple Desktop Display Manager"
 HOMEPAGE="https://github.com/sddm/sddm"
-EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
-EGIT_BRANCH="develop"
+SRC_URI="https://github.com/sddm/sddm/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2+ MIT CC-BY-3.0 CC-BY-SA-3.0 public-domain"
 SLOT="0"
