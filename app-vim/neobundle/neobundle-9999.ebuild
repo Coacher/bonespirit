@@ -9,7 +9,7 @@ inherit vim-plugin git-r3
 
 DESCRIPTION="vim plugin: next generation Vim package manager"
 HOMEPAGE="https://github.com/Shougo/neobundle.vim"
-EGIT_REPO_URI=( {https,git}://github.com/Shougo/${PN}.vim.git )
+EGIT_REPO_URI="https://github.com/Shougo/neobundle.vim.git"
 
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"

@@ -9,7 +9,7 @@ inherit vim-plugin git-r3
 
 DESCRIPTION="vim plugin: plugin manager for Vim"
 HOMEPAGE="https://github.com/VundleVim/Vundle.vim"
-EGIT_REPO_URI=( {https,git}://github.com/VundleVim/${PN^}.vim.git )
+EGIT_REPO_URI="https://github.com/VundleVim/Vundle.vim.git"
 
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"

@@ -9,7 +9,7 @@ inherit flag-o-matic toolchain-funcs vim-plugin git-r3
 
 DESCRIPTION="vim plugin: asynchronous execution library for Vim"
 HOMEPAGE="https://github.com/Shougo/vimproc.vim"
-EGIT_REPO_URI=( {https,git}://github.com/Shougo/${PN}.vim.git )
+EGIT_REPO_URI="https://github.com/Shougo/vimproc.vim.git"
 
 LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
