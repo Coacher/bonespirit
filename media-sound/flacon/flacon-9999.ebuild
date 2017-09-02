@@ -12,7 +12,7 @@ inherit check-reqs cmake-utils eutils gnome2-utils l10n virtualx xdg-utils git-r
 
 DESCRIPTION="Extracts audio tracks from an audio CD image to separate tracks"
 HOMEPAGE="https://flacon.github.io/"
-EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
+EGIT_REPO_URI="https://github.com/flacon/flacon.git"
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
