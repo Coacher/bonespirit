@@ -10,7 +10,7 @@ inherit python-r1 git-r3
 
 DESCRIPTION="Assorted git-related scripts"
 HOMEPAGE="https://github.com/MestreLion/git-tools/"
-EGIT_REPO_URI=( {https,git}://github.com/MestreLion/${PN}.git )
+EGIT_REPO_URI="https://github.com/MestreLion/git-tools.git"
 
 LICENSE="GPL-3+"
 SLOT="0"

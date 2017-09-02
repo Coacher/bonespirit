@@ -12,7 +12,7 @@ inherit distutils-r1 eutils gnome2-utils l10n readme.gentoo-r1 xdg-utils git-r3
 
 DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
-EGIT_REPO_URI=( {https,git}://github.com/${PN}/${PN}.git )
+EGIT_REPO_URI="https://github.com/git-cola/git-cola.git"
 
 LICENSE="GPL-2 doc? ( BSD )"
 SLOT="0"
