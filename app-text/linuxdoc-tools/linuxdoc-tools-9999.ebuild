@@ -8,7 +8,7 @@ inherit autotools epatch latex-package perl-functions sgml-catalog toolchain-fun
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
-EGIT_REPO_URI="https://gitlab.com/agmartin/${PN}.git"
+EGIT_REPO_URI="https://gitlab.com/agmartin/linuxdoc-tools.git"
 # Redefine SRC_URI, otherwise latex-package eclass interferes.
 SRC_URI=""
 
