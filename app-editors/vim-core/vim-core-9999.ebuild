@@ -8,7 +8,7 @@ inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix user versiona
 
 DESCRIPTION="Vim and GVim shared files"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
-EGIT_REPO_URI=( {https,git}://github.com/vim/vim.git )
+EGIT_REPO_URI="https://github.com/vim/vim.git"
 
 LICENSE="vim"
 SLOT="0"
