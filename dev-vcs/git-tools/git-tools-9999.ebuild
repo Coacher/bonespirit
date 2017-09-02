@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit python-r1 git-r3
 
 DESCRIPTION="Assorted git-related scripts"
-HOMEPAGE="https://github.com/MestreLion/git-tools/"
+HOMEPAGE="https://github.com/MestreLion/git-tools"
 EGIT_REPO_URI="https://github.com/MestreLion/git-tools.git"
 
 LICENSE="GPL-3+"
