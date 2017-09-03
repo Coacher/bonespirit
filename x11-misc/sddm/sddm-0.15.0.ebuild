@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit cmake-utils user
+inherit cmake-utils systemd user
 
 DESCRIPTION="Simple Desktop Display Manager"
 HOMEPAGE="https://github.com/sddm/sddm"
@@ -21,7 +21,7 @@ RDEPEND="
 	>=dev-qt/qtgui-5.6:5
 	>=dev-qt/qtnetwork-5.6:5
 	>=x11-base/xorg-server-1.15.1
-	x11-libs/libxcb[xkb(-)]
+	x11-libs/libxcb[xkb]
 	consolekit? ( >=sys-auth/consolekit-0.9.4 )
 	elogind? ( sys-auth/elogind )
 	pam? ( sys-libs/pam )
@@ -59,6 +59,8 @@ src_configure() {
 pkg_postinst() {
 	enewgroup ${PN}
 	enewuser ${PN} -1 -1 /var/lib/${PN} ${PN},video
+
+	systemd_reenable sddm.service
 
 	if use consolekit && use pam && [[ -e "${ROOT}"/etc/pam.d/system-login ]]; then
 		local line=$(grep "pam_ck_connector.*nox11" "${ROOT}"/etc/pam.d/system-login)
