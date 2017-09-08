@@ -49,10 +49,16 @@ pkg_preinst() {
 
 pkg_postinst() {
 	gnome2_icon_cache_update
-	use tint2conf && xdg_desktop_database_update
+	if use tint2conf; then
+		xdg_mimeinfo_database_update
+		xdg_desktop_database_update
+	fi
 }
 
 pkg_postrm() {
 	gnome2_icon_cache_update
-	use tint2conf && xdg_desktop_database_update
+	if use tint2conf; then
+		xdg_mimeinfo_database_update
+		xdg_desktop_database_update
+	fi
 }
