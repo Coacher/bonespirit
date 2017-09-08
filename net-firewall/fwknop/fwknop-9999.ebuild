@@ -12,7 +12,7 @@ inherit autotools distutils-r1 eutils linux-info readme.gentoo-r1 systemd git-r3
 
 DESCRIPTION="Single Packet Authorization and Port Knocking application"
 HOMEPAGE="https://www.cipherdyne.org/fwknop/ https://github.com/mrash/fwknop"
-EGIT_REPO_URI=( {https,git}://github.com/mrash/${PN}.git )
+EGIT_REPO_URI="https://github.com/mrash/fwknop.git"
 
 LICENSE="GPL-2+"
 SLOT="0"
