@@ -17,7 +17,7 @@ SRC_URI="https://github.com/mrash/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="client extras firewalld gdbm gpg iptables nfqueue python server udp-server"
+IUSE="+client extras firewalld gdbm gpg +iptables nfqueue python +server udp-server"
 
 DEPEND="
 	client? ( net-misc/wget[ssl] )

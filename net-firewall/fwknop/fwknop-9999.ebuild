@@ -17,7 +17,7 @@ EGIT_REPO_URI=( {https,git}://github.com/mrash/${PN}.git )
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS=""
-IUSE="client extras firewalld gdbm gpg iptables nfqueue python server udp-server"
+IUSE="+client extras firewalld gdbm gpg +iptables nfqueue python +server udp-server"
 
 DEPEND="
 	client? ( net-misc/wget[ssl] )
