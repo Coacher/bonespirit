@@ -36,9 +36,6 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 REQUIRED_USE="
-	firewalld? ( server )
-	gdbm? ( server )
-	iptables? ( server )
 	nfqueue? ( server )
 	python? ( ${PYTHON_REQUIRED_USE} )
 	server? ( ^^ ( firewalld iptables ) )
