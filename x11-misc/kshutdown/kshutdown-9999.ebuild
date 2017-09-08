@@ -6,7 +6,7 @@ EAPI=6
 inherit eutils gnome2-utils qmake-utils subversion
 
 DESCRIPTION="A graphical shutdown utility"
-HOMEPAGE="http://kshutdown.sourceforge.net/"
+HOMEPAGE="https://kshutdown.sourceforge.io/"
 ESVN_REPO_URI="https://svn.code.sf.net/p/kshutdown/code/trunk/kshutdown2"
 
 LICENSE="GPL-2"
