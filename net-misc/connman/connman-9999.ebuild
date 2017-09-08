@@ -7,7 +7,7 @@ inherit autotools systemd git-r3
 
 DESCRIPTION="Daemon for managing internet connections"
 HOMEPAGE="https://01.org/connman"
-EGIT_REPO_URI=( {https,git}://git.kernel.org/pub/scm/network/${PN}/${PN}.git )
+EGIT_REPO_URI="https://git.kernel.org/pub/scm/network/connman/connman.git"
 
 LICENSE="GPL-2"
 SLOT="0"

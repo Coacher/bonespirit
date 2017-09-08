@@ -7,7 +7,7 @@ inherit linux-info meson systemd xdg-utils git-r3
 
 DESCRIPTION="A small daemon to act on remote or local events"
 HOMEPAGE="https://www.eventd.org/"
-EGIT_REPO_URI=( {https,git}://github.com/sardemff7/${PN}.git )
+EGIT_REPO_URI="https://github.com/sardemff7/eventd.git"
 
 LICENSE="GPL-3+ LGPL-3+ MIT"
 SLOT="0"

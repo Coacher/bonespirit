@@ -7,7 +7,7 @@ inherit qmake-utils git-r3
 
 DESCRIPTION="Qt GUI for Connman with system tray icon"
 HOMEPAGE="https://github.com/andrew-bibb/cmst"
-EGIT_REPO_URI=( {https,git}://github.com/andrew-bibb/${PN}.git )
+EGIT_REPO_URI="https://github.com/andrew-bibb/cmst.git"
 
 LICENSE="MIT"
 SLOT="0"
