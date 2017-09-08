@@ -7,7 +7,7 @@ inherit cmake-utils gnome2-utils xdg-utils git-r3
 
 DESCRIPTION="A lightweight panel/taskbar"
 HOMEPAGE="https://gitlab.com/o9000/tint2"
-EGIT_REPO_URI="https://gitlab.com/o9000/${PN}.git"
+EGIT_REPO_URI="https://gitlab.com/o9000/tint2.git"
 
 LICENSE="GPL-2"
 SLOT="0"
