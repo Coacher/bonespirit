@@ -231,10 +231,6 @@ src_install() {
 	bashcomp_alias ${PN} evim eview gview gvimdiff rgvim rgview
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	gnome2_icon_cache_update
 	xdg_desktop_database_update

@@ -111,10 +111,6 @@ src_install() {
 		"${myemaketargets[@]}"
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	readme.gentoo_print_elog
 

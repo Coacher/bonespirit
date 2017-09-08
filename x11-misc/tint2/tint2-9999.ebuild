@@ -43,10 +43,6 @@ src_configure() {
 	cmake-utils_src_configure
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	gnome2_icon_cache_update
 	if use tint2conf; then

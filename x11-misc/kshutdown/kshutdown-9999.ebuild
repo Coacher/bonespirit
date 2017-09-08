@@ -45,10 +45,6 @@ src_install() {
 	newicon -s scalable "${S}/src/images/hisc-app-${PN}.svg" ${PN}.svg
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	gnome2_icon_cache_update
 }

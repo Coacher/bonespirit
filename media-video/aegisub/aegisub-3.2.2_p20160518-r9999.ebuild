@@ -131,10 +131,6 @@ src_test() {
 	emake test-libaegisub
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	gnome2_icon_cache_update
 	xdg_desktop_database_update
