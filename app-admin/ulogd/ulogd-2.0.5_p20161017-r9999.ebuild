@@ -9,7 +9,7 @@ inherit autotools eutils flag-o-matic linux-info readme.gentoo-r1 systemd user v
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
-SRC_URI="http://git.netfilter.org/${PN}2/snapshot/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://git.netfilter.org/${PN}2/snapshot/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
