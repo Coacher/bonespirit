@@ -12,9 +12,9 @@ EGIT_REPO_URI="git://git.netfilter.org/ulogd2.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="dbi doc json mysql nfacct +nfct +nflog pcap postgres sqlite ulog"
+IUSE="dbi doc json mysql nfacct +nfct +nflog pcap postgres selinux sqlite ulog"
 
-RDEPEND="
+COMMON_DEPEND="
 	|| ( net-firewall/iptables net-firewall/nftables )
 	>=net-libs/libnfnetlink-1.0.1
 	dbi? ( dev-db/libdbi )
@@ -30,13 +30,16 @@ RDEPEND="
 	postgres? ( dev-db/postgresql:= )
 	sqlite? ( dev-db/sqlite:3 )
 "
-DEPEND="${RDEPEND}
+DEPEND="${COMMON_DEPEND}
 	doc? (
 		app-text/linuxdoc-tools
 		app-text/texlive-core
 		dev-texlive/texlive-fontsrecommended
 		virtual/latex-base
 	)
+"
+RDEPEND="${COMMON_DEPEND}
+	selinux? ( sec-policy/selinux-ulogd )
 "
 
 DISABLE_AUTOFORMATTING=1
