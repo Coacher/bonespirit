@@ -8,15 +8,12 @@ XORG_DOC=doc
 inherit xorg-2 multilib toolchain-funcs
 
 DESCRIPTION="X.Org X servers"
-EGIT_REPO_URI=(
-	https://anongit.freedesktop.org/git/xorg/xserver.git
-	git://anongit.freedesktop.org/xorg/xserver
-)
+EGIT_REPO_URI="https://anongit.freedesktop.org/git/xorg/xserver.git"
 
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
 IUSE_SERVERS="dmx kdrive wayland xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd +udev unwind"
+IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd +udev unwind xcsecurity"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
@@ -153,6 +150,7 @@ src_configure() {
 		$(use_enable !minimal dri3)
 		$(use_enable !minimal present)
 		$(use_enable !minimal xfree86-utils)
+		$(use_enable xcsecurity)
 		$(use_enable udev config-udev)
 		$(use_enable systemd systemd-logind)
 		$(use_enable xorg)
