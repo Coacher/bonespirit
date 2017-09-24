@@ -141,6 +141,7 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
+	"${FILESDIR}/${PN}-0.27.0-make-raspberrypi-rely-on-pkgconfig.patch"
 )
 
 pkg_setup() {
@@ -150,13 +151,13 @@ pkg_setup() {
 src_prepare() {
 	cp "${DISTDIR}/waf-${WAF_PV}" "${S}"/waf || die
 	chmod +x "${S}"/waf || die
+	eapply "${FILESDIR}/${PV}"
 	default_src_prepare
 }
 
 src_configure() {
 	tc-export CC PKG_CONFIG AR
 
-	# XXX: Update this for 0.27.0
 	if tc-is-cross-compiler && use raspberry-pi; then
 		export EXTRA_PKG_CONFIG_LIBDIR="${SYSROOT%/}${EPREFIX}/opt/vc/lib/pkgconfig"
 		# Drop next line when Gentoo bug 607344 is fixed or if you fixed it locally.
