@@ -22,6 +22,7 @@ RDEPEND="
 	>=dev-python/pyyaml-3.11[${PYTHON_USEDEP}]
 	virtual/python-enum34[${PYTHON_USEDEP}]
 	virtual/python-pathlib[${PYTHON_USEDEP}]
+	virtual/python-typing[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
@@ -39,6 +40,10 @@ python_prepare_all() {
 	# Don't try to use an installed vint executable.
 	# See https://github.com/Kuniwak/vint/issues/22
 	sed -i -e "s|'vint'|'bin/vint'|" test/acceptance/test_cli{,_vital}.py || die
+
+	# Don't blindly require typing. It's already shipped with Python>=3.5.
+	# See https://github.com/Kuniwak/vint/issues/238
+	sed -i -e '/typing/d' requirements.txt || die
 }
 
 python_test() {
