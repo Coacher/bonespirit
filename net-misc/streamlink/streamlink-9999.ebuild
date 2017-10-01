@@ -20,7 +20,7 @@ IUSE="doc test"
 RDEPEND="
 	dev-python/pycountry[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
-	dev-python/requests[${PYTHON_USEDEP}]
+	dev-python/requests[socks5,${PYTHON_USEDEP}]
 	dev-python/websocket-client[${PYTHON_USEDEP}]
 	media-video/rtmpdump
 	virtual/ffmpeg
@@ -39,8 +39,6 @@ python_configure_all() {
 	export STREAMLINK_USE_PYCOUNTRY=1
 	# Use pycrypto for compatibility. See Gentoo bug 611568.
 	export STREAMLINK_USE_PYCRYPTO=1
-	# Avoid requests[socks] dependency as it's broken. See Gentoo bug 627558.
-	export NO_DEPS=1
 }
 
 python_compile_all() {
