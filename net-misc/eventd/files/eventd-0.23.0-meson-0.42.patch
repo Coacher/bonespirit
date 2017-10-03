@@ -1,0 +1,201 @@
+https://bugs.gentoo.org/631412
+
+commit 143e555291bf2cb4207809030666b9b184100c6d
+Author: Quentin Glidic <sardemff7+git@sardemff7.net>
+Date:   Sat May 13 10:50:18 2017 +0200
+
+meson: Reorder some calls
+
+Signed-off-by: Quentin Glidic <sardemff7+git@sardemff7.net>
+
+diff --git a/meson.build b/meson.build
+index d3d23b11..da3c5333 100644
+--- a/meson.build
++++ b/meson.build
+@@ -77,13 +77,13 @@ evp_unix_socket=evp_service_name
+
+ header_conf = configuration_data()
+ other_conf = configuration_data()
+-other_conf.set('PACKAGE_NAME', meson.project_name())
+-other_conf.set('VERSION', meson.project_version())
+-other_conf.set('EVENTD_VERSION', eventd_version)
+ header_conf.set_quoted('PACKAGE_NAME', meson.project_name())
+ header_conf.set_quoted('EVENTD_VERSION', eventd_version)
+ header_conf.set_quoted('MODULES_VERSION', meson.project_version())
+ header_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
++other_conf.set('PACKAGE_NAME', meson.project_name())
++other_conf.set('VERSION', meson.project_version())
++other_conf.set('EVENTD_VERSION', eventd_version)
+
+ if is_unix
+     header_conf.set('EVENTD_EXPORT', '__attribute__((visibility("default")))')
+@@ -95,27 +95,27 @@ endif
+ header_conf.set('GLIB_VERSION_MIN_REQUIRED', '(G_ENCODE_VERSION(@0@,@1@))'.format(glib_min_major, glib_min_minor))
+ header_conf.set('G_LOG_USE_STRUCTURED', true)
+
+-other_conf.set('prefix', get_option('prefix'))
+-other_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
+-other_conf.set('datadir', join_paths(get_option('prefix'), get_option('datadir')))
+ header_conf.set_quoted('EVENTD_SYSCONFDIR', join_paths(get_option('prefix'), get_option('sysconfdir')))
+ header_conf.set_quoted('EVENTD_BINDIR', join_paths(get_option('prefix'), get_option('bindir')))
+ header_conf.set_quoted('EVENTD_LIBDIR', join_paths(get_option('prefix'), get_option('libdir')))
+ header_conf.set_quoted('EVENTD_DATADIR', join_paths(get_option('prefix'), get_option('datadir')))
+ header_conf.set_quoted('EVENTD_LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
++other_conf.set('prefix', get_option('prefix'))
++other_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
++other_conf.set('datadir', join_paths(get_option('prefix'), get_option('datadir')))
+
+-other_conf.set('EVP_SERVICE_NAME', evp_service_name)
+-other_conf.set('EVP_TRANSPORT_NAME', evp_transport_name)
+-other_conf.set('EVP_SERVICE_TYPE', evp_service_type)
+-other_conf.set('EVP_SSDP_NS_UUID', evp_ssdp_ns_uuid)
+-other_conf.set('EVP_SSDP_URN', evp_ssdp_urn)
+-other_conf.set('EVP_UNIX_SOCKET', evp_unix_socket)
+ header_conf.set_quoted('EVP_SERVICE_NAME', evp_service_name)
+ header_conf.set_quoted('EVP_TRANSPORT_NAME', evp_transport_name)
+ header_conf.set_quoted('EVP_SERVICE_TYPE', evp_service_type)
+ header_conf.set_quoted('EVP_SSDP_NS_UUID', evp_ssdp_ns_uuid)
+ header_conf.set_quoted('EVP_SSDP_URN', evp_ssdp_urn)
+ header_conf.set_quoted('EVP_UNIX_SOCKET', evp_unix_socket)
++other_conf.set('EVP_SERVICE_NAME', evp_service_name)
++other_conf.set('EVP_TRANSPORT_NAME', evp_transport_name)
++other_conf.set('EVP_SERVICE_TYPE', evp_service_type)
++other_conf.set('EVP_SSDP_NS_UUID', evp_ssdp_ns_uuid)
++other_conf.set('EVP_SSDP_URN', evp_ssdp_urn)
++other_conf.set('EVP_UNIX_SOCKET', evp_unix_socket)
+
+ header_conf.set('EVENTD_DEBUG', get_option('enable-debug'))
+ header_conf.set('DISABLE_IPV6', not get_option('enable-ipv6'))
+commit bd3a04438f6c069d3a8fd4c1629a17f1d9853537
+Author: Quentin Glidic <sardemff7+git@sardemff7.net>
+Date:   Wed Jul 26 11:12:55 2017 +0200
+
+meson: Re-build eventd.pc properly
+
+Signed-off-by: Quentin Glidic <sardemff7+git@sardemff7.net>
+
+diff --git a/meson.build b/meson.build
+index 31e56025..5952dbe7 100644
+--- a/meson.build
++++ b/meson.build
+@@ -76,11 +76,13 @@ evp_ssdp_urn='urn:eventd-org:service:@0@:1'.format(evp_service_name)
+ evp_unix_socket=evp_service_name
+
+ header_conf = configuration_data()
++pkgconfig_conf = configuration_data()
+ other_conf = configuration_data()
+ header_conf.set_quoted('PACKAGE_NAME', meson.project_name())
+ header_conf.set_quoted('EVENTD_VERSION', eventd_version)
+ header_conf.set_quoted('MODULES_VERSION', meson.project_version())
+ header_conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
++pkgconfig_conf.set('VERSION', meson.project_version())
+ other_conf.set('PACKAGE_NAME', meson.project_name())
+ other_conf.set('VERSION', meson.project_version())
+ other_conf.set('EVENTD_VERSION', eventd_version)
+@@ -100,6 +102,8 @@ header_conf.set_quoted('EVENTD_BINDIR', join_paths(get_option('prefix'), get_opt
+ header_conf.set_quoted('EVENTD_LIBDIR', join_paths(get_option('prefix'), get_option('libdir')))
+ header_conf.set_quoted('EVENTD_DATADIR', join_paths(get_option('prefix'), get_option('datadir')))
+ header_conf.set_quoted('EVENTD_LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
++pkgconfig_conf.set('prefix', get_option('prefix'))
++pkgconfig_conf.set('datadir', join_paths('${prefix}', get_option('datadir')))
+ other_conf.set('prefix', get_option('prefix'))
+ other_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
+ other_conf.set('datadir', join_paths(get_option('prefix'), get_option('datadir')))
+@@ -110,6 +114,8 @@ header_conf.set_quoted('EVP_SERVICE_TYPE', evp_service_type)
+ header_conf.set_quoted('EVP_SSDP_NS_UUID', evp_ssdp_ns_uuid)
+ header_conf.set_quoted('EVP_SSDP_URN', evp_ssdp_urn)
+ header_conf.set_quoted('EVP_UNIX_SOCKET', evp_unix_socket)
++pkgconfig_conf.set('EVP_SSDP_NS_UUID', evp_ssdp_ns_uuid)
++pkgconfig_conf.set('EVP_SSDP_URN', evp_ssdp_urn)
+ other_conf.set('EVP_SERVICE_NAME', evp_service_name)
+ other_conf.set('EVP_TRANSPORT_NAME', evp_transport_name)
+ other_conf.set('EVP_SERVICE_TYPE', evp_service_type)
+diff --git a/server/eventd/meson.build b/server/eventd/meson.build
+index 8785a88d..ae77015b 100644
+--- a/server/eventd/meson.build
++++ b/server/eventd/meson.build
+@@ -64,7 +64,7 @@ man_pages += [ [ files('man/eventd.conf.xml'), 'eventd.conf.5' ] ]
+ configure_file(
+     input: 'pkgconfig/eventd.pc.in',
+     output: 'eventd.pc',
+-    configuration: other_conf,
++    configuration: pkgconfig_conf,
+     install_dir: join_paths(get_option('datadir'), 'pkgconfig'),
+ )
+
+diff --git a/server/eventd/pkgconfig/eventd.pc.in b/server/eventd/pkgconfig/eventd.pc.in
+index a9f9a273..d8fa6321 100644
+--- a/server/eventd/pkgconfig/eventd.pc.in
++++ b/server/eventd/pkgconfig/eventd.pc.in
+@@ -1,8 +1,7 @@
+ prefix=@prefix@
+-datarootdir=@datarootdir@
+ datadir=@datadir@
+
+-eventdir=@datadir@/eventd
++eventdir=${datadir}/eventd
+
+ ssdp_ns_uuid=@EVP_SSDP_NS_UUID@
+ ssdp_urn=@EVP_SSDP_URN@
+commit ed4c2d6df22d2fd3c4eb0441eec31012c9a82e1f
+Author: Quentin Glidic <sardemff7+git@sardemff7.net>
+Date:   Tue Aug 8 14:34:14 2017 +0200
+
+meson: Install man pages manually
+
+install_man() doesn’t accept builddir files any more.
+
+Signed-off-by: Quentin Glidic <sardemff7+git@sardemff7.net>
+
+diff --git a/meson.build b/meson.build
+index 5952dbe7..943be9fa 100644
+--- a/meson.build
++++ b/meson.build
+@@ -243,15 +243,15 @@ xsltproc += [
+ man_input = []
+ man_output = []
+ foreach m : man_pages
+-    man_input += m[0]
+-    man_output += m[1]
+-    install_man(join_paths(meson.current_build_dir(), m[1]))
++    s = m[1].split('.')
++    section = s[s.length() - 1]
++    custom_target(m[1],
++        input: m[0],
++        output: m[1],
++        command: xsltproc,
++        depend_files: [ config_ent ],
++        build_by_default: true,
++        install: true,
++        install_dir: join_paths(get_option('mandir'), section)
++    )
+ endforeach
+-
+-custom_target('man',
+-    input: man_input,
+-    output: man_output,
+-    command: xsltproc,
+-    depend_files: [ config_ent ],
+-    build_by_default: true,
+-)
+commit 129a3548b46a81c8682993c0c557db22bc4ddd1c
+Author: Quentin Glidic <sardemff7+git@sardemff7.net>
+Date:   Fri Sep 1 09:49:21 2017 +0200
+
+meson: Fix man pages installation directory
+
+Signed-off-by: Quentin Glidic <sardemff7+git@sardemff7.net>
+
+diff --git a/meson.build b/meson.build
+index 943be9fa..9fa539a3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -244,7 +244,7 @@ man_input = []
+ man_output = []
+ foreach m : man_pages
+     s = m[1].split('.')
+-    section = s[s.length() - 1]
++    section = 'man' + s[s.length() - 1]
+     custom_target(m[1],
+         input: m[0],
+         output: m[1],
