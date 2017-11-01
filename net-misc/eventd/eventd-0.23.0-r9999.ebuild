@@ -61,8 +61,6 @@ RDEPEND="${COMMON_DEPEND}
 	net-libs/glib-networking[ssl]
 "
 
-PATCHES=( "${FILESDIR}/${P}-meson-0.42.patch" )
-
 eventd_check_compiler() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++11; then
 		die "Your compiler lacks C++11 support. Use GCC>=4.7.0 or Clang>=3.3."
