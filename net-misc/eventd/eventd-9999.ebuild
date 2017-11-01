@@ -44,7 +44,7 @@ COMMON_DEPEND="
 		media-sound/pulseaudio
 	)
 	purple? ( net-im/pidgin )
-	speech? ( app-accessibility/speech-dispatcher )
+	speech? ( >=app-accessibility/speech-dispatcher-0.8.7 )
 	systemd? ( sys-apps/systemd:= )
 	upnp? ( net-libs/gssdp:= )
 	webhook? ( >=net-libs/libsoup-2.42:2.4 )
@@ -71,11 +71,6 @@ pkg_setup() {
 
 src_prepare() {
 	default_src_prepare
-
-	# Workaround Gentoo bug 604398.
-	sed -i \
-		-e 's|libspeechd|speech-dispatcher/libspeechd|g' \
-		plugins/tts/src/tts.c || die
 
 	# Prevent access violations from introspection metadata generation.
 	xdg_environment_reset
