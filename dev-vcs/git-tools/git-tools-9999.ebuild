@@ -3,8 +3,7 @@
 
 EAPI=6
 
-# Track https://github.com/MestreLion/git-tools/issues/23 for Python-3 support
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit python-r1 git-r3
 
@@ -24,9 +23,7 @@ RDEPEND="${DEPEND}
 	dev-vcs/git
 "
 
-src_compile() {
-	:;
-}
+src_compile() { :; }
 
 src_install() {
 	SCRIPTS_BASH="git-branches-rename git-clone-subset \
@@ -39,7 +36,7 @@ src_install() {
 		python_replicate_script "${ED}"usr/bin/${p}
 	done
 
-	# Make it possible to use the tools as 'git $TOOLNAME'
+	# Make it possible to use scripts as 'git ${SCRIPT_NAME}'
 	for x in ${SCRIPTS_BASH} ${SCRIPTS_PYTHON}; do
 		dosym ../../bin/${x} /usr/libexec/git-core/${x}
 	done
