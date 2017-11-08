@@ -18,9 +18,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
+	dev-python/PySocks[${PYTHON_USEDEP}]
 	dev-python/pycountry[${PYTHON_USEDEP}]
 	dev-python/pycrypto[${PYTHON_USEDEP}]
-	dev-python/requests[socks5,${PYTHON_USEDEP}]
+	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/websocket-client[${PYTHON_USEDEP}]
 	media-video/rtmpdump
 	virtual/ffmpeg
