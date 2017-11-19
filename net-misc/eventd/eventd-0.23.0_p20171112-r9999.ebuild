@@ -25,6 +25,7 @@ REQUIRED_USE="
 COMMON_DEPEND="
 	>=dev-libs/glib-2.40:2
 	sys-apps/util-linux
+	x11-libs/libxkbcommon
 	introspection? ( >=dev-libs/gobject-introspection-1.42 )
 	libcanberra? ( media-libs/libcanberra )
 	libnotify? ( x11-libs/gdk-pixbuf:2 )
