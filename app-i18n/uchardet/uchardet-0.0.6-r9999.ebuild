@@ -12,20 +12,19 @@ SRC_URI="https://www.freedesktop.org/software/uchardet/releases/${P}.tar.xz"
 LICENSE="|| ( MPL-1.1 GPL-2+ LGPL-2.1+ )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86"
-IUSE="static-libs test"
+IUSE="cpu_flags_x86_sse2 static-libs test"
+
+PATCHES=( "${FILESDIR}/${P}-configure-SSE2-flags.patch" )
 
 src_prepare() {
 	cmake-utils_src_prepare
 	use test || cmake_comment_add_subdirectory test
-
-	# Remove flaky test. See Gentoo bug 631852.
-	# Track https://bugs.freedesktop.org/show_bug.cgi?id=101033
-	rm test/th/tis-620.txt || die
 }
 
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC=$(usex static-libs)
+		-DCHECK_SSE2=$(usex cpu_flags_x86_sse2)
 	)
 	cmake-utils_src_configure
 }
