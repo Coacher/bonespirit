@@ -20,7 +20,7 @@ IUSE="doc test"
 RDEPEND="
 	dev-python/PySocks[${PYTHON_USEDEP}]
 	dev-python/pycountry[${PYTHON_USEDEP}]
-	dev-python/pycrypto[${PYTHON_USEDEP}]
+	dev-python/pycryptodome[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/websocket-client[${PYTHON_USEDEP}]
 	media-video/rtmpdump
@@ -38,8 +38,6 @@ DEPEND="${RDEPEND}
 python_configure_all() {
 	# Avoid iso-639, iso3166 dependencies since we use pycountry.
 	export STREAMLINK_USE_PYCOUNTRY=1
-	# Use pycrypto for compatibility. See Gentoo bug 611568.
-	export STREAMLINK_USE_PYCRYPTO=1
 }
 
 python_compile_all() {
