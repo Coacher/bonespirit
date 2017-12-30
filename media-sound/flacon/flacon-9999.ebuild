@@ -17,31 +17,24 @@ EGIT_REPO_URI="https://github.com/flacon/flacon.git"
 LICENSE="LGPL-2.1+"
 SLOT="0"
 KEYWORDS=""
-IUSE="qt5 test"
+IUSE="test"
 
 RDEPEND="
 	app-i18n/uchardet
-	!qt5? (
-		dev-qt/qtcore:4
-		dev-qt/qtgui:4
-	)
-	qt5? (
-		dev-qt/qtcore:5
-		dev-qt/qtnetwork:5
-		dev-qt/qtwidgets:5
-	)
+	dev-qt/qtcore:5
+	dev-qt/qtnetwork:5
+	dev-qt/qtwidgets:5
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	qt5? ( dev-qt/linguist-tools:5 )
+	dev-qt/linguist-tools:5
 	test? (
+		dev-qt/qttest:5
 		media-libs/flac
 		media-sound/mac
+		media-sound/shntool
 		media-sound/ttaenc
 		media-sound/wavpack
-		media-sound/shntool
-		!qt5? ( dev-qt/qttest:4 )
-		qt5? ( dev-qt/qttest:5 )
 	)
 "
 
@@ -70,8 +63,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DUSE_QT4="$(usex !qt5)"
-		-DUSE_QT5="$(usex qt5)"
 		-DBUILD_TESTS="$(usex test)"
 	)
 	cmake-utils_src_configure
