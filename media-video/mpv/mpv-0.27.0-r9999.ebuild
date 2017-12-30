@@ -97,7 +97,7 @@ COMMON_DEPEND="
 	vaapi? (
 		!libav? ( >=media-video/ffmpeg-3.3:0 )
 		libav? ( >=media-video/libav-13:0 )
-		x11-libs/libva[drm?,X?,wayland?]
+		x11-libs/libva:=[drm?,X?,wayland?]
 	)
 	vdpau? (
 		!libav? ( >=media-video/ffmpeg-3.3:0 )
