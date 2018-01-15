@@ -30,6 +30,6 @@ src_prepare() {
 	mv \
 		"${S}"/hinted/NotoSans-*.ttf \
 		"${S}"/hinted/NotoSerif-*.ttf \
-		"${S}"/hinted/NotoMono-*.ttf \
+		"${S}"/hinted/NotoSansMono-*.ttf \
 		"${FONT_S}" || die
 }
