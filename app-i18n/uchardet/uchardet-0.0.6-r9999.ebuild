@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86"
 IUSE="cpu_flags_x86_sse2 static-libs test"
 
-PATCHES=( "${FILESDIR}/${P}-enforce-IEEE-float-precision.patch" )
+PATCHES=( "${FILESDIR}/${P}-enforce-IEEE-float-precision-r1.patch" )
 
 src_prepare() {
 	cmake-utils_src_prepare
@@ -23,6 +23,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
+		-DTARGET_ARCHITECTURE="${ARCH}"
 		-DBUILD_STATIC=$(usex static-libs)
 		-DCHECK_SSE2=$(usex cpu_flags_x86_sse2)
 	)
