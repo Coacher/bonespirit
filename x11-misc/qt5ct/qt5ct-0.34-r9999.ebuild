@@ -28,7 +28,7 @@ DEPEND="${RDEPEND}
 "
 
 src_configure() {
-	eqmake5 DEFINES="$(usex dbus '' QT_NO_DBUS)" ${PN}.pro
+	eqmake5 DEFINES="$(usex dbus '' QT_NO_DBUS=1)" ${PN}.pro
 }
 
 src_install() {
