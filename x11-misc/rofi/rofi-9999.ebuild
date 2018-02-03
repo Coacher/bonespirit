@@ -8,7 +8,6 @@ inherit autotools toolchain-funcs git-r3
 DESCRIPTION="A window switcher, run dialog and dmenu replacement"
 HOMEPAGE="https://github.com/DaveDavenport/rofi"
 EGIT_REPO_URI="https://github.com/DaveDavenport/rofi.git"
-EGIT_BRANCH="next"
 
 LICENSE="MIT"
 SLOT="0"
@@ -36,7 +35,12 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	default_src_prepare
+
 	sed -i -e 's| -Werror||g' configure.ac || die
+	sed -i \
+		-e "s|/tmp/rofi-test.pid|${T}/rofi-test.pid|g" \
+		test/helper-pidfile.c || die
+
 	eautoreconf
 }
 
