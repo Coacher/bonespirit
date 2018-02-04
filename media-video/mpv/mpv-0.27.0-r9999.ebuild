@@ -141,6 +141,7 @@ RDEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
 	"${FILESDIR}/${PN}-0.23.0-make-libavdevice-check-accept-libav.patch"
+	"${FILESDIR}/${PN}-0.25.0-fix-floats-processing-in-tests.patch"
 	"${FILESDIR}/${PN}-0.27.0-make-raspberrypi-rely-on-pkgconfig.patch"
 )
 
