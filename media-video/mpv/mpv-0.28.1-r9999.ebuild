@@ -57,8 +57,8 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
-	!libav? ( ~media-video/ffmpeg-${PV}:0=[encode?,threads,vaapi?,vdpau?] )
-	libav? ( ~media-video/libav-${PV}:0=[encode?,threads,vaapi?,vdpau?] )
+	!libav? ( >=media-video/ffmpeg-9999:0=[encode?,threads,vaapi?,vdpau?] )
+	libav? ( >=media-video/libav-9999:0=[encode?,threads,vaapi?,vdpau?] )
 	alsa? ( >=media-libs/alsa-lib-1.0.18 )
 	archive? ( >=app-arch/libarchive-3.0.0:= )
 	bluray? ( >=media-libs/libbluray-0.3.0:= )
@@ -132,6 +132,7 @@ RDEPEND="${COMMON_DEPEND}
 
 PATCHES=(
 	"${FILESDIR}/${PN}-0.19.0-make-ffmpeg-version-check-non-fatal.patch"
+	"${FILESDIR}/${PN}-0.25.0-fix-float-comparisons-in-tests.patch"
 	"${FILESDIR}/${PN}-0.28.0-make-raspberrypi-rely-on-pkgconfig.patch"
 )
 
