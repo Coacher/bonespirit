@@ -11,7 +11,7 @@ revert commit.
 Remove the second one.
 
 diff --git a/wscript b/wscript
-index 9d885884d..9fe5b0bc8 100644
+index 9d885884d7..9fe5b0bc8a 100644
 --- a/wscript
 +++ b/wscript
 @@ -727,10 +727,6 @@ video_output_features = [

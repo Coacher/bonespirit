@@ -14,7 +14,7 @@ initializing in a delayed way, so there is no easy solution yet.
 Probably fixes #4865.
 
 diff --git a/video/decode/vd_lavc.c b/video/decode/vd_lavc.c
-index 476beeb9e..e08246a29 100644
+index 476beeb9e6..e08246a296 100644
 --- a/video/decode/vd_lavc.c
 +++ b/video/decode/vd_lavc.c
 @@ -261,11 +261,16 @@ static const struct vd_lavc_hwdec *const hwdec_list[] = {

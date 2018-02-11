@@ -1,5 +1,5 @@
 diff --git a/waftools/checks/custom.py b/waftools/checks/custom.py
-index d8065a35f..f7c9d8761 100644
+index d8065a35f2..f7c9d87616 100644
 --- a/waftools/checks/custom.py
 +++ b/waftools/checks/custom.py
 @@ -103,3 +103,29 @@ def check_openal(ctx, dependency_identifier):
@@ -33,7 +33,7 @@ index d8065a35f..f7c9d8761 100644
 +    os.environ['PKG_CONFIG_PATH'] = prev_pkg_path
 +    return ret
 diff --git a/wscript b/wscript
-index 9fe5b0bc8..49a83e8df 100644
+index 9fe5b0bc8a..49a83e8df4 100644
 --- a/wscript
 +++ b/wscript
 @@ -728,25 +728,9 @@ video_output_features = [

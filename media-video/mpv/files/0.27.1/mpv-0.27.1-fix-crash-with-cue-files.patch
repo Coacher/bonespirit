@@ -1,0 +1,25 @@
+commit 34676fc94dac6a126dd833d9094409dc6e610351
+Author: wm4 <wm4@nowhere>
+Date:   Mon Oct 23 11:28:31 2017 +0200
+
+demux: fix crash with cue/ordered chapter files
+
+If a packet uses segmentation, the codec field must be set. Copying the
+codec field was forgotten as an oversight, which is why this just
+crashes. This showed up only now, because demux_copy_packet() was not
+used before in the main demux path until recently.
+
+Fixes #5027.
+
+diff --git a/demux/packet.c b/demux/packet.c
+index fd1754bd88..ee49bd2acb 100644
+--- a/demux/packet.c
++++ b/demux/packet.c
+@@ -112,6 +112,7 @@ void demux_packet_copy_attribs(struct demux_packet *dst, struct demux_packet *sr
+     dst->start = src->start;
+     dst->end = src->end;
+     dst->new_segment = src->new_segment;
++    dst->codec = src->codec;
+     dst->keyframe = src->keyframe;
+     dst->stream = src->stream;
+ }

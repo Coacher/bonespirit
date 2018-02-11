@@ -21,7 +21,7 @@ the software case matters).
 Fixes #4804.
 
 diff --git a/video/mp_image.c b/video/mp_image.c
-index 7180e2be5..5aa564775 100644
+index 7180e2be50..5aa5647759 100644
 --- a/video/mp_image.c
 +++ b/video/mp_image.c
 @@ -525,15 +525,8 @@ void mp_image_copy_attributes(struct mp_image *dst, struct mp_image *src)
@@ -42,3 +42,35 @@ index 7180e2be5..5aa564775 100644
      dst->params.spherical = src->params.spherical;
      mp_image_params_guess_csp(&dst->params); // ensure colorspace consistency
      if ((dst->fmt.flags & MP_IMGFLAG_PAL) && (src->fmt.flags & MP_IMGFLAG_PAL)) {
+commit c6b97a4935cf2e5d1008e4b0d03c8cece415fec1
+Author: wm4 <wm4@nowhere>
+Date:   Mon Oct 16 10:35:37 2017 +0200
+
+mp_image: select an explicit fallback for chroma location
+
+If the chroma location is missing, vo_gpu will use centered chroma.
+Select a better chroma location by default: normally, it will always be
+MPEG video chroma location. If full levels are used, use JPEG chroma
+location, because that sort of sounds like it could make sense as it
+might coincide with JPEG being decoded.
+
+See e.g. #4804.
+
+diff --git a/video/mp_image.c b/video/mp_image.c
+index 1281c5c1dd..d2299bfcc2 100644
+--- a/video/mp_image.c
++++ b/video/mp_image.c
+@@ -800,6 +800,13 @@ void mp_image_params_guess_csp(struct mp_image_params *params)
+         }
+     }
+
++    if (params->chroma_location == MP_CHROMA_AUTO) {
++        if (params->color.levels == MP_CSP_LEVELS_TV)
++            params->chroma_location = MP_CHROMA_LEFT;
++        if (params->color.levels == MP_CSP_LEVELS_PC)
++            params->chroma_location = MP_CHROMA_CENTER;
++    }
++
+     if (params->color.light == MP_CSP_LIGHT_AUTO) {
+         // HLG is always scene-referred (using its own OOTF), everything else
+         // we assume is display-refered by default.
