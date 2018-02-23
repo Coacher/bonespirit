@@ -283,10 +283,10 @@ pkg_postinst() {
 	local rv softvol_0_18_1=0 osc_0_21_0=0 txtsubs_0_24_0=0 opengl_0_25_0=0
 
 	for rv in ${REPLACING_VERSIONS}; do
-		ver_test -lt ${rv} 0.18.1 && softvol_0_18_1=1
-		ver_test -lt ${rv} 0.21.0 && osc_0_21_0=1
-		ver_test -lt ${rv} 0.24.0 && txtsubs_0_24_0=1
-		ver_test -lt ${rv} 0.25.0 && ! use opengl && opengl_0_25_0=1
+		ver_test ${rv} -lt 0.18.1 && softvol_0_18_1=1
+		ver_test ${rv} -lt 0.21.0 && osc_0_21_0=1
+		ver_test ${rv} -lt 0.24.0 && txtsubs_0_24_0=1
+		ver_test ${rv} -lt 0.25.0 && ! use opengl && opengl_0_25_0=1
 	done
 
 	if [[ ${softvol_0_18_1} -eq 1 ]]; then
