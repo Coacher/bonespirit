@@ -25,6 +25,7 @@ REQUIRED_USE="
 COMMON_DEPEND="
 	>=dev-libs/glib-2.40:2
 	sys-apps/util-linux
+	x11-libs/libxkbcommon
 	introspection? ( >=dev-libs/gobject-introspection-1.42 )
 	libcanberra? ( media-libs/libcanberra )
 	libnotify? ( x11-libs/gdk-pixbuf:2 )
@@ -52,6 +53,7 @@ COMMON_DEPEND="
 	zeroconf? ( net-dns/avahi[dbus] )
 "
 DEPEND="${COMMON_DEPEND}
+	>=dev-util/meson-0.44.1
 	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
