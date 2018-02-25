@@ -53,6 +53,7 @@ COMMON_DEPEND="
 	zeroconf? ( net-dns/avahi[dbus] )
 "
 DEPEND="${COMMON_DEPEND}
+	>=dev-util/meson-0.44.1
 	app-text/docbook-xml-dtd:4.5
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt
