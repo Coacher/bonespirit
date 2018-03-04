@@ -28,7 +28,7 @@ COMMON_DEPEND="
 	postgres? ( dev-db/postgresql:= )
 	prelink? ( dev-libs/elfutils )
 	selinux? ( sys-libs/libselinux )
-	xattr? ( sys-apps/attr )
+	xattr? ( >=sys-apps/attr-2.4.48 )
 	zlib? ( sys-libs/zlib )
 "
 RDEPEND="
@@ -51,7 +51,7 @@ DEPEND="${COMMON_DEPEND}
 		e2fs? ( sys-fs/e2fsprogs[static-libs] )
 		prelink? ( dev-libs/elfutils[static-libs] )
 		selinux? ( sys-libs/libselinux[static-libs] )
-		xattr? ( sys-apps/attr[static-libs] )
+		xattr? ( >=sys-apps/attr-2.4.48[static-libs] )
 		zlib? ( sys-libs/zlib[static-libs] )
 	)
 "
@@ -77,7 +77,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-add-missing-include.patch"
 	"${FILESDIR}/${P}-fix-LIBS-LDFLAGS-mixing.patch"
 	"${FILESDIR}/${P}-fix-acl-configure-option.patch"
-	"${FILESDIR}/${P}-fix-build-with-recent-attr.patch"
+	"${FILESDIR}/${P}-support-attr-2.4.48.patch"
 )
 
 src_prepare() {
