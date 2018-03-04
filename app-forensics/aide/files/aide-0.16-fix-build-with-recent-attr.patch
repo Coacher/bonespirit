@@ -1,19 +1,22 @@
 Fix build against attr >= 2.4.48
 
-Drop obsolete include that was removed by attr upstream in attr-2.4.48.
+Drop obsolete attr/xattr.h include as did attr upstream in attr-2.4.48.
 See http://git.savannah.nongnu.org/cgit/attr.git/commit/?id=7921157890d07858d092f4003ca4c6bae9fd2c38
+
+New attr/attributes.h include is required for the ENOATTR definition.
 
 Bug: https://bugs.gentoo.org/648966
 Upstream-bug: https://sourceforge.net/p/aide/patches/23/
 diff --git a/include/db_config.h b/include/db_config.h
-index e92fe1c..b8df792 100644
+index e92fe1c..fccd40a 100644
 --- a/include/db_config.h
 +++ b/include/db_config.h
-@@ -62,7 +62,6 @@ typedef struct acl_type {
+@@ -62,7 +62,7 @@ typedef struct acl_type {
 
  #ifdef WITH_XATTR /* Do generic user Xattrs. */
  #include <sys/xattr.h>
 -#include <attr/xattr.h>
++#include <attr/attributes.h>
  #endif
 
  typedef struct xattr_node 
