@@ -5,7 +5,7 @@ EAPI=5
 
 XORG_DOC=doc
 
-inherit xorg-2 multilib toolchain-funcs
+inherit multilib toolchain-funcs xorg-2
 
 DESCRIPTION="X.Org X servers"
 EGIT_REPO_URI="https://anongit.freedesktop.org/git/xorg/xserver.git"
@@ -13,32 +13,32 @@ EGIT_REPO_URI="https://anongit.freedesktop.org/git/xorg/xserver.git"
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~x86"
 IUSE_SERVERS="dmx kdrive wayland xephyr xnest xorg xvfb"
-IUSE="${IUSE_SERVERS} debug glamor ipv6 libressl minimal selinux +suid systemd +udev unwind xcsecurity"
+IUSE="${IUSE_SERVERS} debug +glamor ipv6 libressl minimal selinux systemd +udev unwind xcsecurity"
 
 COMMON_DEPEND="
 	>=app-eselect/eselect-opengl-1.3.0
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl:0= )
-	>=x11-libs/libdrm-2.4.74
+	>=x11-libs/libdrm-2.4.89
 	>=x11-libs/libpciaccess-0.12.901
-	>=x11-libs/libXfont2-2.0.0
 	>=x11-libs/libxshmfence-1.1
 	>=x11-libs/pixman-0.27.2
 	>=x11-libs/xtrans-1.3.5
 	x11-apps/xkbcomp
 	x11-libs/libXau
 	x11-libs/libXdmcp
+	x11-libs/libXfont2
 	x11-libs/libxkbfile
 	x11-misc/xbitmaps
 	x11-misc/xkeyboard-config
 	dmx? (
-		>=x11-libs/libdmx-1.0.99.1
 		>=x11-libs/libX11-1.6
-		>=x11-libs/libXaw-1.0.4
 		>=x11-libs/libXext-1.0.99.4
-		>=x11-libs/libXfixes-5.0
 		>=x11-libs/libXi-1.2.99.1
 		>=x11-libs/libXtst-1.0.99.2
+		>=x11-libs/libdmx-1.0.99.1
+		x11-libs/libXaw
+		x11-libs/libXfixes
 		x11-libs/libXmu
 		x11-libs/libXrender
 		x11-libs/libXres
@@ -62,7 +62,7 @@ COMMON_DEPEND="
 		x11-libs/xcb-util-wm
 	)
 	!minimal? (
-		>=x11-libs/libX11-1.1.5
+		>=x11-libs/libX11-1.6
 		>=x11-libs/libXext-1.0.99.4
 		media-libs/mesa
 	)
@@ -80,26 +80,8 @@ COMMON_DEPEND="
 "
 DEPEND="${COMMON_DEPEND}
 	sys-devel/flex
-	x11-proto/videoproto
-	x11-proto/xineramaproto
-	>=x11-proto/bigreqsproto-1.1.0
-	>=x11-proto/compositeproto-0.4
-	>=x11-proto/damageproto-1.1
-	>=x11-proto/fixesproto-5.0
-	>=x11-proto/fontsproto-2.1.3
-	>=x11-proto/inputproto-2.3
-	>=x11-proto/kbproto-1.0.3
-	>=x11-proto/randrproto-1.5.0
-	>=x11-proto/renderproto-0.11
-	>=x11-proto/resourceproto-1.2.0
-	>=x11-proto/scrnsaverproto-1.1
-	>=x11-proto/xcmiscproto-1.2.0
-	>=x11-proto/xextproto-7.2.99.901
-	>=x11-proto/xf86dgaproto-2.0.99.1
-	>=x11-proto/xf86vidmodeproto-2.2.99.1
-	>=x11-proto/xproto-7.0.31
+	>=x11-base/xorg-proto-2018.3
 	dmx? (
-		>=x11-proto/dmxproto-2.2.99.1
 		doc? (
 			|| (
 				www-client/links
@@ -107,14 +89,6 @@ DEPEND="${COMMON_DEPEND}
 				www-client/w3m
 			)
 		)
-	)
-	!minimal? (
-		>=x11-proto/dri2proto-2.8
-		>=x11-proto/dri3proto-1.0
-		>=x11-proto/glproto-1.4.17-r1
-		>=x11-proto/presentproto-1.0
-		>=x11-proto/recordproto-1.13.99.1
-		>=x11-proto/xf86driproto-2.1.0
 	)
 "
 RDEPEND="${COMMON_DEPEND}
@@ -142,6 +116,19 @@ src_configure() {
 	# localstatedir is used for log files; we need to override the default.
 	# sysconfdir is used for the xorg.conf; same applies.
 	XORG_CONFIGURE_OPTIONS=(
+		--sysconfdir="${EPREFIX}/etc/X11"
+		--localstatedir="${EPREFIX}/var"
+		--with-fontrootdir="${EPREFIX}/usr/share/fonts"
+		--with-xkb-output="${EPREFIX}/var/lib/xkb"
+		--disable-config-hal
+		--enable-libdrm
+		--disable-linux-acpi
+		--disable-linux-apm
+		--enable-suid-wrapper
+		--without-fop
+		--without-dtrace
+		--with-os-vendor=Gentoo
+		--with-sha1=libcrypto
 		$(use_enable debug)
 		$(use_enable !minimal record)
 		$(use_enable !minimal glx)
@@ -159,26 +146,13 @@ src_configure() {
 		$(use_enable xnest)
 		$(use_enable wayland xwayland)
 		$(use_enable glamor)
-		$(use_enable xephyr)
 		$(use_enable kdrive)
+		$(use_enable xephyr)
 		$(use_enable unwind libunwind)
-		$(use_enable suid install-setuid)
 		$(use_enable ipv6)
 		$(use_with doc doxygen)
 		$(use_with doc xmlto)
 		$(use_with systemd systemd-daemon)
-		--sysconfdir="${EPREFIX}/etc/X11"
-		--localstatedir="${EPREFIX}/var"
-		--with-fontrootdir="${EPREFIX}/usr/share/fonts"
-		--with-xkb-output="${EPREFIX}/var/lib/xkb"
-		--enable-libdrm
-		--disable-config-hal
-		--disable-linux-acpi
-		--disable-linux-apm
-		--without-fop
-		--without-dtrace
-		--with-os-vendor=Gentoo
-		--with-sha1=libcrypto
 	)
 	xorg-2_src_configure
 }
