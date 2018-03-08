@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 PYTHON_REQ_USE='threads(+)'
 DISTUTILS_SINGLE_IMPL=1 # https://github.com/git-cola/git-cola/issues/181
 PLOCALES="cs de es fr hu id_ID it ja pl pt_BR ru sv tr_TR uk zh_CN zh_TW"
