@@ -28,7 +28,7 @@ COMMON_DEPEND="
 	postgres? ( dev-db/postgresql:= )
 	prelink? ( dev-libs/elfutils )
 	selinux? ( sys-libs/libselinux )
-	xattr? ( >=sys-apps/attr-2.4.48 )
+	xattr? ( sys-apps/attr )
 	zlib? ( sys-libs/zlib )
 "
 RDEPEND="
@@ -51,7 +51,7 @@ DEPEND="${COMMON_DEPEND}
 		e2fs? ( sys-fs/e2fsprogs[static-libs] )
 		prelink? ( dev-libs/elfutils[static-libs] )
 		selinux? ( sys-libs/libselinux[static-libs] )
-		xattr? ( >=sys-apps/attr-2.4.48[static-libs] )
+		xattr? ( sys-apps/attr[static-libs] )
 		zlib? ( sys-libs/zlib[static-libs] )
 	)
 "
