@@ -20,15 +20,17 @@ RDEPEND="
 	dev-qt/qtwidgets:5
 	dbus? (
 		dev-qt/qtdbus:5
-		>=dev-qt/qtgui-5.7:5[dbus]
+		dev-qt/qtgui:5[dbus]
 	)
 "
 DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
 "
 
+PATCHES=( "${FILESDIR}/${P}-fix-qtdbus-automagic.patch" )
+
 src_configure() {
-	eqmake5 DEFINES="$(usex dbus '' QT_NO_DBUS=1)" ${PN}.pro
+	eqmake5 DISABLE_DBUS=$(usex !dbus 1 0)
 }
 
 src_install() {
