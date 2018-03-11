@@ -64,9 +64,6 @@ RDEPEND="${COMMON_DEPEND}
 	net-libs/glib-networking[ssl]
 "
 
-# See https://github.com/sardemff7/eventd/issues/39
-RESTRICT=test
-
 pkg_setup() {
 	if use ipv6; then
 		CONFIG_CHECK=$(usex test 'IPV6' '~IPV6')
@@ -114,7 +111,9 @@ src_configure() {
 }
 
 src_test() {
-	EVENTD_TESTS_TMP_DIR="${T}" meson_src_test
+	# Drop LC_NUMERIC=C on next verbump.
+	# https://github.com/sardemff7/eventd/issues/39
+	LC_NUMERIC=C EVENTD_TESTS_TMP_DIR="${T}" meson_src_test
 }
 
 pkg_postinst() {
