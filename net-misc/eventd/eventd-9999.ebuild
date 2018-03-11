@@ -79,7 +79,7 @@ src_prepare() {
 }
 
 eventd_use_enable() {
-	echo "-Denable-${2:-${1}}=$(usex ${1} 'true' 'false')" || die
+	echo "-D${2:-${1}}=$(usex ${1} 'true' 'false')" || die
 }
 
 src_configure() {
@@ -95,7 +95,7 @@ src_configure() {
 		$(eventd_use_enable notification notification-daemon)
 		# Wayland plugin requires wayland-wall, which is currently WIP.
 		# See https://github.com/wayland-wall/wayland-wall/issues/1
-		-Denable-nd-wayland="false"
+		-Dnd-wayland="false"
 		$(eventd_use_enable X nd-xcb)
 		$(eventd_use_enable fbcon nd-fbdev)
 		$(eventd_use_enable purple im)
