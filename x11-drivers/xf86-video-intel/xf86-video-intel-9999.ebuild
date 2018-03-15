@@ -9,13 +9,12 @@ inherit xorg-2
 
 DESCRIPTION="X.Org driver for Intel cards"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug dri3 +sna +tools +udev ums uxa xvmc"
+IUSE="debug +sna +tools +udev ums uxa xvmc"
 
 RDEPEND="
+	>=x11-base/xorg-server-1.15
 	>=x11-libs/libdrm-2.4.52[video_cards_intel]
 	>=x11-libs/pixman-0.27.1
-	dri3? ( >=x11-base/xorg-server-1.15 )
-	sna? ( >=x11-base/xorg-server-1.10 )
 	tools? (
 		x11-libs/libX11
 		x11-libs/libXScrnSaver
@@ -43,16 +42,8 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	>=x11-libs/libpciaccess-0.10
 	>=x11-libs/libxcb-1.10
-	>=x11-proto/dri2proto-2.6
+	x11-base/xorg-proto
 	x11-misc/util-macros
-	x11-proto/fontsproto
-	x11-proto/presentproto
-	x11-proto/videoproto
-	x11-proto/xextproto
-	x11-proto/xf86driproto
-	x11-proto/xproto
-	dri3? ( x11-proto/dri3proto )
-	uxa? ( x11-proto/randrproto )
 "
 
 REQUIRED_USE="|| ( sna uxa )"
@@ -61,7 +52,6 @@ src_configure() {
 	XORG_CONFIGURE_OPTIONS=(
 		$(use_enable debug)
 		$(use_enable dri)
-		$(use_enable dri3)
 		$(use_enable sna)
 		$(use_enable tools)
 		$(use_enable tools backlight-helper)
@@ -69,7 +59,8 @@ src_configure() {
 		$(use_enable ums)
 		$(use_enable uxa)
 		$(use_enable xvmc)
-		$(usex dri3 '--with-default-dri=3')
+		$(usex dri '--with-default-dri=3')
+		--disable-dri1
 	)
 	xorg-2_src_configure
 }
