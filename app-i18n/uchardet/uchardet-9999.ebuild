@@ -15,18 +15,15 @@ KEYWORDS=""
 IUSE="cpu_flags_x86_sse2 static-libs test"
 
 src_prepare() {
-	# Override halfway broken uname-based architecture detection
-	sed -i -e '/CMAKE_SYSTEM_PROCESSOR/d' CMakeLists.txt || die
-
 	cmake-utils_src_prepare
 	use test || cmake_comment_add_subdirectory test
 }
 
 src_configure() {
 	local mycmakeargs=(
+		-DTARGET_ARCHITECTURE="${ARCH}"
 		-DBUILD_STATIC=$(usex static-libs)
 		-DCHECK_SSE2=$(usex cpu_flags_x86_sse2)
-		-DTARGET_ARCHITECTURE=${ARCH}
 	)
 	cmake-utils_src_configure
 }
