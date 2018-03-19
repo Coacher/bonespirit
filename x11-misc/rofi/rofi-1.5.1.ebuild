@@ -3,12 +3,11 @@
 
 EAPI=6
 
-inherit autotools toolchain-funcs git-r3
+inherit autotools toolchain-funcs
 
 DESCRIPTION="A window switcher, run dialog and dmenu replacement"
 HOMEPAGE="https://github.com/DaveDavenport/rofi"
-EGIT_REPO_URI="https://github.com/DaveDavenport/rofi.git"
-EGIT_BRANCH="master"
+SRC_URI="https://github.com/DaveDavenport/rofi/releases/download/${PV}/${P}.tar.xz"
 
 LICENSE="MIT"
 SLOT="0"
