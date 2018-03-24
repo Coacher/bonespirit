@@ -45,9 +45,6 @@ STRIP_COMPLETIONS=(
 	# Completions installed by app-editors/vim-core;
 	xxd
 
-	# Completions installed by sys-apps/util-linux;
-	mount umount mount.linux umount.linux
-
 	# Symlinks to deprecated completions.
 	hd ncal
 )
