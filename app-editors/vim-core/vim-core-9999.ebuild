@@ -4,7 +4,7 @@
 EAPI=6
 VIM_VERSION=8.0
 
-inherit bash-completion-r1 eutils flag-o-matic gnome2-utils prefix user versionator vim-doc git-r3
+inherit bash-completion-r1 estack flag-o-matic gnome2-utils prefix user versionator vim-doc git-r3
 
 DESCRIPTION="Vim and GVim shared files"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
