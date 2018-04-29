@@ -3,13 +3,11 @@
 
 EAPI=6
 
-COMMIT_ID="62064f6a9e054739ecbdda010dbe9c3fd69bbaa2"
-
-inherit autotools eutils flag-o-matic linux-info readme.gentoo-r1 systemd user vcs-snapshot
+inherit flag-o-matic linux-info ltprune readme.gentoo-r1 systemd user
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
-SRC_URI="https://git.netfilter.org/${PN}2/snapshot/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://www.netfilter.org/projects/ulogd/files/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -53,10 +51,6 @@ Please edit the example configuration located at '${EPREFIX}/etc/ulogd.conf'.
 pkg_setup() {
 	linux-info_pkg_setup
 
-	if kernel_is lt 2 6 14; then
-		die "${PN} requires a kernel >= 2.6.14."
-	fi
-
 	if use nfacct && kernel_is lt 3 3 0; then
 		ewarn "NFACCT input plugin requires a kernel >= 3.3."
 	fi
@@ -80,8 +74,6 @@ src_prepare() {
 		-e "s|var/log|var/log/${PN}|g" \
 		-e 's|tmp|run|g' \
 		ulogd.conf.in || die
-
-	eautoreconf
 }
 
 src_configure() {
