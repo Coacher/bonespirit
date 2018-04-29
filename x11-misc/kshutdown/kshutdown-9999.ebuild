@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit cmake-utils eutils gnome2-utils subversion
+inherit cmake-utils desktop gnome2-utils subversion
 
 DESCRIPTION="A graphical shutdown utility"
 HOMEPAGE="https://kshutdown.sourceforge.io/"
