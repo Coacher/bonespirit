@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit autotools eutils flag-o-matic linux-info readme.gentoo-r1 systemd user git-r3
+inherit autotools flag-o-matic linux-info ltprune readme.gentoo-r1 systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
@@ -50,10 +50,6 @@ Please edit the example configuration located at '${EPREFIX}/etc/ulogd.conf'.
 
 pkg_setup() {
 	linux-info_pkg_setup
-
-	if kernel_is lt 2 6 14; then
-		die "${PN} requires a kernel >= 2.6.14."
-	fi
 
 	if use nfacct && kernel_is lt 3 3 0; then
 		ewarn "NFACCT input plugin requires a kernel >= 3.3."
