@@ -8,7 +8,7 @@ PYTHON_REQ_USE='threads(+)'
 DISTUTILS_SINGLE_IMPL=1 # https://github.com/git-cola/git-cola/issues/181
 PLOCALES="cs de es fr hu id_ID it ja pl pt_BR ru sv tr_TR uk zh_CN zh_TW"
 
-inherit distutils-r1 eutils gnome2-utils l10n readme.gentoo-r1 xdg-utils git-r3
+inherit desktop distutils-r1 gnome2-utils l10n readme.gentoo-r1 xdg-utils git-r3
 
 DESCRIPTION="The highly caffeinated Git GUI"
 HOMEPAGE="https://git-cola.github.io/"
