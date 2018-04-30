@@ -119,7 +119,7 @@ DEPEND="${COMMON_DEPEND}
 	${PYTHON_DEPS}
 	dev-python/docutils
 	virtual/pkgconfig
-	cuda? ( >=media-video/nv-codec-headers-8.1.24.1 )
+	cuda? ( >=media-libs/nv-codec-headers-8.1.24.1 )
 	doc? ( dev-python/rst2pdf )
 	dvb? ( virtual/linuxtv-dvb-headers )
 	test? ( >=dev-util/cmocka-1.0.0 )
@@ -127,7 +127,7 @@ DEPEND="${COMMON_DEPEND}
 	zsh-completion? ( dev-lang/perl )
 "
 RDEPEND="${COMMON_DEPEND}
-	cuda? ( >=x11-drivers/nvidia-drivers-390.25[X] )
+	cuda? ( x11-drivers/nvidia-drivers[X] )
 	selinux? ( sec-policy/selinux-mplayer )
 	tools? ( ${PYTHON_DEPS} )
 "
