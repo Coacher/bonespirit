@@ -3,11 +3,11 @@
 
 EAPI=6
 
-inherit cmake-utils gnome2-utils xdg-utils git-r3
+inherit cmake-utils gnome2-utils xdg-utils
 
 DESCRIPTION="A lightweight panel/taskbar"
 HOMEPAGE="https://gitlab.com/o9000/tint2"
-EGIT_REPO_URI="https://gitlab.com/o9000/tint2.git"
+SRC_URI="https://gitlab.com/o9000/tint2/-/archive/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -22,6 +22,7 @@ RDEPEND="
 	x11-libs/libX11
 	x11-libs/libXcomposite
 	x11-libs/libXdamage
+	x11-libs/libXext
 	x11-libs/libXinerama
 	x11-libs/libXrender
 	x11-libs/pango
