@@ -17,7 +17,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6
-	>=x11-proto/inputproto-2.1.99.3
+	x11-base/xorg-proto
 "
 
 pkg_pretend() {
