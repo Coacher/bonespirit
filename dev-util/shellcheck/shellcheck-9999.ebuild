@@ -7,7 +7,7 @@ CABAL_FEATURES="lib profile haddock hoogle hscolour test-suite"
 
 inherit haskell-cabal git-r3
 
-DESCRIPTION="A shell script static analysis tool"
+DESCRIPTION="Shell script analysis tool"
 HOMEPAGE="https://www.shellcheck.net/ https://github.com/koalaman/shellcheck"
 EGIT_REPO_URI="https://github.com/koalaman/shellcheck.git"
 
@@ -17,23 +17,18 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 RDEPEND="
-	dev-haskell/json:=[profile?]
+	dev-haskell/aeson:=[profile?]
 	>=dev-haskell/mtl-2.2.1:=[profile?]
-	dev-haskell/parsec:=[profile?]
+	>=dev-haskell/parsec-3.0:=[profile?]
 	>=dev-haskell/quickcheck-2.7.4:2=[template_haskell,profile?]
 	dev-haskell/regex-tdfa:=[profile?]
-	>=dev-lang/ghc-7.8.4:=
+	>=dev-lang/ghc-7.10.1:=
 "
 DEPEND="${RDEPEND}
 	>=dev-haskell/cabal-1.8
 	doc? ( app-text/pandoc )
 	test? ( >=dev-haskell/cabal-1.20 )
 "
-
-src_test() {
-	# See Gentoo bug 537500 for this beauty.
-	runghc Setup.hs test || die 'Test suite failed'
-}
 
 src_install() {
 	cabal_src_install
