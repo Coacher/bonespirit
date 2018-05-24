@@ -3,11 +3,11 @@
 
 EAPI=6
 
-inherit autotools systemd git-r3
+inherit autotools systemd
 
 DESCRIPTION="Daemon for managing internet connections"
 HOMEPAGE="https://01.org/connman"
-EGIT_REPO_URI="https://git.kernel.org/pub/scm/network/connman/connman.git"
+SRC_URI="mirror://kernel/linux/network/${PN}/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
