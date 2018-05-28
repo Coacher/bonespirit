@@ -27,8 +27,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	test? (
-		>=dev-python/pytest-2.7.3[${PYTHON_USEDEP}]
-		dev-python/pytest-capturelog[${PYTHON_USEDEP}]
+		>=dev-python/pytest-3.4[${PYTHON_USEDEP}]
 		dev-python/pytest-runner[${PYTHON_USEDEP}]
 	)
 "
