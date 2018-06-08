@@ -20,12 +20,12 @@ RDEPEND="
 	dev-haskell/aeson:=[profile?]
 	>=dev-haskell/mtl-2.2.1:=[profile?]
 	>=dev-haskell/parsec-3.0:=[profile?]
-	>=dev-haskell/quickcheck-2.7.4:2=[template_haskell,profile?]
+	>=dev-haskell/quickcheck-2.7.4:2=[profile?]
 	dev-haskell/regex-tdfa:=[profile?]
-	>=dev-lang/ghc-7.10.1:=
+	>=dev-lang/ghc-8:=
 "
 DEPEND="${RDEPEND}
-	>=dev-haskell/cabal-1.8
+	>=dev-haskell/cabal-1.10
 	doc? ( app-text/pandoc )
 	test? ( >=dev-haskell/cabal-1.20 )
 "
