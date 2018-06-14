@@ -235,10 +235,12 @@ src_configure() {
 		$(usex vaapi "$(use_enable gbm vaapi-drm)" '--disable-vaapi-drm')
 		$(use_enable libcaca caca)
 		$(use_enable jpeg)
+		$(use_enable vulkan shaderc)
 		$(use_enable raspberry-pi rpi)
 		$(usex libmpv "$(use_enable opengl plain-gl)" '--disable-plain-gl')
 		--disable-mali-fbdev # Only available in overlays.
 		$(usex opengl '' '--disable-gl')
+		$(use_enable vulkan)
 
 		# HWaccels:
 		# Automagic Video Toolbox HW acceleration. See Gentoo bug 577332.
