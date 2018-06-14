@@ -68,15 +68,13 @@ multilib_src_compile() {
 	if multilib_is_native_abi && use doc; then
 		emake glslc_doc_README
 	fi
-
 	cmake-utils_src_compile
 }
 
 multilib_src_install() {
-	if multilib_is_native_abi && use doc; then
-		local HTML_DOCS=( "${BUILD_DIR}/glslc/README.html" )
+	if multilib_is_native_abi; then
+		use doc && local HTML_DOCS=( "${BUILD_DIR}/glslc/README.html" )
+		use examples && dobin examples/online-compile/shaderc-online-compile
 	fi
-	use examples && dobin examples/online-compile/shaderc-online-compile
-
 	cmake-utils_src_install
 }
