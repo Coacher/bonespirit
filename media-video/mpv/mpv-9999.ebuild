@@ -31,7 +31,7 @@ SLOT="0"
 IUSE="+alsa aqua archive bluray cdda +cli coreaudio cplugins cuda doc drm dvb
 	dvd +egl gbm +iconv jack javascript jpeg lcms +libass libav libcaca libmpv
 	+lua luajit openal +opengl oss pulseaudio raspberry-pi rubberband samba sdl
-	selinux test tools +uchardet v4l vaapi vdpau wayland +X +xv zlib
+	selinux test tools +uchardet v4l vaapi vdpau vulkan wayland +X +xv zlib
 	zsh-completion"
 
 REQUIRED_USE="
@@ -96,6 +96,10 @@ COMMON_DEPEND="
 	v4l? ( media-libs/libv4l )
 	vaapi? ( x11-libs/libva:=[drm?,X?,wayland?] )
 	vdpau? ( x11-libs/libvdpau )
+	vulkan? (
+		media-libs/shaderc
+		media-libs/vulkan-loader
+	)
 	wayland? (
 		>=dev-libs/wayland-1.6.0
 		>=dev-libs/wayland-protocols-1.14
