@@ -8,8 +8,8 @@ inherit font
 DESCRIPTION="A font family metrically compatible with Arial/Times/Courier, by Red Hat"
 HOMEPAGE="https://pagure.io/liberation-fonts"
 SRC_URI="
-	!fontforge? ( https://releases.pagure.org/liberation-fonts/${PN}/${PN}-ttf-${PV}.tar.gz )
-	fontforge? ( https://releases.pagure.org/liberation-fonts/${PN}/${P}.tar.gz )
+	!fontforge? ( https://releases.pagure.org/liberation-fonts/${PN}-ttf-${PV}.tar.gz )
+	fontforge? ( https://releases.pagure.org/liberation-fonts/${P}.tar.gz )
 "
 
 LICENSE="GPL-2-with-exceptions"
