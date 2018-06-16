@@ -50,6 +50,7 @@ REQUIRED_USE="
 	v4l? ( || ( alsa oss ) )
 	vaapi? ( || ( gbm X wayland ) )
 	vdpau? ( X )
+	vulkan? ( || ( X wayland ) )
 	wayland? ( egl )
 	X? ( egl? ( opengl ) )
 	xv? ( X )
