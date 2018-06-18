@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/google/shaderc.git"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS=""
-IUSE="doc examples test"
+IUSE="doc test"
 
 RDEPEND="
 	~dev-util/glslang-9999[${MULTILIB_USEDEP}]
@@ -41,7 +41,7 @@ PATCHES=(
 src_prepare() {
 	# This must go first as git-ver patch clashes with commenting out examples
 	cmake-utils_src_prepare
-	use examples || cmake_comment_add_subdirectory examples
+	cmake_comment_add_subdirectory examples
 
 	# Unbundle glslang, spirv-headers, spirv-tools
 	cmake_comment_add_subdirectory third_party
@@ -74,7 +74,6 @@ multilib_src_compile() {
 multilib_src_install() {
 	if multilib_is_native_abi; then
 		use doc && local HTML_DOCS=( "${BUILD_DIR}/glslc/README.html" )
-		use examples && dobin examples/online-compile/shaderc-online-compile
 	fi
 	cmake-utils_src_install
 }
