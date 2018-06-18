@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}
 	doc? ( dev-ruby/asciidoctor )
 	test? (
 		dev-cpp/gtest
-		dev-python/nose
+		$(python_gen_any_dep 'dev-python/nose[${PYTHON_USEDEP}]')
 	)
 "
 
@@ -37,6 +37,12 @@ PATCHES=(
 	"${FILESDIR}/${PN}-2017.2-disable-git-versioning.patch"
 	"${FILESDIR}/${PN}-2017.2-fix-glslang-link-order.patch"
 )
+
+python_check_deps() {
+	if use test; then
+		has_version --host-root "dev-python/nose[${PYTHON_USEDEP}]"
+	fi
+}
 
 src_prepare() {
 	# This must go first as git-ver patch clashes with commenting out examples
