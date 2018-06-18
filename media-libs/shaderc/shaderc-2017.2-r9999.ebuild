@@ -3,14 +3,14 @@
 
 EAPI=6
 
-COMMIT_ID="7a23a01742b88329fb2260eda007172135ba25d4"
+EGIT_COMMIT="7a23a01742b88329fb2260eda007172135ba25d4"
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 
 inherit cmake-multilib python-any-r1 vcs-snapshot
 
 DESCRIPTION="Collection of tools, libraries and tests for shader compilation"
 HOMEPAGE="https://github.com/google/shaderc"
-SRC_URI="https://github.com/google/shaderc/archive/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/google/shaderc/archive/${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
