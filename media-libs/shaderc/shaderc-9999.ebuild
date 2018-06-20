@@ -33,10 +33,7 @@ DEPEND="${RDEPEND}
 # https://github.com/google/shaderc/issues/470
 RESTRICT=test
 
-PATCHES=(
-	"${FILESDIR}/${PN}-2017.2-disable-git-versioning.patch"
-	"${FILESDIR}/${PN}-2017.2-fix-glslang-link-order.patch"
-)
+PATCHES=( "${FILESDIR}/${PN}-2017.2-fix-glslang-link-order.patch" )
 
 python_check_deps() {
 	if use test; then
@@ -45,8 +42,6 @@ python_check_deps() {
 }
 
 src_prepare() {
-	# This must go first as git-ver patch clashes with commenting out examples
-	cmake-utils_src_prepare
 	cmake_comment_add_subdirectory examples
 
 	# Unbundle glslang, spirv-headers, spirv-tools
@@ -55,12 +50,17 @@ src_prepare() {
 		-e "s|\$<TARGET_FILE:spirv-dis>|${EPREFIX}/usr/bin/spirv-dis|" \
 		glslc/test/CMakeLists.txt || die
 
+	# Disable git versioning
+	sed -i -e '/build-version/d' glslc/CMakeLists.txt || die
+
 	# Manually create build-version.inc as we disabled git versioning
 	cat <<- EOF > glslc/src/build-version.inc || die
 		"${P}\n"
 		"$(best_version dev-util/spirv-tools)\n"
 		"$(best_version dev-util/glslang)\n"
 	EOF
+
+	cmake-utils_src_prepare
 }
 
 multilib_src_configure() {
