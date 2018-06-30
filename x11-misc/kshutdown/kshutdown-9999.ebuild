@@ -23,11 +23,6 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-src_prepare() {
-	cmake-utils_src_prepare
-	sed -i -e '/extras/d' src/actions/CMakeLists.txt || die
-}
-
 src_configure() {
 	local mycmakeargs=(
 		-DKS_PURE_QT=Yes
