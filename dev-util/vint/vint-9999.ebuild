@@ -28,19 +28,11 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	test? (
 		>=dev-python/coverage-3.7.1[${PYTHON_USEDEP}]
-		>=dev-python/pytest-2.6.4[${PYTHON_USEDEP}]
-		>=dev-python/pytest-cov-1.8.1[${PYTHON_USEDEP}]
+		>=dev-python/pytest-3.3.2[${PYTHON_USEDEP}]
+		>=dev-python/pytest-cov-2.5.1[${PYTHON_USEDEP}]
 		$(python_gen_cond_dep '>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]' python2_7)
 	)
 "
-
-python_prepare_all() {
-	distutils-r1_python_prepare_all
-
-	# Don't try to use an installed vint executable.
-	# See https://github.com/Kuniwak/vint/issues/22
-	sed -i -e "s|'vint'|'bin/vint'|" test/acceptance/test_cli{,_vital}.py || die
-}
 
 python_test() {
 	py.test -v || die "Test suite failed with ${EPYTHON}"
