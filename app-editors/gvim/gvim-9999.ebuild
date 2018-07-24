@@ -7,7 +7,7 @@ VIM_VERSION=8.0
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 PYTHON_REQ_USE='threads(+)'
 
-inherit bash-completion-r1 desktop flag-o-matic gnome2-utils prefix python-r1 user versionator vim-doc xdg-utils git-r3
+inherit bash-completion-r1 desktop flag-o-matic gnome2-utils prefix python-r1 user vim-doc xdg-utils git-r3
 
 DESCRIPTION="GUI version of the Vim text editor"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
@@ -75,9 +75,7 @@ src_prepare() {
 	find "${S}" -name '*.c' | while read -r file; do echo >> "${file}"; done
 
 	# Fix configure failure. See Gentoo bug 360217.
-	if version_is_at_least 7.3.122; then
-		cp src/config.mk.dist src/auto/config.mk || die
-	fi
+	cp src/config.mk.dist src/auto/config.mk || die
 
 	# Don't create symlinks that are managed by app-eselect/eselect-vi.
 	sed -i \

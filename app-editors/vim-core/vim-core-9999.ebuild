@@ -4,7 +4,7 @@
 EAPI=6
 VIM_VERSION=8.0
 
-inherit bash-completion-r1 estack flag-o-matic gnome2-utils prefix user versionator vim-doc git-r3
+inherit bash-completion-r1 estack flag-o-matic gnome2-utils prefix user vim-doc git-r3
 
 DESCRIPTION="Vim and GVim shared files"
 HOMEPAGE="http://www.vim.org/ https://github.com/vim/vim"
@@ -35,9 +35,7 @@ src_prepare() {
 	find "${S}" -name '*.c' | while read -r file; do echo >> "${file}"; done
 
 	# Fix configure failure. See Gentoo bug 360217.
-	if version_is_at_least 7.3.122; then
-		cp src/config.mk.dist src/auto/config.mk || die
-	fi
+	cp src/config.mk.dist src/auto/config.mk || die
 
 	# Don't create symlinks that are managed by app-eselect/eselect-vi.
 	sed -i \
