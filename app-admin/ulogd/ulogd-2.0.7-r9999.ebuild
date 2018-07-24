@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit flag-o-matic linux-info ltprune readme.gentoo-r1 systemd user
+inherit flag-o-matic linux-info readme.gentoo-r1 systemd user
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
@@ -107,9 +107,9 @@ src_install() {
 	use doc && HTML_DOCS=( doc/${PN}.html )
 
 	default_src_install
-	prune_libtool_files --modules
-	readme.gentoo_create_doc
+	find "${D}" -name '*.la' -delete || die
 
+	readme.gentoo_create_doc
 	doman ${PN}.8
 
 	use doc && dodoc doc/${PN}.{dvi,ps,txt}
