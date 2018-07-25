@@ -4,13 +4,11 @@
 # EAPI=6 is blocked by Gentoo bugs 497038, 497052.
 EAPI=5
 
-MY_P=${PN}-v${PV}
-
 inherit autotools epatch latex-package perl-functions sgml-catalog toolchain-funcs
 
 DESCRIPTION="A toolset for processing LinuxDoc DTD SGML files"
 HOMEPAGE="https://gitlab.com/agmartin/linuxdoc-tools"
-SRC_URI="https://gitlab.com/agmartin/linuxdoc-tools/-/archive/v${PV}/${MY_P}.tar.gz"
+SRC_URI="https://gitlab.com/agmartin/linuxdoc-tools/-/archive/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3+ MIT SGMLUG"
 SLOT="0"
@@ -21,20 +19,16 @@ RDEPEND="
 	|| ( app-text/openjade app-text/opensp )
 	app-text/sgml-common
 	dev-lang/perl:=
-	|| ( sys-apps/gawk sys-apps/mawk )
 	sys-apps/groff
 "
 DEPEND="${RDEPEND}
 	sys-devel/flex
+	virtual/awk
 	doc? (
 		dev-texlive/texlive-fontsrecommended
 		virtual/latex-base
 	)
 "
-
-PATCHES=( "${FILESDIR}/${P}-dont-use-pipes-with-nsgmls.patch" )
-
-S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	[[ ${PATCHES} ]] && epatch -p1 "${PATCHES[@]}"
