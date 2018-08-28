@@ -7,7 +7,7 @@ inherit autotools flag-o-matic linux-info readme.gentoo-r1 systemd user git-r3
 
 DESCRIPTION="A userspace logging daemon for netfilter/iptables related logging"
 HOMEPAGE="https://netfilter.org/projects/ulogd/index.html"
-EGIT_REPO_URI="git://git.netfilter.org/ulogd2.git"
+EGIT_REPO_URI="https://git.netfilter.org/ulogd2/"
 
 LICENSE="GPL-2"
 SLOT="0"
