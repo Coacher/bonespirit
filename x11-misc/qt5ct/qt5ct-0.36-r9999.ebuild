@@ -27,8 +27,6 @@ DEPEND="${RDEPEND}
 	dev-qt/linguist-tools:5
 "
 
-PATCHES=( "${FILESDIR}/${P}-fix-qtdbus-automagic.patch" )
-
 src_configure() {
 	eqmake5 DISABLE_DBUS=$(usex !dbus 1 0)
 }
