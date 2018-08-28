@@ -6,7 +6,7 @@ EAPI=6
 inherit bash-completion-r1
 
 DESCRIPTION="Bash completion for the mpv video player"
-HOMEPAGE="https://2ion.github.io/mpv-bash-completion/"
+HOMEPAGE="https://github.com/2ion/mpv-bash-completion"
 SRC_URI="https://github.com/2ion/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
