@@ -31,11 +31,7 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
-	# Update the build system with Gentoo paths.
-	sed -i \
-		-e "s|share/doc/${PN}|share/doc/${PF}|g" \
-		Makefile.in || die
-
+	# Pregenerated configure scripts fail.
 	eautoreconf
 }
 
@@ -60,8 +56,9 @@ src_compile() {
 }
 
 src_install() {
-	# Override latex-package.eclass
-	default_src_install
+	# Makefile ignores docdir configuration option.
+	emake DESTDIR="${D}" docdir="${EPREFIX}/usr/share/doc/${PF}" install
+	dodoc ChangeLog README
 }
 
 sgml-catalog_cat_include "/etc/sgml/linuxdoc.cat" "/usr/share/${PN}/${PN}.catalog"
