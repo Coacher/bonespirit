@@ -25,7 +25,7 @@ COMMON_DEPEND="
 	)
 	nfct? ( >=net-libs/libnetfilter_conntrack-1.0.2 )
 	nflog? ( >=net-libs/libnetfilter_log-1.0.0 )
-	mysql? ( virtual/mysql )
+	mysql? ( dev-db/mysql-connector-c:= )
 	pcap? ( net-libs/libpcap )
 	postgres? ( dev-db/postgresql:= )
 	sqlite? ( dev-db/sqlite:3 )
