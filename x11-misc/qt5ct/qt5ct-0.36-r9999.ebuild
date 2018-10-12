@@ -35,8 +35,7 @@ src_install() {
 	emake INSTALL_ROOT="${D}" install
 	einstalldocs
 
-	echo 'QT_QPA_PLATFORMTHEME=qt5ct' > "${T}"/98${PN} || die
-	doenvd "${T}"/98${PN}
+	newenvd - 98${PN} <<< 'QT_QPA_PLATFORMTHEME=qt5ct'
 }
 
 pkg_postinst() {
